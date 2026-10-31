@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Файл сгенерирован из одной таблицы. Аномалии и артефакты "по мотивам" Зоны:
+       названия узнаваемые, описания, баланс и текстуры свои. -->
+
+  <!-- ================= УРОН АНОМАЛИЙ =================
+       Общий абстрактный родитель: всё, что одинаково у всех разрядов.
+       Жарка использует ванильный Flame (поджигает), ему своё описание не нужно. -->
+  <DamageDef Name="SZ_AnomalyDamageBase" Abstract="True">
+    <workerClass>DamageWorker_AddInjury</workerClass>
+    <externalViolence>true</externalViolence>
+    <isExplosive>true</isExplosive>
+    <combatLogRules>Damage_Bomb</combatLogRules>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_ElectricDischarge</defName>
+    <label>electric discharge</label>
+    <deathMessage>{0} was killed by an anomalous electric discharge.</deathMessage>
+    <hediff>Burn</hediff>
+    <armorCategory>Heat</armorCategory>
+    <defaultDamage>14</defaultDamage>
+    <defaultArmorPenetration>0.3</defaultArmorPenetration>
+    <explosionCellFleck>BlastEMP</explosionCellFleck>
+    <explosionColorCenter>(0.6, 0.8, 1.0)</explosionColorCenter>
+    <explosionColorEdge>(0.3, 0.5, 1.0)</explosionColorEdge>
+    <soundExplosion>Explosion_EMP</soundExplosion>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_GravityCrushLight</defName>
+    <label>gravitational blow</label>
+    <deathMessage>{0} was killed by a gravitational anomaly.</deathMessage>
+    <hediff>Crush</hediff>
+    <armorCategory>Blunt</armorCategory>
+    <defaultDamage>10</defaultDamage>
+    <defaultArmorPenetration>0.15</defaultArmorPenetration>
+    <explosionCellFleck>BlastDry</explosionCellFleck>
+    <explosionColorCenter>(0.7, 0.5, 1.0)</explosionColorCenter>
+    <explosionColorEdge>(0.4, 0.2, 0.7)</explosionColorEdge>
+    <soundExplosion>Explosion_Bomb</soundExplosion>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_GravityCrush</defName>
+    <label>gravitational crush</label>
+    <deathMessage>{0} was crushed by a gravitational anomaly.</deathMessage>
+    <hediff>Crush</hediff>
+    <armorCategory>Blunt</armorCategory>
+    <defaultDamage>18</defaultDamage>
+    <defaultArmorPenetration>0.2</defaultArmorPenetration>
+    <explosionCellFleck>BlastDry</explosionCellFleck>
+    <explosionColorCenter>(0.7, 0.5, 1.0)</explosionColorCenter>
+    <explosionColorEdge>(0.4, 0.2, 0.7)</explosionColorEdge>
+    <soundExplosion>Explosion_Bomb</soundExplosion>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_GravityCrushHeavy</defName>
+    <label>gravitational collapse</label>
+    <deathMessage>{0} was crushed by a gravitational collapse.</deathMessage>
+    <hediff>Crush</hediff>
+    <armorCategory>Blunt</armorCategory>
+    <defaultDamage>24</defaultDamage>
+    <defaultArmorPenetration>0.3</defaultArmorPenetration>
+    <explosionCellFleck>BlastDry</explosionCellFleck>
+    <explosionColorCenter>(0.6, 0.4, 0.9)</explosionColorCenter>
+    <explosionColorEdge>(0.3, 0.15, 0.6)</explosionColorEdge>
+    <soundExplosion>Explosion_Bomb</soundExplosion>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_GravityShred</defName>
+    <label>gravitational shredding</label>
+    <deathMessage>{0} was torn apart by an anomaly.</deathMessage>
+    <hediff>Cut</hediff>
+    <armorCategory>Sharp</armorCategory>
+    <defaultDamage>30</defaultDamage>
+    <defaultArmorPenetration>0.35</defaultArmorPenetration>
+    <explosionCellFleck>BlastDry</explosionCellFleck>
+    <explosionColorCenter>(0.9, 0.2, 0.2)</explosionColorCenter>
+    <explosionColorEdge>(0.5, 0.05, 0.1)</explosionColorEdge>
+    <soundExplosion>Explosion_Bomb</soundExplosion>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_ChemicalBurn</defName>
+    <label>caustic splash</label>
+    <deathMessage>{0} was dissolved by a chemical anomaly.</deathMessage>
+    <hediff>Burn</hediff>
+    <armorCategory>Heat</armorCategory>
+    <defaultDamage>12</defaultDamage>
+    <defaultArmorPenetration>0.2</defaultArmorPenetration>
+    <explosionCellFleck>BlastDry</explosionCellFleck>
+    <explosionColorCenter>(0.4, 1.0, 0.4)</explosionColorCenter>
+    <explosionColorEdge>(0.2, 0.6, 0.2)</explosionColorEdge>
+    <soundExplosion>Explosion_Bomb</soundExplosion>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_FuzzSting</defName>
+    <label>stinging fibers</label>
+    <deathMessage>{0} was killed by stinging fibers.</deathMessage>
+    <hediff>Scratch</hediff>
+    <armorCategory>Sharp</armorCategory>
+    <defaultDamage>7</defaultDamage>
+    <defaultArmorPenetration>0.1</defaultArmorPenetration>
+    <explosionCellFleck>BlastDry</explosionCellFleck>
+    <explosionColorCenter>(1.0, 0.95, 0.7)</explosionColorCenter>
+    <explosionColorEdge>(0.8, 0.75, 0.5)</explosionColorEdge>
+    <soundExplosion>Explosion_Bomb</soundExplosion>
+  </DamageDef>
+
+  <!-- ================= БАЗА АНОМАЛИИ =================
+       XML-режим (без DLL): Building_TrapExplosive — ванильная мина (как IED).
+       Срабатывает от шага или когда HP падает ниже startWickHitPointsPercent
+       (можно разрядить выстрелами). При уничтожении оставляет артефакт (killedLeavings).
+       C#-режим: при старте аномалия становится вечной (без HP, не мина), срабатывание
+       и повадки ведёт MapComponent_Zone, а killedLeavings — просто "какой артефакт рядом".
+       pathCost: колонисты обходят клетку аномалии в обоих режимах.
+       Текстуры полупрозрачные: аномалии еле заметны. -->
+  <ThingDef ParentName="BuildingBase" Name="SZ_AnomalyBase" Abstract="True">
+    <thingClass>Building_TrapExplosive</thingClass>
+    <altitudeLayer>Building</altitudeLayer>
+    <drawerType>RealtimeOnly</drawerType>   <!-- рисуется каждый кадр: нужно для анимации -->
+    <passability>Standable</passability>
+    <rotatable>false</rotatable>
+    <tickerType>Normal</tickerType>   <!-- ловушке нужен тик, чтобы замечать пешек -->
+    <stealable>false</stealable>
+    <pathCost>300</pathCost>          <!-- пешки обходят, если есть другой путь -->
+    <useHitPoints>true</useHitPoints>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Flammability>0</Flammability>
+      <Beauty>-10</Beauty>
+    </statBases>
+    <building>
+      <isTrap>true</isTrap>
+      <claimable>false</claimable>
+      <deconstructible>false</deconstructible>
+    </building>
+  </ThingDef>
+
+  <!-- ================= ТИПЫ АНОМАЛИЙ =================
+       Каждый тип — абстрактный родитель: внешний вид, урон, радиус, свечение.
+       Конкретные аномалии ниже — варианты типа, которые различаются только
+       артефактом (killedLeavings). Снаружи варианты не отличить: так в чистом XML
+       получается случайный артефакт с разной редкостью. -->
+
+  <!-- Трамплин: гравитационная: слабый удар, маленький радиус -->
+  <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Springboard" Abstract="True">
+    <label>springboard</label>
+    <description>A patch of air where dust hangs strangely still. Whatever steps into it is slammed by a short burst of gravity. Artifacts are sometimes found in or near it.</description>
+    <graphicData>
+      <texPath>Things/Building/SZ_Anomalies/Springboard</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
+      <drawSize>(1.6,1.6)</drawSize>
+    </graphicData>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>1.5</explosiveRadius>
+        <explosiveDamageType>SZ_GravityCrushLight</explosiveDamageType>
+        <startWickHitPointsPercent>0.5</startWickHitPointsPercent>
+        <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(80,55,127,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Springboard">   <!-- обычный: медуза -->
+    <defName>SZ_Anomaly_Springboard_Jellyfish</defName>
+    <killedLeavings>
+      <SZ_Artifact_Jellyfish>1</SZ_Artifact_Jellyfish>
+    </killedLeavings>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Springboard">   <!-- необычный: каменный цветок -->
+    <defName>SZ_Anomaly_Springboard_StoneFlower</defName>
+    <killedLeavings>
+      <SZ_Artifact_StoneFlower>1</SZ_Artifact_StoneFlower>
+    </killedLeavings>
+  </ThingDef>
+
+  <!-- Воронка: гравитационная: сильный урон, большой радиус -->
+  <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Vortex" Abstract="True">
+    <label>vortex</label>
+    <description>A wide swirl of leaves and debris circling a single point. When disturbed, it crushes everything in a large radius. Artifacts are sometimes found in or near it.</description>
+    <graphicData>
+      <texPath>Things/Building/SZ_Anomalies/Vortex</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
+      <drawSize>(2.2,2.2)</drawSize>
+    </graphicData>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>2.9</explosiveRadius>
+        <explosiveDamageType>SZ_GravityCrushHeavy</explosiveDamageType>
+        <startWickHitPointsPercent>0.5</startWickHitPointsPercent>
+        <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(75,60,110,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Vortex">   <!-- обычный: грави -->
+    <defName>SZ_Anomaly_Vortex_Gravi</defName>
+    <killedLeavings>
+      <SZ_Artifact_Gravi>1</SZ_Artifact_Gravi>
+    </killedLeavings>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Vortex">   <!-- необычный: ночная звезда -->
+    <defName>SZ_Anomaly_Vortex_NightStar</defName>
+    <killedLeavings>
+      <SZ_Artifact_NightStar>1</SZ_Artifact_NightStar>
+    </killedLeavings>
+  </ThingDef>
+
+  <!-- Карусель: гравитационная: средний урон и радиус -->
+  <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Whirligig" Abstract="True">
+    <label>whirligig</label>
+    <description>A spinning column of distorted air. It batters anything that comes too close. Artifacts are sometimes found in or near it.</description>
+    <graphicData>
+      <texPath>Things/Building/SZ_Anomalies/Whirligig</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
+      <drawSize>(2.0,2.0)</drawSize>
+    </graphicData>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>2.2</explosiveRadius>
+        <explosiveDamageType>SZ_GravityCrush</explosiveDamageType>
+        <startWickHitPointsPercent>0.5</startWickHitPointsPercent>
+        <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(60,70,127,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Whirligig">   <!-- необычный: мамины бусы -->
+    <defName>SZ_Anomaly_Whirligig_MamasBeads</defName>
+    <killedLeavings>
+      <SZ_Artifact_MamasBeads>1</SZ_Artifact_MamasBeads>
+    </killedLeavings>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Whirligig">   <!-- редкий: золотая рыбка -->
+    <defName>SZ_Anomaly_Whirligig_Goldfish</defName>
+    <killedLeavings>
+      <SZ_Artifact_Goldfish>1</SZ_Artifact_Goldfish>
+    </killedLeavings>
+  </ThingDef>
+
+  <!-- Мясорубка: гравитационная: резаные раны, очень опасна -->
+  <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Meatgrinder" Abstract="True">
+    <label>meatgrinder</label>
+    <description>A small knot of twisted space, deadly to anything alive. It tears apart whatever touches it. Artifacts are sometimes found in or near it.</description>
+    <graphicData>
+      <texPath>Things/Building/SZ_Anomalies/Meatgrinder</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
+      <drawSize>(1.8,1.8)</drawSize>
+    </graphicData>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>1.9</explosiveRadius>
+        <explosiveDamageType>SZ_GravityShred</explosiveDamageType>
+        <startWickHitPointsPercent>0.5</startWickHitPointsPercent>
+        <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(110,30,30,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Meatgrinder">   <!-- обычный: ломоть мяса -->
+    <defName>SZ_Anomaly_Meatgrinder_MeatChunk</defName>
+    <killedLeavings>
+      <SZ_Artifact_MeatChunk>1</SZ_Artifact_MeatChunk>
+    </killedLeavings>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Meatgrinder">   <!-- редкий: душа -->
+    <defName>SZ_Anomaly_Meatgrinder_Soul</defName>
+    <killedLeavings>
+      <SZ_Artifact_Soul>1</SZ_Artifact_Soul>
+    </killedLeavings>
+  </ThingDef>
+
+  <!-- Электра: электрическая: ожоги, большой радиус -->
+  <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Electro" Abstract="True">
+    <label>electro</label>
+    <description>A knot of crackling energy hanging just above the ground. Anything that touches it is hit by a powerful discharge. Artifacts are sometimes found in or near it.</description>
+    <graphicData>
+      <texPath>Things/Building/SZ_Anomalies/Electro</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
+      <drawSize>(1.8,1.8)</drawSize>
+    </graphicData>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>2.9</explosiveRadius>
+        <explosiveDamageType>SZ_ElectricDischarge</explosiveDamageType>
+        <startWickHitPointsPercent>0.5</startWickHitPointsPercent>
+        <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(45,70,127,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Electro">   <!-- обычный: вспышка -->
+    <defName>SZ_Anomaly_Electro_Flash</defName>
+    <killedLeavings>
+      <SZ_Artifact_Flash>1</SZ_Artifact_Flash>
+    </killedLeavings>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Electro">   <!-- обычный: бенгальский огонь -->
+    <defName>SZ_Anomaly_Electro_Sparkler</defName>
+    <killedLeavings>
+      <SZ_Artifact_Sparkler>1</SZ_Artifact_Sparkler>
+    </killedLeavings>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Electro">   <!-- необычный: батарейка -->
+    <defName>SZ_Anomaly_Electro_Battery</defName>
+    <killedLeavings>
+      <SZ_Artifact_Battery>1</SZ_Artifact_Battery>
+    </killedLeavings>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Electro">   <!-- редкий: лунный свет -->
+    <defName>SZ_Anomaly_Electro_Moonlight</defName>
+    <killedLeavings>
+      <SZ_Artifact_Moonlight>1</SZ_Artifact_Moonlight>
+    </killedLeavings>
+  </ThingDef>
+
+  <!-- Жарка: термическая: ванильный огонь, поджигает -->
+  <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Burner" Abstract="True">
+    <label>burner</label>
+    <description>A patch of shimmering, scorching air. When disturbed, it erupts in a column of fire. Artifacts are sometimes found in or near it.</description>
+    <graphicData>
+      <texPath>Things/Building/SZ_Anomalies/Burner</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
+      <drawSize>(1.8,1.8)</drawSize>
+    </graphicData>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>2.4</explosiveRadius>
+        <explosiveDamageType>Flame</explosiveDamageType>
+        <startWickHitPointsPercent>0.5</startWickHitPointsPercent>
+        <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(127,70,30,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Burner">   <!-- обычный: капля -->
+    <defName>SZ_Anomaly_Burner_Droplet</defName>
+    <killedLeavings>
+      <SZ_Artifact_Droplet>1</SZ_Artifact_Droplet>
+    </killedLeavings>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Burner">   <!-- необычный: огненный шар -->
+    <defName>SZ_Anomaly_Burner_Fireball</defName>
+    <killedLeavings>
+      <SZ_Artifact_Fireball>1</SZ_Artifact_Fireball>
+    </killedLeavings>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Burner">   <!-- редкий: кристалл -->
+    <defName>SZ_Anomaly_Burner_Crystal</defName>
+    <killedLeavings>
+      <SZ_Artifact_Crystal>1</SZ_Artifact_Crystal>
+    </killedLeavings>
+  </ThingDef>
+
+  <!-- Комета: термическая: движется по кругу (только с C#) -->
+  <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Comet" Abstract="True">
+    <label>comet</label>
+    <description>A fiery clot that drifts in a slow circle, scorching everything in its path. Artifacts are sometimes found in or near it.</description>
+    <graphicData>
+      <texPath>Things/Building/SZ_Anomalies/Comet</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
+      <drawSize>(1.6,1.6)</drawSize>
+    </graphicData>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>1.9</explosiveRadius>
+        <explosiveDamageType>Flame</explosiveDamageType>
+        <startWickHitPointsPercent>0.5</startWickHitPointsPercent>
+        <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(127,75,35,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_Comet">   <!-- необычный: пламя -->
+    <defName>SZ_Anomaly_Comet_Flame</defName>
+    <killedLeavings>
+      <SZ_Artifact_Flame>1</SZ_Artifact_Flame>
+    </killedLeavings>
+  </ThingDef>
+
+  <!-- Холодец: химическая: ожоги -->
+  <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_FruitPunch" Abstract="True">
+    <label>fruit punch</label>
+    <description>A pool of glowing green ooze. It splashes caustic liquid on anyone nearby. Artifacts are sometimes found in or near it.</description>
+    <graphicData>
+      <texPath>Things/Building/SZ_Anomalies/FruitPunch</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
+      <drawSize>(1.8,1.8)</drawSize>
+    </graphicData>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>2.2</explosiveRadius>
+        <explosiveDamageType>SZ_ChemicalBurn</explosiveDamageType>
+        <startWickHitPointsPercent>0.5</startWickHitPointsPercent>
+        <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(45,115,45,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_FruitPunch">   <!-- обычный: слизь -->
+    <defName>SZ_Anomaly_FruitPunch_Slime</defName>
+    <killedLeavings>
+      <SZ_Artifact_Slime>1</SZ_Artifact_Slime>
+    </killedLeavings>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_FruitPunch">   <!-- необычный: слизняк -->
+    <defName>SZ_Anomaly_FruitPunch_Slug</defName>
+    <killedLeavings>
+      <SZ_Artifact_Slug>1</SZ_Artifact_Slug>
+    </killedLeavings>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_FruitPunch">   <!-- необычный: кровь камня -->
+    <defName>SZ_Anomaly_FruitPunch_StoneBlood</defName>
+    <killedLeavings>
+      <SZ_Artifact_StoneBlood>1</SZ_Artifact_StoneBlood>
+    </killedLeavings>
+  </ThingDef>
+
+  <!-- Жгучий пух: биологическая: слабые царапины, очень большой радиус -->
+  <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_BurntFuzz" Abstract="True">
+    <label>burnt fuzz</label>
+    <description>Pale, hair-like strands hanging in the air. Touching them sends stinging fibers in every direction. Artifacts are sometimes found in or near it.</description>
+    <graphicData>
+      <texPath>Things/Building/SZ_Anomalies/BurntFuzz</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
+      <drawSize>(2.0,2.0)</drawSize>
+    </graphicData>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>3.5</explosiveRadius>
+        <explosiveDamageType>SZ_FuzzSting</explosiveDamageType>
+        <startWickHitPointsPercent>0.5</startWickHitPointsPercent>
+        <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(120,115,85,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_BurntFuzz">   <!-- обычный: колючка -->
+    <defName>SZ_Anomaly_BurntFuzz_Thorn</defName>
+    <killedLeavings>
+      <SZ_Artifact_Thorn>1</SZ_Artifact_Thorn>
+    </killedLeavings>
+  </ThingDef>
+  <ThingDef ParentName="SZ_AnomalyType_BurntFuzz">   <!-- необычный: морской ёж -->
+    <defName>SZ_Anomaly_BurntFuzz_Urchin</defName>
+    <killedLeavings>
+      <SZ_Artifact_Urchin>1</SZ_Artifact_Urchin>
+    </killedLeavings>
+  </ThingDef>
+
+  <!-- ================= ГЕНЕРАЦИЯ НА КАРТЕ =================
+       Один шаг на вариант. countPer10kCellsRange — штук на 10 000 клеток
+       (карта 250x250 ≈ 6 таких блоков). Частота задаёт редкость артефакта:
+       обычный 0.12~0.25, необычный 0.06~0.12, редкий 0.02~0.06.
+       Подключаются к карте колонии патчем Patches/SZ_MapGen.xml. -->
+  <GenStepDef>
+    <defName>SZ_Scatter_Springboard_Jellyfish</defName>
+    <order>650</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Springboard_Jellyfish</thingDef>
+      <countPer10kCellsRange>0.12~0.25</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Springboard_StoneFlower</defName>
+    <order>651</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Springboard_StoneFlower</thingDef>
+      <countPer10kCellsRange>0.06~0.12</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Vortex_Gravi</defName>
+    <order>652</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Vortex_Gravi</thingDef>
+      <countPer10kCellsRange>0.12~0.25</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Vortex_NightStar</defName>
+    <order>653</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Vortex_NightStar</thingDef>
+      <countPer10kCellsRange>0.06~0.12</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Whirligig_MamasBeads</defName>
+    <order>654</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Whirligig_MamasBeads</thingDef>
+      <countPer10kCellsRange>0.06~0.12</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Whirligig_Goldfish</defName>
+    <order>655</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Whirligig_Goldfish</thingDef>
+      <countPer10kCellsRange>0.02~0.06</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Meatgrinder_MeatChunk</defName>
+    <order>656</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Meatgrinder_MeatChunk</thingDef>
+      <countPer10kCellsRange>0.12~0.25</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Meatgrinder_Soul</defName>
+    <order>657</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Meatgrinder_Soul</thingDef>
+      <countPer10kCellsRange>0.02~0.06</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Electro_Flash</defName>
+    <order>658</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Electro_Flash</thingDef>
+      <countPer10kCellsRange>0.12~0.25</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Electro_Sparkler</defName>
+    <order>659</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Electro_Sparkler</thingDef>
+      <countPer10kCellsRange>0.12~0.25</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Electro_Battery</defName>
+    <order>660</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Electro_Battery</thingDef>
+      <countPer10kCellsRange>0.06~0.12</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Electro_Moonlight</defName>
+    <order>661</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Electro_Moonlight</thingDef>
+      <countPer10kCellsRange>0.02~0.06</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Burner_Droplet</defName>
+    <order>662</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Burner_Droplet</thingDef>
+      <countPer10kCellsRange>0.12~0.25</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Burner_Fireball</defName>
+    <order>663</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Burner_Fireball</thingDef>
+      <countPer10kCellsRange>0.06~0.12</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Burner_Crystal</defName>
+    <order>664</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Burner_Crystal</thingDef>
+      <countPer10kCellsRange>0.02~0.06</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_Comet_Flame</defName>
+    <order>665</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_Comet_Flame</thingDef>
+      <countPer10kCellsRange>0.06~0.12</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_FruitPunch_Slime</defName>
+    <order>666</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_FruitPunch_Slime</thingDef>
+      <countPer10kCellsRange>0.12~0.25</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_FruitPunch_Slug</defName>
+    <order>667</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_FruitPunch_Slug</thingDef>
+      <countPer10kCellsRange>0.06~0.12</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_FruitPunch_StoneBlood</defName>
+    <order>668</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_FruitPunch_StoneBlood</thingDef>
+      <countPer10kCellsRange>0.06~0.12</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_BurntFuzz_Thorn</defName>
+    <order>669</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_BurntFuzz_Thorn</thingDef>
+      <countPer10kCellsRange>0.12~0.25</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+  <GenStepDef>
+    <defName>SZ_Scatter_BurntFuzz_Urchin</defName>
+    <order>670</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SZ_Anomaly_BurntFuzz_Urchin</thingDef>
+      <countPer10kCellsRange>0.06~0.12</countPer10kCellsRange>
+      <minSpacing>8</minSpacing>
+    </genStep>
+  </GenStepDef>
+
+</Defs>

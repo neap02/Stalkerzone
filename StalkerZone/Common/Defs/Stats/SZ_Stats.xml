@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ================= ЗАЩИТА ОТ РАДИАЦИИ =================
+       0 = нет защиты, 1 = полная. Снижает получаемую дозу
+       (сейчас от Выброса, дальше от аномалий и артефактов).
+
+       Как выдать одежде (костюмы, противогазы):
+         <equippedStatOffsets>
+           <SZ_RadiationResistance>0.4</SZ_RadiationResistance>
+         </equippedStatOffsets>
+       Хедиффам и артефактам: через statOffsets в стадии. -->
+  <StatDef>
+    <defName>SZ_RadiationResistance</defName>
+    <label>radiation resistance</label>
+    <description>How well this creature is protected from radiation. Reduces the radiation dose received, for example during an emission.</description>
+    <category>PawnCombat</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <maxValue>1</maxValue>
+    <toStringStyle>PercentZero</toStringStyle>
+  </StatDef>
+
+</Defs>

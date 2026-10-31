@@ -4,8 +4,8 @@ namespace StalkerZone
 {
     /// <summary>
     /// Запускается один раз после загрузки всех Defs, но только если DLL загрузилась.
-    /// В XML у Выброса стоит ванильный GameCondition_ForceWeather, чтобы мод работал
-    /// и там, где C# недоступен. Здесь подменяем класс и готовим списки аномалий.
+    /// Без DLL мод работает в XML-режиме: разовые аномалии, артефакт выпадает при уничтожении.
+    /// С DLL: вечные аномалии со своими повадками, скопления, артефакты внутри, фазы Выброса.
     /// </summary>
     [StaticConstructorOnStartup]
     public static class SZ_Startup
@@ -15,10 +15,9 @@ namespace StalkerZone
             SZ_DefOf.SZ_Emission.conditionClass = typeof(GameCondition_Emission);
             ZoneDefs.Init();
             AnomalyField.Init();
-            Log.Message("[StalkerZone] C#-часть загружена: " + ZoneDefs.AllAnomalies.Count + " аномалий ("
-                + ZoneDefs.Vortices.Count + " воронок, " + ZoneDefs.Springboards.Count + " трамплинов, "
-                + ZoneDefs.Comets.Count + " комет), пси-поле: " + (ZoneDefs.PsiField != null)
-                + ", радиоактивное пятно: " + (ZoneDefs.RadiationSpot != null) + ".");
+            Log.Message("[StalkerZone] C#-часть загружена: " + ZoneDefs.AllAnomalies.Count + " вариантов аномалий, "
+                + AnomalyField.VariantCount + " в генерации, комет: " + ZoneDefs.Comets.Count
+                + ", пси-поле: " + (ZoneDefs.PsiField != null) + ", радиоактивное пятно: " + (ZoneDefs.RadiationSpot != null) + ".");
         }
     }
 }

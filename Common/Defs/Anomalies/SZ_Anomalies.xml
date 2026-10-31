@@ -112,19 +112,22 @@
   </DamageDef>
 
   <!-- ================= БАЗА АНОМАЛИИ =================
-       Building_TrapExplosive — ванильная мина (как IED):
-       срабатывает, когда на неё наступают, или когда её HP падает ниже
-       startWickHitPointsPercent (её можно "разрядить" выстрелами издалека).
-       Аномалия без фракции: игроку видна, колонисты, скорее всего, её обходят,
-       дикие животные натыкаются. При уничтожении оставляет артефакт (killedLeavings).
-       Игроком не строится: нет designationCategory. -->
+       XML-режим (без DLL): Building_TrapExplosive — ванильная мина (как IED).
+       Срабатывает от шага или когда HP падает ниже startWickHitPointsPercent
+       (можно разрядить выстрелами). При уничтожении оставляет артефакт (killedLeavings).
+       C#-режим: при старте аномалия становится вечной (без HP, не мина), срабатывание
+       и повадки ведёт MapComponent_Zone, а killedLeavings — просто "какой артефакт рядом".
+       pathCost: колонисты обходят клетку аномалии в обоих режимах.
+       Текстуры полупрозрачные: аномалии еле заметны. -->
   <ThingDef ParentName="BuildingBase" Name="SZ_AnomalyBase" Abstract="True">
     <thingClass>Building_TrapExplosive</thingClass>
     <altitudeLayer>Building</altitudeLayer>
+    <drawerType>RealtimeOnly</drawerType>   <!-- рисуется каждый кадр: нужно для анимации -->
     <passability>Standable</passability>
     <rotatable>false</rotatable>
     <tickerType>Normal</tickerType>   <!-- ловушке нужен тик, чтобы замечать пешек -->
     <stealable>false</stealable>
+    <pathCost>300</pathCost>          <!-- пешки обходят, если есть другой путь -->
     <useHitPoints>true</useHitPoints>
     <statBases>
       <MaxHitPoints>60</MaxHitPoints>
@@ -134,6 +137,7 @@
     <building>
       <isTrap>true</isTrap>
       <claimable>false</claimable>
+      <deconstructible>false</deconstructible>
     </building>
   </ThingDef>
 
@@ -146,11 +150,11 @@
   <!-- Трамплин: гравитационная: слабый удар, маленький радиус -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Springboard" Abstract="True">
     <label>springboard</label>
-    <description>A patch of air where dust hangs strangely still. Whatever steps into it is slammed by a short burst of gravity. Destroying it from a distance may leave behind an artifact.</description>
+    <description>A patch of air where dust hangs strangely still. Whatever steps into it is slammed by a short burst of gravity. Artifacts are sometimes found in or near it.</description>
     <graphicData>
-      <texPath>Things/Building/SZ_Anomalies/Springboard</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>Transparent</shaderType>  <!-- мягкое свечение с прозрачностью -->
+      <texPath>Things/Building/SZ_Anomalies/Springboard</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
       <drawSize>(1.6,1.6)</drawSize>
     </graphicData>
     <comps>
@@ -161,8 +165,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>3.5</glowRadius>
-        <glowColor>(160,110,255,0)</glowColor>
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(80,55,127,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -182,11 +186,11 @@
   <!-- Воронка: гравитационная: сильный урон, большой радиус -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Vortex" Abstract="True">
     <label>vortex</label>
-    <description>A wide swirl of leaves and debris circling a single point. When disturbed, it crushes everything in a large radius. Destroying it from a distance may leave behind an artifact.</description>
+    <description>A wide swirl of leaves and debris circling a single point. When disturbed, it crushes everything in a large radius. Artifacts are sometimes found in or near it.</description>
     <graphicData>
-      <texPath>Things/Building/SZ_Anomalies/Vortex</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>Transparent</shaderType>  <!-- мягкое свечение с прозрачностью -->
+      <texPath>Things/Building/SZ_Anomalies/Vortex</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
       <drawSize>(2.2,2.2)</drawSize>
     </graphicData>
     <comps>
@@ -197,8 +201,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>3.5</glowRadius>
-        <glowColor>(150,120,220,0)</glowColor>
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(75,60,110,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -218,11 +222,11 @@
   <!-- Карусель: гравитационная: средний урон и радиус -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Whirligig" Abstract="True">
     <label>whirligig</label>
-    <description>A spinning column of distorted air. It batters anything that comes too close. Destroying it from a distance may leave behind an artifact.</description>
+    <description>A spinning column of distorted air. It batters anything that comes too close. Artifacts are sometimes found in or near it.</description>
     <graphicData>
-      <texPath>Things/Building/SZ_Anomalies/Whirligig</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>Transparent</shaderType>  <!-- мягкое свечение с прозрачностью -->
+      <texPath>Things/Building/SZ_Anomalies/Whirligig</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
       <drawSize>(2.0,2.0)</drawSize>
     </graphicData>
     <comps>
@@ -233,8 +237,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>3.5</glowRadius>
-        <glowColor>(120,140,255,0)</glowColor>
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(60,70,127,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -254,11 +258,11 @@
   <!-- Мясорубка: гравитационная: резаные раны, очень опасна -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Meatgrinder" Abstract="True">
     <label>meatgrinder</label>
-    <description>A small knot of twisted space, deadly to anything alive. It tears apart whatever touches it. Destroying it from a distance may leave behind an artifact.</description>
+    <description>A small knot of twisted space, deadly to anything alive. It tears apart whatever touches it. Artifacts are sometimes found in or near it.</description>
     <graphicData>
-      <texPath>Things/Building/SZ_Anomalies/Meatgrinder</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>Transparent</shaderType>  <!-- мягкое свечение с прозрачностью -->
+      <texPath>Things/Building/SZ_Anomalies/Meatgrinder</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
       <drawSize>(1.8,1.8)</drawSize>
     </graphicData>
     <comps>
@@ -269,8 +273,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>3.5</glowRadius>
-        <glowColor>(220,60,60,0)</glowColor>
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(110,30,30,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -290,11 +294,11 @@
   <!-- Электра: электрическая: ожоги, большой радиус -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Electro" Abstract="True">
     <label>electro</label>
-    <description>A knot of crackling energy hanging just above the ground. Anything that touches it is hit by a powerful discharge. Destroying it from a distance may leave behind an artifact.</description>
+    <description>A knot of crackling energy hanging just above the ground. Anything that touches it is hit by a powerful discharge. Artifacts are sometimes found in or near it.</description>
     <graphicData>
-      <texPath>Things/Building/SZ_Anomalies/Electro</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>Transparent</shaderType>  <!-- мягкое свечение с прозрачностью -->
+      <texPath>Things/Building/SZ_Anomalies/Electro</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
       <drawSize>(1.8,1.8)</drawSize>
     </graphicData>
     <comps>
@@ -305,8 +309,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>3.5</glowRadius>
-        <glowColor>(90,140,255,0)</glowColor>
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(45,70,127,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -338,11 +342,11 @@
   <!-- Жарка: термическая: ванильный огонь, поджигает -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Burner" Abstract="True">
     <label>burner</label>
-    <description>A patch of shimmering, scorching air. When disturbed, it erupts in a column of fire. Destroying it from a distance may leave behind an artifact.</description>
+    <description>A patch of shimmering, scorching air. When disturbed, it erupts in a column of fire. Artifacts are sometimes found in or near it.</description>
     <graphicData>
-      <texPath>Things/Building/SZ_Anomalies/Burner</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>Transparent</shaderType>  <!-- мягкое свечение с прозрачностью -->
+      <texPath>Things/Building/SZ_Anomalies/Burner</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
       <drawSize>(1.8,1.8)</drawSize>
     </graphicData>
     <comps>
@@ -353,8 +357,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>3.5</glowRadius>
-        <glowColor>(255,140,60,0)</glowColor>
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(127,70,30,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -380,11 +384,11 @@
   <!-- Комета: термическая: движется по кругу (только с C#) -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Comet" Abstract="True">
     <label>comet</label>
-    <description>A fiery clot that drifts in a slow circle, scorching everything in its path. Destroying it from a distance may leave behind an artifact.</description>
+    <description>A fiery clot that drifts in a slow circle, scorching everything in its path. Artifacts are sometimes found in or near it.</description>
     <graphicData>
-      <texPath>Things/Building/SZ_Anomalies/Comet</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>Transparent</shaderType>  <!-- мягкое свечение с прозрачностью -->
+      <texPath>Things/Building/SZ_Anomalies/Comet</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
       <drawSize>(1.6,1.6)</drawSize>
     </graphicData>
     <comps>
@@ -395,8 +399,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>3.5</glowRadius>
-        <glowColor>(255,150,70,0)</glowColor>
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(127,75,35,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -410,11 +414,11 @@
   <!-- Холодец: химическая: ожоги -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_FruitPunch" Abstract="True">
     <label>fruit punch</label>
-    <description>A pool of glowing green ooze. It splashes caustic liquid on anyone nearby. Destroying it from a distance may leave behind an artifact.</description>
+    <description>A pool of glowing green ooze. It splashes caustic liquid on anyone nearby. Artifacts are sometimes found in or near it.</description>
     <graphicData>
-      <texPath>Things/Building/SZ_Anomalies/FruitPunch</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>Transparent</shaderType>  <!-- мягкое свечение с прозрачностью -->
+      <texPath>Things/Building/SZ_Anomalies/FruitPunch</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
       <drawSize>(1.8,1.8)</drawSize>
     </graphicData>
     <comps>
@@ -425,8 +429,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>3.5</glowRadius>
-        <glowColor>(90,230,90,0)</glowColor>
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(45,115,45,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -452,11 +456,11 @@
   <!-- Жгучий пух: биологическая: слабые царапины, очень большой радиус -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_BurntFuzz" Abstract="True">
     <label>burnt fuzz</label>
-    <description>Pale, hair-like strands hanging in the air. Touching them sends stinging fibers in every direction. Destroying it from a distance may leave behind an artifact.</description>
+    <description>Pale, hair-like strands hanging in the air. Touching them sends stinging fibers in every direction. Artifacts are sometimes found in or near it.</description>
     <graphicData>
-      <texPath>Things/Building/SZ_Anomalies/BurntFuzz</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>Transparent</shaderType>  <!-- мягкое свечение с прозрачностью -->
+      <texPath>Things/Building/SZ_Anomalies/BurntFuzz</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
       <drawSize>(2.0,2.0)</drawSize>
     </graphicData>
     <comps>
@@ -467,8 +471,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>3.5</glowRadius>
-        <glowColor>(240,230,170,0)</glowColor>
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>(120,115,85,0)</glowColor>
       </li>
     </comps>
   </ThingDef>

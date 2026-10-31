@@ -64,6 +64,7 @@
   <ThingDef ParentName="BuildingBase" Name="SZ_FieldBase" Abstract="True">
     <thingClass>Building</thingClass>
     <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <drawerType>RealtimeOnly</drawerType>   <!-- для анимации -->
     <passability>Standable</passability>
     <rotatable>false</rotatable>
     <useHitPoints>false</useHitPoints>
@@ -82,8 +83,8 @@
     <label>psychic field</label>
     <description>An invisible zone of psychic pressure, felt as a ringing in the ears. Prolonged exposure causes psychosis, unconsciousness and death. Psychically deaf creatures are unaffected.</description>
     <graphicData>
-      <texPath>Things/Building/SZ_Fields/PsiField</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
+      <texPath>Things/Building/SZ_Fields/PsiField</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>
       <shaderType>Transparent</shaderType>
       <drawSize>(14,14)</drawSize>             <!-- ≈ радиус действия 6.9 клетки -->
     </graphicData>
@@ -94,8 +95,8 @@
     <label>radioactive spot</label>
     <description>Contaminated ground. Anyone who lingers here slowly develops radiation sickness. Radiation resistance reduces the dose.</description>
     <graphicData>
-      <texPath>Things/Building/SZ_Fields/RadiationSpot</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
+      <texPath>Things/Building/SZ_Fields/RadiationSpot</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>
       <shaderType>Transparent</shaderType>
       <drawSize>(10,10)</drawSize>             <!-- ≈ радиус действия 4.9 клетки -->
     </graphicData>

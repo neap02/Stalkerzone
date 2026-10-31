@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ================= ЛУЧЕВАЯ БОЛЕЗНЬ =================
+       Severity от 0 до 1. При 1 персонаж умирает (lethalSeverity).
+       Спад построен на HediffComp_Immunizable, как у ванильного ToxicBuildup:
+       - без антирада тяжесть снижается медленно (severityPerDayNotImmune);
+       - с антирадом быстро (severityPerDayImmune), см. SZ_AntiradEffect ниже. -->
+  <HediffDef>
+    <defName>SZ_Radiation</defName>
+    <label>radiation sickness</label>
+    <description>Accumulated radiation damage. The body slowly clears it on its own; anti-rad drugs speed this up greatly. Lethal at full severity.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.85, 0.95, 0.3)</defaultLabelColor>
+    <isBad>true</isBad>
+    <lethalSeverity>1</lethalSeverity>
+    <makesSickThought>true</makesSickThought> <!-- мудлет "болен" -->
+    <scenarioCanAdd>true</scenarioCanAdd>     <!-- можно выдать в редакторе сценариев -->
+    <comps>
+      <li Class="HediffCompProperties_Immunizable">
+        <severityPerDayNotImmune>-0.03</severityPerDayNotImmune> <!-- естественный вывод -->
+        <severityPerDayImmune>-0.6</severityPerDayImmune>        <!-- вывод под антирадом -->
+      </li>
+    </comps>
+    <stages>
+      <!-- 0: скрытая стадия, малые дозы игрок не видит -->
+      <li>
+        <becomeVisible>false</becomeVisible>
+      </li>
+      <!-- 1: лёгкая -->
+      <li>
+        <label>minor</label>
+        <minSeverity>0.1</minSeverity>
+        <capMods>
+          <li><capacity>Consciousness</capacity><offset>-0.05</offset></li>
+        </capMods>
+      </li>
+      <!-- 2: средняя, появляется рвота -->
+      <li>
+        <label>moderate</label>
+        <minSeverity>0.3</minSeverity>
+        <vomitMtbDays>3</vomitMtbDays>
+        <capMods>
+          <li><capacity>Consciousness</capacity><offset>-0.1</offset></li>
+          <li><capacity>BloodFiltration</capacity><offset>-0.1</offset></li>
+        </capMods>
+      </li>
+      <!-- 3: тяжёлая, шанс рака -->
+      <li>
+        <label>serious</label>
+        <minSeverity>0.55</minSeverity>
+        <vomitMtbDays>1</vomitMtbDays>
+        <painOffset>0.1</painOffset>
+        <capMods>
+          <li><capacity>Consciousness</capacity><offset>-0.2</offset></li>
+          <li><capacity>BloodFiltration</capacity><offset>-0.25</offset></li>
+          <li><capacity>Moving</capacity><offset>-0.1</offset></li>
+        </capMods>
+        <hediffGivers>
+          <!-- В среднем раз в 200 дней на этой стадии появится карцинома -->
+          <li Class="HediffGiver_Random">
+            <hediff>Carcinoma</hediff>
+            <mtbDays>200</mtbDays>
+            <canAffectAnyLivePart>true</canAffectAnyLivePart>
+          </li>
+        </hediffGivers>
+      </li>
+      <!-- 4: крайне тяжёлая, угроза жизни -->
+      <li>
+        <label>extreme</label>
+        <minSeverity>0.8</minSeverity>
+        <lifeThreatening>true</lifeThreatening>
+        <vomitMtbDays>0.4</vomitMtbDays>
+        <painOffset>0.2</painOffset>
+        <capMods>
+          <li><capacity>Consciousness</capacity><offset>-0.3</offset></li>
+          <li><capacity>BloodFiltration</capacity><offset>-0.4</offset></li>
+          <li><capacity>Moving</capacity><offset>-0.2</offset></li>
+          <li><capacity>Manipulation</capacity><offset>-0.15</offset></li>
+        </capMods>
+        <hediffGivers>
+          <li Class="HediffGiver_Random">
+            <hediff>Carcinoma</hediff>
+            <mtbDays>60</mtbDays>
+            <canAffectAnyLivePart>true</canAffectAnyLivePart>
+          </li>
+        </hediffGivers>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- ================= ДЕЙСТВИЕ АНТИРАДА =================
+       Ключевой приём: makeImmuneTo. Пока этот хедифф активен, игра считает
+       пешку полностью иммунной к SZ_Radiation, и та снижается со скоростью
+       severityPerDayImmune (-0.6/день). Полдня действия = минус ~0.3 тяжести. -->
+  <HediffDef>
+    <defName>SZ_AntiradEffect</defName>
+    <label>anti-rad</label>
+    <description>The drug binds radioactive particles and speeds up their removal from the body.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.5, 0.8, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>28000~32000</disappearsAfterTicks> <!-- ~0.5 игрового дня -->
+        <showRemainingTime>true</showRemainingTime>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <makeImmuneTo>
+          <li>SZ_Radiation</li>
+          <li>SZ_ArtifactExposure</li>        <!-- облучение от артефактов -->
+          <li>SZ_ArtifactExposureStrong</li>
+        </makeImmuneTo>
+        <!-- Побочный эффект: лёгкая заторможенность -->
+        <capMods>
+          <li><capacity>Consciousness</capacity><offset>-0.05</offset></li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- ================= АНТИРАД (ПРЕДМЕТ) =================
+       Наследуемся от ванильного абстрактного MakeableDrugPillBase:
+       он уже задаёт категорию, стак, рецепт в лаборатории и т.д. -->
+  <ThingDef ParentName="MakeableDrugPillBase">
+    <defName>SZ_Antirad</defName>
+    <label>anti-rad</label>
+    <description>Pills that bind radioactive substances in the body and speed up their removal. One dose clears about a third of radiation sickness over half a day. Causes mild drowsiness.</description>
+    <graphicData>
+      <!-- ВРЕМЕННО: ванильная текстура пеноксициклина.
+           Свою кладите в Common/Textures/Things/Item/Drug/SZ_Antirad/ (файлы _a, _b, _c) -->
+      <texPath>Things/Item/Drug/Penoxycyline</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <rotatable>false</rotatable>
+    <statBases>
+      <WorkToMake>700</WorkToMake>
+      <MarketValue>35</MarketValue>
+      <Mass>0.005</Mass>
+    </statBases>
+    <techLevel>Industrial</techLevel>
+    <ingestible>
+      <drugCategory>Medical</drugCategory> <!-- в политике лекарств: "медицинские" -->
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>SZ_AntiradEffect</hediffDef>
+          <severity>1.0</severity>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <!-- recipeMaker сам сгенерирует рецепт Make_SZ_Antirad -->
+    <recipeMaker>
+      <researchPrerequisite>DrugProduction</researchPrerequisite>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Intellectual>5</Intellectual>
+      </skillRequirements>
+    </recipeMaker>
+    <costList>
+      <Neutroamine>2</Neutroamine>
+      <MedicineHerbal>1</MedicineHerbal>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <listOrder>1010</listOrder>
+        <overdoseSeverityOffset>0.08~0.14</overdoseSeverityOffset>
+      </li>
+    </comps>
+  </ThingDef>
+
+</Defs>

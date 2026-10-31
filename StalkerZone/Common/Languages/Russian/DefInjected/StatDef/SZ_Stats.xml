@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_RadiationResistance.label>защита от радиации</SZ_RadiationResistance.label>
+  <SZ_RadiationResistance.description>Насколько существо защищено от радиации. Снижает получаемую дозу облучения, например во время Выброса.</SZ_RadiationResistance.description>
+</LanguageData>

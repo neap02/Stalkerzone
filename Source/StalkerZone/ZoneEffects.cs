@@ -5,18 +5,17 @@ using Verse;
 
 namespace StalkerZone
 {
-    /// <summary>Общие эффекты Зоны: облучение, пси-удар, перемещение пешек, разряд аномалии.</summary>
+    /// <summary>Общие эффекты Зоны: облучение, пси, разряды аномалий, перемещение пешек.</summary>
     public static class ZoneEffects
     {
-        // ===== Пси =====
-        /// <summary>С этой тяжести пси-воздействия возможен психоз.</summary>
         private const float PsiBreakMinSeverity = 0.45f;
-        /// <summary>С этой тяжести пешка без сознания, психоз уже не нужен.</summary>
         private const float PsiBreakMaxSeverity = 0.7f;
-        /// <summary>Шанс психоза за одну дозу в опасном диапазоне.</summary>
         private const float PsiBreakChancePerDose = 0.05f;
+        private const float ChainDamage = 10f;
 
-        /// <summary>Облучение с учётом стата защиты от радиации.</summary>
+        private static readonly List<Pawn> tmpChain = new List<Pawn>();
+
+        // ---------- Радиация и пси ----------
         public static void AddRadiation(Pawn pawn, float dose)
         {
             if (pawn == null || pawn.Dead || !pawn.RaceProps.IsFlesh)
@@ -27,10 +26,7 @@ namespace StalkerZone
                 HealthUtility.AdjustSeverity(pawn, SZ_DefOf.SZ_Radiation, dose);
         }
 
-        /// <summary>
-        /// Пси-воздействие с учётом пси-чувствительности.
-        /// Пси-глухие (чувствительность 0) не страдают. Артефакт "лунный свет" её снижает.
-        /// </summary>
+        /// <summary>Пси-доза × пси-чувствительность. Пси-глухие не страдают.</summary>
         public static void AddPsi(Pawn pawn, float dose)
         {
             if (pawn == null || pawn.Dead || !pawn.RaceProps.IsFlesh)
@@ -53,7 +49,62 @@ namespace StalkerZone
                 pawn.mindState?.mentalStateHandler?.TryStartMentalState(MentalStateDefOf.Wander_Psychotic, "SZ_PsiBreakReason".Translate());
         }
 
-        /// <summary>Мгновенно переносит пешку в клетку (затягивание, отброс).</summary>
+        // ---------- Аномалии ----------
+        /// <summary>
+        /// Разряд аномалии: взрыв с уроном и радиусом из её CompProperties_Explosive (XML).
+        /// Сама аномалия не страдает — она вечная.
+        /// </summary>
+        public static void Explode(Thing anomaly)
+        {
+            CompProperties_Explosive props = anomaly.def.GetCompProperties<CompProperties_Explosive>();
+            if (props == null || props.explosiveDamageType == null || !anomaly.Spawned)
+                return;
+            GenExplosion.DoExplosion(anomaly.Position, anomaly.Map, props.explosiveRadius, props.explosiveDamageType, anomaly,
+                ignoredThings: new List<Thing> { anomaly });
+        }
+
+        /// <summary>Электра: разряд перескакивает на до count случайных пешек в радиусе.</summary>
+        public static void ChainLightning(Thing anomaly, float radius, int count)
+        {
+            Map map = anomaly.Map;
+            PawnsAround(anomaly.Position, map, radius, tmpChain);
+            int hit = 0;
+            foreach (Pawn target in tmpChain.InRandomOrder())
+            {
+                if (hit >= count)
+                    break;
+                FleckMaker.ThrowLightningGlow(target.DrawPos, map, 1.5f);
+                FleckMaker.ThrowMicroSparks(target.DrawPos, map);
+                target.TakeDamage(new DamageInfo(SZ_DefOf.SZ_ElectricDischarge, ChainDamage, 0.3f, -1f, anomaly));
+                hit++;
+            }
+            tmpChain.Clear();
+        }
+
+        /// <summary>Отбрасывает пешку от клетки (или в случайную сторону) до препятствия.</summary>
+        public static void ThrowPawn(Pawn pawn, IntVec3 from, int distance, bool randomDirection)
+        {
+            Map map = pawn.Map;
+            IntVec3 dir = randomDirection
+                ? GenAdj.AdjacentCells[Rand.Range(0, 8)]
+                : new IntVec3(Math.Sign(pawn.Position.x - from.x), 0, Math.Sign(pawn.Position.z - from.z));
+            if (dir == IntVec3.Zero)
+                dir = GenAdj.AdjacentCells[Rand.Range(0, 8)];
+
+            IntVec3 cur = pawn.Position;
+            IntVec3 dest = cur;
+            for (int i = 0; i < distance; i++)
+            {
+                cur += dir;
+                if (!cur.InBounds(map) || !cur.Walkable(map))
+                    break;
+                dest = cur;
+            }
+            if (dest != pawn.Position)
+                MovePawn(pawn, dest);
+        }
+
+        /// <summary>Мгновенно переносит пешку в клетку.</summary>
         public static void MovePawn(Pawn pawn, IntVec3 dest)
         {
             pawn.pather?.StopDead();
@@ -61,15 +112,7 @@ namespace StalkerZone
             pawn.Notify_Teleported();
         }
 
-        /// <summary>Заставляет аномалию разрядиться, если она ещё не разряжается.</summary>
-        public static void Discharge(Thing anomaly)
-        {
-            CompExplosive comp = anomaly.TryGetComp<CompExplosive>();
-            if (comp != null && !comp.wickStarted)
-                comp.StartWick();
-        }
-
-        /// <summary>Живые пешки в радиусе вокруг клетки. Результат — в переданный список.</summary>
+        /// <summary>Живые пешки в радиусе вокруг клетки.</summary>
         public static void PawnsAround(IntVec3 center, Map map, float radius, List<Pawn> result)
         {
             result.Clear();
@@ -77,6 +120,19 @@ namespace StalkerZone
             {
                 if (thing is Pawn pawn && !pawn.Dead)
                     result.Add(pawn);
+            }
+        }
+
+        /// <summary>Эффект "вблизи видно": искры, марево, пыль.</summary>
+        public static void ThrowHint(Thing anomaly, AnomalyFleck fleck)
+        {
+            Map map = anomaly.Map;
+            switch (fleck)
+            {
+                case AnomalyFleck.Sparks: FleckMaker.ThrowMicroSparks(anomaly.DrawPos, map); break;
+                case AnomalyFleck.Heat: FleckMaker.ThrowHeatGlow(anomaly.Position, map, 1f); break;
+                case AnomalyFleck.Air: FleckMaker.ThrowAirPuffUp(anomaly.DrawPos, map); break;
+                default: FleckMaker.ThrowDustPuff(anomaly.Position, map, 0.8f); break;
             }
         }
     }

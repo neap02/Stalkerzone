@@ -25,8 +25,8 @@ DAMAGE=[
 
 # ---------------- Аномалии ----------------
 # key, en, ru, texture, damage, radius, glow(r,g,b), drawSize, en desc, ru desc, group comment
-SUF_EN=' Destroying it from a distance may leave behind an artifact.'
-SUF_RU=' Если уничтожить аномалию издалека, на её месте может остаться артефакт.'
+SUF_EN=' Artifacts are sometimes found in or near it.'
+SUF_RU=' В ней или рядом с ней иногда находят артефакты.'
 ANOM=[
  ('Springboard','springboard','трамплин','Springboard','SZ_GravityCrushLight',1.5,(160,110,255),1.6,
   'A patch of air where dust hangs strangely still. Whatever steps into it is slammed by a short burst of gravity.',
@@ -136,7 +136,7 @@ STAT_RU={'CarryingCapacity':'грузоподъёмность','PainShockThresho
 
 # ---------- проверки целостности ----------
 an_keys={a[0] for a in ANOM}; dmg_keys={d[0] for d in DAMAGE}|{'Flame'}
-for a in ANOM: assert a[4] in dmg_keys, a; assert os.path.exists(f'{TEX}/Building/SZ_Anomalies/{a[3]}.png'), a[3]
+for a in ANOM: assert a[4] in dmg_keys, a; assert os.path.isdir(f'{TEX}/Building/SZ_Anomalies/{a[3]}'), a[3]  # папка с кадрами
 for r in ART:
     assert r[3] in an_keys, r; assert os.path.exists(f'{TEX}/Item/SZ_Artifacts/{r[0]}.png'), r[0]
 for a in an_keys: assert any(r[3]==a for r in ART), a
@@ -176,19 +176,22 @@ for d in DAMAGE:
 ''')
 w('''
   <!-- ================= БАЗА АНОМАЛИИ =================
-       Building_TrapExplosive — ванильная мина (как IED):
-       срабатывает, когда на неё наступают, или когда её HP падает ниже
-       startWickHitPointsPercent (её можно "разрядить" выстрелами издалека).
-       Аномалия без фракции: игроку видна, колонисты, скорее всего, её обходят,
-       дикие животные натыкаются. При уничтожении оставляет артефакт (killedLeavings).
-       Игроком не строится: нет designationCategory. -->
+       XML-режим (без DLL): Building_TrapExplosive — ванильная мина (как IED).
+       Срабатывает от шага или когда HP падает ниже startWickHitPointsPercent
+       (можно разрядить выстрелами). При уничтожении оставляет артефакт (killedLeavings).
+       C#-режим: при старте аномалия становится вечной (без HP, не мина), срабатывание
+       и повадки ведёт MapComponent_Zone, а killedLeavings — просто "какой артефакт рядом".
+       pathCost: колонисты обходят клетку аномалии в обоих режимах.
+       Текстуры полупрозрачные: аномалии еле заметны. -->
   <ThingDef ParentName="BuildingBase" Name="SZ_AnomalyBase" Abstract="True">
     <thingClass>Building_TrapExplosive</thingClass>
     <altitudeLayer>Building</altitudeLayer>
+    <drawerType>RealtimeOnly</drawerType>   <!-- рисуется каждый кадр: нужно для анимации -->
     <passability>Standable</passability>
     <rotatable>false</rotatable>
     <tickerType>Normal</tickerType>   <!-- ловушке нужен тик, чтобы замечать пешек -->
     <stealable>false</stealable>
+    <pathCost>300</pathCost>          <!-- пешки обходят, если есть другой путь -->
     <useHitPoints>true</useHitPoints>
     <statBases>
       <MaxHitPoints>60</MaxHitPoints>
@@ -198,6 +201,7 @@ w('''
     <building>
       <isTrap>true</isTrap>
       <claimable>false</claimable>
+      <deconstructible>false</deconstructible>
     </building>
   </ThingDef>
 
@@ -215,9 +219,9 @@ for a in ANOM:
     <label>{esc(en)}</label>
     <description>{esc(den+SUF_EN)}</description>
     <graphicData>
-      <texPath>Things/Building/SZ_Anomalies/{tex}</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>Transparent</shaderType>  <!-- мягкое свечение с прозрачностью -->
+      <texPath>Things/Building/SZ_Anomalies/{tex}</texPath>  <!-- папка с 8 кадрами -->
+      <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
+      <shaderType>Transparent</shaderType>                <!-- мягкое свечение с прозрачностью -->
       <drawSize>({ds},{ds})</drawSize>
     </graphicData>
     <comps>
@@ -228,8 +232,8 @@ for a in ANOM:
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>3.5</glowRadius>
-        <glowColor>({glow[0]},{glow[1]},{glow[2]},0)</glowColor>
+        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
+        <glowColor>({glow[0]//2},{glow[1]//2},{glow[2]//2},0)</glowColor>
       </li>
     </comps>
   </ThingDef>

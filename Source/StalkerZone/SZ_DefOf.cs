@@ -15,6 +15,8 @@ namespace StalkerZone
         public static StatDef SZ_RadiationResistance;
         public static GameConditionDef SZ_Emission;
         public static ThoughtDef SZ_ExposedToEmission;
+        public static DamageDef SZ_ElectricDischarge;
+        public static DamageDef SZ_ChemicalBurn;
 
         static SZ_DefOf()
         {
