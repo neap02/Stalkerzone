@@ -14,8 +14,6 @@
     <perceivePriority>2</perceivePriority>
     <windSpeedFactor>2.5</windSpeedFactor>
     <accuracyMultiplier>0.8</accuracyMultiplier>
-    <!-- Мудлет для тех, кто под открытым небом (как "промок" у дождя) -->
-    <exposedThought>SZ_ExposedToEmission</exposedThought>
     <eventMakers>
       <li>
         <averageInterval>600</averageInterval> <!-- вспышки, ~раз в 10 сек -->
@@ -54,7 +52,8 @@
   </WeatherDef>
 
   <!-- ================= МУДЛЕТ =================
-       Тип по умолчанию: Thought_Memory. Обновляется, пока пешка на улице. -->
+       Тип по умолчанию: Thought_Memory. Выдаёт C#-часть (GameCondition_Emission)
+       людям под открытым небом и обновляет, пока Выброс идёт. Без DLL не используется. -->
   <ThoughtDef>
     <defName>SZ_ExposedToEmission</defName>
     <durationDays>0.5</durationDays>
@@ -69,12 +68,15 @@
   </ThoughtDef>
 
   <!-- ================= УСЛОВИЕ "ВЫБРОС" =================
-       Свой C#-класс (Source/StalkerZone/GameCondition_Emission.cs):
-       держит погоду weatherDef и облучает всех, кто не под крышей.
-       ВАЖНО: без собранной DLL игра выдаст ошибку "could not find type". -->
+       В XML стоит ванильный класс, поэтому мод грузится без ошибок везде.
+       Если StalkerZone.dll загрузилась, она при старте игры сама заменит класс
+       на GameCondition_Emission: час на укрытие (колонисты уходят под крышу сами),
+       затем пик с пси-ударом и радиацией, в конце перестановка аномалий.
+       См. GameCondition_Emission.cs.
+       Баланс облучения задаётся константами в GameCondition_Emission.cs. -->
   <GameConditionDef>
     <defName>SZ_Emission</defName>
-    <conditionClass>StalkerZone.GameCondition_Emission</conditionClass>
+    <conditionClass>GameCondition_ForceWeather</conditionClass>
     <label>emission</label>
     <description>A wave of anomalous energy is sweeping through the region. Stay under a roof until it passes.</description>
     <endMessage>The emission has passed.</endMessage>
@@ -82,14 +84,6 @@
     <weatherDef>SZ_EmissionWeather</weatherDef>
     <canBePermanent>false</canBePermanent>
     <pennedAnimalsSeekShelter>true</pennedAnimalsSeekShelter> <!-- животные из загонов уходят под крышу -->
-    <!-- Баланс Выброса: правится здесь, без перекомпиляции -->
-    <modExtensions>
-      <li Class="StalkerZone.EmissionExtension">
-        <radiationPerHour>0.2</radiationPerHour>   <!-- +0.2 тяжести за час на улице: 5 часов = смерть -->
-        <checkIntervalTicks>250</checkIntervalTicks>
-        <affectAnimals>true</affectAnimals>
-      </li>
-    </modExtensions>
   </GameConditionDef>
 
   <!-- ================= ИНЦИДЕНТ =================
@@ -108,7 +102,7 @@
     <baseChance>1.0</baseChance>       <!-- относительный вес среди Misc-событий -->
     <earliestDay>5</earliestDay>       <!-- не раньше 5-го дня колонии -->
     <minRefireDays>8</minRefireDays>   <!-- не чаще раза в 8 дней -->
-    <durationDays>0.1~0.25</durationDays> <!-- 2.4–6 игровых часов -->
+    <durationDays>0.1~0.15</durationDays> <!-- 2.4–3.6 ч: 1 ч приближения + пик (с C#) -->
   </IncidentDef>
 
 </Defs>

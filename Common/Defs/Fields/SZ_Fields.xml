@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ================= ПСИ-ВОЗДЕЙСТВИЕ =================
+       Наносят пси-поля и пик Выброса (только C#-часть).
+       Доза умножается на пси-чувствительность: пси-глухие не страдают.
+       Само проходит (−1.0 в сутки), но на последней стадии пешка без сознания
+       и при 1.0 умирает. Психоз на средней стадии вызывает C#. -->
+  <HediffDef>
+    <defName>SZ_PsiExposure</defName>
+    <label>psychic exposure</label>
+    <description>Damage to the mind from a powerful psychic field. Causes headaches, disorientation and bouts of psychosis, then unconsciousness. Fatal at full strength. Fades on its own once the victim leaves the field.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.75, 0.55, 1.0)</defaultLabelColor>
+    <isBad>true</isBad>
+    <initialSeverity>0.01</initialSeverity>
+    <lethalSeverity>1</lethalSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-1</severityPerDay>   <!-- проходит за сутки вне поля -->
+      </li>
+    </comps>
+    <stages>
+      <!-- 0: незаметно -->
+      <li>
+        <becomeVisible>false</becomeVisible>
+      </li>
+      <!-- 1: головная боль -->
+      <li>
+        <label>headache</label>
+        <minSeverity>0.1</minSeverity>
+        <painOffset>0.05</painOffset>
+        <capMods>
+          <li><capacity>Consciousness</capacity><offset>-0.1</offset></li>
+        </capMods>
+      </li>
+      <!-- 2: дезориентация, возможен психоз (C#) -->
+      <li>
+        <label>disoriented</label>
+        <minSeverity>0.45</minSeverity>
+        <painOffset>0.1</painOffset>
+        <capMods>
+          <li><capacity>Consciousness</capacity><offset>-0.25</offset></li>
+          <li><capacity>Moving</capacity><offset>-0.1</offset></li>
+        </capMods>
+      </li>
+      <!-- 3: пси-шок, без сознания -->
+      <li>
+        <label>psychic shock</label>
+        <minSeverity>0.7</minSeverity>
+        <lifeThreatening>true</lifeThreatening>
+        <capMods>
+          <li><capacity>Consciousness</capacity><setMax>0.1</setMax></li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- ================= ПЯТНА ЗОНЫ =================
+       Метки пси-поля и радиоактивного пятна. Сами по себе ничего не делают:
+       действие (на всех в радиусе) даёт C#-часть, и ставит их тоже только она.
+       Поэтому без DLL они на карте не появляются.
+       Большая полупрозрачная текстура показывает игроку зону действия. -->
+  <ThingDef ParentName="BuildingBase" Name="SZ_FieldBase" Abstract="True">
+    <thingClass>Building</thingClass>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <passability>Standable</passability>
+    <rotatable>false</rotatable>
+    <useHitPoints>false</useHitPoints>
+    <destroyable>false</destroyable>
+    <stealable>false</stealable>
+    <tickerType>Never</tickerType>
+    <building>
+      <isEdifice>false</isEdifice>          <!-- не мешает ходить и ставить постройки -->
+      <claimable>false</claimable>
+      <deconstructible>false</deconstructible>
+    </building>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_FieldBase">
+    <defName>SZ_Field_Psi</defName>
+    <label>psychic field</label>
+    <description>An invisible zone of psychic pressure, felt as a ringing in the ears. Prolonged exposure causes psychosis, unconsciousness and death. Psychically deaf creatures are unaffected.</description>
+    <graphicData>
+      <texPath>Things/Building/SZ_Fields/PsiField</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <drawSize>(14,14)</drawSize>             <!-- ≈ радиус действия 6.9 клетки -->
+    </graphicData>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_FieldBase">
+    <defName>SZ_Field_Radiation</defName>
+    <label>radioactive spot</label>
+    <description>Contaminated ground. Anyone who lingers here slowly develops radiation sickness. Radiation resistance reduces the dose.</description>
+    <graphicData>
+      <texPath>Things/Building/SZ_Fields/RadiationSpot</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <drawSize>(10,10)</drawSize>             <!-- ≈ радиус действия 4.9 клетки -->
+    </graphicData>
+  </ThingDef>
+
+</Defs>
