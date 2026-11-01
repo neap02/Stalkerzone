@@ -174,7 +174,12 @@ for f in F:
     <leaderTitle>{esc(f["leader"][0])}</leaderTitle>
     <factionIconPath>World/SZ_Factions/{k}</factionIconPath>
     <colorSpectrum Inherit="False">{colors}</colorSpectrum>
-    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <!-- Появление в мире. Ванильные настройки списка фракций заданы у конкретных
+         фракций (не у общей основы), поэтому задаём их сами, иначе фракция
+         не попадает ни в обязательные, ни в список при создании мира. -->
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>     <!-- всегда есть в новом мире -->
+    <startingCountAtWorldCreation>1</startingCountAtWorldCreation>
+    <maxConfigurableAtWorldCreation>1</maxConfigurableAtWorldCreation>
     <maxCountAtGameStart>1</maxCountAtGameStart>
     <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
     <basicMemberKind>SZ_{k}_Fighter</basicMemberKind>

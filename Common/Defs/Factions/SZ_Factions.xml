@@ -101,7 +101,12 @@
     <leaderTitle>old-timer</leaderTitle>
     <factionIconPath>World/SZ_Factions/Loners</factionIconPath>
     <colorSpectrum Inherit="False"><li>(0.62, 0.48, 0.25)</li><li>(0.75, 0.62, 0.30)</li></colorSpectrum>
-    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <!-- Появление в мире. Ванильные настройки списка фракций заданы у конкретных
+         фракций (не у общей основы), поэтому задаём их сами, иначе фракция
+         не попадает ни в обязательные, ни в список при создании мира. -->
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>     <!-- всегда есть в новом мире -->
+    <startingCountAtWorldCreation>1</startingCountAtWorldCreation>
+    <maxConfigurableAtWorldCreation>1</maxConfigurableAtWorldCreation>
     <maxCountAtGameStart>1</maxCountAtGameStart>
     <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
     <basicMemberKind>SZ_Loners_Fighter</basicMemberKind>
@@ -201,7 +206,12 @@
     <leaderTitle>general</leaderTitle>
     <factionIconPath>World/SZ_Factions/Duty</factionIconPath>
     <colorSpectrum Inherit="False"><li>(0.45, 0.08, 0.08)</li><li>(0.30, 0.05, 0.05)</li></colorSpectrum>
-    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <!-- Появление в мире. Ванильные настройки списка фракций заданы у конкретных
+         фракций (не у общей основы), поэтому задаём их сами, иначе фракция
+         не попадает ни в обязательные, ни в список при создании мира. -->
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>     <!-- всегда есть в новом мире -->
+    <startingCountAtWorldCreation>1</startingCountAtWorldCreation>
+    <maxConfigurableAtWorldCreation>1</maxConfigurableAtWorldCreation>
     <maxCountAtGameStart>1</maxCountAtGameStart>
     <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
     <basicMemberKind>SZ_Duty_Fighter</basicMemberKind>
@@ -301,7 +311,12 @@
     <leaderTitle>leader</leaderTitle>
     <factionIconPath>World/SZ_Factions/Freedom</factionIconPath>
     <colorSpectrum Inherit="False"><li>(0.20, 0.45, 0.18)</li><li>(0.30, 0.60, 0.25)</li></colorSpectrum>
-    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <!-- Появление в мире. Ванильные настройки списка фракций заданы у конкретных
+         фракций (не у общей основы), поэтому задаём их сами, иначе фракция
+         не попадает ни в обязательные, ни в список при создании мира. -->
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>     <!-- всегда есть в новом мире -->
+    <startingCountAtWorldCreation>1</startingCountAtWorldCreation>
+    <maxConfigurableAtWorldCreation>1</maxConfigurableAtWorldCreation>
     <maxCountAtGameStart>1</maxCountAtGameStart>
     <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
     <basicMemberKind>SZ_Freedom_Fighter</basicMemberKind>
@@ -401,7 +416,12 @@
     <leaderTitle>boss</leaderTitle>
     <factionIconPath>World/SZ_Factions/Bandits</factionIconPath>
     <colorSpectrum Inherit="False"><li>(0.15, 0.15, 0.15)</li><li>(0.30, 0.28, 0.25)</li></colorSpectrum>
-    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <!-- Появление в мире. Ванильные настройки списка фракций заданы у конкретных
+         фракций (не у общей основы), поэтому задаём их сами, иначе фракция
+         не попадает ни в обязательные, ни в список при создании мира. -->
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>     <!-- всегда есть в новом мире -->
+    <startingCountAtWorldCreation>1</startingCountAtWorldCreation>
+    <maxConfigurableAtWorldCreation>1</maxConfigurableAtWorldCreation>
     <maxCountAtGameStart>1</maxCountAtGameStart>
     <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
     <basicMemberKind>SZ_Bandits_Fighter</basicMemberKind>
@@ -502,7 +522,12 @@
     <leaderTitle>commander</leaderTitle>
     <factionIconPath>World/SZ_Factions/Military</factionIconPath>
     <colorSpectrum Inherit="False"><li>(0.30, 0.34, 0.18)</li><li>(0.40, 0.42, 0.25)</li></colorSpectrum>
-    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <!-- Появление в мире. Ванильные настройки списка фракций заданы у конкретных
+         фракций (не у общей основы), поэтому задаём их сами, иначе фракция
+         не попадает ни в обязательные, ни в список при создании мира. -->
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>     <!-- всегда есть в новом мире -->
+    <startingCountAtWorldCreation>1</startingCountAtWorldCreation>
+    <maxConfigurableAtWorldCreation>1</maxConfigurableAtWorldCreation>
     <maxCountAtGameStart>1</maxCountAtGameStart>
     <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
     <basicMemberKind>SZ_Military_Fighter</basicMemberKind>
@@ -600,7 +625,12 @@
     <leaderTitle>preacher</leaderTitle>
     <factionIconPath>World/SZ_Factions/Monolith</factionIconPath>
     <colorSpectrum Inherit="False"><li>(0.75, 0.75, 0.72)</li><li>(0.55, 0.58, 0.60)</li></colorSpectrum>
-    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <!-- Появление в мире. Ванильные настройки списка фракций заданы у конкретных
+         фракций (не у общей основы), поэтому задаём их сами, иначе фракция
+         не попадает ни в обязательные, ни в список при создании мира. -->
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>     <!-- всегда есть в новом мире -->
+    <startingCountAtWorldCreation>1</startingCountAtWorldCreation>
+    <maxConfigurableAtWorldCreation>1</maxConfigurableAtWorldCreation>
     <maxCountAtGameStart>1</maxCountAtGameStart>
     <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
     <basicMemberKind>SZ_Monolith_Fighter</basicMemberKind>
@@ -698,7 +728,12 @@
     <leaderTitle>commander</leaderTitle>
     <factionIconPath>World/SZ_Factions/Mercenaries</factionIconPath>
     <colorSpectrum Inherit="False"><li>(0.15, 0.25, 0.45)</li><li>(0.25, 0.35, 0.55)</li></colorSpectrum>
-    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <!-- Появление в мире. Ванильные настройки списка фракций заданы у конкретных
+         фракций (не у общей основы), поэтому задаём их сами, иначе фракция
+         не попадает ни в обязательные, ни в список при создании мира. -->
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>     <!-- всегда есть в новом мире -->
+    <startingCountAtWorldCreation>1</startingCountAtWorldCreation>
+    <maxConfigurableAtWorldCreation>1</maxConfigurableAtWorldCreation>
     <maxCountAtGameStart>1</maxCountAtGameStart>
     <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
     <basicMemberKind>SZ_Mercenaries_Fighter</basicMemberKind>
@@ -798,7 +833,12 @@
     <leaderTitle>chief researcher</leaderTitle>
     <factionIconPath>World/SZ_Factions/Scientists</factionIconPath>
     <colorSpectrum Inherit="False"><li>(0.85, 0.50, 0.15)</li><li>(0.95, 0.95, 0.92)</li></colorSpectrum>
-    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <!-- Появление в мире. Ванильные настройки списка фракций заданы у конкретных
+         фракций (не у общей основы), поэтому задаём их сами, иначе фракция
+         не попадает ни в обязательные, ни в список при создании мира. -->
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>     <!-- всегда есть в новом мире -->
+    <startingCountAtWorldCreation>1</startingCountAtWorldCreation>
+    <maxConfigurableAtWorldCreation>1</maxConfigurableAtWorldCreation>
     <maxCountAtGameStart>1</maxCountAtGameStart>
     <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
     <basicMemberKind>SZ_Scientists_Fighter</basicMemberKind>
