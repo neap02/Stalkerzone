@@ -37,10 +37,12 @@
     <defaultFactionType>SZ_Faction_Loners</defaultFactionType>
     <combatPower>45</combatPower>
     <gearHealthRange>0.4~1.2</gearHealthRange>
-    <weaponMoney>100~250</weaponMoney>
+    <weaponMoney>150~300</weaponMoney>
     <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
     <apparelMoney>150~400</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Loners</li></apparelTags>
+    <initialResistanceRange>8~14</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>0~1</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Loners_Fighter</defName>
@@ -52,6 +54,8 @@
     <weaponTags><li>Gun</li></weaponTags>
     <apparelMoney>400~900</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Loners</li></apparelTags>
+    <initialResistanceRange>13~20</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>1~2</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Loners_Veteran</defName>
@@ -63,6 +67,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li></weaponTags>
     <apparelMoney>900~1800</apparelMoney>
     <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Loners</li></apparelTags>
+    <initialResistanceRange>18~28</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>2~4</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -78,6 +84,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li></weaponTags>
     <apparelMoney>1200~2200</apparelMoney>
     <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Loners</li></apparelTags>
+    <initialResistanceRange>25~35</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>3~5</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -129,10 +137,12 @@
     <defaultFactionType>SZ_Faction_Duty</defaultFactionType>
     <combatPower>45</combatPower>
     <gearHealthRange>0.4~1.2</gearHealthRange>
-    <weaponMoney>100~250</weaponMoney>
+    <weaponMoney>150~300</weaponMoney>
     <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
     <apparelMoney>150~400</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Duty</li></apparelTags>
+    <initialResistanceRange>8~14</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>0~1</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Duty_Fighter</defName>
@@ -144,6 +154,8 @@
     <weaponTags><li>Gun</li></weaponTags>
     <apparelMoney>400~900</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Duty</li></apparelTags>
+    <initialResistanceRange>13~20</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>1~2</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Duty_Veteran</defName>
@@ -155,6 +167,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li><li>GunHeavy</li></weaponTags>
     <apparelMoney>900~1800</apparelMoney>
     <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Duty</li></apparelTags>
+    <initialResistanceRange>18~28</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>2~4</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -170,6 +184,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li><li>GunHeavy</li></weaponTags>
     <apparelMoney>1200~2200</apparelMoney>
     <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Duty</li></apparelTags>
+    <initialResistanceRange>25~35</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>3~5</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -221,10 +237,12 @@
     <defaultFactionType>SZ_Faction_Freedom</defaultFactionType>
     <combatPower>45</combatPower>
     <gearHealthRange>0.4~1.2</gearHealthRange>
-    <weaponMoney>100~250</weaponMoney>
+    <weaponMoney>150~300</weaponMoney>
     <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
     <apparelMoney>150~400</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Freedom</li></apparelTags>
+    <initialResistanceRange>8~14</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>0~1</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Freedom_Fighter</defName>
@@ -236,6 +254,8 @@
     <weaponTags><li>Gun</li></weaponTags>
     <apparelMoney>400~900</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Freedom</li></apparelTags>
+    <initialResistanceRange>13~20</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>1~2</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Freedom_Veteran</defName>
@@ -247,6 +267,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li></weaponTags>
     <apparelMoney>900~1800</apparelMoney>
     <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Freedom</li></apparelTags>
+    <initialResistanceRange>18~28</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>2~4</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -262,6 +284,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li></weaponTags>
     <apparelMoney>1200~2200</apparelMoney>
     <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Freedom</li></apparelTags>
+    <initialResistanceRange>25~35</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>3~5</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -313,10 +337,12 @@
     <defaultFactionType>SZ_Faction_Bandits</defaultFactionType>
     <combatPower>45</combatPower>
     <gearHealthRange>0.4~1.2</gearHealthRange>
-    <weaponMoney>100~250</weaponMoney>
+    <weaponMoney>150~300</weaponMoney>
     <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
     <apparelMoney>150~400</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Bandits</li></apparelTags>
+    <initialResistanceRange>8~14</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>0~1</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Bandits_Fighter</defName>
@@ -328,6 +354,8 @@
     <weaponTags><li>Gun</li></weaponTags>
     <apparelMoney>400~900</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Bandits</li></apparelTags>
+    <initialResistanceRange>13~20</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>1~2</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Bandits_Veteran</defName>
@@ -339,6 +367,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li></weaponTags>
     <apparelMoney>900~1800</apparelMoney>
     <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Bandits</li></apparelTags>
+    <initialResistanceRange>18~28</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>2~4</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -354,6 +384,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li></weaponTags>
     <apparelMoney>1200~2200</apparelMoney>
     <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Bandits</li></apparelTags>
+    <initialResistanceRange>25~35</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>3~5</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -406,10 +438,12 @@
     <defaultFactionType>SZ_Faction_Military</defaultFactionType>
     <combatPower>45</combatPower>
     <gearHealthRange>0.4~1.2</gearHealthRange>
-    <weaponMoney>100~250</weaponMoney>
+    <weaponMoney>150~300</weaponMoney>
     <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
     <apparelMoney>150~400</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Military</li></apparelTags>
+    <initialResistanceRange>8~14</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>0~1</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Military_Fighter</defName>
@@ -421,6 +455,8 @@
     <weaponTags><li>Gun</li></weaponTags>
     <apparelMoney>400~900</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Military</li></apparelTags>
+    <initialResistanceRange>13~20</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>1~2</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Military_Veteran</defName>
@@ -432,6 +468,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li><li>GunHeavy</li></weaponTags>
     <apparelMoney>900~1800</apparelMoney>
     <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Military</li></apparelTags>
+    <initialResistanceRange>18~28</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>2~4</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -447,6 +485,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li><li>GunHeavy</li></weaponTags>
     <apparelMoney>1200~2200</apparelMoney>
     <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Military</li></apparelTags>
+    <initialResistanceRange>25~35</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>3~5</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -496,10 +536,12 @@
     <defaultFactionType>SZ_Faction_Monolith</defaultFactionType>
     <combatPower>45</combatPower>
     <gearHealthRange>0.4~1.2</gearHealthRange>
-    <weaponMoney>100~250</weaponMoney>
+    <weaponMoney>150~300</weaponMoney>
     <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
     <apparelMoney>150~400</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Monolith</li></apparelTags>
+    <initialResistanceRange>12~21</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>0~1.5</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Monolith_Fighter</defName>
@@ -511,6 +553,8 @@
     <weaponTags><li>Gun</li></weaponTags>
     <apparelMoney>400~900</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Monolith</li></apparelTags>
+    <initialResistanceRange>19.5~30</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>1.5~3</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Monolith_Veteran</defName>
@@ -522,6 +566,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li><li>GunHeavy</li></weaponTags>
     <apparelMoney>900~1800</apparelMoney>
     <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Monolith</li></apparelTags>
+    <initialResistanceRange>27~42</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>3~6</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -537,6 +583,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li><li>GunHeavy</li></weaponTags>
     <apparelMoney>1200~2200</apparelMoney>
     <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Monolith</li></apparelTags>
+    <initialResistanceRange>37.5~52.5</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>4.5~7.5</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -586,10 +634,12 @@
     <defaultFactionType>SZ_Faction_Mercenaries</defaultFactionType>
     <combatPower>45</combatPower>
     <gearHealthRange>0.4~1.2</gearHealthRange>
-    <weaponMoney>100~250</weaponMoney>
+    <weaponMoney>150~300</weaponMoney>
     <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
     <apparelMoney>150~400</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Mercenaries</li></apparelTags>
+    <initialResistanceRange>8~14</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>0~1</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Mercenaries_Fighter</defName>
@@ -601,6 +651,8 @@
     <weaponTags><li>Gun</li></weaponTags>
     <apparelMoney>400~900</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Mercenaries</li></apparelTags>
+    <initialResistanceRange>13~20</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>1~2</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Mercenaries_Veteran</defName>
@@ -612,6 +664,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li></weaponTags>
     <apparelMoney>900~1800</apparelMoney>
     <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Mercenaries</li></apparelTags>
+    <initialResistanceRange>18~28</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>2~4</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -627,6 +681,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li></weaponTags>
     <apparelMoney>1200~2200</apparelMoney>
     <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Mercenaries</li></apparelTags>
+    <initialResistanceRange>25~35</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>3~5</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -678,10 +734,12 @@
     <defaultFactionType>SZ_Faction_Scientists</defaultFactionType>
     <combatPower>45</combatPower>
     <gearHealthRange>0.4~1.2</gearHealthRange>
-    <weaponMoney>100~250</weaponMoney>
+    <weaponMoney>150~300</weaponMoney>
     <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
     <apparelMoney>150~400</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Scientists</li></apparelTags>
+    <initialResistanceRange>8~14</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>0~1</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Scientists_Fighter</defName>
@@ -693,6 +751,8 @@
     <weaponTags><li>Gun</li></weaponTags>
     <apparelMoney>400~900</apparelMoney>
     <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Scientists</li></apparelTags>
+    <initialResistanceRange>13~20</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>1~2</initialWillRange>               <!-- воля (обращение в рабство) -->
   </PawnKindDef>
   <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_Scientists_Veteran</defName>
@@ -704,6 +764,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li></weaponTags>
     <apparelMoney>900~1800</apparelMoney>
     <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Scientists</li></apparelTags>
+    <initialResistanceRange>18~28</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>2~4</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
@@ -719,6 +781,8 @@
     <weaponTags><li>IndustrialGunAdvanced</li></weaponTags>
     <apparelMoney>1200~2200</apparelMoney>
     <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Scientists</li></apparelTags>
+    <initialResistanceRange>25~35</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>3~5</initialWillRange>               <!-- воля (обращение в рабство) -->
     <techHediffsChance>0.15</techHediffsChance>
     <techHediffsMoney>300~900</techHediffsMoney>
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>

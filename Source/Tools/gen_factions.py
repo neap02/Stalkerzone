@@ -9,14 +9,14 @@ L = f'{M}/Languages/Russian/DefInjected'
 
 # ---------- Звания: (ключ, вес в бою, сила, оружие $, одежда $, теги оружия, теги одежды, лидер) ----------
 RANKS = {
- 'Rookie':  dict(power=45,  weapon='100~250', apparel='150~400',  wtags=['SimpleGun','Gun'],
-                 atags=['IndustrialBasic'], heal='0.4~1.2'),
+ 'Rookie':  dict(power=45,  weapon='150~300', apparel='150~400',  wtags=['SimpleGun','Gun'],
+                 atags=['IndustrialBasic'], heal='0.4~1.2', resist=(8,14), will=(0,1)),
  'Fighter': dict(power=75,  weapon='250~500', apparel='400~900',  wtags=['Gun'],
-                 atags=['IndustrialBasic','IndustrialMilitaryBasic'], heal='0.6~1.5'),
+                 atags=['IndustrialBasic','IndustrialMilitaryBasic'], heal='0.6~1.5', resist=(13,20), will=(1,2)),
  'Veteran': dict(power=120, weapon='500~900', apparel='900~1800', wtags=['IndustrialGunAdvanced','SniperRifle'],
-                 atags=['IndustrialMilitaryBasic','IndustrialMilitaryAdvanced'], heal='0.8~1.8', bionics=True),
+                 atags=['IndustrialMilitaryBasic','IndustrialMilitaryAdvanced'], heal='0.8~1.8', bionics=True, resist=(18,28), will=(2,4)),
  'Leader':  dict(power=140, weapon='600~1000', apparel='1200~2200', wtags=['IndustrialGunAdvanced'],
-                 atags=['IndustrialMilitaryAdvanced','IndustrialAdvanced'], heal='1~2', bionics=True, leader=True),
+                 atags=['IndustrialMilitaryAdvanced','IndustrialAdvanced'], heal='1~2', bionics=True, leader=True, resist=(25,35), will=(3,5)),
 }
 
 # ---------- Фракции ----------
@@ -64,7 +64,7 @@ F = [
   pawn=('Monolith fanatic','Monolith fanatics','фанатик Монолита','фанатики Монолита'),
   ranks=(('Monolith acolyte','послушник Монолита'),('Monolith fighter','боец Монолита'),('Monolith zealot','ревнитель Монолита'),('Monolith preacher','проповедник Монолита')),
   leader=('preacher','проповедник'),
-  colors=[(0.75,0.75,0.72),(0.55,0.58,0.60)], relation='enemy', trade=False, vtags=['GunHeavy'], weights=(2,8,6), icon='shard'),
+  colors=[(0.75,0.75,0.72),(0.55,0.58,0.60)], fanatic=1.5, relation='enemy', trade=False, vtags=['GunHeavy'], weights=(2,8,6), icon='shard'),
  dict(key='Mercenaries', en='Mercenaries', ru='Наёмники',
   den='Professional soldiers of fortune working for whoever pays. Excellent equipment, cold calculation, no questions asked.',
   dru='Профессиональные солдаты удачи, работающие на того, кто платит. Отличное снаряжение, холодный расчёт и никаких лишних вопросов.',
@@ -131,6 +131,8 @@ for f in F:
     <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
 '''
         lead='    <factionLeader>true</factionLeader>\n' if R.get('leader') else ''
+        k_f=f.get('fanatic',1.0)
+        res=f"{R['resist'][0]*k_f:g}~{R['resist'][1]*k_f:g}"; wil=f"{R['will'][0]*k_f:g}~{R['will'][1]*k_f:g}"
         w(f'''  <PawnKindDef ParentName="SZ_StalkerBase">
     <defName>SZ_{k}_{rk}</defName>
     <label>{esc(en)}</label>
@@ -141,6 +143,8 @@ for f in F:
     <weaponTags>{li(wt)}</weaponTags>
     <apparelMoney>{R["apparel"]}</apparelMoney>
     <apparelTags>{li(at)}</apparelTags>
+    <initialResistanceRange>{res}</initialResistanceRange>   <!-- сопротивление вербовке -->
+    <initialWillRange>{wil}</initialWillRange>               <!-- воля (обращение в рабство) -->
 {bion}  </PawnKindDef>
 ''')
     rel={'neutral':'','hostile':'    <naturalEnemy>true</naturalEnemy>          <!-- враждебны с начала, но можно помириться -->\n',
