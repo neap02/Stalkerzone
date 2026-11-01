@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LanguageData>
-  <!-- Используются C#-частью -->
-  <SZ_AnomaliesShiftedLabel>Anomalies shifted</SZ_AnomaliesShiftedLabel>
-  <SZ_AnomaliesShiftedText>The emission has passed and the anomaly field has changed. The old anomalies are gone and new ones have formed elsewhere, possibly holding fresh artifacts.</SZ_AnomaliesShiftedText>
-  <SZ_ShelterOrdered>Emission approaching: colonists are heading for shelter. Drafted colonists stay where you put them.</SZ_ShelterOrdered>
-  <SZ_PsiBreakReason>psychic exposure</SZ_PsiBreakReason>
-</LanguageData>

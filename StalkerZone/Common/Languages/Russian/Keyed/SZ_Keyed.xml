@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LanguageData>
-  <!-- Используются C#-частью -->
-  <SZ_AnomaliesShiftedLabel>Аномалии сместились</SZ_AnomaliesShiftedLabel>
-  <SZ_AnomaliesShiftedText>Выброс прошёл, и поле аномалий изменилось. Старые аномалии исчезли, а новые возникли в других местах. В них могут быть свежие артефакты.</SZ_AnomaliesShiftedText>
-  <SZ_ShelterOrdered>Приближается Выброс: колонисты уходят в укрытие. Призванные колонисты остаются там, где вы их поставили.</SZ_ShelterOrdered>
-  <SZ_PsiBreakReason>пси-воздействие</SZ_PsiBreakReason>
-</LanguageData>

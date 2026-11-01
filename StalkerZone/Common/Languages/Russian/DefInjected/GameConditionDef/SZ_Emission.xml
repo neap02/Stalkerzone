@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LanguageData>
-  <SZ_Emission.label>выброс</SZ_Emission.label>
-  <SZ_Emission.description>Через регион проходит волна аномальной энергии. Оставайтесь под крышей, пока она не закончится.</SZ_Emission.description>
-  <SZ_Emission.endMessage>Выброс закончился.</SZ_Emission.endMessage>
-  <SZ_Emission.letterText>Небо краснеет: приближается Выброс. Всем укрыться под крышей!</SZ_Emission.letterText>
-</LanguageData>
