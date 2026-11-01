@@ -4,7 +4,8 @@
   <!-- Файл сгенерирован Source/Tools/gen_gear.py.
        Снаряжение Зоны. Броня от аномалий — статы категорий (SZ_Protection.xml), работают как
        обычная броня по закрытым частям тела. Радиация, пси и ячейки пояса — статы владельца.
-       Костюмы: свой рисунок для всех типов тела, износ (CompSuit: ниже прочность — слабее броня),
+       Комплект = куртка (SZ_Suit_*: торс, шея, плечи, руки) + штаны (SZ_Pants_*: ноги)
+       + шлем (SZ_Helm_*). Костюмы: свой рисунок для всех типов тела, износ (CompSuit: ниже прочность — слабее броня),
        улучшения на станке (SZ_SuitUpgrades.xml), ремонт на станке и ремкомплектом в поле. -->
 
   <StatDef>
@@ -49,7 +50,7 @@
     <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
     <apparel>
       <layers><li>Middle</li><li>Shell</li></layers>
-      <bodyPartGroups><li>Torso</li><li>Neck</li><li>Shoulders</li><li>Arms</li><li>Legs</li></bodyPartGroups>
+      <bodyPartGroups><li>Torso</li><li>Neck</li><li>Shoulders</li><li>Arms</li></bodyPartGroups>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
   </ThingDef>
@@ -108,6 +109,93 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_ScoutCloak</defName>
+    <label>scout cloak trousers</label>
+    <description>Trousers from the scout cloak set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/ScoutCloak</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>137</MaxHitPoints>
+      <MarketValue>122</MarketValue>
+      <Mass>0.8</Mass>
+      <WorkToMake>2800</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.135</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.045</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.09</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.045</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.027</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.045</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.09</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.045</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>6.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/ScoutCloak/ScoutCloak</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Cloth>32</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_ScoutCloak</defName>
+    <label>scout cloak hood</label>
+    <description>The hood from the scout cloak set.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/ScoutCloak</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>112</MaxHitPoints>
+      <MarketValue>105</MarketValue>
+      <Mass>0.4</Mass>
+      <WorkToMake>2400</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.128</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.043</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.085</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.043</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.025</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.043</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.085</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.043</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.03</SZ_RadiationResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/ScoutCloak/ScoutCloak</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li></tags>
+    </apparel>
+    <costList><Cloth>27</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- куртка сталкера: ячеек пояса 1, мест под улучшения 1 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_LonerJacket</defName>
@@ -151,6 +239,92 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
       <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_LonerJacket</defName>
+    <label>stalker jacket trousers</label>
+    <description>Trousers from the stalker jacket set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/LonerJacket</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>155</MaxHitPoints>
+      <MarketValue>105</MarketValue>
+      <Mass>0.9</Mass>
+      <WorkToMake>2800</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.225</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.09</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.135</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.09</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.045</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.09</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.135</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.09</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>7.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/LonerJacket/LonerJacket</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Cloth>28</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_LonerJacket</defName>
+    <label>stalker jacket cap</label>
+    <description>The cap from the stalker jacket set.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/LonerJacket</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>127</MaxHitPoints>
+      <MarketValue>90</MarketValue>
+      <Mass>0.4</Mass>
+      <WorkToMake>2400</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.212</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.085</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.128</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.085</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.043</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.085</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.128</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.085</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/LonerJacket/LonerJacket</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li></tags>
+    </apparel>
+    <costList><Cloth>24</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
     </recipeMaker>
   </ThingDef>
 
@@ -199,6 +373,93 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
       <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_Stalker</defName>
+    <label>stalker suit trousers</label>
+    <description>Trousers from the stalker suit set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/Stalker</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>191</MaxHitPoints>
+      <MarketValue>244</MarketValue>
+      <Mass>1.8</Mass>
+      <WorkToMake>4900</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.405</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.225</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.18</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.09</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.225</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.225</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.225</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Stalker/Stalker</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>21</Steel><Cloth>21</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_Stalker</defName>
+    <label>stalker suit helmet</label>
+    <description>The helmet from the stalker suit set.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/Stalker</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>157</MaxHitPoints>
+      <MarketValue>210</MarketValue>
+      <Mass>0.7</Mass>
+      <WorkToMake>4200</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.383</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.17</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.212</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.17</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.085</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.212</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.212</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.212</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Stalker/Stalker</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li></tags>
+    </apparel>
+    <costList><Steel>18</Steel><Cloth>18</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
     </recipeMaker>
   </ThingDef>
 
@@ -251,6 +512,93 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_StalkerReinforced</defName>
+    <label>reinforced stalker suit trousers</label>
+    <description>Trousers from the reinforced stalker suit set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/StalkerReinforced</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>218</MaxHitPoints>
+      <MarketValue>385</MarketValue>
+      <Mass>2.4</Mass>
+      <WorkToMake>7000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.54</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.252</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.27</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.27</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.162</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.27</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.27</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.27</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/StalkerReinforced/StalkerReinforced</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>35</Steel><Plasteel>11</Plasteel><Cloth>14</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_StalkerReinforced</defName>
+    <label>reinforced stalker suit visor helmet</label>
+    <description>The visor helmet from the reinforced stalker suit set. Covers the whole head.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/StalkerReinforced</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>180</MaxHitPoints>
+      <MarketValue>330</MarketValue>
+      <Mass>1.0</Mass>
+      <WorkToMake>6000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.51</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.238</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.255</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.255</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.153</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.255</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.255</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.255</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/StalkerReinforced/StalkerReinforced</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li></tags>
+    </apparel>
+    <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- полевая форма Долга: ячеек пояса 1, мест под улучшения 2 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_DutyUniform</defName>
@@ -295,6 +643,93 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
       <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_DutyUniform</defName>
+    <label>Duty field uniform trousers</label>
+    <description>Trousers from the Duty field uniform set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/DutyUniform</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>191</MaxHitPoints>
+      <MarketValue>210</MarketValue>
+      <Mass>1.5</Mass>
+      <WorkToMake>4900</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.405</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.18</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.18</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.09</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.135</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.18</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.135</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/DutyUniform/DutyUniform</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>21</Steel><Cloth>21</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_DutyUniform</defName>
+    <label>Duty field uniform helmet</label>
+    <description>The helmet from the Duty field uniform set.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/DutyUniform</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>157</MaxHitPoints>
+      <MarketValue>180</MarketValue>
+      <Mass>0.6</Mass>
+      <WorkToMake>4200</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.383</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.17</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.17</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.17</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.085</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.128</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.17</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.128</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/DutyUniform/DutyUniform</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li></tags>
+    </apparel>
+    <costList><Steel>18</Steel><Cloth>18</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
     </recipeMaker>
   </ThingDef>
 
@@ -347,6 +782,93 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_Duty</defName>
+    <label>Duty armored suit trousers</label>
+    <description>Trousers from the Duty armored suit set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/Duty</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>254</MaxHitPoints>
+      <MarketValue>454</MarketValue>
+      <Mass>3.0</Mass>
+      <WorkToMake>7000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.72</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.315</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.27</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.315</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.18</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.18</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.27</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.18</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Duty/Duty</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>35</Steel><Plasteel>11</Plasteel><Cloth>14</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_Duty</defName>
+    <label>Duty armored suit visor helmet</label>
+    <description>The visor helmet from the Duty armored suit set. Covers the whole head.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/Duty</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>210</MaxHitPoints>
+      <MarketValue>390</MarketValue>
+      <Mass>1.2</Mass>
+      <WorkToMake>6000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.68</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.297</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.255</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.297</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.17</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.17</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.255</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.17</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Duty/Duty</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li></tags>
+    </apparel>
+    <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- штурмовая броня Долга: ячеек пояса 2, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_DutyAssault</defName>
@@ -393,6 +915,93 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
       <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_DutyAssault</defName>
+    <label>Duty assault armor trousers</label>
+    <description>Trousers from the Duty assault armor set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/DutyAssault</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>281</MaxHitPoints>
+      <MarketValue>595</MarketValue>
+      <Mass>3.9</Mass>
+      <WorkToMake>7000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.855</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.405</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.315</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.405</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.27</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.225</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.315</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.225</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/DutyAssault/DutyAssault</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>35</Steel><Plasteel>11</Plasteel><Cloth>14</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_DutyAssault</defName>
+    <label>Duty assault armor visor helmet</label>
+    <description>The visor helmet from the Duty assault armor set. Covers the whole head.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/DutyAssault</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>232</MaxHitPoints>
+      <MarketValue>510</MarketValue>
+      <Mass>1.6</Mass>
+      <WorkToMake>6000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.807</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.383</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.297</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.383</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.255</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.212</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.297</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.212</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/DutyAssault/DutyAssault</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li></tags>
+    </apparel>
+    <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
     </recipeMaker>
   </ThingDef>
 
@@ -445,6 +1054,92 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_FreedomLight</defName>
+    <label>Freedom light suit trousers</label>
+    <description>Trousers from the Freedom light suit set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/FreedomLight</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>164</MaxHitPoints>
+      <MarketValue>175</MarketValue>
+      <Mass>0.9</Mass>
+      <WorkToMake>2800</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.27</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.108</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.18</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.135</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.072</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.225</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.18</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.18</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/FreedomLight/FreedomLight</wornGraphicPath>
+      <tags><li>SZ_Faction_Freedom</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Cloth>28</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_FreedomLight</defName>
+    <label>Freedom light suit cap</label>
+    <description>The cap from the Freedom light suit set.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/FreedomLight</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>135</MaxHitPoints>
+      <MarketValue>150</MarketValue>
+      <Mass>0.4</Mass>
+      <WorkToMake>2400</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.255</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.102</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.17</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.128</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.068</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.212</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.17</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.17</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/FreedomLight/FreedomLight</wornGraphicPath>
+      <tags><li>SZ_Faction_Freedom</li></tags>
+    </apparel>
+    <costList><Cloth>24</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- комбинезон Свободы: ячеек пояса 3, мест под улучшения 2 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_Freedom</defName>
@@ -490,6 +1185,93 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
       <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_Freedom</defName>
+    <label>Freedom combat suit trousers</label>
+    <description>Trousers from the Freedom combat suit set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/Freedom</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <MarketValue>315</MarketValue>
+      <Mass>1.8</Mass>
+      <WorkToMake>4900</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.45</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.27</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.225</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.135</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.315</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.27</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.27</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Freedom/Freedom</wornGraphicPath>
+      <tags><li>SZ_Faction_Freedom</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>21</Steel><Cloth>21</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_Freedom</defName>
+    <label>Freedom combat suit helmet</label>
+    <description>The helmet from the Freedom combat suit set.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/Freedom</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>165</MaxHitPoints>
+      <MarketValue>270</MarketValue>
+      <Mass>0.7</Mass>
+      <WorkToMake>4200</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.425</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.17</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.255</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.212</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.128</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.297</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.255</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.255</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Freedom/Freedom</wornGraphicPath>
+      <tags><li>SZ_Faction_Freedom</li></tags>
+    </apparel>
+    <costList><Steel>18</Steel><Cloth>18</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
     </recipeMaker>
   </ThingDef>
 
@@ -542,6 +1324,93 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_FreedomGuardian</defName>
+    <label>Freedom guardian armor trousers</label>
+    <description>Trousers from the Freedom guardian armor set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/FreedomGuardian</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>254</MaxHitPoints>
+      <MarketValue>560</MarketValue>
+      <Mass>3.3</Mass>
+      <WorkToMake>7000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.72</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.315</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.315</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.315</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.198</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.315</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.315</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.27</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/FreedomGuardian/FreedomGuardian</wornGraphicPath>
+      <tags><li>SZ_Faction_Freedom</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>35</Steel><Plasteel>11</Plasteel><Cloth>14</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_FreedomGuardian</defName>
+    <label>Freedom guardian armor visor helmet</label>
+    <description>The visor helmet from the Freedom guardian armor set. Covers the whole head.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/FreedomGuardian</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>210</MaxHitPoints>
+      <MarketValue>480</MarketValue>
+      <Mass>1.3</Mass>
+      <WorkToMake>6000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.68</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.297</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.297</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.297</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.187</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.297</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.297</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.255</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/FreedomGuardian/FreedomGuardian</wornGraphicPath>
+      <tags><li>SZ_Faction_Freedom</li></tags>
+    </apparel>
+    <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- бандитская куртка: ячеек пояса 1, мест под улучшения 1 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_Bandit</defName>
@@ -585,6 +1454,93 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
       <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_Bandit</defName>
+    <label>bandit jacket trousers</label>
+    <description>Trousers from the bandit jacket set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/Bandit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>164</MaxHitPoints>
+      <MarketValue>87</MarketValue>
+      <Mass>1.2</Mass>
+      <WorkToMake>2800</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.27</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.108</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.09</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.09</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.045</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.045</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.09</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.045</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>6.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Bandit/Bandit</wornGraphicPath>
+      <tags><li>SZ_Faction_Bandits</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Cloth>28</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_Bandit</defName>
+    <label>bandit jacket hood</label>
+    <description>The hood from the bandit jacket set.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/Bandit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>135</MaxHitPoints>
+      <MarketValue>75</MarketValue>
+      <Mass>0.5</Mass>
+      <WorkToMake>2400</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.255</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.102</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.085</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.085</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.043</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.043</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.085</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.043</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.03</SZ_RadiationResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Bandit/Bandit</wornGraphicPath>
+      <tags><li>SZ_Faction_Bandits</li></tags>
+    </apparel>
+    <costList><Cloth>24</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
     </recipeMaker>
   </ThingDef>
 
@@ -635,6 +1591,93 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_BanditCoat</defName>
+    <label>reinforced leather coat trousers</label>
+    <description>Trousers from the reinforced leather coat set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/BanditCoat</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>182</MaxHitPoints>
+      <MarketValue>192</MarketValue>
+      <Mass>1.5</Mass>
+      <WorkToMake>4900</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.36</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.162</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.135</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.135</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.072</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.09</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.135</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.09</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/BanditCoat/BanditCoat</wornGraphicPath>
+      <tags><li>SZ_Faction_Bandits</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>21</Steel><Cloth>21</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_BanditCoat</defName>
+    <label>reinforced leather coat hood</label>
+    <description>The hood from the reinforced leather coat set.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/BanditCoat</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <MarketValue>165</MarketValue>
+      <Mass>0.6</Mass>
+      <WorkToMake>4200</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.34</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.153</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.128</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.128</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.068</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.085</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.128</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.085</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.03</SZ_RadiationResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/BanditCoat/BanditCoat</wornGraphicPath>
+      <tags><li>SZ_Faction_Bandits</li></tags>
+    </apparel>
+    <costList><Steel>18</Steel><Cloth>18</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- армейская полевая форма: ячеек пояса 1, мест под улучшения 1 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_MilitaryUniform</defName>
@@ -678,6 +1721,92 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
       <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_MilitaryUniform</defName>
+    <label>army field uniform trousers</label>
+    <description>Trousers from the army field uniform set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/MilitaryUniform</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>173</MaxHitPoints>
+      <MarketValue>140</MarketValue>
+      <Mass>0.9</Mass>
+      <WorkToMake>2800</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.315</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.108</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.135</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.09</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.045</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.09</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.135</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.09</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>7.5</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/MilitaryUniform/MilitaryUniform</wornGraphicPath>
+      <tags><li>SZ_Faction_Military</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Cloth>28</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_MilitaryUniform</defName>
+    <label>army field uniform cap</label>
+    <description>The cap from the army field uniform set.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/MilitaryUniform</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>142</MaxHitPoints>
+      <MarketValue>120</MarketValue>
+      <Mass>0.4</Mass>
+      <WorkToMake>2400</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.297</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.102</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.128</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.085</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.043</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.085</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.128</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.085</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/MilitaryUniform/MilitaryUniform</wornGraphicPath>
+      <tags><li>SZ_Faction_Military</li></tags>
+    </apparel>
+    <costList><Cloth>24</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
     </recipeMaker>
   </ThingDef>
 
@@ -729,6 +1858,93 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_Military</defName>
+    <label>army body armor trousers</label>
+    <description>Trousers from the army body armor set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/Military</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>236</MaxHitPoints>
+      <MarketValue>350</MarketValue>
+      <Mass>2.7</Mass>
+      <WorkToMake>7000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.63</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.27</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.225</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.27</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.135</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.135</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.18</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.135</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Military/Military</wornGraphicPath>
+      <tags><li>SZ_Faction_Military</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>35</Steel><Plasteel>11</Plasteel><Cloth>14</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_Military</defName>
+    <label>army body armor visor helmet</label>
+    <description>The visor helmet from the army body armor set. Covers the whole head.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/Military</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>195</MaxHitPoints>
+      <MarketValue>300</MarketValue>
+      <Mass>1.1</Mass>
+      <WorkToMake>6000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.595</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.255</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.212</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.255</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.128</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.128</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.17</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.128</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Military/Military</wornGraphicPath>
+      <tags><li>SZ_Faction_Military</li></tags>
+    </apparel>
+    <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- армейская штурмовая броня: ячеек пояса 1, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_MilitaryAssault</defName>
@@ -777,6 +1993,93 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_MilitaryAssault</defName>
+    <label>army assault armor trousers</label>
+    <description>Trousers from the army assault armor set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/MilitaryAssault</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>281</MaxHitPoints>
+      <MarketValue>560</MarketValue>
+      <Mass>3.9</Mass>
+      <WorkToMake>7000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.855</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.405</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.315</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.36</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.225</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.18</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.27</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.225</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/MilitaryAssault/MilitaryAssault</wornGraphicPath>
+      <tags><li>SZ_Faction_Military</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>35</Steel><Plasteel>11</Plasteel><Cloth>14</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_MilitaryAssault</defName>
+    <label>army assault armor visor helmet</label>
+    <description>The visor helmet from the army assault armor set. Covers the whole head.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/MilitaryAssault</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>232</MaxHitPoints>
+      <MarketValue>480</MarketValue>
+      <Mass>1.6</Mass>
+      <WorkToMake>6000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.807</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.383</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.297</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.34</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.212</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.17</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.255</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.212</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/MilitaryAssault/MilitaryAssault</wornGraphicPath>
+      <tags><li>SZ_Faction_Military</li></tags>
+    </apparel>
+    <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- костюм Монолита: ячеек пояса 2, мест под улучшения 2 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_MonolithSuit</defName>
@@ -822,6 +2125,93 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
       <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_MonolithSuit</defName>
+    <label>Monolith suit trousers</label>
+    <description>Trousers from the Monolith suit set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/MonolithSuit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <MarketValue>350</MarketValue>
+      <Mass>1.8</Mass>
+      <WorkToMake>4900</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.45</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.198</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.27</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.225</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.135</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.27</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.27</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.225</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/MonolithSuit/MonolithSuit</wornGraphicPath>
+      <tags><li>SZ_Faction_Monolith</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>21</Steel><Cloth>21</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_MonolithSuit</defName>
+    <label>Monolith suit psi helmet</label>
+    <description>The psi helmet from the Monolith suit set.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/MonolithSuit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>165</MaxHitPoints>
+      <MarketValue>300</MarketValue>
+      <Mass>0.7</Mass>
+      <WorkToMake>4200</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.425</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.187</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.255</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.212</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.128</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.255</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.255</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.212</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.4</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/MonolithSuit/MonolithSuit</wornGraphicPath>
+      <tags><li>SZ_Faction_Monolith</li></tags>
+    </apparel>
+    <costList><Steel>18</Steel><Cloth>18</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
     </recipeMaker>
   </ThingDef>
 
@@ -874,6 +2264,93 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_Monolith</defName>
+    <label>Monolith armor trousers</label>
+    <description>Trousers from the Monolith armor set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/Monolith</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>245</MaxHitPoints>
+      <MarketValue>525</MarketValue>
+      <Mass>3.0</Mass>
+      <WorkToMake>7000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.675</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.315</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.315</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.315</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.225</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.315</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.315</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.27</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Monolith/Monolith</wornGraphicPath>
+      <tags><li>SZ_Faction_Monolith</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>35</Steel><Plasteel>11</Plasteel><Cloth>14</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_Monolith</defName>
+    <label>Monolith armor visor helmet</label>
+    <description>The visor helmet from the Monolith armor set. Covers the whole head.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/Monolith</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>202</MaxHitPoints>
+      <MarketValue>450</MarketValue>
+      <Mass>1.2</Mass>
+      <WorkToMake>6000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.637</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.297</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.297</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.297</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.212</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.297</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.297</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.255</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Monolith/Monolith</wornGraphicPath>
+      <tags><li>SZ_Faction_Monolith</li></tags>
+    </apparel>
+    <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- лёгкий костюм наёмника: ячеек пояса 2, мест под улучшения 1 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_MercLight</defName>
@@ -919,6 +2396,92 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
       <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_MercLight</defName>
+    <label>mercenary light suit trousers</label>
+    <description>Trousers from the mercenary light suit set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/MercLight</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>173</MaxHitPoints>
+      <MarketValue>210</MarketValue>
+      <Mass>0.9</Mass>
+      <WorkToMake>2800</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.315</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.135</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.18</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.135</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.072</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.18</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.18</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.135</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/MercLight/MercLight</wornGraphicPath>
+      <tags><li>SZ_Faction_Mercenaries</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Cloth>28</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_MercLight</defName>
+    <label>mercenary light suit cap</label>
+    <description>The cap from the mercenary light suit set.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/MercLight</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>142</MaxHitPoints>
+      <MarketValue>180</MarketValue>
+      <Mass>0.4</Mass>
+      <WorkToMake>2400</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.297</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.128</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.17</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.128</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.068</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.17</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.17</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.128</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/MercLight/MercLight</wornGraphicPath>
+      <tags><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <costList><Cloth>24</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
     </recipeMaker>
   </ThingDef>
 
@@ -970,6 +2533,93 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_Mercenary</defName>
+    <label>mercenary suit trousers</label>
+    <description>Trousers from the mercenary suit set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/Mercenary</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>218</MaxHitPoints>
+      <MarketValue>385</MarketValue>
+      <Mass>2.1</Mass>
+      <WorkToMake>4900</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.54</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.225</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.27</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.225</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.135</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.27</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.27</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.225</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Mercenary/Mercenary</wornGraphicPath>
+      <tags><li>SZ_Faction_Mercenaries</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>21</Steel><Cloth>21</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_Mercenary</defName>
+    <label>mercenary suit helmet</label>
+    <description>The helmet from the mercenary suit set.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/Mercenary</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>180</MaxHitPoints>
+      <MarketValue>330</MarketValue>
+      <Mass>0.8</Mass>
+      <WorkToMake>4200</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.51</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.212</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.255</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.212</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.128</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.255</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.255</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.212</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Mercenary/Mercenary</wornGraphicPath>
+      <tags><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <costList><Steel>18</Steel><Cloth>18</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- тяжёлая броня наёмника: ячеек пояса 3, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_MercHeavy</defName>
@@ -1016,6 +2666,93 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
       <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_MercHeavy</defName>
+    <label>mercenary heavy armor trousers</label>
+    <description>Trousers from the mercenary heavy armor set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/MercHeavy</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>263</MaxHitPoints>
+      <MarketValue>595</MarketValue>
+      <Mass>3.6</Mass>
+      <WorkToMake>7000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.765</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.36</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.315</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.315</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.198</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.27</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.27</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.225</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/MercHeavy/MercHeavy</wornGraphicPath>
+      <tags><li>SZ_Faction_Mercenaries</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Steel>35</Steel><Plasteel>11</Plasteel><Cloth>14</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_MercHeavy</defName>
+    <label>mercenary heavy armor visor helmet</label>
+    <description>The visor helmet from the mercenary heavy armor set. Covers the whole head.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/MercHeavy</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>217</MaxHitPoints>
+      <MarketValue>510</MarketValue>
+      <Mass>1.4</Mass>
+      <WorkToMake>6000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.722</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.34</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.297</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.297</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.187</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.255</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.255</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.212</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/MercHeavy/MercHeavy</wornGraphicPath>
+      <tags><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
     </recipeMaker>
   </ThingDef>
 
@@ -1069,6 +2806,94 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_Scientist</defName>
+    <label>scientific suit trousers</label>
+    <description>Trousers from the scientific suit set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/Scientist</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>146</MaxHitPoints>
+      <MarketValue>489</MarketValue>
+      <Mass>2.1</Mass>
+      <WorkToMake>7000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.18</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.09</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.36</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.18</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.135</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.45</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.54</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.63</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Scientist/Scientist</wornGraphicPath>
+      <tags><li>SZ_Faction_Scientists</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Synthread>21</Synthread><Plasteel>11</Plasteel><ComponentSpacer>1</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_Scientist</defName>
+    <label>scientific suit sealed helmet</label>
+    <description>The sealed helmet from the scientific suit set. Covers the whole head.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/Scientist</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>420</MarketValue>
+      <Mass>0.8</Mass>
+      <WorkToMake>6000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.17</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.085</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.34</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.17</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.128</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.425</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.51</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.595</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.15</SZ_PsiProtection>
+      <SZ_RadiationResistance>0.15</SZ_RadiationResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Scientist/Scientist</wornGraphicPath>
+      <tags><li>SZ_Faction_Scientists</li></tags>
+    </apparel>
+    <costList><Synthread>18</Synthread><Plasteel>9</Plasteel><ComponentSpacer>1</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- костюм замкнутого цикла: ячеек пояса 4, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_ClosedCycle</defName>
@@ -1116,6 +2941,94 @@
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
       <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_ClosedCycle</defName>
+    <label>closed-cycle suit trousers</label>
+    <description>Trousers from the closed-cycle suit set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/ClosedCycle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>182</MaxHitPoints>
+      <MarketValue>770</MarketValue>
+      <Mass>2.7</Mass>
+      <WorkToMake>7000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.36</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.45</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.36</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.27</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.585</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.63</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.72</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>12.5</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/ClosedCycle/ClosedCycle</wornGraphicPath>
+      <tags><li>SZ_Faction_Scientists</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Synthread>21</Synthread><Plasteel>11</Plasteel><ComponentSpacer>1</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_ClosedCycle</defName>
+    <label>closed-cycle suit sealed helmet</label>
+    <description>The sealed helmet from the closed-cycle suit set. Covers the whole head.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/ClosedCycle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <MarketValue>660</MarketValue>
+      <Mass>1.1</Mass>
+      <WorkToMake>6000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.34</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.17</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.425</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.34</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.255</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.552</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.595</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.68</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.15</SZ_PsiProtection>
+      <SZ_RadiationResistance>0.15</SZ_RadiationResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/ClosedCycle/ClosedCycle</wornGraphicPath>
+      <tags><li>SZ_Faction_Scientists</li></tags>
+    </apparel>
+    <costList><Synthread>18</Synthread><Plasteel>9</Plasteel><ComponentSpacer>1</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
     </recipeMaker>
   </ThingDef>
 
@@ -1169,6 +3082,94 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_Exo</defName>
+    <label>exoskeleton trousers</label>
+    <description>Trousers from the exoskeleton set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/Exo</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>290</MaxHitPoints>
+      <MarketValue>700</MarketValue>
+      <Mass>7.5</Mass>
+      <WorkToMake>11200</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.9</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.45</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.405</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.45</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.315</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.27</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.36</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.27</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Exo/Exo</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Freedom</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Plasteel>42</Plasteel><ComponentIndustrial>2</ComponentIndustrial><ComponentSpacer>2</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>PoweredArmor</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>9</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_Exo</defName>
+    <label>exoskeleton exo helmet</label>
+    <description>The exo helmet from the exoskeleton set. Covers the whole head.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/Exo</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>240</MaxHitPoints>
+      <MarketValue>600</MarketValue>
+      <Mass>3.0</Mass>
+      <WorkToMake>9600</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.85</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.425</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.383</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.425</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.297</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.255</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.34</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.255</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.1</SZ_PsiProtection>
+      <SZ_RadiationResistance>0.05</SZ_RadiationResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Exo/Exo</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Freedom</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <costList><Plasteel>36</Plasteel><ComponentIndustrial>2</ComponentIndustrial><ComponentSpacer>2</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>PoweredArmor</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>9</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- штурмовой экзоскелет: ячеек пояса 4, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_ExoAssault</defName>
@@ -1219,14 +3220,101 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_ExoAssault</defName>
+    <label>assault exoskeleton trousers</label>
+    <description>Trousers from the assault exoskeleton set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/ExoAssault</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>335</MaxHitPoints>
+      <MarketValue>770</MarketValue>
+      <Mass>9.0</Mass>
+      <WorkToMake>11200</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>1.125</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.585</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.495</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.54</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.405</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.315</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.405</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.315</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>5.0</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/ExoAssault/ExoAssault</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Plasteel>42</Plasteel><ComponentIndustrial>2</ComponentIndustrial><ComponentSpacer>2</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>PoweredArmor</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>9</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_ExoAssault</defName>
+    <label>assault exoskeleton exo helmet</label>
+    <description>The exo helmet from the assault exoskeleton set. Covers the whole head.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/ExoAssault</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>277</MaxHitPoints>
+      <MarketValue>660</MarketValue>
+      <Mass>3.6</Mass>
+      <WorkToMake>9600</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>1.062</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.552</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.468</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.51</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.383</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.297</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.383</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.297</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.1</SZ_PsiProtection>
+      <SZ_RadiationResistance>0.05</SZ_RadiationResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/ExoAssault/ExoAssault</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <costList><Plasteel>36</Plasteel><ComponentIndustrial>2</ComponentIndustrial><ComponentSpacer>2</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>PoweredArmor</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>9</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helmet_Stalker</defName>
     <label>stalker helmet</label>
     <description>A steel helmet with a padded liner. Also slightly dulls psychic pressure.</description>
     <graphicData>
-      <texPath>Things/Pawn/Humanlike/Apparel/SimpleHelmet/SimpleHelmet</texPath>
+      <texPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Helmet_Stalker/Helmet_Stalker</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <color>(0.40, 0.42, 0.35)</color>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -1249,7 +3337,7 @@
     <apparel>
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
-      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SimpleHelmet/SimpleHelmet</wornGraphicPath>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Helmet_Stalker/Helmet_Stalker</wornGraphicPath>
       <tags><li>SZ_Faction_Loners</li><li>SZ_Faction_Duty</li><li>SZ_Faction_Military</li><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <costList><Steel>40</Steel></costList>
@@ -1267,9 +3355,8 @@
     <label>psi helmet</label>
     <description>A helmet with a built-in psi shield circuit. Protects the mind from psychic fields and the emission.</description>
     <graphicData>
-      <texPath>Things/Pawn/Humanlike/Apparel/AdvancedHelmet/AdvancedHelmet</texPath>
+      <texPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Helmet_Psi/Helmet_Psi</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <color>(0.75, 0.78, 0.85)</color>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -1292,7 +3379,7 @@
     <apparel>
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
-      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/AdvancedHelmet/AdvancedHelmet</wornGraphicPath>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Helmet_Psi/Helmet_Psi</wornGraphicPath>
       <tags><li>SZ_Faction_Monolith</li><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <costList><Plasteel>25</Plasteel><ComponentIndustrial>3</ComponentIndustrial></costList>

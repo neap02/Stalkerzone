@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -32,6 +34,52 @@ namespace StalkerZone
                 n++;
             }
             Log.Message("[StalkerZone] Палитра Зоны применена к погодам: " + n + ".");
+            AddZoneWeathers();
+        }
+
+        /// <summary>
+        /// Погоды Зоны во всех биомах с погодой. Делается кодом, а не XML-патчем:
+        /// список погод биома ищется по типу поля, а не по имени узла в XML.
+        /// </summary>
+        private static void AddZoneWeathers()
+        {
+            var weights = new Dictionary<string, float>
+            {
+                { "SZ_Weather_Overcast", 8f },
+                { "SZ_Weather_Drizzle", 4f },
+                { "SZ_Weather_ZoneFog", 3f },
+            };
+            const BindingFlags all = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+            FieldInfo field = typeof(BiomeDef).GetFields(all).FirstOrDefault(f => f.FieldType == typeof(List<WeatherCommonalityRecord>));
+            if (field == null)
+            {
+                Log.Warning("[StalkerZone] Не найден список погод биома: погоды Зоны не добавлены.");
+                return;
+            }
+            int biomes = 0;
+            foreach (BiomeDef b in DefDatabase<BiomeDef>.AllDefsListForReading)
+            {
+                var list = field.GetValue(b) as List<WeatherCommonalityRecord>;
+                if (list == null || list.Count == 0)
+                    continue;                      // биомы без погоды (космос и т.п.) не трогаем
+                foreach (KeyValuePair<string, float> kv in weights)
+                {
+                    WeatherDef w = DefDatabase<WeatherDef>.GetNamedSilentFail(kv.Key);
+                    if (w == null || list.Any(r => r.weather == w))
+                        continue;
+                    list.Add(new WeatherCommonalityRecord { weather = w, commonality = kv.Value });
+                }
+                // сбросить кеш вероятностей погоды, если игра его уже построила
+                foreach (FieldInfo f in typeof(BiomeDef).GetFields(all))
+                {
+                    if (f.Name.IndexOf("cached", System.StringComparison.OrdinalIgnoreCase) >= 0
+                        && f.Name.IndexOf("weather", System.StringComparison.OrdinalIgnoreCase) >= 0
+                        && !f.FieldType.IsValueType)
+                        f.SetValue(b, null);
+                }
+                biomes++;
+            }
+            Log.Message("[StalkerZone] Погоды Зоны добавлены в биомы: " + biomes + ".");
         }
 
         private static SkyColorSet Gloom(SkyColorSet s)

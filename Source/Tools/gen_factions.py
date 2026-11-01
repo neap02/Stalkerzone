@@ -94,6 +94,16 @@ GEAR={
  'Scientists': (['SZ_Suit_Scientist','SZ_GasMask'],['SZ_Suit_Scientist','SZ_GasMask'],['SZ_Suit_Mercenary','SZ_Helmet_Stalker'],['SZ_Suit_ClosedCycle','SZ_Helmet_Psi']),
 }
 
+def _expand(lst):
+    suit=next((i for i in lst if i.startswith('SZ_Suit_')),None); k=suit[len('SZ_Suit_'):]
+    out=[]
+    for i in lst:
+        out.append(f'SZ_Helm_{k}' if i=='SZ_Helmet_Stalker' else i)
+        if i==suit: out.append(f'SZ_Pants_{k}')
+    if k in ('Exo','ExoAssault') and not any('Helm' in x for x in out): out.append(f'SZ_Helm_{k}')
+    return out
+GEAR={f:tuple(_expand(l) for l in v) for f,v in GEAR.items()}   # куртка + штаны + шлем комплекта
+
 
 # ---------- XML ----------
 o=[]; w=o.append

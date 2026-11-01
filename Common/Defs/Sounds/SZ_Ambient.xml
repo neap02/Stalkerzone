@@ -13,6 +13,7 @@
         <grains><li Class="AudioGrain_Folder"><clipFolderPath>SZ/Ambient/Wind</clipFolderPath></li></grains>
         <volumeRange>18~24</volumeRange>
         <pitchRange>0.9~1.1</pitchRange>
+        <onCamera>true</onCamera>
       </li>
     </subSounds>
   </SoundDef>
@@ -27,6 +28,7 @@
         <grains><li Class="AudioGrain_Folder"><clipFolderPath>SZ/Ambient/Drone</clipFolderPath></li></grains>
         <volumeRange>12~16</volumeRange>
         <pitchRange>0.9~1.1</pitchRange>
+        <onCamera>true</onCamera>
       </li>
     </subSounds>
   </SoundDef>
@@ -41,6 +43,7 @@
         <grains><li Class="AudioGrain_Folder"><clipFolderPath>SZ/Ambient/Shots</clipFolderPath></li></grains>
         <volumeRange>10~14</volumeRange>
         <pitchRange>0.9~1.1</pitchRange>
+        <onCamera>true</onCamera>
       </li>
     </subSounds>
   </SoundDef>
@@ -55,6 +58,7 @@
         <grains><li Class="AudioGrain_Folder"><clipFolderPath>SZ/Ambient/Howl</clipFolderPath></li></grains>
         <volumeRange>12~18</volumeRange>
         <pitchRange>0.9~1.1</pitchRange>
+        <onCamera>true</onCamera>
       </li>
     </subSounds>
   </SoundDef>

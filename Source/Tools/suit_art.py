@@ -4,6 +4,7 @@
 # Сбоку капюшон эталона над плечом исключён: верх тела закрыт округлой "шапкой" плеч.
 import math, random
 import numpy as np
+from scipy import ndimage
 from PIL import Image, ImageDraw, ImageFilter, ImageChops
 
 N=512; OUT=18                      # кадр и толщина обводки
@@ -45,6 +46,18 @@ class Fit:
         return r[-1][1],r[-1][2]
     def at(s,t):              # t=0 верх, 1 низ -> (y, левый, правый, центр, ширина)
         y=s.top+t*s.H; l,r=s.edge(y); return y,l,r,(l+r)/2,r-l
+    def band(s,t0,t1):
+        """Многоугольник части силуэта между долями высоты t0..t1 (0 — верх, 1 — низ)."""
+        if t0<=0 and t1>=1: return s.polygon()
+        y0=s.top+t0*s.H; y1=s.top+t1*s.H
+        ys=[y0]+[y for y,_,_ in s.rows if y0<y<y1]+[y1]
+        left=[(s.edge(y)[0],y) for y in ys]; right=[(s.edge(y)[1],y) for y in reversed(ys)]
+        pts=left[:]
+        if t1>=1: pts.append(((s.rows[-1][1]+s.rows[-1][2])/2,s.rows[-1][0]+4))
+        else:     pts.append(((left[-1][0]+right[0][0])/2,y1+6))      # подол чуть провисает
+        pts+=right
+        if t0<=0: pts.append(((s.rows[0][1]+s.rows[0][2])/2,s.rows[0][0]-4))
+        return pts
     def polygon(s):
         r=s.rows; cx0=(r[0][1]+r[0][2])/2; cx1=(r[-1][1]+r[-1][2])/2
         return [(cx0,r[0][0]-4)]+[(l,y) for y,l,_ in r]+[(cx1,r[-1][0]+4)]+[(rr,y) for y,_,rr in reversed(r)]
@@ -107,9 +120,13 @@ def dirt(layer,seed,fit):
         t=rng.uniform(0.2,0.85); y,l,r,cx,w=fit.at(t); x=rng.uniform(l+20,r-20); a=rng.uniform(-0.5,0.5)
         d.line([(x,y),(x+12*math.cos(a),y+12*math.sin(a))],fill=(255,255,255,28),width=2)
 
-def render(key, cls, cols, body, view, seed=0):
+TOP_T=0.66; PANTS_T=0.50          # подол куртки и пояс штанов (штаны заходят под куртку)
+
+def render(key, cls, cols, body, view, seed=0, part='top'):
     base,sec,acc=cols; fit=Fit(body,view)
-    poly=fit.polygon()
+    if part=='pants':
+        return render_pants(key,cls,cols,body,view,seed)
+    poly=fit.band(0,TOP_T) if part=='top' else fit.polygon()
     mask=Image.new('L',(N,N),0); ImageDraw.Draw(mask).polygon(poly,fill=255)
     layer=fabric(base,seed^hash((key,body,view))&0xffff)
     d=ImageDraw.Draw(layer,'RGBA')
@@ -121,7 +138,7 @@ def render(key, cls, cols, body, view, seed=0):
             t=rng.uniform(0,1); y,l,r,cx,w=fit.at(t); x=rng.uniform(l,r); rr=rng.uniform(10,26)
             d.ellipse([x-rr,y-rr*0.6,x+rr,y+rr*0.6],fill=C(sec if rng.random()<0.55 else acc,1.0,220))
         for _ in range(60):
-            t=rng.uniform(0.75,1.0); y,l,r,cx,w=fit.at(t); x=rng.uniform(l,r)
+            t=rng.uniform(0.56,0.64); y,l,r,cx,w=fit.at(t); x=rng.uniform(l,r)
             d.line([(x,y),(x+rng.uniform(-6,6),y+rng.uniform(14,30))],fill=C(sec,0.8),width=4)
 
     if view=='north':
@@ -146,8 +163,8 @@ def render(key, cls, cols, body, view, seed=0):
                 x=cx0+dx*w0; d.line([(x,y0),(x,fit.at(0.95)[0])],fill=(140,140,135,255),width=12)
         else:                                                    # тяжёлая: спинная плита
             bevel_rect(d,(cx0-w0*0.36,y0,cx0+w0*0.36,y1),sec,r=16,rivets=True)
-            for t in (0.68,0.76,0.84):
-                y,l,r,cx,w=fit.at(t); bevel_rect(d,(cx-w*0.38,y,cx+w*0.38,y+22),tuple(v*0.9 for v in sec),r=8)
+            for t in (0.52,0.58):
+                y,l,r,cx,w=fit.at(t); bevel_rect(d,(cx-w*0.38,y,cx+w*0.38,y+20),tuple(v*0.9 for v in sec),r=8)
     else:
         f=0.55 if side else 1.0                                  # сбоку всё уже и смещено вперёд
         def X(cx,w,dx): return cx+(w*0.18 if side else 0)+dx*w*f
@@ -166,17 +183,17 @@ def render(key, cls, cols, body, view, seed=0):
                     x=cS+dx*wS*0.47; rr=34 if cls=='heavy' else 26
                     d.ellipse([x-rr,yS-rr*0.8,x+rr,yS+rr*0.8],fill=C(sec,0.92)); d.arc([x-rr,yS-rr*0.8,x+rr,yS+rr*0.8],200,340,fill=C(sec,1.25),width=5)
             if cls=='heavy':
-                for i in range(3):                               # сегменты живота
-                    y,l,r,cx,w=fit.at(0.6+i*0.09); bevel_rect(d,(X(cx,w,-0.4),y,X(cx,w,0.4),y+26),tuple(v*(0.92-i*0.06) for v in sec),r=8)
+                for i in range(2):                               # сегменты живота
+                    y,l,r,cx,w=fit.at(0.50+i*0.05); bevel_rect(d,(X(cx,w,-0.4),y,X(cx,w,0.4),y+20),tuple(v*(0.92-i*0.06) for v in sec),r=8)
                 d.rounded_rectangle([X(cS,wS,-0.3),yS-34,X(cS,wS,0.3),yS-4],radius=10,fill=C(sec,0.75))   # горжет
             strap(d,[(lW+6,yW+8),(rW-6,yW+8)],sec,w=20); buckle(d,X(cW,wW,0.05),yW+8)
             for dx in ((-0.3,-0.1,0.1,0.3) if not side else (0.0,0.25)):
-                y,l,r,cx,w=fit.at(0.62); pouch(d,X(cx,w,dx)-20,y,40,46,tuple(v*0.8 for v in sec))
+                y,l,r,cx,w=fit.at(0.555); pouch(d,X(cx,w,dx)-20,y,40,40,tuple(v*0.8 for v in sec))
             if cls=='medium': stitches(d,[(X(cC,wC,-0.3),yC+30),(X(cC,wC,0.3),yC+30)],C(sec,1.3))
         elif cls=='science':
             for dx in ((-0.44,0.44) if not side else (0.3,)):    # цветные боковые вставки
                 x=X(cS,wS,dx); d.rectangle([x-12,yS,x+12,fit.at(0.95)[0]],fill=C(sec))
-            for t in (0.70,0.80):                                # светоотражающие полосы
+            for t in (0.56,):                                    # светоотражающая полоса
                 y,l,r,cx,w=fit.at(t); d.rectangle([l+6,y,r-6,y+12],fill=(222,222,212,255)); d.line([(l+6,y+3),(r-6,y+3)],fill=(255,255,250,255),width=3)
             if not side:
                 bevel_rect(d,(cS-44,yS+30,cS+44,yS+96),acc,r=10)                             # панель приборов
@@ -187,11 +204,11 @@ def render(key, cls, cols, body, view, seed=0):
             d.line([(X(cS,wS,-0.2),yS+20),(X(cS,wS,0.2),yS+20)],fill=(255,255,255,60),width=10)   # глянец
         elif cls=='exo':
             bevel_rect(d,(X(cS,wS,-0.34),yS-6,X(cS,wS,0.34),yC),sec,r=10,rivets=True)
-            for i in range(2):
-                y,l,r,cx,w=fit.at(0.6+i*0.12); bevel_rect(d,(X(cx,w,-0.36),y,X(cx,w,0.36),y+30),tuple(v*0.95 for v in sec),r=6,rivets=True)
+            for i in range(1):
+                y,l,r,cx,w=fit.at(0.52); bevel_rect(d,(X(cx,w,-0.36),y,X(cx,w,0.36),y+30),tuple(v*0.95 for v in sec),r=6,rivets=True)
             for dx in ((-0.5,0.5) if not side else (0.42,)):     # каркас и гидравлика
                 pts=[]
-                for t in (0.08,0.5,0.95):
+                for t in (0.08,0.36,0.64):
                     y,l,r,cx,w=fit.at(t); pts.append((X(cx,w,dx*0.95),y))
                 d.line(pts,fill=(118,118,112,255),width=16,joint='curve'); d.line(pts,fill=(170,170,165,255),width=6,joint='curve')
                 for (x,y) in pts: d.ellipse([x-14,y-14,x+14,y+14],fill=(95,95,90,255)); d.ellipse([x-6,y-6,x+6,y+6],fill=(190,190,185,255))
@@ -201,6 +218,9 @@ def render(key, cls, cols, body, view, seed=0):
             y0,l0,r0,cx0,w0=fit.at(0.12); y1=fit.at(0.6)[0]
             bevel_rect(d,(l0+6,y0+10,l0+w0*0.22,y1),tuple(v*0.8 for v in sec),r=14)
 
+    if part=='top':                                              # кайма подола
+        yh=fit.top+TOP_T*fit.H
+        d.rectangle([0,yh-14,N,yh+8],fill=C(base,0.72)); stitches(d,[(0,yh-20),(N,yh-20)],C(base,1.2))
     dirt(layer,seed+7,fit)
     # объём: свет сверху-слева, тень снизу-справа
     g=np.zeros((N,N),np.float32); yy,xx=np.mgrid[0:N,0:N]
@@ -216,3 +236,167 @@ def render(key, cls, cols, body, view, seed=0):
     ink=Image.new('RGBA',(N,N),INK); ink.putalpha(ring)
     out=Image.new('RGBA',(N,N),(0,0,0,0)); out.alpha_composite(layer); out.alpha_composite(ink)
     return out
+
+
+def finish(layer, mask, top, height):
+    """Объём, обрезка по маске и обводка внутрь (по расстоянию до края маски)."""
+    yy,xx=np.mgrid[0:N,0:N]
+    g=np.clip((yy-top)/max(1,height)*0.35+(xx-256)/512*0.25,0,0.45)
+    dark=Image.new('RGBA',(N,N),(0,0,0,255)); dark.putalpha(Image.fromarray((g*255).astype(np.uint8))); layer.alpha_composite(dark)
+    hl=np.clip(0.18-((yy-top)/max(1,height))*0.4,0,0.18)
+    light=Image.new('RGBA',(N,N),(255,255,255,255)); light.putalpha(Image.fromarray((hl*255).astype(np.uint8))); layer.alpha_composite(light)
+    m=np.array(mask)>127
+    dist=ndimage.distance_transform_edt(m)
+    ring=((dist>0)&(dist<=OUT)).astype(np.uint8)*255
+    layer.putalpha(ImageChops.multiply(layer.getchannel('A'),mask))
+    ink=Image.new('RGBA',(N,N),INK); ink.putalpha(Image.fromarray(ring))
+    out=Image.new('RGBA',(N,N),(0,0,0,0)); out.alpha_composite(layer); out.alpha_composite(ink)
+    return out
+
+# ======================= ШТАНЫ =======================
+def render_pants(key, cls, cols, body, view, seed=0):
+    base,sec,acc=cols; fit=Fit(body,view)
+    pc=tuple(v*0.82 for v in base) if cls not in ('science','exo') else base
+    poly=fit.band(PANTS_T,1.0)
+    mask=Image.new('L',(N,N),0); ImageDraw.Draw(mask).polygon(poly,fill=255)
+    layer=fabric(pc,seed^hash((key,body,view,'p'))&0xffff)
+    d=ImageDraw.Draw(layer,'RGBA'); rng=random.Random(hash((key,body,view,'p'))&0xffff)
+    side=view=='east'; back=view=='north'
+    def X(cx,w,dx): return cx+(w*0.12 if side else 0)+dx*w*(0.55 if side else 1.0)
+    if cls=='cloak':
+        for _ in range(70):
+            t=rng.uniform(0.6,1); y,l,r,cx,w=fit.at(t); x=rng.uniform(l,r); rr=rng.uniform(10,22)
+            d.ellipse([x-rr,y-rr*0.6,x+rr,y+rr*0.6],fill=C(sec if rng.random()<0.55 else acc,1.0,220))
+    # шов между ногами (у пешек RimWorld ног нет, шов их подсказывает)
+    if not side:
+        y0=fit.at(0.80)[0]; y1=fit.at(1.0)[0]; cx=fit.at(0.9)[3]
+        d.line([(cx,y0),(cx,y1)],fill=C(pc,0.55),width=6)
+    yT,lT,rT,cT,wT=fit.at(0.74); yK,lK,rK,cK,wK=fit.at(0.88)
+    dxs=(-0.28,0.28) if not side else (0.1,)
+    if cls in ('light','cloak','medium'):
+        for dx in dxs: pouch(d,X(cT,wT,dx)-26,yT-12,52,50,tuple(v*0.85 for v in pc))      # карманы-карго
+        if cls=='medium':
+            for dx in dxs:                                                                  # наколенники
+                x=X(cK,wK,dx); d.ellipse([x-26,yK-20,x+26,yK+22],fill=C(sec)); d.arc([x-26,yK-20,x+26,yK+22],200,340,fill=C(sec,1.3),width=5)
+        stitches(d,[(lT+16,yT+44),(lT+16,yK)],C(pc,1.25)); stitches(d,[(rT-16,yT+44),(rT-16,yK)],C(pc,1.25))
+    elif cls=='heavy':
+        for dx in dxs:
+            bevel_rect(d,(X(cT,wT,dx)-30,yT-16,X(cT,wT,dx)+30,yT+40),sec,r=10,rivets=True)    # бедренные пластины
+            x=X(cK,wK,dx); bevel_rect(d,(x-28,yK-18,x+28,yK+26),tuple(v*0.9 for v in sec),r=14)  # наколенники
+    elif cls=='science':
+        for dx in ((-0.44,0.44) if not side else (0.3,)):
+            x=X(cT,wT,dx); d.rectangle([x-12,fit.at(0.6)[0],x+12,fit.at(0.98)[0]],fill=C(sec))
+        for t in (0.80,0.92):
+            y,l,r,cx,w=fit.at(t); d.rectangle([l+6,y,r-6,y+12],fill=(222,222,212,255)); d.line([(l+6,y+3),(r-6,y+3)],fill=(255,255,250,255),width=3)
+    elif cls=='exo':
+        for dx in ((-0.42,0.42) if not side else (0.38,)):
+            pts=[]
+            for t in (0.6,0.86,0.99):
+                y,l,r,cx,w=fit.at(t); pts.append((X(cx,w,dx),y))
+            d.line(pts,fill=(118,118,112,255),width=16,joint='curve'); d.line(pts,fill=(170,170,165,255),width=6,joint='curve')
+            for (x,y) in pts[:2]: d.ellipse([x-15,y-15,x+15,y+15],fill=(95,95,90,255)); d.ellipse([x-6,y-6,x+6,y+6],fill=(190,190,185,255))
+        for dx in dxs: bevel_rect(d,(X(cT,wT,dx)-28,yT-10,X(cT,wT,dx)+28,yT+44),sec,r=8,rivets=True)
+    if back and cls in ('light','medium','cloak'):
+        for dx in (-0.22,0.22): pouch(d,X(cT,wT,dx)-22,yT-30,44,40,tuple(v*0.8 for v in pc))
+    dirt(layer,seed+11,fit)
+    return finish(layer,mask,fit.top+PANTS_T*fit.H,fit.H*(1-PANTS_T))
+
+# ======================= ШЛЕМЫ =======================
+# Мерки головы (512): центр ~ (256,255); купол от y~140; лицо открыто примерно y 250-350.
+HCX=256
+def _ellipse_mask(box):
+    m=Image.new('L',(N,N),0); ImageDraw.Draw(m).ellipse(box,fill=255); return m
+def _poly_mask(pts):
+    m=Image.new('L',(N,N),0); ImageDraw.Draw(m).polygon(pts,fill=255); return m
+def _cut_below(m,y):
+    a=np.array(m); a[int(y):]=0; return Image.fromarray(a)
+def _sub(a,b): return ImageChops.subtract(a,b)
+def _add(a,b): return ImageChops.lighter(a,b)
+
+def glass(d,box,tint=(70,105,125)):
+    d.ellipse(box,fill=tint+(255,))
+    x0,y0,x1,y1=box; w,h=x1-x0,y1-y0
+    i1=min(12,w/4,h/4); i2=min(30,w/3,h/3)          # блики не больше самого стекла
+    d.arc([x0+i1,y0+i1,x1-i1,y1-i1],200,250,fill=(220,235,240,200),width=max(2,int(min(10,h/5))))
+    if w>70 and h>70: d.arc([x0+i2,y0+i2,x1-i2,y1-i2],205,230,fill=(220,235,240,120),width=6)
+
+def render_helmet(key, style, cols, view, seed=0):
+    base,sec,acc=cols
+    main=sec if style in ('visor','exo') else base
+    layer=fabric(main,seed^hash((key,view,'h'))&0xffff,grain=5,blotch=8)
+    d=ImageDraw.Draw(layer,'RGBA')
+    e=view=='east'; n=view=='north'
+    if style=='cap':                                               # вязаная шапка
+        mask=_cut_below(_ellipse_mask([HCX-104,150,HCX+104,340] if not e else [140,150,360,340]),250)
+        cx=HCX if not e else 250
+        d.rectangle([0,214,N,250],fill=C(main,0.78))
+        for x in range(0,N,10): d.line([(x,216),(x,248)],fill=C(main,0.65),width=3)
+        for x in range(cx-80,cx+80,22): d.line([(x,160),(x+8,212)],fill=C(main,0.85),width=4)
+    elif style=='hood':                                            # капюшон
+        if n:   mask=_ellipse_mask([HCX-122,128,HCX+122,372])
+        elif e: mask=_sub(_ellipse_mask([112,128,372,368]),_ellipse_mask([262,205,420,350]))
+        else:   mask=_sub(_ellipse_mask([HCX-122,128,HCX+122,372]),_ellipse_mask([HCX-74,214,HCX+74,346]))
+        for i in range(5):
+            a=0.6+i*0.45; d.arc([HCX-110,140,HCX+110,360],200+i*25,215+i*25,fill=C(main,0.7),width=5)
+        d.ellipse([HCX-80,206,HCX+80,352] if not (e or n) else [0,0,0,0],outline=C(main,0.6),width=10)
+    elif style in ('combat','psi'):                                # боевой шлем
+        cx=HCX if not e else 248
+        dome=_cut_below(_ellipse_mask([cx-116,140,cx+116,392] if not e else [112,140,382,392]),268)
+        ears=_poly_mask([(cx-128,240),(cx-104,240),(cx-104,300),(cx-128,296)]) if not e else _poly_mask([(200,236),(244,236),(244,300),(200,300)])
+        ears=_add(ears,_poly_mask([(cx+104,240),(cx+128,240),(cx+128,296),(cx+104,300)])) if not e else ears
+        mask=_add(dome,ears)
+        d.rectangle([0,250,N,270],fill=C(main,0.7))                                     # кромка
+        if not n:
+            if e: bevel_rect(d,(318,188,392,236),(0.25,0.25,0.25),r=10); glass(d,[340,192,390,232])
+            else:
+                d.rounded_rectangle([cx-96,186,cx+96,236],radius=16,fill=(55,55,52,255))  # очки
+                glass(d,[cx-86,192,cx-6,232]); glass(d,[cx+6,192,cx+86,232])
+        else:
+            d.line([(cx-110,214),(cx+110,214)],fill=(55,55,52,255),width=14)                # ремешок очков
+        for x in ((cx-100,cx+100) if not e else (226,)): d.ellipse([x-7,262,x+7,276],fill=(160,160,155,255))
+        if style=='psi':                                          # пси-контур и антенна
+            for i in range(3): d.arc([cx-96+i*8,150+i*8,cx+96-i*8,330-i*8],200,340,fill=(185,120,60,255),width=5)
+            ax=cx+70 if not e else 200
+            d.line([(ax,150),(ax+18,96)],fill=(150,150,145,255),width=6); d.ellipse([ax+10,86,ax+26,102],fill=C(acc))
+            mask=_add(mask,_poly_mask([(ax-6,150),(ax+30,82),(ax+40,90),(ax+8,156)]))
+    elif style=='visor':                                           # шлем с забралом
+        cx=HCX if not e else 248
+        dome=_cut_below(_ellipse_mask([cx-118,138,cx+118,392] if not e else [110,138,384,392]),270)
+        if n:   mask=_add(dome,_poly_mask([(cx-112,250),(cx+112,250),(cx+96,340),(cx-96,340)]))      # назатыльник
+        elif e: mask=_add(dome,_poly_mask([(300,230),(396,236),(392,346),(318,352)]))
+        else:   mask=_add(dome,_poly_mask([(cx-96,236),(cx+96,236),(cx+86,352),(cx-86,352)]))
+        if not n:
+            box=(cx-96,236,cx+96,352) if not e else (300,230,396,352)
+            bevel_rect(d,box,tuple(v*0.85 for v in main),r=16,rivets=True)
+            yv=286; d.rectangle([box[0]+18,yv,box[2]-18,yv+16],fill=(25,25,28,255))                 # смотровая щель
+            d.line([(box[0]+22,yv+4),(box[2]-22,yv+4)],fill=C(acc,1.0,160),width=3)
+        else:
+            for y in (280,310): d.line([(cx-100,y),(cx+100,y)],fill=C(main,0.7),width=6)
+        d.rectangle([0,252,N,272],fill=C(main,0.72))
+    elif style=='sealed':                                          # гермошлем со стеклом
+        cx=HCX if not e else 250
+        mask=_ellipse_mask([cx-126,124,cx+126,376])
+        if not n:
+            if e: glass(d,[296,180,394,330])
+            else: glass(d,[cx-90,182,cx+90,338])
+            d.ellipse([cx-104,170,cx+104,350] if not e else [284,168,404,342],outline=C(sec),width=12)
+        else:
+            bevel_rect(d,(cx-40,190,cx+40,300),sec,r=12); d.line([(cx,300),(cx,372)],fill=(40,40,40,255),width=10)
+        d.rectangle([0,344,N,376],fill=C(sec,0.85))                                      # воротник
+        for x in ((cx-112,cx+112) if not e else (180,)): d.ellipse([x-12,250,x+12,274],fill=(150,150,145,255))
+    elif style=='exo':                                             # шлем экзоскелета
+        cx=HCX if not e else 248
+        if e:  pts=[(120,300),(126,198),(176,146),(318,146),(380,196),(396,288),(352,362),(170,362)]
+        else:  pts=[(cx-112,300),(cx-118,200),(cx-80,144),(cx+80,144),(cx+118,200),(cx+112,300),(cx+72,366),(cx-72,366)]
+        mask=_poly_mask(pts)
+        for y in (196,300): d.line([(0,y),(N,y)],fill=C(main,0.7),width=6)
+        if not n:
+            if e: d.polygon([(330,232),(398,236),(398,262),(338,262)],fill=C(acc)); d.line([(338,240),(392,242)],fill=(255,255,255,140),width=3)
+            else:
+                d.polygon([(cx-92,226),(cx+92,226),(cx+84,256),(cx+16,256),(cx+12,318),(cx-12,318),(cx-16,256),(cx-84,256)],fill=C(acc))
+                d.line([(cx-84,232),(cx+84,232)],fill=(255,255,255,140),width=4)
+            for i in range(4): d.rectangle([cx-50+i*28,330,cx-36+i*28,352],fill=(40,40,40,255))   # решётка фильтра
+        else:
+            bevel_rect(d,(cx-70,180,cx+70,300),tuple(v*0.85 for v in main),r=10,rivets=True)
+    dirt_h=Image.new('RGBA',(N,N),(0,0,0,0))
+    return finish(layer,mask,130,250)

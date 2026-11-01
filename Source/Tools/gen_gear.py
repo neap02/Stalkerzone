@@ -136,12 +136,12 @@ SUITS=[
 ]
 
 HEAD=[
- ('Helmet_Stalker','stalker helmet','шлем сталкера',f'{VAN}/SimpleHelmet/SimpleHelmet','Overhead',['UpperHead'],(0.40,0.42,0.35),
+ ('Helmet_Stalker','stalker helmet','шлем сталкера',f'{VAN}/SZ_Helmets/Helmet_Stalker/Helmet_Stalker','Overhead',['UpperHead'],(0.40,0.42,0.35),
    dict(sharp=0.40,blunt=0.20,heat=0.10,strike=0.20,rupture=0.10,shock=0.10,burn=0.10,chem=0.05),dict(psi=0.10),
    250,1.5,('Smithing',['TableMachining'],{'Steel':40},3,4000),['Loners','Duty','Military','Mercenaries'],
    'A steel helmet with a padded liner. Also slightly dulls psychic pressure.',
    'Стальной шлем с мягким подшлемником. Немного ослабляет и пси-давление.'),
- ('Helmet_Psi','psi helmet','пси-шлем',f'{VAN}/AdvancedHelmet/AdvancedHelmet','Overhead',['UpperHead'],(0.75,0.78,0.85),
+ ('Helmet_Psi','psi helmet','пси-шлем',f'{VAN}/SZ_Helmets/Helmet_Psi/Helmet_Psi','Overhead',['UpperHead'],(0.75,0.78,0.85),
    dict(sharp=0.30,blunt=0.15,heat=0.15,strike=0.15,rupture=0.10,shock=0.20,burn=0.15,chem=0.10),dict(psi=0.50),
    900,1.2,('MicroelectronicsBasics',['FabricationBench'],{'Plasteel':25,'ComponentIndustrial':3},7,9000),['Monolith','Scientists'],
    'A helmet with a built-in psi shield circuit. Protects the mind from psychic fields and the emission.',
@@ -173,6 +173,14 @@ UPG=[
    'MicroelectronicsBasics',{'Steel':15,'ComponentIndustrial':2},6,'An extra artifact container: +1 belt slot.','Дополнительный контейнер для артефакта: +1 ячейка пояса.'),
 ]
 
+# Стиль шлема по классу костюма (и особые случаи)
+HSTYLE={'light':'cap','cloak':'hood','medium':'combat','heavy':'visor','science':'sealed','exo':'exo'}
+HSTYLE_BY_SUIT={'MonolithSuit':'psi','Bandit':'hood','BanditCoat':'hood'}
+HNOUN={'cap':('cap','шапка'),'hood':('hood','капюшон'),'combat':('helmet','шлем'),'psi':('psi helmet','пси-шлем'),
+       'visor':('visor helmet','шлем с забралом'),'sealed':('sealed helmet','гермошлем'),'exo':('exo helmet','шлем экзоскелета')}
+HFULL={'visor','sealed','exo'}                   # закрывают всю голову
+HBONUS={'psi':{'psi':0.40},'sealed':{'psi':0.15,'rad':0.15},'exo':{'psi':0.10,'rad':0.05},'visor':{'psi':0.05},'combat':{'psi':0.05},'cap':{},'hood':{'rad':0.03}}
+
 ARMOR={'sharp':'ArmorRating_Sharp','blunt':'ArmorRating_Blunt','heat':'ArmorRating_Heat',
        'strike':'SZ_ArmorRating_Strike','rupture':'SZ_ArmorRating_Rupture','shock':'SZ_ArmorRating_Shock',
        'burn':'SZ_ArmorRating_Burn','chem':'SZ_ArmorRating_Chemical'}
@@ -198,7 +206,8 @@ w("""<?xml version="1.0" encoding="utf-8"?>
   <!-- Файл сгенерирован Source/Tools/gen_gear.py.
        Снаряжение Зоны. Броня от аномалий — статы категорий (SZ_Protection.xml), работают как
        обычная броня по закрытым частям тела. Радиация, пси и ячейки пояса — статы владельца.
-       Костюмы: свой рисунок для всех типов тела, износ (CompSuit: ниже прочность — слабее броня),
+       Комплект = куртка (SZ_Suit_*: торс, шея, плечи, руки) + штаны (SZ_Pants_*: ноги)
+       + шлем (SZ_Helm_*). Костюмы: свой рисунок для всех типов тела, износ (CompSuit: ниже прочность — слабее броня),
        улучшения на станке (SZ_SuitUpgrades.xml), ремонт на станке и ремкомплектом в поле. -->
 
   <StatDef>
@@ -243,7 +252,7 @@ w("""<?xml version="1.0" encoding="utf-8"?>
     <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
     <apparel>
       <layers><li>Middle</li><li>Shell</li></layers>
-      <bodyPartGroups><li>Torso</li><li>Neck</li><li>Shoulders</li><li>Arms</li><li>Legs</li></bodyPartGroups>
+      <bodyPartGroups><li>Torso</li><li>Neck</li><li>Shoulders</li><li>Arms</li></bodyPartGroups>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
   </ThingDef>
@@ -296,12 +305,81 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
 """)
     tr_t.append((f'SZ_Suit_{k}',ru,dru))
 
+    # ---- штаны комплекта ----
+    def scaled(keys,f): return ''.join(f'      <{ARMOR[a]}>{round(prot[a]*f,3)}</{ARMOR[a]}>\n' for a in keys if prot.get(a))
+    pcost={m:max(1,int(math.ceil(v*0.35))) for m,v in cost.items()}
+    tg=''.join(f'<li>SZ_Faction_{t}</li>' for t in tags)
+    w(f"""
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Pants_{k}</defName>
+    <label>{esc(en)} trousers</label>
+    <description>Trousers from the {esc(en)} set: they protect the legs the way the jacket protects the torso.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Pants/{k}</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>{int(110+prot['sharp']*180)}</MaxHitPoints>
+      <MarketValue>{int(val*0.35)}</MarketValue>
+      <Mass>{round(mass*0.3,1)}</Mass>
+      <WorkToMake>{int(work*0.35)}</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.3</Flammability>
+{scaled(['sharp','blunt','heat','strike','rupture','shock','burn','chem'],0.9)}      <Insulation_Cold>{round(prot['cold']*0.5,1)}</Insulation_Cold>
+    </statBases>
+    <apparel>
+      <layers><li>OnSkin</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>{VAN}/SZ_Pants/{k}/{k}</wornGraphicPath>
+      <tags>{tg}</tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+{recipe_block(research,users,pcost,max(1,skill-1))}  </ThingDef>
+""")
+    tr_t.append((f'SZ_Pants_{k}',f'{ru} (штаны)',f'Штаны из комплекта «{ru}»: защищают ноги так же, как куртка защищает торс.'))
+
+    # ---- шлем комплекта ----
+    st=HSTYLE_BY_SUIT.get(k,HSTYLE[cls]); hen,hru=HNOUN[st]
+    hcost={m:max(1,int(math.ceil(v*0.3))) for m,v in cost.items()}
+    hb=''.join(f'      <{OFFS[a]}>{v}</{OFFS[a]}>\n' for a,v in HBONUS[st].items())
+    grp='<li>FullHead</li>' if st in HFULL else '<li>UpperHead</li>'
+    w(f"""
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helm_{k}</defName>
+    <label>{esc(en)} {hen}</label>
+    <description>The {hen} from the {esc(en)} set.{' Covers the whole head.' if st in HFULL else ''}</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Helmets/{k}</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>{int(90+prot['sharp']*150)}</MaxHitPoints>
+      <MarketValue>{int(val*0.3)}</MarketValue>
+      <Mass>{round(max(0.4,mass*0.12),1)}</Mass>
+      <WorkToMake>{int(work*0.3)}</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+{scaled(['sharp','blunt','heat','strike','rupture','shock','burn','chem'],0.85)}    </statBases>
+    <equippedStatOffsets>
+{hb}    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups>{grp}</bodyPartGroups>
+      <wornGraphicPath>{VAN}/SZ_Helmets/{k}/{k}</wornGraphicPath>
+      <tags>{tg}</tags>
+    </apparel>
+{recipe_block(research,users,hcost,max(1,skill-1))}  </ThingDef>
+""")
+    tr_t.append((f'SZ_Helm_{k}',f'{ru} ({hru})',f'{hru.capitalize()} из комплекта «{ru}».'+(' Закрывает всю голову.' if st in HFULL else '')))
+
 for (k,en,ru,tex,layer,groups,col,armor_d,offs_d,val,mass,rec,tags,den,dru) in HEAD:
     research,users,cost,skill,work=rec
     armor=''.join(f'      <{ARMOR[a]}>{v}</{ARMOR[a]}>\n' for a,v in armor_d.items())
     offs=''.join(f'      <{OFFS[a]}>{v}</{OFFS[a]}>\n' for a,v in offs_d.items())
     gr=''.join(f'<li>{g}</li>' for g in groups); tg=''.join(f'<li>SZ_Faction_{t}</li>' for t in tags)
-    color='' if col==(1,1,1) else f'\n      <color>({col[0]:.2f}, {col[1]:.2f}, {col[2]:.2f})</color>'
+    color=''
     w(f"""
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_{k}</defName>
@@ -500,14 +578,33 @@ BODIES=['Male','Female','Thin','Fat','Hulk']
 for n,(k,en,ru,cls,cols,*_rest) in enumerate(SUITS):
     base_path=f'{T}/{VAN}/SZ_Suits/{k}/{k}'
     os.makedirs(os.path.dirname(base_path),exist_ok=True)
+    pants_path=f'{T}/{VAN}/SZ_Pants/{k}/{k}'; os.makedirs(os.path.dirname(pants_path),exist_ok=True)
     for body in BODIES:
         for view in ('south','east','north'):
-            suit_art.render(k,cls,cols,body,view,seed=n*31).save(f'{base_path}_{body}_{view}.png',optimize=True)
-    im=suit_art.render(k,cls,cols,'Male','south',seed=n*31)
-    bb=im.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16
-    cx,cy=(bb[0]+bb[2])//2,(bb[1]+bb[3])//2
-    icon=im.crop((cx-side//2,cy-side//2,cx+side//2,cy+side//2)).resize((128,128),Image.LANCZOS)
-    os.makedirs(f'{T}/Things/Item/SZ_Suits',exist_ok=True); icon.save(f'{T}/Things/Item/SZ_Suits/{k}.png')
+            suit_art.render(k,cls,cols,body,view,seed=n*31,part='top').save(f'{base_path}_{body}_{view}.png',optimize=True)
+            suit_art.render(k,cls,cols,body,view,seed=n*31,part='pants').save(f'{pants_path}_{body}_{view}.png',optimize=True)
+    st=HSTYLE_BY_SUIT.get(k,HSTYLE[cls])
+    helm_path=f'{T}/{VAN}/SZ_Helmets/{k}/{k}'; os.makedirs(os.path.dirname(helm_path),exist_ok=True)
+    for view in ('south','east','north'):
+        suit_art.render_helmet(k,st,cols,view,seed=n*31).save(f'{helm_path}_{view}.png',optimize=True)
+    def icon_of(im,folder,name):
+        bb=im.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16
+        cx,cy=(bb[0]+bb[2])//2,(bb[1]+bb[3])//2
+        os.makedirs(f'{T}/Things/Item/{folder}',exist_ok=True)
+        im.crop((cx-side//2,cy-side//2,cx+side//2,cy+side//2)).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/{folder}/{name}.png')
+    icon_of(suit_art.render(k,cls,cols,'Male','south',seed=n*31,part='top'),'SZ_Suits',k)
+    icon_of(suit_art.render(k,cls,cols,'Male','south',seed=n*31,part='pants'),'SZ_Pants',k)
+    icon_of(suit_art.render_helmet(k,st,cols,'south',seed=n*31),'SZ_Helmets',k)
+
+# общие шлемы (шлем сталкера, пси-шлем): свой рисунок
+for k,st,cols in (('Helmet_Stalker','combat',((0.40,0.42,0.35),(0.30,0.32,0.26),(0.80,0.70,0.30))),
+                  ('Helmet_Psi','psi',((0.62,0.64,0.70),(0.45,0.47,0.52),(0.40,0.70,0.90)))):
+    hp=f'{T}/{VAN}/SZ_Helmets/{k}/{k}'; os.makedirs(os.path.dirname(hp),exist_ok=True)
+    for view in ('south','east','north'):
+        suit_art.render_helmet(k,st,cols,view).save(f'{hp}_{view}.png',optimize=True)
+    im=suit_art.render_helmet(k,st,cols,'south'); bb=im.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16
+    cx,cy=(bb[0]+bb[2])//2,(bb[1]+bb[3])//2; os.makedirs(f'{T}/Things/Item/SZ_Helmets',exist_ok=True)
+    im.crop((cx-side//2,cy-side//2,cx+side//2,cy+side//2)).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/SZ_Helmets/{k}.png')
 
 # ---------- Остальная графика ----------
 def save(path,img): os.makedirs(os.path.dirname(path),exist_ok=True); img.save(path)
