@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ================= КАТЕГОРИИ ЗАЩИТЫ ОТ АНОМАЛИЙ =================
+       Каждый урон аномалий (DamageDef в SZ_Anomalies.xml) относится к одной категории.
+       Категория указывает, какой стат брони от неё защищает. Это ванильная система брони:
+       она работает и без DLL, и для одежды, и для "естественной" брони.
+
+       Как дать защиту будущему костюму сталкера:
+         <statBases>
+           <SZ_ArmorRating_Burn>0.4</SZ_ArmorRating_Burn>
+           <SZ_ArmorRating_Shock>0.6</SZ_ArmorRating_Shock>
+         </statBases>
+       Как дать защиту артефакту или гену: equippedStatOffsets / statOffsets с теми же статами.
+
+       Значение работает как обычная броня: сравнивается с пробитием урона,
+       часть урона отражается, часть уменьшается вдвое (ванильная формула). -->
+
+  <DamageArmorCategoryDef>
+    <defName>SZ_Strike</defName>
+    <label>strike</label>
+    <armorRatingStat>SZ_ArmorRating_Strike</armorRatingStat>
+  </DamageArmorCategoryDef>
+
+  <DamageArmorCategoryDef>
+    <defName>SZ_Rupture</defName>
+    <label>rupture</label>
+    <armorRatingStat>SZ_ArmorRating_Rupture</armorRatingStat>
+  </DamageArmorCategoryDef>
+
+  <DamageArmorCategoryDef>
+    <defName>SZ_Shock</defName>
+    <label>electric shock</label>
+    <armorRatingStat>SZ_ArmorRating_Shock</armorRatingStat>
+  </DamageArmorCategoryDef>
+
+  <DamageArmorCategoryDef>
+    <defName>SZ_Burn</defName>
+    <label>burn</label>
+    <armorRatingStat>SZ_ArmorRating_Burn</armorRatingStat>
+  </DamageArmorCategoryDef>
+
+  <DamageArmorCategoryDef>
+    <defName>SZ_Chemical</defName>
+    <label>chemical burn</label>
+    <armorRatingStat>SZ_ArmorRating_Chemical</armorRatingStat>
+  </DamageArmorCategoryDef>
+
+  <!-- ===== Статы брони: показываются у одежды, если заданы ===== -->
+  <StatDef Name="SZ_ArmorRatingBase" Abstract="True">
+    <category>Apparel</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <maxValue>2</maxValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <showIfUndefined>false</showIfUndefined>   <!-- не показывать 0% у всей одежды -->
+  </StatDef>
+
+  <StatDef ParentName="SZ_ArmorRatingBase">
+    <defName>SZ_ArmorRating_Strike</defName>
+    <label>strike protection</label>
+    <description>Protection against gravitational anomalies: blows, crushing and being thrown around.</description>
+  </StatDef>
+
+  <StatDef ParentName="SZ_ArmorRatingBase">
+    <defName>SZ_ArmorRating_Rupture</defName>
+    <label>rupture protection</label>
+    <description>Protection against the tearing and shredding of the deadliest gravitational anomalies.</description>
+  </StatDef>
+
+  <StatDef ParentName="SZ_ArmorRatingBase">
+    <defName>SZ_ArmorRating_Shock</defName>
+    <label>electric shock protection</label>
+    <description>Protection against electric anomalies and their discharges.</description>
+  </StatDef>
+
+  <StatDef ParentName="SZ_ArmorRatingBase">
+    <defName>SZ_ArmorRating_Burn</defName>
+    <label>burn protection</label>
+    <description>Protection against thermal anomalies and anomalous fire.</description>
+  </StatDef>
+
+  <StatDef ParentName="SZ_ArmorRatingBase">
+    <defName>SZ_ArmorRating_Chemical</defName>
+    <label>chemical protection</label>
+    <description>Protection against caustic and toxic anomalies.</description>
+  </StatDef>
+
+  <!-- ===== Пси-защита (как защита от радиации: 0 = нет, 1 = полная) =====
+       Уменьшает пси-воздействие пси-полей и Выброса (C#-часть).
+       Работает вместе с пси-чувствительностью: доза × чувствительность × (1 − защита). -->
+  <StatDef>
+    <defName>SZ_PsiProtection</defName>
+    <label>psi protection</label>
+    <description>Protection of the mind against psychic fields and the emission. Reduces psychic exposure.</description>
+    <category>PawnCombat</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <maxValue>1</maxValue>
+    <toStringStyle>PercentZero</toStringStyle>
+  </StatDef>
+
+</Defs>

@@ -7,23 +7,34 @@ TEX='/mnt/user-data/outputs/StalkerZone/Common/Textures/Things'
 # ---------------- Урон ----------------
 # key, en label, ru label, hediff, armor, dmg, ap, fleck, sound, colorCenter, colorEdge, en death, ru death
 DAMAGE=[
- ('SZ_ElectricDischarge','electric discharge','электрический разряд','Burn','Heat',14,0.3,'BlastEMP','SZ_Electro_Discharge','(0.6, 0.8, 1.0)','(0.3, 0.5, 1.0)',
-  '{0} was killed by an anomalous electric discharge.','{0} погибает от разряда аномалии.'),
- ('SZ_GravityCrushLight','gravitational blow','гравитационный удар','Crush','Blunt',10,0.15,'BlastDry','SZ_Gravity_Discharge','(0.7, 0.5, 1.0)','(0.4, 0.2, 0.7)',
+ # key, en, ru, ранение, категория защиты, урон, пробитие брони, эффект (XML-режим), звук, цвета, сообщения о смерти
+ ('SZ_GravityCrushLight','gravitational blow','гравитационный удар','Crush','SZ_Strike',12,0.15,'BlastDry','SZ_Gravity_Discharge','(0.7, 0.5, 1.0)','(0.4, 0.2, 0.7)',
   '{0} was killed by a gravitational anomaly.','{0} погибает в гравитационной аномалии.'),
- ('SZ_GravityCrush','gravitational crush','гравитационное сдавливание','Crush','Blunt',18,0.2,'BlastDry','SZ_Gravity_Discharge','(0.7, 0.5, 1.0)','(0.4, 0.2, 0.7)',
-  '{0} was crushed by a gravitational anomaly.','{0} раздавлен гравитационной аномалией.'),
- ('SZ_GravityCrushHeavy','gravitational collapse','гравитационный коллапс','Crush','Blunt',24,0.3,'BlastDry','SZ_Gravity_Discharge','(0.6, 0.4, 0.9)','(0.3, 0.15, 0.6)',
+ ('SZ_GravityCrushHeavy','gravitational collapse','гравитационный коллапс','Crush','SZ_Strike',35,0.35,'BlastDry','SZ_Gravity_Discharge','(0.6, 0.4, 0.9)','(0.3, 0.15, 0.6)',
   '{0} was crushed by a gravitational collapse.','{0} раздавлен гравитационным коллапсом.'),
- ('SZ_GravityShred','gravitational shredding','гравитационный разрыв','Cut','Sharp',30,0.35,'BlastDry','SZ_Gravity_Discharge','(0.9, 0.2, 0.2)','(0.5, 0.05, 0.1)',
+ ('SZ_GravityCrush','gravitational crush','гравитационное сдавливание','Crush','SZ_Strike',22,0.25,'BlastDry','SZ_Gravity_Discharge','(0.7, 0.5, 1.0)','(0.4, 0.2, 0.7)',
+  '{0} was crushed by a gravitational anomaly.','{0} раздавлен гравитационной аномалией.'),
+ ('SZ_GravityShred','gravitational shredding','гравитационный разрыв','Cut','SZ_Rupture',40,0.4,'BlastDry','SZ_Gravity_Discharge','(0.9, 0.2, 0.2)','(0.5, 0.05, 0.1)',
   '{0} was torn apart by an anomaly.','{0} разорван аномалией.'),
- ('SZ_ThermalBurn','anomalous heat','аномальный жар','Burn','Heat',16,0.25,'BlastFlame','SZ_Fire_Discharge','(1.0, 0.6, 0.2)','(0.8, 0.3, 0.1)',
+ ('SZ_ElectricDischarge','electric discharge','электрический разряд','Burn','SZ_Shock',18,0.3,'BlastEMP','SZ_Electro_Discharge','(0.6, 0.8, 1.0)','(0.3, 0.5, 1.0)',
+  '{0} was killed by an anomalous electric discharge.','{0} погибает от разряда аномалии.'),
+ ('SZ_ThermalBurn','anomalous heat','аномальный жар','Burn','SZ_Burn',22,0.3,'BlastFlame','SZ_Fire_Discharge','(1.0, 0.6, 0.2)','(0.8, 0.3, 0.1)',
   '{0} was burned alive by a thermal anomaly.','{0} сгорает в термической аномалии.'),
- ('SZ_ChemicalBurn','caustic splash','едкий всплеск','Burn','Heat',12,0.2,'BlastDry','SZ_Acid_Discharge','(0.4, 1.0, 0.4)','(0.2, 0.6, 0.2)',
+ ('SZ_CometBurn','fiery touch','огненное касание','Burn','SZ_Burn',14,0.25,'BlastFlame','SZ_Fire_Discharge','(1.0, 0.6, 0.2)','(0.8, 0.3, 0.1)',
+  '{0} was burned by a comet.','{0} сгорает от кометы.'),
+ ('SZ_ChemicalBurn','caustic splash','едкий всплеск','Burn','SZ_Chemical',16,0.2,'BlastDry','SZ_Acid_Discharge','(0.4, 1.0, 0.4)','(0.2, 0.6, 0.2)',
   '{0} was dissolved by a chemical anomaly.','{0} погибает в химической аномалии.'),
- ('SZ_FuzzSting','stinging fibers','жгучие волокна','Scratch','Sharp',7,0.1,'BlastDry','SZ_Fuzz_Discharge','(1.0, 0.95, 0.7)','(0.8, 0.75, 0.5)',
+ ('SZ_FuzzSting','stinging fibers','жгучие волокна','Scratch','SZ_Chemical',9,0.1,'BlastDry','SZ_Fuzz_Discharge','(1.0, 0.95, 0.7)','(0.8, 0.75, 0.5)',
   '{0} was killed by stinging fibers.','{0} погибает от жгучих волокон.'),
 ]
+# Категории защиты (DamageArmorCategoryDef в SZ_Protection.xml): подпись для описаний
+CAT={'SZ_Strike':('strike','удар'),'SZ_Rupture':('rupture','разрыв'),'SZ_Shock':('electric shock','электрошок'),
+     'SZ_Burn':('burn','ожог'),'SZ_Chemical':('chemical burn','химический ожог')}
+DMG={d[0]:d for d in DAMAGE}
+def dmg_line(key, ru=False):
+    d=DMG[key]; cat=CAT[d[4]]
+    if ru: return f' Урон: {d[5]} ({cat[1]}), пробитие брони {int(round(d[6]*100))}%.'
+    return f' Damage: {d[5]} ({cat[0]}), armor penetration {int(round(d[6]*100))}%.'
 
 # ---------------- Аномалии ----------------
 # key, en, ru, texture, damage, radius, glow(r,g,b), drawSize, en desc, ru desc, group comment
@@ -34,21 +45,21 @@ ANOM=[
   'A patch of air where dust hangs strangely still. Whatever steps into it is slammed by a short burst of gravity.',
   'Пятно воздуха, в котором пыль странно застыла на месте. Того, кто в него шагнёт, бьёт коротким всплеском гравитации.','гравитационная: слабый удар, маленький радиус'),
  ('Vortex','vortex','воронка','Vortex','SZ_GravityCrushHeavy',2.9,(150,120,220),2.2,
-  'A wide swirl of leaves and debris circling a single point. When disturbed, it crushes everything in a large radius.',
-  'Широкий вихрь из листьев и мусора, кружащий вокруг одной точки. Если его потревожить, он сминает всё в большом радиусе.','гравитационная: сильный урон, большой радиус'),
+  'A wide swirl of leaves and debris circling a single point. It drags in anything within about five cells and crushes it at the center. A creature moving away can break free, especially right after a discharge.',
+  'Широкий вихрь из листьев и мусора, кружащий вокруг одной точки. Затягивает всё в радиусе пяти клеток и сминает в центре. Тот, кто уходит прочь, может вырваться, особенно сразу после разряда.','гравитационная: сильный урон, большой радиус'),
  ('Whirligig','whirligig','карусель','Whirligig','SZ_GravityCrush',2.2,(120,140,255),2.0,
-  'A spinning column of distorted air. It batters anything that comes too close.',
-  'Вращающийся столб искажённого воздуха. Бьёт всё, что подойдёт слишком близко.','гравитационная: средний урон и радиус'),
+  'A spinning column of distorted air. It pulls in anything that comes too close, batters it and flings it aside. Moving away helps to break free.',
+  'Вращающийся столб искажённого воздуха. Подтягивает всё, что подойдёт слишком близко, бьёт и отшвыривает. Чтобы вырваться, нужно уходить прочь.','гравитационная: средний урон и радиус'),
  ('Meatgrinder','meatgrinder','мясорубка','Meatgrinder','SZ_GravityShred',1.9,(220,60,60),1.8,
-  'A small knot of twisted space, deadly to anything alive. It tears apart whatever touches it.',
-  'Небольшой узел искривлённого пространства, смертельный для всего живого. Разрывает всё, что его коснётся.','гравитационная: резаные раны, очень опасна'),
+  'A small knot of twisted space, deadly to anything alive. It sucks in whatever comes near and tears it apart. Only quick retreat right after a discharge gives a chance to escape.',
+  'Небольшой узел искривлённого пространства, смертельный для всего живого. Втягивает всё, что подойдёт близко, и разрывает. Шанс вырваться даёт только быстрый отход сразу после разряда.','гравитационная: резаные раны, очень опасна'),
  ('Electro','electro','электра','Electro','SZ_ElectricDischarge',2.9,(90,140,255),1.8,
   'A knot of crackling energy hanging just above the ground. Anything that touches it is hit by a powerful discharge.',
   'Сгусток потрескивающей энергии над самой землёй. Всё, что его касается, бьёт мощным разрядом.','электрическая: ожоги, большой радиус'),
  ('Burner','burner','жарка','Burner','SZ_ThermalBurn',2.4,(255,140,60),1.8,
   'A patch of shimmering, scorching air. When disturbed, it erupts in a column of fire.',
   'Пятно дрожащего раскалённого воздуха. Если его потревожить, оно взрывается столбом огня.','термическая: ванильный огонь, поджигает'),
- ('Comet','comet','комета','Comet','SZ_ThermalBurn',1.9,(255,150,70),1.6,
+ ('Comet','comet','комета','Comet','SZ_CometBurn',1.9,(255,150,70),1.6,
   'A fiery clot that drifts in a slow circle, scorching everything in its path.',
   'Огненный сгусток, медленно кружащий по одному и тому же маршруту и обжигающий всё на пути.','термическая: движется по кругу (только с C#)'),
  ('FruitPunch','fruit punch','холодец','FruitPunch','SZ_ChemicalBurn',2.2,(90,230,90),1.8,
@@ -137,7 +148,7 @@ STAT_RU={'CarryingCapacity':'грузоподъёмность','PainShockThresho
  'ComfyTemperatureMin':'комфортная мин. t° (минус = теплее)','ToxicResistance':'сопротивление токсинам'}
 
 # ---------- проверки целостности ----------
-an_keys={a[0] for a in ANOM}; dmg_keys={d[0] for d in DAMAGE}|{'Flame'}
+an_keys={a[0] for a in ANOM}; dmg_keys={d[0] for d in DAMAGE}
 for a in ANOM: assert a[4] in dmg_keys, a; assert os.path.isdir(f'{TEX}/Building/SZ_Anomalies/{a[3]}'), a[3]  # папка с кадрами
 for r in ART:
     assert r[3] in an_keys, r; assert os.path.exists(f'{TEX}/Item/SZ_Artifacts/{r[0]}.png'), r[0]
@@ -167,7 +178,7 @@ for d in DAMAGE:
     <label>{esc(en)}</label>
     <deathMessage>{esc(den)}</deathMessage>
     <hediff>{hed}</hediff>
-    <armorCategory>{arm}</armorCategory>
+    <armorCategory>{arm}</armorCategory>       <!-- своя категория защиты (SZ_Protection.xml) -->
     <defaultDamage>{dmg}</defaultDamage>
     <defaultArmorPenetration>{ap}</defaultArmorPenetration>
     <explosionCellFleck>{fl}</explosionCellFleck>
@@ -219,7 +230,7 @@ for a in ANOM:
   <!-- {ru.capitalize()}: {note} -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_{k}" Abstract="True">
     <label>{esc(en)}</label>
-    <description>{esc(den+SUF_EN)}</description>
+    <description>{esc(den+dmg_line(dmg)+SUF_EN)}</description>
     <graphicData>
       <texPath>Things/Building/SZ_Anomalies/{tex}</texPath>  <!-- папка с 8 кадрами -->
       <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
@@ -470,7 +481,7 @@ for a in ANOM:
     for r in ART:
         if r[3]!=a[0]: continue
         dn=f'SZ_Anomaly_{a[0]}_{r[0]}'
-        o.append(f'  <{dn}.label>{esc(a[2])}</{dn}.label>\n  <{dn}.description>{esc(a[9]+SUF_RU)}</{dn}.description>\n')
+        o.append(f'  <{dn}.label>{esc(a[2])}</{dn}.label>\n  <{dn}.description>{esc(a[9]+dmg_line(a[4],True)+SUF_RU)}</{dn}.description>\n')
 o.append('</LanguageData>\n'); open(f'{L}/ThingDef/SZ_Anomalies.xml','w',encoding='utf-8').write(''.join(o))
 
 o=['<?xml version="1.0" encoding="utf-8"?>\n<LanguageData>\n']

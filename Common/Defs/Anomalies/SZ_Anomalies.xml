@@ -14,41 +14,13 @@
   </DamageDef>
 
   <DamageDef ParentName="SZ_AnomalyDamageBase">
-    <defName>SZ_ElectricDischarge</defName>
-    <label>electric discharge</label>
-    <deathMessage>{0} was killed by an anomalous electric discharge.</deathMessage>
-    <hediff>Burn</hediff>
-    <armorCategory>Heat</armorCategory>
-    <defaultDamage>14</defaultDamage>
-    <defaultArmorPenetration>0.3</defaultArmorPenetration>
-    <explosionCellFleck>BlastEMP</explosionCellFleck>
-    <explosionColorCenter>(0.6, 0.8, 1.0)</explosionColorCenter>
-    <explosionColorEdge>(0.3, 0.5, 1.0)</explosionColorEdge>
-    <soundExplosion>SZ_Electro_Discharge</soundExplosion>
-  </DamageDef>
-
-  <DamageDef ParentName="SZ_AnomalyDamageBase">
     <defName>SZ_GravityCrushLight</defName>
     <label>gravitational blow</label>
     <deathMessage>{0} was killed by a gravitational anomaly.</deathMessage>
     <hediff>Crush</hediff>
-    <armorCategory>Blunt</armorCategory>
-    <defaultDamage>10</defaultDamage>
+    <armorCategory>SZ_Strike</armorCategory>       <!-- своя категория защиты (SZ_Protection.xml) -->
+    <defaultDamage>12</defaultDamage>
     <defaultArmorPenetration>0.15</defaultArmorPenetration>
-    <explosionCellFleck>BlastDry</explosionCellFleck>
-    <explosionColorCenter>(0.7, 0.5, 1.0)</explosionColorCenter>
-    <explosionColorEdge>(0.4, 0.2, 0.7)</explosionColorEdge>
-    <soundExplosion>SZ_Gravity_Discharge</soundExplosion>
-  </DamageDef>
-
-  <DamageDef ParentName="SZ_AnomalyDamageBase">
-    <defName>SZ_GravityCrush</defName>
-    <label>gravitational crush</label>
-    <deathMessage>{0} was crushed by a gravitational anomaly.</deathMessage>
-    <hediff>Crush</hediff>
-    <armorCategory>Blunt</armorCategory>
-    <defaultDamage>18</defaultDamage>
-    <defaultArmorPenetration>0.2</defaultArmorPenetration>
     <explosionCellFleck>BlastDry</explosionCellFleck>
     <explosionColorCenter>(0.7, 0.5, 1.0)</explosionColorCenter>
     <explosionColorEdge>(0.4, 0.2, 0.7)</explosionColorEdge>
@@ -60,12 +32,26 @@
     <label>gravitational collapse</label>
     <deathMessage>{0} was crushed by a gravitational collapse.</deathMessage>
     <hediff>Crush</hediff>
-    <armorCategory>Blunt</armorCategory>
-    <defaultDamage>24</defaultDamage>
-    <defaultArmorPenetration>0.3</defaultArmorPenetration>
+    <armorCategory>SZ_Strike</armorCategory>       <!-- своя категория защиты (SZ_Protection.xml) -->
+    <defaultDamage>35</defaultDamage>
+    <defaultArmorPenetration>0.35</defaultArmorPenetration>
     <explosionCellFleck>BlastDry</explosionCellFleck>
     <explosionColorCenter>(0.6, 0.4, 0.9)</explosionColorCenter>
     <explosionColorEdge>(0.3, 0.15, 0.6)</explosionColorEdge>
+    <soundExplosion>SZ_Gravity_Discharge</soundExplosion>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_GravityCrush</defName>
+    <label>gravitational crush</label>
+    <deathMessage>{0} was crushed by a gravitational anomaly.</deathMessage>
+    <hediff>Crush</hediff>
+    <armorCategory>SZ_Strike</armorCategory>       <!-- своя категория защиты (SZ_Protection.xml) -->
+    <defaultDamage>22</defaultDamage>
+    <defaultArmorPenetration>0.25</defaultArmorPenetration>
+    <explosionCellFleck>BlastDry</explosionCellFleck>
+    <explosionColorCenter>(0.7, 0.5, 1.0)</explosionColorCenter>
+    <explosionColorEdge>(0.4, 0.2, 0.7)</explosionColorEdge>
     <soundExplosion>SZ_Gravity_Discharge</soundExplosion>
   </DamageDef>
 
@@ -74,9 +60,9 @@
     <label>gravitational shredding</label>
     <deathMessage>{0} was torn apart by an anomaly.</deathMessage>
     <hediff>Cut</hediff>
-    <armorCategory>Sharp</armorCategory>
-    <defaultDamage>30</defaultDamage>
-    <defaultArmorPenetration>0.35</defaultArmorPenetration>
+    <armorCategory>SZ_Rupture</armorCategory>       <!-- своя категория защиты (SZ_Protection.xml) -->
+    <defaultDamage>40</defaultDamage>
+    <defaultArmorPenetration>0.4</defaultArmorPenetration>
     <explosionCellFleck>BlastDry</explosionCellFleck>
     <explosionColorCenter>(0.9, 0.2, 0.2)</explosionColorCenter>
     <explosionColorEdge>(0.5, 0.05, 0.1)</explosionColorEdge>
@@ -84,12 +70,40 @@
   </DamageDef>
 
   <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_ElectricDischarge</defName>
+    <label>electric discharge</label>
+    <deathMessage>{0} was killed by an anomalous electric discharge.</deathMessage>
+    <hediff>Burn</hediff>
+    <armorCategory>SZ_Shock</armorCategory>       <!-- своя категория защиты (SZ_Protection.xml) -->
+    <defaultDamage>18</defaultDamage>
+    <defaultArmorPenetration>0.3</defaultArmorPenetration>
+    <explosionCellFleck>BlastEMP</explosionCellFleck>
+    <explosionColorCenter>(0.6, 0.8, 1.0)</explosionColorCenter>
+    <explosionColorEdge>(0.3, 0.5, 1.0)</explosionColorEdge>
+    <soundExplosion>SZ_Electro_Discharge</soundExplosion>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
     <defName>SZ_ThermalBurn</defName>
     <label>anomalous heat</label>
     <deathMessage>{0} was burned alive by a thermal anomaly.</deathMessage>
     <hediff>Burn</hediff>
-    <armorCategory>Heat</armorCategory>
-    <defaultDamage>16</defaultDamage>
+    <armorCategory>SZ_Burn</armorCategory>       <!-- своя категория защиты (SZ_Protection.xml) -->
+    <defaultDamage>22</defaultDamage>
+    <defaultArmorPenetration>0.3</defaultArmorPenetration>
+    <explosionCellFleck>BlastFlame</explosionCellFleck>
+    <explosionColorCenter>(1.0, 0.6, 0.2)</explosionColorCenter>
+    <explosionColorEdge>(0.8, 0.3, 0.1)</explosionColorEdge>
+    <soundExplosion>SZ_Fire_Discharge</soundExplosion>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_CometBurn</defName>
+    <label>fiery touch</label>
+    <deathMessage>{0} was burned by a comet.</deathMessage>
+    <hediff>Burn</hediff>
+    <armorCategory>SZ_Burn</armorCategory>       <!-- своя категория защиты (SZ_Protection.xml) -->
+    <defaultDamage>14</defaultDamage>
     <defaultArmorPenetration>0.25</defaultArmorPenetration>
     <explosionCellFleck>BlastFlame</explosionCellFleck>
     <explosionColorCenter>(1.0, 0.6, 0.2)</explosionColorCenter>
@@ -102,8 +116,8 @@
     <label>caustic splash</label>
     <deathMessage>{0} was dissolved by a chemical anomaly.</deathMessage>
     <hediff>Burn</hediff>
-    <armorCategory>Heat</armorCategory>
-    <defaultDamage>12</defaultDamage>
+    <armorCategory>SZ_Chemical</armorCategory>       <!-- своя категория защиты (SZ_Protection.xml) -->
+    <defaultDamage>16</defaultDamage>
     <defaultArmorPenetration>0.2</defaultArmorPenetration>
     <explosionCellFleck>BlastDry</explosionCellFleck>
     <explosionColorCenter>(0.4, 1.0, 0.4)</explosionColorCenter>
@@ -116,8 +130,8 @@
     <label>stinging fibers</label>
     <deathMessage>{0} was killed by stinging fibers.</deathMessage>
     <hediff>Scratch</hediff>
-    <armorCategory>Sharp</armorCategory>
-    <defaultDamage>7</defaultDamage>
+    <armorCategory>SZ_Chemical</armorCategory>       <!-- своя категория защиты (SZ_Protection.xml) -->
+    <defaultDamage>9</defaultDamage>
     <defaultArmorPenetration>0.1</defaultArmorPenetration>
     <explosionCellFleck>BlastDry</explosionCellFleck>
     <explosionColorCenter>(1.0, 0.95, 0.7)</explosionColorCenter>
@@ -164,7 +178,7 @@
   <!-- Трамплин: гравитационная: слабый удар, маленький радиус -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Springboard" Abstract="True">
     <label>springboard</label>
-    <description>A patch of air where dust hangs strangely still. Whatever steps into it is slammed by a short burst of gravity. Artifacts are sometimes found in or near it.</description>
+    <description>A patch of air where dust hangs strangely still. Whatever steps into it is slammed by a short burst of gravity. Damage: 12 (strike), armor penetration 15%. Artifacts are sometimes found in or near it.</description>
     <graphicData>
       <texPath>Things/Building/SZ_Anomalies/Springboard</texPath>  <!-- папка с 8 кадрами -->
       <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
@@ -200,7 +214,7 @@
   <!-- Воронка: гравитационная: сильный урон, большой радиус -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Vortex" Abstract="True">
     <label>vortex</label>
-    <description>A wide swirl of leaves and debris circling a single point. When disturbed, it crushes everything in a large radius. Artifacts are sometimes found in or near it.</description>
+    <description>A wide swirl of leaves and debris circling a single point. It drags in anything within about five cells and crushes it at the center. A creature moving away can break free, especially right after a discharge. Damage: 35 (strike), armor penetration 35%. Artifacts are sometimes found in or near it.</description>
     <graphicData>
       <texPath>Things/Building/SZ_Anomalies/Vortex</texPath>  <!-- папка с 8 кадрами -->
       <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
@@ -236,7 +250,7 @@
   <!-- Карусель: гравитационная: средний урон и радиус -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Whirligig" Abstract="True">
     <label>whirligig</label>
-    <description>A spinning column of distorted air. It batters anything that comes too close. Artifacts are sometimes found in or near it.</description>
+    <description>A spinning column of distorted air. It pulls in anything that comes too close, batters it and flings it aside. Moving away helps to break free. Damage: 22 (strike), armor penetration 25%. Artifacts are sometimes found in or near it.</description>
     <graphicData>
       <texPath>Things/Building/SZ_Anomalies/Whirligig</texPath>  <!-- папка с 8 кадрами -->
       <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
@@ -272,7 +286,7 @@
   <!-- Мясорубка: гравитационная: резаные раны, очень опасна -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Meatgrinder" Abstract="True">
     <label>meatgrinder</label>
-    <description>A small knot of twisted space, deadly to anything alive. It tears apart whatever touches it. Artifacts are sometimes found in or near it.</description>
+    <description>A small knot of twisted space, deadly to anything alive. It sucks in whatever comes near and tears it apart. Only quick retreat right after a discharge gives a chance to escape. Damage: 40 (rupture), armor penetration 40%. Artifacts are sometimes found in or near it.</description>
     <graphicData>
       <texPath>Things/Building/SZ_Anomalies/Meatgrinder</texPath>  <!-- папка с 8 кадрами -->
       <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
@@ -308,7 +322,7 @@
   <!-- Электра: электрическая: ожоги, большой радиус -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Electro" Abstract="True">
     <label>electro</label>
-    <description>A knot of crackling energy hanging just above the ground. Anything that touches it is hit by a powerful discharge. Artifacts are sometimes found in or near it.</description>
+    <description>A knot of crackling energy hanging just above the ground. Anything that touches it is hit by a powerful discharge. Damage: 18 (electric shock), armor penetration 30%. Artifacts are sometimes found in or near it.</description>
     <graphicData>
       <texPath>Things/Building/SZ_Anomalies/Electro</texPath>  <!-- папка с 8 кадрами -->
       <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
@@ -356,7 +370,7 @@
   <!-- Жарка: термическая: ванильный огонь, поджигает -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Burner" Abstract="True">
     <label>burner</label>
-    <description>A patch of shimmering, scorching air. When disturbed, it erupts in a column of fire. Artifacts are sometimes found in or near it.</description>
+    <description>A patch of shimmering, scorching air. When disturbed, it erupts in a column of fire. Damage: 22 (burn), armor penetration 30%. Artifacts are sometimes found in or near it.</description>
     <graphicData>
       <texPath>Things/Building/SZ_Anomalies/Burner</texPath>  <!-- папка с 8 кадрами -->
       <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
@@ -398,7 +412,7 @@
   <!-- Комета: термическая: движется по кругу (только с C#) -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_Comet" Abstract="True">
     <label>comet</label>
-    <description>A fiery clot that drifts in a slow circle, scorching everything in its path. Artifacts are sometimes found in or near it.</description>
+    <description>A fiery clot that drifts in a slow circle, scorching everything in its path. Damage: 14 (burn), armor penetration 25%. Artifacts are sometimes found in or near it.</description>
     <graphicData>
       <texPath>Things/Building/SZ_Anomalies/Comet</texPath>  <!-- папка с 8 кадрами -->
       <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
@@ -408,7 +422,7 @@
     <comps>
       <li Class="CompProperties_Explosive">
         <explosiveRadius>1.9</explosiveRadius>
-        <explosiveDamageType>SZ_ThermalBurn</explosiveDamageType>
+        <explosiveDamageType>SZ_CometBurn</explosiveDamageType>
         <startWickHitPointsPercent>0.5</startWickHitPointsPercent>
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
@@ -428,7 +442,7 @@
   <!-- Холодец: химическая: ожоги -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_FruitPunch" Abstract="True">
     <label>fruit punch</label>
-    <description>A pool of glowing green ooze. It splashes caustic liquid on anyone nearby. Artifacts are sometimes found in or near it.</description>
+    <description>A pool of glowing green ooze. It splashes caustic liquid on anyone nearby. Damage: 16 (chemical burn), armor penetration 20%. Artifacts are sometimes found in or near it.</description>
     <graphicData>
       <texPath>Things/Building/SZ_Anomalies/FruitPunch</texPath>  <!-- папка с 8 кадрами -->
       <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->
@@ -470,7 +484,7 @@
   <!-- Жгучий пух: биологическая: слабые царапины, очень большой радиус -->
   <ThingDef ParentName="SZ_AnomalyBase" Name="SZ_AnomalyType_BurntFuzz" Abstract="True">
     <label>burnt fuzz</label>
-    <description>Pale, hair-like strands hanging in the air. Touching them sends stinging fibers in every direction. Artifacts are sometimes found in or near it.</description>
+    <description>Pale, hair-like strands hanging in the air. Touching them sends stinging fibers in every direction. Damage: 9 (chemical burn), armor penetration 10%. Artifacts are sometimes found in or near it.</description>
     <graphicData>
       <texPath>Things/Building/SZ_Anomalies/BurntFuzz</texPath>  <!-- папка с 8 кадрами -->
       <graphicClass>Graphic_Flicker</graphicClass>        <!-- ванильная анимация (как у огня) -->

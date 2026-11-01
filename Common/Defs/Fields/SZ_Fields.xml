@@ -129,4 +129,33 @@
     </building>
   </ThingDef>
 
+  <!-- ================= ЗОНА ОПАСНОСТИ (НЕВИДИМАЯ) =================
+       C#-часть кладёт её в каждую клетку вокруг аномалий, пси-полей и радиоактивных пятен.
+       Высокая стоимость пути заставляет пешек обходить опасное место, если есть другой путь.
+       Не видна, не выбирается, ничего не делает сама. -->
+  <ThingDef>
+    <defName>SZ_AnomalyDanger</defName>
+    <label>anomaly danger zone</label>
+    <thingClass>Building</thingClass>
+    <category>Building</category>
+    <graphicData>
+      <texPath>Things/Building/SZ_Fields/Invisible</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <drawerType>None</drawerType>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <passability>Standable</passability>
+    <pathCost>250</pathCost>                          <!-- обычная клетка ~13: обход почти всегда выгоднее -->
+    <pathCostIgnoreRepeat>false</pathCostIgnoreRepeat> <!-- стоимость за каждую клетку зоны, а не один раз -->
+    <selectable>false</selectable>
+    <useHitPoints>false</useHitPoints>
+    <rotatable>false</rotatable>
+    <tickerType>Never</tickerType>
+    <building>
+      <isEdifice>false</isEdifice>
+      <claimable>false</claimable>
+      <deconstructible>false</deconstructible>
+    </building>
+  </ThingDef>
+
 </Defs>

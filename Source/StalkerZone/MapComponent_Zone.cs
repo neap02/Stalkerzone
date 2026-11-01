@@ -10,6 +10,8 @@ namespace StalkerZone
     /// Поведение Зоны на карте (только C#). Добавляется игрой к каждой карте сама.
     /// - Аномалии вечные: срабатывают на приближение, бьют своим уроном (без взрыва), перезаряжаются.
     /// - Повадки: затягивание, отброс, цепной разряд, едкая лужа; комета ходит по кругу.
+    /// - Из затягивающих аномалий можно вырваться: тяга слабеет к краю, после разряда
+    ///   стоит, пойманные пешки сами пытаются уйти, призванные вырываются легче.
     /// - Атаковать аномалию нельзя: приказ отменяется.
     /// - Детекторы: писк, метки аномалий, поиск артефактов, дозиметр.
     /// - Пси-поля и радиоактивные пятна действуют на всех в радиусе.
@@ -24,7 +26,7 @@ namespace StalkerZone
 
         private const int PuddleDurationTicks = 3600;
         private const float PuddleRadius = 1.9f;
-        private const float PuddleDamage = 3f;
+        private const float PuddleDamageFactor = 0.25f;   // доля урона холодца каждые 2 сек. в луже
 
         private const int FieldInterval = 120;
         private const float RadiationSpotRadius = 4.9f;
@@ -37,10 +39,16 @@ namespace StalkerZone
         private const float HintRadius = 8f;
         private const float IdleSoundChance = 0.3f;
 
+        // ===== Вырваться из затягивания =====
+        private const float DraftedPullFactor = 0.5f;   // призванный колонист сопротивляется сильнее
+        private const float DownedPullFactor = 0.5f;    // тело тянет медленнее: успеют вытащить
+        private const int FleeCooldownTicks = 300;      // не чаще раза в 5 сек. давать приказ уходить
+
         // ---------- сохраняется ----------
         private bool fieldsSpawned;
         private bool anomaliesBuilt;
         private bool signsPlaced;
+        private bool dangerMarked;
         private Dictionary<int, IntVec3> cometOrigins = new Dictionary<int, IntVec3>();
         private Dictionary<int, int> cometSteps = new Dictionary<int, int>();
         private List<Thing> fieldArtifacts = new List<Thing>();
@@ -50,6 +58,7 @@ namespace StalkerZone
         private readonly Dictionary<int, int> readyTick = new Dictionary<int, int>();
         private readonly Dictionary<int, int> nextBeep = new Dictionary<int, int>();
         private readonly Dictionary<int, int> nextGeiger = new Dictionary<int, int>();
+        private readonly Dictionary<int, int> fleeUntil = new Dictionary<int, int>();
         private readonly HashSet<Thing> detectedAnomalies = new HashSet<Thing>();
         private readonly HashSet<IntVec3> markedArtifacts = new HashSet<IntVec3>();
         private readonly List<Puddle> puddles = new List<Puddle>();
@@ -68,8 +77,9 @@ namespace StalkerZone
             base.FinalizeInit();
             if (!anomaliesBuilt)
             {
-                AnomalyField.Rebuild(map);
+                AnomalyField.Rebuild(map);   // ставит и зоны обхода
                 anomaliesBuilt = true;
+                dangerMarked = true;
             }
             if (!fieldsSpawned)
             {
@@ -83,6 +93,12 @@ namespace StalkerZone
                 foreach (Thing spot in map.listerThings.ThingsOfDef(ZoneDefs.RadiationSpot))
                     AnomalyField.PlaceSigns(spot);
                 signsPlaced = true;
+            }
+            if (!dangerMarked)
+            {
+                // карта из прошлой версии: аномалии есть, зон обхода нет
+                AnomalyField.MarkAllDanger(map);
+                dangerMarked = true;
             }
         }
 
@@ -249,12 +265,13 @@ namespace StalkerZone
                     continue;
                 AnomalyProfile p = ZoneDefs.ProfileOf(anomaly.def);
 
-                if (p.pullRadius > 0f && tick % p.pullInterval == 0)
-                    Pull(anomaly, p);
+                bool charged = !readyTick.TryGetValue(anomaly.thingIDNumber, out int ready) || tick >= ready;
 
-                if (p.triggerRadius <= 0f)
-                    continue;
-                if (readyTick.TryGetValue(anomaly.thingIDNumber, out int ready) && tick < ready)
+                // Разряженная аномалия не тянет: время вырваться
+                if (charged && p.pullRadius > 0f && tick % p.pullInterval == 0)
+                    Pull(anomaly, p, tick);
+
+                if (p.triggerRadius <= 0f || !charged)
                     continue;
 
                 ZoneEffects.PawnsAround(anomaly.Position, map, p.triggerRadius, tmpPawns);
@@ -266,21 +283,63 @@ namespace StalkerZone
             }
         }
 
-        private void Pull(Thing anomaly, AnomalyProfile p)
+        /// <summary>
+        /// Затягивание. Шанс рывка = сила × (1 − расстояние/радиус): у края почти не тянет,
+        /// у центра сильно. Пешка не теряет своё дело, поэтому уходящий прочь
+        /// продолжает уходить и обычно вырывается.
+        /// </summary>
+        private void Pull(Thing anomaly, AnomalyProfile p, int tick)
         {
             IntVec3 center = anomaly.Position;
             ZoneEffects.PawnsAround(center, map, p.pullRadius, tmpPawns);
             foreach (Pawn pawn in tmpPawns)
             {
                 IntVec3 pos = pawn.Position;
-                if (pos.DistanceTo(center) <= 1.5f)
+                float dist = pos.DistanceTo(center);
+                if (dist <= 1.5f)
+                    continue;   // уже в зоне срабатывания
+
+                float chance = p.pullStrength * (1f - dist / p.pullRadius);
+                if (pawn.Drafted) chance *= DraftedPullFactor;
+                if (pawn.Downed) chance *= DownedPullFactor;
+                if (!Rand.Chance(chance))
+                {
+                    TryFlee(pawn, center, p, tick);
                     continue;
+                }
+
                 IntVec3 next = pos + new IntVec3(Math.Sign(center.x - pos.x), 0, Math.Sign(center.z - pos.z));
                 if (next.InBounds(map) && next.Walkable(map))
                 {
                     FleckMaker.ThrowDustPuff(pos, map, 0.6f);
-                    ZoneEffects.MovePawn(pawn, next);
+                    ZoneEffects.MovePawn(pawn, next, true);
                 }
+                TryFlee(pawn, center, p, tick);
+            }
+        }
+
+        /// <summary>Пойманная пешка (не призванная) сама бежит прочь от аномалии.</summary>
+        private void TryFlee(Pawn pawn, IntVec3 center, AnomalyProfile p, int tick)
+        {
+            if (pawn.Drafted || pawn.Downed || pawn.Dead || !pawn.Spawned || pawn.jobs == null || pawn.InMentalState)
+                return;
+            if (fleeUntil.TryGetValue(pawn.thingIDNumber, out int until) && tick < until)
+                return;
+
+            IntVec3 pos = pawn.Position;
+            IntVec3 dir = new IntVec3(Math.Sign(pos.x - center.x), 0, Math.Sign(pos.z - center.z));
+            if (dir == IntVec3.Zero)
+                dir = GenAdj.AdjacentCells[Rand.Range(0, 8)];
+            int steps = (int)(p.pullRadius - pos.DistanceTo(center)) + 3;
+            IntVec3 target = pos + new IntVec3(dir.x * steps, 0, dir.z * steps);
+
+            if (CellFinder.TryFindRandomCellNear(target, map, 2,
+                    c => c.InBounds(map) && c.Standable(map) && c.DistanceTo(center) > p.pullRadius + 1f, out IntVec3 dest))
+            {
+                Job job = JobMaker.MakeJob(JobDefOf.Goto, dest);
+                job.locomotionUrgency = LocomotionUrgency.Sprint;
+                pawn.jobs.StartJob(job, JobCondition.InterruptForced);
+                fleeUntil[pawn.thingIDNumber] = tick + FleeCooldownTicks;
             }
         }
 
@@ -294,7 +353,8 @@ namespace StalkerZone
                 foreach (Pawn pawn in tmpPawns)
                 {
                     ZoneEffects.ThrowPawn(pawn, anomaly.Position, p.throwDistance, false);
-                    pawn.TakeDamage(new DamageInfo(DamageDefOf.Blunt, p.throwDamage, 0f, -1f, anomaly));
+                    if (p.Damage != null)
+                        pawn.TakeDamage(new DamageInfo(p.Damage, p.DamageAmount, p.ArmorPenetration, -1f, anomaly));
                     if (!pawn.Dead)
                         pawn.stances?.stunner?.StunFor(p.stunTicks, anomaly);
                 }
@@ -304,7 +364,7 @@ namespace StalkerZone
             List<Pawn> victims = ZoneEffects.Discharge(anomaly, p);
 
             if (p.chainLightning)
-                ZoneEffects.ChainLightning(anomaly, ChainRadius, ChainTargets, p.Damage);
+                ZoneEffects.ChainLightning(anomaly, ChainRadius, ChainTargets, p);
 
             if (p.throwsAfterDischarge)
             {
@@ -340,8 +400,9 @@ namespace StalkerZone
             foreach (Puddle puddle in puddles)
             {
                 ZoneEffects.PawnsAround(puddle.cell, map, PuddleRadius, tmpPawns);
+                DamageDef acid = SZ_DefOf.SZ_ChemicalBurn;
                 foreach (Pawn pawn in tmpPawns)
-                    pawn.TakeDamage(new DamageInfo(SZ_DefOf.SZ_ChemicalBurn, PuddleDamage, 0f, -1f));
+                    pawn.TakeDamage(new DamageInfo(acid, acid.defaultDamage * PuddleDamageFactor, 0f, -1f));
             }
         }
 
@@ -378,8 +439,9 @@ namespace StalkerZone
                     ZoneEffects.PlaySound(p.Sound, comet.Position, map);
                     FleckMaker.ThrowFireGlow(comet.DrawPos, map, 2f);
                     DamageDef damage = p.Damage ?? DamageDefOf.Flame;
+                    float amount = p.Damage != null ? p.DamageAmount : 8f;
                     foreach (Pawn pawn in tmpPawns)
-                        pawn.TakeDamage(new DamageInfo(damage, p.damageAmount, 0.2f, -1f, comet));
+                        pawn.TakeDamage(new DamageInfo(damage, amount, p.ArmorPenetration, -1f, comet));
                 }
             }
         }
@@ -483,6 +545,7 @@ namespace StalkerZone
             Scribe_Values.Look(ref fieldsSpawned, "fieldsSpawned", false);
             Scribe_Values.Look(ref anomaliesBuilt, "anomaliesBuilt", false);
             Scribe_Values.Look(ref signsPlaced, "signsPlaced", false);
+            Scribe_Values.Look(ref dangerMarked, "dangerMarked", false);
             Scribe_Collections.Look(ref cometOrigins, "cometOrigins", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref cometSteps, "cometSteps", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref fieldArtifacts, "fieldArtifacts", LookMode.Reference);

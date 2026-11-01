@@ -21,6 +21,7 @@ namespace StalkerZone
         public static ThingDef RadiationSpot;
         public static ThingDef PuddleFilth;
         public static ThingDef RadiationSign;
+        public static ThingDef DangerMarker;
 
         public static void Init()
         {
@@ -48,6 +49,7 @@ namespace StalkerZone
             PsiField = DefDatabase<ThingDef>.GetNamedSilentFail("SZ_Field_Psi");
             RadiationSpot = DefDatabase<ThingDef>.GetNamedSilentFail("SZ_Field_Radiation");
             RadiationSign = DefDatabase<ThingDef>.GetNamedSilentFail("SZ_RadiationSign");
+            DangerMarker = DefDatabase<ThingDef>.GetNamedSilentFail("SZ_AnomalyDanger");
             PuddleFilth = DefDatabase<ThingDef>.GetNamedSilentFail("Filth_Slime")
                           ?? DefDatabase<ThingDef>.GetNamedSilentFail("Filth_Vomit");
         }

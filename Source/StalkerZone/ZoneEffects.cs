@@ -12,7 +12,7 @@ namespace StalkerZone
         private const float PsiBreakMinSeverity = 0.45f;
         private const float PsiBreakMaxSeverity = 0.7f;
         private const float PsiBreakChancePerDose = 0.05f;
-        private const float ChainDamage = 10f;
+        private const float ChainDamageFactor = 0.6f;   // цепная молния слабее основного разряда
 
         private static readonly List<Pawn> tmpVictims = new List<Pawn>();
         private static readonly List<Pawn> tmpChain = new List<Pawn>();
@@ -33,6 +33,7 @@ namespace StalkerZone
             if (pawn == null || pawn.Dead || !pawn.RaceProps.IsFlesh)
                 return;
             dose *= Math.Max(0f, pawn.GetStatValue(StatDefOf.PsychicSensitivity));
+            dose *= 1f - Math.Min(1f, Math.Max(0f, pawn.GetStatValue(SZ_DefOf.SZ_PsiProtection)));   // пси-защита костюма
             if (dose <= 0f)
                 return;
             HealthUtility.AdjustSeverity(pawn, SZ_DefOf.SZ_PsiExposure, dose);
@@ -53,6 +54,7 @@ namespace StalkerZone
         // ---------- Срабатывание аномалии ----------
         /// <summary>
         /// Срабатывание без взрыва: звук, эффект и урон своим типом всем в радиусе действия.
+        /// Урон и пробитие — из DamageDef; броню учитывает ванильная система по категории урона.
         /// Возвращает задетых пешек (список переиспользуется, не хранить).
         /// </summary>
         public static List<Pawn> Discharge(Thing anomaly, AnomalyProfile p)
@@ -67,7 +69,7 @@ namespace StalkerZone
             if (damage != null)
             {
                 foreach (Pawn pawn in tmpVictims)
-                    pawn.TakeDamage(new DamageInfo(damage, p.damageAmount, p.armorPenetration, -1f, anomaly));
+                    pawn.TakeDamage(new DamageInfo(damage, p.DamageAmount, p.ArmorPenetration, -1f, anomaly));
             }
             return tmpVictims;
         }
@@ -119,7 +121,7 @@ namespace StalkerZone
         }
 
         /// <summary>Электра: разряд перескакивает на до count случайных пешек в радиусе (искры по линии).</summary>
-        public static void ChainLightning(Thing anomaly, float radius, int count, DamageDef damage)
+        public static void ChainLightning(Thing anomaly, float radius, int count, AnomalyProfile p)
         {
             Map map = anomaly.Map;
             PawnsAround(anomaly.Position, map, radius, tmpChain);
@@ -135,8 +137,8 @@ namespace StalkerZone
                     if (c.InBounds(map)) FleckMaker.ThrowMicroSparks(c.ToVector3Shifted(), map);
                 }
                 FleckMaker.ThrowLightningGlow(target.DrawPos, map, 1.5f);
-                if (damage != null)
-                    target.TakeDamage(new DamageInfo(damage, ChainDamage, 0.3f, -1f, anomaly));
+                if (p.Damage != null)
+                    target.TakeDamage(new DamageInfo(p.Damage, p.DamageAmount * ChainDamageFactor, p.ArmorPenetration, -1f, anomaly));
                 hit++;
             }
             tmpChain.Clear();
@@ -164,15 +166,19 @@ namespace StalkerZone
             if (dest != pawn.Position)
             {
                 FleckMaker.ThrowDustPuff(pawn.Position, map, 1f);
-                MovePawn(pawn, dest);
+                MovePawn(pawn, dest, false);
             }
         }
 
-        public static void MovePawn(Pawn pawn, IntVec3 dest)
+        /// <summary>
+        /// Мгновенно переносит пешку. keepJob = true: пешка продолжает своё дело
+        /// (например, уходит прочь по приказу), путь просто пересчитывается.
+        /// </summary>
+        public static void MovePawn(Pawn pawn, IntVec3 dest, bool keepJob)
         {
             pawn.pather?.StopDead();
             pawn.Position = dest;
-            pawn.Notify_Teleported();
+            pawn.Notify_Teleported(!keepJob, true);
         }
 
         public static void PawnsAround(IntVec3 center, Map map, float radius, List<Pawn> result)

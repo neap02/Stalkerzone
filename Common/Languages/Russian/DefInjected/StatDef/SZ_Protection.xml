@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_ArmorRating_Strike.label>защита от удара</SZ_ArmorRating_Strike.label>
+  <SZ_ArmorRating_Strike.description>Защита от гравитационных аномалий: ударов, сдавливания и отбрасывания.</SZ_ArmorRating_Strike.description>
+  <SZ_ArmorRating_Rupture.label>защита от разрыва</SZ_ArmorRating_Rupture.label>
+  <SZ_ArmorRating_Rupture.description>Защита от разрывающего воздействия самых опасных гравитационных аномалий.</SZ_ArmorRating_Rupture.description>
+  <SZ_ArmorRating_Shock.label>электрозащита</SZ_ArmorRating_Shock.label>
+  <SZ_ArmorRating_Shock.description>Защита от электрических аномалий и их разрядов.</SZ_ArmorRating_Shock.description>
+  <SZ_ArmorRating_Burn.label>термозащита</SZ_ArmorRating_Burn.label>
+  <SZ_ArmorRating_Burn.description>Защита от термических аномалий и аномального огня.</SZ_ArmorRating_Burn.description>
+  <SZ_ArmorRating_Chemical.label>химзащита</SZ_ArmorRating_Chemical.label>
+  <SZ_ArmorRating_Chemical.description>Защита от едких и токсичных аномалий.</SZ_ArmorRating_Chemical.description>
+  <SZ_PsiProtection.label>пси-защита</SZ_PsiProtection.label>
+  <SZ_PsiProtection.description>Защита рассудка от пси-полей и Выброса. Снижает пси-воздействие.</SZ_PsiProtection.description>
+</LanguageData>

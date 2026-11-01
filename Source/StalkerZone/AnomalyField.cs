@@ -11,6 +11,7 @@ namespace StalkerZone
     /// - Рядом с аномалиями прячутся артефакты: их нет на карте, пока их не найдёт детектор.
     /// - Выброс сносит старое поле, ненайденные и неподобранные артефакты и строит новое.
     /// - Пси-поля и радиоактивные пятна (со знаками опасности) — один раз на карту.
+    /// - Вокруг всего опасного лежит невидимая зона с высокой стоимостью пути: пешки обходят.
     /// </summary>
     public static class AnomalyField
     {
@@ -18,6 +19,8 @@ namespace StalkerZone
         private const int FieldRadius = 6;
         private const float SpotSpacing = 8f;
         private const float SignDistance = 5.5f;     // знаки по краю радиоактивного пятна (радиус 4.9)
+        private const float RadiationAvoidRadius = 5.4f;
+        private const float PsiAvoidRadius = 7.4f;
         private const int MaxTries = 300;
 
         private static readonly FloatRange PsiFieldsPer10k = new FloatRange(0.05f, 0.12f);
@@ -85,6 +88,7 @@ namespace StalkerZone
                     thing.Destroy(DestroyMode.Vanish);
             }
             tmpThings.Clear();
+            ClearDanger(map);
             zone?.RemoveUnclaimedArtifacts();
             zone?.ClearLatentArtifacts();
 
@@ -97,7 +101,56 @@ namespace StalkerZone
                 if (made == 0) failures++;
                 spawned += made;
             }
+            MarkAllDanger(map);
             return spawned;
+        }
+
+        // ---------- Зоны опасности ----------
+        /// <summary>Невидимая зона вокруг всех аномалий, пси-полей и пятен (заново).</summary>
+        public static void MarkAllDanger(Map map)
+        {
+            ClearDanger(map);
+            foreach (ThingDef def in ZoneDefs.AllAnomalies)
+            {
+                foreach (Thing anomaly in map.listerThings.ThingsOfDef(def))
+                    MarkDanger(map, anomaly.Position, ZoneDefs.ProfileOf(def).avoidRadius);
+            }
+            if (ZoneDefs.RadiationSpot != null)
+            {
+                foreach (Thing spot in map.listerThings.ThingsOfDef(ZoneDefs.RadiationSpot))
+                    MarkDanger(map, spot.Position, RadiationAvoidRadius);
+            }
+            if (ZoneDefs.PsiField != null)
+            {
+                foreach (Thing field in map.listerThings.ThingsOfDef(ZoneDefs.PsiField))
+                    MarkDanger(map, field.Position, PsiAvoidRadius);
+            }
+        }
+
+        private static void MarkDanger(Map map, IntVec3 center, float radius)
+        {
+            ThingDef marker = ZoneDefs.DangerMarker;
+            if (marker == null)
+                return;
+            foreach (IntVec3 c in GenRadial.RadialCellsAround(center, radius, true))
+            {
+                if (c.InBounds(map) && !c.Impassable(map) && c.GetFirstThing(map, marker) == null)
+                    GenSpawn.Spawn(ThingMaker.MakeThing(marker), c, map);
+            }
+        }
+
+        private static void ClearDanger(Map map)
+        {
+            if (ZoneDefs.DangerMarker == null)
+                return;
+            tmpThings.Clear();
+            tmpThings.AddRange(map.listerThings.ThingsOfDef(ZoneDefs.DangerMarker));
+            foreach (Thing thing in tmpThings)
+            {
+                if (!thing.Destroyed)
+                    thing.Destroy(DestroyMode.Vanish);
+            }
+            tmpThings.Clear();
         }
 
         private static int SpawnCluster(Map map, AnomalyType type, MapComponent_Zone zone)
@@ -152,6 +205,7 @@ namespace StalkerZone
                 foreach (Thing spot in SpawnScattered(map, ZoneDefs.RadiationSpot, RadiationSpotsPer10k))
                     PlaceSigns(spot);
             }
+            MarkAllDanger(map);
         }
 
         /// <summary>Четыре знака радиационной опасности по краю пятна.</summary>

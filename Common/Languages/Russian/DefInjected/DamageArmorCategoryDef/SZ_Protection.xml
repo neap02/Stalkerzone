@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_Strike.label>удар</SZ_Strike.label>
+  <SZ_Rupture.label>разрыв</SZ_Rupture.label>
+  <SZ_Shock.label>электрошок</SZ_Shock.label>
+  <SZ_Burn.label>ожог</SZ_Burn.label>
+  <SZ_Chemical.label>химический ожог</SZ_Chemical.label>
+</LanguageData>
