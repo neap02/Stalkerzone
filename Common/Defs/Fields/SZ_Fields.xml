@@ -66,13 +66,13 @@
     <label>psychic field</label>
     <description>An invisible zone of psychic pressure, felt as a ringing in the ears. Prolonged exposure causes psychosis, unconsciousness and death. Psychically deaf creatures are unaffected; psi protection reduces the effect.</description>
     <kind>Psi</kind>
-    <radius>6.9</radius>
-    <dosePerHour>0.6</dosePerHour>             <!-- ~70 мин внутри до потери сознания -->
+    <radius>11.9</radius>
+    <dosePerHour>0.5</dosePerHour>             <!-- ~85 мин внутри до потери сознания -->
     <texPath>Things/Building/SZ_Fields/PsiField</texPath>
-    <drawSize>14</drawSize>
+    <drawSize>24</drawSize>
     <fps>4</fps>
-    <avoidRadius>7.4</avoidRadius>
-    <per10k>0.05~0.12</per10k>                 <!-- 0–1 на карту -->
+    <avoidRadius>12.4</avoidRadius>
+    <per10k>0.08~0.16</per10k>                 <!-- 0–1 на карту, но большое -->
   </StalkerZone.ZoneFieldDef>
 
   <StalkerZone.ZoneFieldDef>
@@ -80,17 +80,17 @@
     <label>radioactive spot</label>
     <description>Contaminated ground: dead grass and sickly yellow stains. Anyone who lingers here slowly develops radiation sickness. Radiation resistance reduces the dose. The area is marked with radiation hazard signs.</description>
     <kind>Radiation</kind>
-    <radius>4.9</radius>
-    <dosePerHour>0.15</dosePerHour>            <!-- ~6,5 ч внутри до смерти без защиты -->
+    <radius>7.9</radius>
+    <dosePerHour>0.12</dosePerHour>            <!-- ~8 ч внутри до смерти без защиты -->
     <texPath>Things/Building/SZ_Fields/RadiationSpot</texPath>
-    <drawSize>10</drawSize>
+    <drawSize>16</drawSize>
     <fps>3</fps>
-    <avoidRadius>5.4</avoidRadius>
-    <per10k>0.25~0.5</per10k>                  <!-- 1–3 на карту -->
+    <avoidRadius>8.4</avoidRadius>
+    <per10k>0.35~0.7</per10k>                  <!-- 2–4 на карту -->
     <geiger>true</geiger>                       <!-- детекторы щёлкают дозиметром -->
     <signTexPath>Things/Building/SZ_Fields/RadiationSign</signTexPath>
-    <signCount>4</signCount>
-    <signDistance>5.5</signDistance>
+    <signCount>6</signCount>
+    <signDistance>8.5</signDistance>
   </StalkerZone.ZoneFieldDef>
 
   <!-- ================= ЗОНА ОБХОДА (НЕВИДИМАЯ, СЛУЖЕБНАЯ) =================

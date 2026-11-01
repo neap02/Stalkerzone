@@ -57,4 +57,9 @@
     </Reference>
   </ItemGroup>
 
+  <!-- Harmony: только для компиляции, в мод не копируется -->
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.3.3" ExcludeAssets="runtime" />
+  </ItemGroup>
+
 </Project>

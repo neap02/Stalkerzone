@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Мрачные погоды Зоны. Добавляются во все биомы патчем Patches/SZ_Weather.xml. -->
+
+  <WeatherDef>
+    <defName>SZ_Weather_Overcast</defName>
+    <label>leaden sky</label>
+    <description>A low, heavy sky the color of lead. The Zone seems to hold its breath.</description>
+    <favorability>Neutral</favorability>
+    <perceivePriority>1</perceivePriority>
+    <rainRate>0</rainRate>
+    <windSpeedFactor>1.3</windSpeedFactor>
+    <accuracyMultiplier>1.0</accuracyMultiplier>
+    <skyColorsDay><sky>(0.42, 0.45, 0.47)</sky><shadow>(0.30, 0.32, 0.34)</shadow><overlay>(0.42, 0.45, 0.47)</overlay><saturation>0.6</saturation></skyColorsDay>
+    <skyColorsDusk><sky>(0.30, 0.30, 0.33)</sky><shadow>(0.22, 0.22, 0.24)</shadow><overlay>(0.30, 0.30, 0.33)</overlay><saturation>0.6</saturation></skyColorsDusk>
+    <skyColorsNightEdge><sky>(0.16, 0.17, 0.20)</sky><shadow>(0.12, 0.12, 0.14)</shadow><overlay>(0.16, 0.17, 0.20)</overlay><saturation>0.5</saturation></skyColorsNightEdge>
+    <skyColorsNightMid><sky>(0.10, 0.11, 0.14)</sky><shadow>(0.08, 0.08, 0.10)</shadow><overlay>(0.10, 0.11, 0.14)</overlay><saturation>0.5</saturation></skyColorsNightMid>
+  </WeatherDef>
+
+  <WeatherDef>
+    <defName>SZ_Weather_Drizzle</defName>
+    <label>cold drizzle</label>
+    <description>Fine cold rain soaks everything through. Visibility drops.</description>
+    <favorability>Neutral</favorability>
+    <perceivePriority>1</perceivePriority>
+    <rainRate>0.4</rainRate>
+    <windSpeedFactor>1.2</windSpeedFactor>
+    <accuracyMultiplier>0.9</accuracyMultiplier>
+    <overlayClasses><li>WeatherOverlay_Rain</li></overlayClasses>
+    <skyColorsDay><sky>(0.38, 0.41, 0.43)</sky><shadow>(0.28, 0.30, 0.31)</shadow><overlay>(0.38, 0.41, 0.43)</overlay><saturation>0.6</saturation></skyColorsDay>
+    <skyColorsDusk><sky>(0.30, 0.30, 0.33)</sky><shadow>(0.22, 0.22, 0.24)</shadow><overlay>(0.30, 0.30, 0.33)</overlay><saturation>0.6</saturation></skyColorsDusk>
+    <skyColorsNightEdge><sky>(0.16, 0.17, 0.20)</sky><shadow>(0.12, 0.12, 0.14)</shadow><overlay>(0.16, 0.17, 0.20)</overlay><saturation>0.5</saturation></skyColorsNightEdge>
+    <skyColorsNightMid><sky>(0.10, 0.11, 0.14)</sky><shadow>(0.08, 0.08, 0.10)</shadow><overlay>(0.10, 0.11, 0.14)</overlay><saturation>0.5</saturation></skyColorsNightMid>
+  </WeatherDef>
+
+  <WeatherDef>
+    <defName>SZ_Weather_ZoneFog</defName>
+    <label>Zone fog</label>
+    <description>A thick grey fog. Shapes appear and vanish in it; it is better not to go far.</description>
+    <favorability>Neutral</favorability>
+    <perceivePriority>1</perceivePriority>
+    <rainRate>0</rainRate>
+    <windSpeedFactor>0.5</windSpeedFactor>
+    <accuracyMultiplier>0.6</accuracyMultiplier>
+    <overlayClasses><li>WeatherOverlay_Fog</li></overlayClasses>
+    <skyColorsDay><sky>(0.48, 0.50, 0.50)</sky><shadow>(0.36, 0.38, 0.38)</shadow><overlay>(0.48, 0.50, 0.50)</overlay><saturation>0.6</saturation></skyColorsDay>
+    <skyColorsDusk><sky>(0.30, 0.30, 0.33)</sky><shadow>(0.22, 0.22, 0.24)</shadow><overlay>(0.30, 0.30, 0.33)</overlay><saturation>0.6</saturation></skyColorsDusk>
+    <skyColorsNightEdge><sky>(0.16, 0.17, 0.20)</sky><shadow>(0.12, 0.12, 0.14)</shadow><overlay>(0.16, 0.17, 0.20)</overlay><saturation>0.5</saturation></skyColorsNightEdge>
+    <skyColorsNightMid><sky>(0.10, 0.11, 0.14)</sky><shadow>(0.08, 0.08, 0.10)</shadow><overlay>(0.10, 0.11, 0.14)</overlay><saturation>0.5</saturation></skyColorsNightMid>
+  </WeatherDef>
+
+</Defs>

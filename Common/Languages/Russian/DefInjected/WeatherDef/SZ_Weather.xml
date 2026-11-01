@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_Weather_Overcast.label>свинцовое небо</SZ_Weather_Overcast.label>
+  <SZ_Weather_Overcast.description>Низкое тяжёлое небо цвета свинца. Зона будто затаила дыхание.</SZ_Weather_Overcast.description>
+  <SZ_Weather_Drizzle.label>холодная морось</SZ_Weather_Drizzle.label>
+  <SZ_Weather_Drizzle.description>Мелкий холодный дождь пропитывает всё насквозь. Видимость падает.</SZ_Weather_Drizzle.description>
+  <SZ_Weather_ZoneFog.label>туман Зоны</SZ_Weather_ZoneFog.label>
+  <SZ_Weather_ZoneFog.description>Густой серый туман. В нём появляются и исчезают силуэты — далеко лучше не отходить.</SZ_Weather_ZoneFog.description>
+</LanguageData>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_Near_Heat.label>сильный жар</SZ_Near_Heat.label>
+  <SZ_Near_Heat.description>Воздух у термической аномалии обжигает кожу и мешает думать.</SZ_Near_Heat.description>
+  <SZ_Near_Static.label>статика</SZ_Near_Static.label>
+  <SZ_Near_Static.description>Статика электрической аномалии сводит пальцы и поднимает волосы дыбом.</SZ_Near_Static.description>
+  <SZ_Near_Gravity.label>тяжесть</SZ_Near_Gravity.label>
+  <SZ_Near_Gravity.description>Гравитационная аномалия тянет к себе: каждый шаг даётся с трудом.</SZ_Near_Gravity.description>
+  <SZ_Near_Fumes.label>едкие пары</SZ_Near_Fumes.label>
+  <SZ_Near_Fumes.description>Испарения химической аномалии режут глаза и лёгкие.</SZ_Near_Fumes.description>
+  <SZ_Near_Itch.label>жжение кожи</SZ_Near_Itch.label>
+  <SZ_Near_Itch.description>Волокна жгучего пуха висят в воздухе, и кожа горит огнём.</SZ_Near_Itch.description>
+</LanguageData>

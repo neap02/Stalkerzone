@@ -177,7 +177,7 @@ ARMOR={'sharp':'ArmorRating_Sharp','blunt':'ArmorRating_Blunt','heat':'ArmorRati
        'strike':'SZ_ArmorRating_Strike','rupture':'SZ_ArmorRating_Rupture','shock':'SZ_ArmorRating_Shock',
        'burn':'SZ_ArmorRating_Burn','chem':'SZ_ArmorRating_Chemical'}
 OFFS={'rad':'SZ_RadiationResistance','psi':'SZ_PsiProtection','slots':'SZ_ArtifactSlots','move':'MoveSpeed',
-      'carry':'CarryingCapacity','tox':'ToxicResistance'}
+      'carry':'SZ_InventoryCapacity','tox':'ToxicResistance'}
 
 def recipe_block(research,users,cost,skill):
     us=''.join(f'<li>{u}</li>' for u in users); cs=''.join(f'<{k}>{v}</{k}>' for k,v in cost.items())
@@ -210,6 +210,17 @@ w("""<?xml version="1.0" encoding="utf-8"?>
     <minValue>0</minValue>
     <maxValue>5</maxValue>
     <toStringStyle>Integer</toStringStyle>
+  </StatDef>
+
+  <!-- ===== Грузоподъёмность снаряжения, кг: прибавляется к инвентарю и каравану (C#: ZoneHarmony) ===== -->
+  <StatDef>
+    <defName>SZ_InventoryCapacity</defName>
+    <label>gear carrying capacity</label>
+    <description>Extra mass this creature can carry in its inventory and in caravans thanks to its gear (exoskeletons, backpacks).</description>
+    <category>BasicsPawn</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <toStringStyle>FloatOne</toStringStyle>
+    <formatString>{0} kg</formatString>
   </StatDef>
 
   <SoundDef>
@@ -279,7 +290,6 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
       <tags>{tg}</tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>{upslots}</upgradeSlots></li>
     </comps>
 {recipe_block(research,users,cost,skill)}  </ThingDef>
@@ -320,7 +330,7 @@ for (k,en,ru,tex,layer,groups,col,armor_d,offs_d,val,mass,rec,tags,den,dru) in H
 """)
     tr_t.append((f'SZ_{k}',ru,dru))
 
-def item_def(dn,en,den,tex,mass,val,stack,cost,research,skill,work,note):
+def item_def(dn,en,den,tex,mass,val,stack,cost,research,skill,work,note,extra_comp=''):
     cs=''.join(f'<{k}>{v}</{k}>' for k,v in cost.items())
     return f"""
   <!-- {note} -->
@@ -353,7 +363,7 @@ def item_def(dn,en,den,tex,mass,val,stack,cost,research,skill,work,note):
       <Flammability>0.2</Flammability>
       <WorkToMake>{work}</WorkToMake>
     </statBases>
-    <comps><li Class="CompProperties_Forbiddable"/></comps>
+    <comps><li Class="CompProperties_Forbiddable"/>{extra_comp}</comps>
     <costList>{cs}</costList>
     <recipeMaker>
       <researchPrerequisite>{research}</researchPrerequisite>
@@ -369,13 +379,14 @@ w(item_def('SZ_LeadContainer','lead container',
   'Things/Item/SZ_Gear/LeadContainer',3,120,1,{'Steel':50},'Smithing',3,2500,
   'Свинцовый контейнер: каждый в инвентаре гасит излучение одного активного артефакта (C#: ZoneArtifacts.cs)'))
 w(item_def('SZ_RepairKit','repair kit',
-  'Patches, sealant and spare plates. Carried in the inventory, it lets the wearer restore 40% of a damaged Zone suit right in the field.',
+  'Patches, sealant and spare plates. Restores 40% of a worn Zone suit. In the inventory it is used automatically when the suit drops below 70%; right-click it on the ground to pick it up and repair right away.',
   'Things/Item/SZ_Gear/RepairKit',1,80,10,{'Steel':15,'Cloth':15,'ComponentIndustrial':1},'Smithing',4,2000,
-  'Ремкомплект: кнопка у владельца костюма, +40% прочности в поле (C#: CompSuit)'))
+  'Ремкомплект: +40% прочности костюма; из инвентаря сам при износе ниже 70%, правой кнопкой с земли — сразу (C#: SuitRepair)',
+  '<li Class="StalkerZone.CompProperties_ZoneItem"/>'))
 w('\n</Defs>\n')
 open(f'{M}/Defs/Gear/SZ_Gear.xml','w',encoding='utf-8').write(''.join(o))
 tr_t.append(('SZ_LeadContainer','свинцовый контейнер','Тяжёлый ящик со свинцовой обшивкой для артефакта. Каждый контейнер в инвентаре гасит излучение одного активного артефакта (сначала самого сильного), а сам артефакт продолжает действовать.'))
-tr_t.append(('SZ_RepairKit','ремкомплект','Заплаты, герметик и запасные пластины. Если лежит в инвентаре, владелец может восстановить 40% прочности повреждённого костюма Зоны прямо в поле.'))
+tr_t.append(('SZ_RepairKit','ремкомплект','Заплаты, герметик и запасные пластины. Восстанавливает 40% прочности надетого костюма Зоны. Из инвентаря используется сам, когда костюм изношен ниже 70%; правой кнопкой по ремкомплекту на земле — подобрать и сразу починить.'))
 
 # ---------- Улучшения и ремонт ----------
 suit_list=''.join(f'<li>SZ_Suit_{s[0]}</li>' for s in SUITS)
@@ -473,124 +484,29 @@ tr_file(f'{L}/StalkerZone.SuitUpgradeDef/SZ_SuitUpgrades.xml',tr_u,['label','des
 tr_file(f'{L}/RecipeDef/SZ_SuitUpgrades.xml',tr_r,['label','description','jobString'])
 open(f'{L}/StatDef/SZ_Gear.xml','w',encoding='utf-8').write('''<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <SZ_InventoryCapacity.label>грузоподъёмность снаряжения</SZ_InventoryCapacity.label>
+  <SZ_InventoryCapacity.description>Сколько дополнительной массы существо может нести в инвентаре и в караване благодаря снаряжению (экзоскелеты, рюкзаки).</SZ_InventoryCapacity.description>
   <SZ_ArtifactSlots.label>ячейки пояса</SZ_ArtifactSlots.label>
   <SZ_ArtifactSlots.description>Сколько артефактов из инвентаря действуют одновременно. По умолчанию одна ячейка, костюм добавляет ещё.</SZ_ArtifactSlots.description>
 </LanguageData>
 ''')
 
 # =====================================================================
-# ГРАФИКА КОСТЮМОВ: свой рисунок для каждого типа тела и стороны.
-# BODY — силуэт тела в кадре 128x128 (центр x=64). Если костюм в игре
-# сидит неровно, правятся только эти числа, после чего генератор запускается заново.
+# ГРАФИКА КОСТЮМОВ: Source/Tools/suit_art.py, 512x512, посадка по меркам тел.
 # =====================================================================
-BODY={
- 'Male':  dict(top=40,bot=104,sh=60,wa=50,hi=52),
- 'Female':dict(top=42,bot=104,sh=52,wa=42,hi=52),
- 'Thin':  dict(top=40,bot=104,sh=48,wa=40,hi=42),
- 'Fat':   dict(top=40,bot=106,sh=66,wa=74,hi=70),
- 'Hulk':  dict(top=34,bot=104,sh=82,wa=58,hi=60),
-}
-SIDE=0.72      # ширина силуэта сбоку относительно вида спереди
-SS=4           # сглаживание: рисуем в 4 раза крупнее и уменьшаем
-def C(c,k=1.0,a=255): return tuple(max(0,min(255,int(v*255*k))) for v in c)+(a,)
-
-def silhouette(b, view):
-    """Многоугольник силуэта (в увеличенных координатах)."""
-    cx=64; f=SIDE if view=='east' else 1.0
-    top,bot=b['top'],b['bot']; sh,wa,hi=b['sh']*f,b['wa']*f,b['hi']*f
-    ywa=top+(bot-top)*0.55
-    left=[(cx-sh*0.36,top),(cx-sh*0.5,top+9),(cx-wa*0.5,ywa),(cx-hi*0.5,bot-9),(cx-hi*0.4,bot)]
-    pts=left+[(2*cx-x,y) for (x,y) in reversed(left)]
-    return [(x*SS,y*SS) for x,y in pts], ywa
-
-def render(suit, cls, cols, body, view):
-    base,sec,acc=cols; b=BODY[body]
-    N=128*SS; img=Image.new('RGBA',(N,N),(0,0,0,0))
-    poly,ywa=silhouette(b,view)
-    mask=Image.new('L',(N,N),0); ImageDraw.Draw(mask).polygon(poly,fill=255)
-    layer=Image.new('RGBA',(N,N),C(base)); d=ImageDraw.Draw(layer)
-    cx=64*SS; top,bot=b['top']*SS,b['bot']*SS; f=SIDE if view=='east' else 1.0
-    sh=b['sh']*SS*f; wa=b['wa']*SS*f; Y=ywa*SS
-    rnd=random.Random(hash((suit,body,view))&0xffff)
-    def rect(x0,y0,x1,y1,c,r=6): d.rounded_rectangle([x0,y0,x1,y1],radius=r*SS//2,fill=c)
-    if view=='north':
-        # спина: рюкзак / баллоны / силовой блок
-        if cls in ('light','medium','cloak'):
-            rect(cx-sh*0.28,top+14*SS,cx+sh*0.28,Y+6*SS,C(sec,0.85),8)
-            d.line([(cx-sh*0.2,top+2*SS),(cx-sh*0.2,top+14*SS)],fill=C(sec,0.6),width=3*SS)
-            d.line([(cx+sh*0.2,top+2*SS),(cx+sh*0.2,top+14*SS)],fill=C(sec,0.6),width=3*SS)
-        elif cls=='science':
-            for dx in (-0.16,0.16):
-                rect(cx+sh*dx-6*SS,top+10*SS,cx+sh*dx+6*SS,Y+8*SS,C(sec),6)
-        elif cls=='exo':
-            rect(cx-sh*0.30,top+10*SS,cx+sh*0.30,Y,C(sec),4)
-            for i in range(4): d.line([(cx-sh*0.2,top+(16+i*5)*SS),(cx+sh*0.2,top+(16+i*5)*SS)],fill=C(sec,0.6),width=2*SS)
-        else:
-            rect(cx-sh*0.34,top+6*SS,cx+sh*0.34,Y+4*SS,C(sec),5)
-        if cls=='cloak':
-            d.ellipse([cx-sh*0.3,top-6*SS,cx+sh*0.3,top+10*SS],fill=C(base,0.85))
-    else:
-        side = view=='east'
-        if cls=='cloak':
-            for _ in range(40):
-                x=rnd.uniform(cx-sh*0.6,cx+sh*0.6); y=rnd.uniform(top,bot); r=rnd.uniform(3,7)*SS
-                d.ellipse([x-r,y-r*0.7,x+r,y+r*0.7],fill=C(sec if rnd.random()<0.6 else acc))
-            d.arc([cx-sh*0.35,top-8*SS,cx+sh*0.35,top+12*SS],0,180,fill=C(base,0.7),width=3*SS)
-        elif cls=='light':
-            d.rectangle([cx-sh*0.36,top,cx+sh*0.36,top+6*SS],fill=C(base,0.75))              # воротник
-            if not side:
-                d.line([(cx,top+6*SS),(cx,bot-4*SS)],fill=C(base,0.6),width=2*SS)            # молния
-                for dx in (-0.22,0.22): rect(cx+sh*dx-6*SS,top+16*SS,cx+sh*dx+6*SS,top+26*SS,C(sec),3)
-            d.rectangle([cx-wa*0.5,Y+4*SS,cx+wa*0.5,Y+8*SS],fill=C(sec,0.8))                # пояс
-        elif cls=='medium':
-            rect(cx-sh*(0.20 if side else 0.32),top+6*SS,cx+sh*(0.30 if side else 0.32),Y,C(sec),6)  # нагрудник
-            if not side:
-                for dx in (-1,1): d.ellipse([cx+dx*sh*0.5-9*SS,top-2*SS,cx+dx*sh*0.5+9*SS,top+12*SS],fill=C(sec,0.9))
-            d.rectangle([cx-wa*0.52,Y+3*SS,cx+wa*0.52,Y+8*SS],fill=C(sec,0.6))
-            for dx in ((-0.3,-0.1,0.1,0.3) if not side else (0.0,0.25)):
-                rect(cx+wa*dx-4*SS,Y+7*SS,cx+wa*dx+4*SS,Y+14*SS,C(sec,0.8),2)               # подсумки
-        elif cls=='heavy':
-            rect(cx-sh*(0.25 if side else 0.40),top+2*SS,cx+sh*(0.36 if side else 0.40),Y+2*SS,C(sec),5)
-            for i in range(3):
-                y0=Y+(5+i*7)*SS; d.rectangle([cx-wa*0.45,y0,cx+wa*0.45,y0+5*SS],fill=C(sec,0.85-i*0.1))
-            if not side:
-                for dx in (-1,1): d.ellipse([cx+dx*sh*0.48-11*SS,top-4*SS,cx+dx*sh*0.48+11*SS,top+14*SS],fill=C(sec,0.9))
-            d.rectangle([cx-sh*0.3,top-2*SS,cx+sh*0.3,top+5*SS],fill=C(sec,0.7))            # горжет
-        elif cls=='science':
-            for dx in ((-0.42,0.42) if not side else (0.3,)):
-                d.rectangle([cx+sh*dx-3*SS,top+4*SS,cx+sh*dx+3*SS,bot],fill=C(sec))           # полосы
-            for y in (Y+10*SS,Y+18*SS): d.rectangle([cx-wa*0.5,y,cx+wa*0.5,y+3*SS],fill=(215,215,205,255))
-            if not side:
-                rect(cx-10*SS,top+12*SS,cx+10*SS,top+26*SS,C(acc),3)                           # панель приборов
-                for i in range(3): d.ellipse([cx-7*SS+i*6*SS,top+17*SS,cx-4*SS+i*6*SS,top+20*SS],fill=(120,230,140,255))
-        elif cls=='exo':
-            rect(cx-sh*(0.22 if side else 0.34),top+4*SS,cx+sh*(0.32 if side else 0.34),Y,C(sec),3)
-            for i in range(2):
-                y0=Y+(5+i*9)*SS; d.rectangle([cx-wa*0.4,y0,cx+wa*0.4,y0+6*SS],fill=C(sec,0.9))
-            for dx in ((-0.5,0.5) if not side else (0.45,)):                                   # каркас
-                x=cx+sh*dx; d.line([(x,top+4*SS),(x,bot-4*SS)],fill=(150,150,145,255),width=3*SS)
-                for y in (top+6*SS,Y,bot-8*SS): d.ellipse([x-4*SS,y-4*SS,x+4*SS,y+4*SS],fill=(110,110,105,255))
-        # нашивка фракции на плече (вид спереди)
-        if not side and cls!='cloak':
-            d.rectangle([cx-sh*0.42,top+10*SS,cx-sh*0.30,top+18*SS],fill=C(acc))
-    # затенение: светлее сверху-слева, темнее снизу-справа
-    shade=Image.new('L',(N,N),0); sd=ImageDraw.Draw(shade)
-    for i in range(N):
-        sd.line([(0,i),(N,i)],fill=int(70*i/N))
-    dark=Image.new('RGBA',(N,N),(0,0,0,255)); dark.putalpha(shade)
-    layer.alpha_composite(dark)
-    layer.putalpha(ImageChops.multiply(layer.getchannel('A'),mask))
-    img.alpha_composite(layer)
-    ImageDraw.Draw(img).line(poly+[poly[0]],fill=C(base,0.45),width=3*SS)                    # контур
-    return img.resize((128,128),Image.LANCZOS)
-
-for (k,en,ru,cls,cols,*_rest) in SUITS:
+import sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import suit_art
+BODIES=['Male','Female','Thin','Fat','Hulk']
+for n,(k,en,ru,cls,cols,*_rest) in enumerate(SUITS):
     base_path=f'{T}/{VAN}/SZ_Suits/{k}/{k}'
     os.makedirs(os.path.dirname(base_path),exist_ok=True)
-    for body in BODY:
+    for body in BODIES:
         for view in ('south','east','north'):
-            render(k,cls,cols,body,view).save(f'{base_path}_{body}_{view}.png')
-    icon=render(k,cls,cols,'Male','south').crop((24,28,104,108)).resize((64,64),Image.LANCZOS)
+            suit_art.render(k,cls,cols,body,view,seed=n*31).save(f'{base_path}_{body}_{view}.png',optimize=True)
+    im=suit_art.render(k,cls,cols,'Male','south',seed=n*31)
+    bb=im.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16
+    cx,cy=(bb[0]+bb[2])//2,(bb[1]+bb[3])//2
+    icon=im.crop((cx-side//2,cy-side//2,cx+side//2,cy+side//2)).resize((128,128),Image.LANCZOS)
     os.makedirs(f'{T}/Things/Item/SZ_Suits',exist_ok=True); icon.save(f'{T}/Things/Item/SZ_Suits/{k}.png')
 
 # ---------- Остальная графика ----------

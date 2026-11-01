@@ -24,4 +24,21 @@ Marks the edge of contaminated ground. Staying inside causes radiation sickness.
   <SZ_SuitRepaired>{0}: repaired.</SZ_SuitRepaired>
   <SZ_SuitUpgraded>{0}: upgrade "{1}" installed.</SZ_SuitUpgraded>
   <SZ_SuitNoRoom>{0}: no room for upgrade "{1}", the materials were wasted.</SZ_SuitNoRoom>
+  <SZ_PutOnBelt>Put on belt: {0}</SZ_PutOnBelt>
+  <SZ_RepairWithKit>Repair suit with repair kit</SZ_RepairWithKit>
+  <SZ_TakeKit>Take: {0}</SZ_TakeKit>
+  <SZ_GearCapacity>Gear (exoskeleton, backpack)</SZ_GearCapacity>
+  <SZ_RadioPrefix>Radio</SZ_RadioPrefix>
+  <SZ_Radio_0>...anyone copy? The electro by the old farm is humming again. Go around from the north.</SZ_Radio_0>
+  <SZ_Radio_1>They say something glowing turned up by the swamp after the last emission. I would not go check.</SZ_Radio_1>
+  <SZ_Radio_2>Dogs were howling by the road last night. A lot of them. Stay close to the fires.</SZ_Radio_2>
+  <SZ_Radio_3>The trader asks not to bring him hot artifacts without a container.</SZ_Radio_3>
+  <SZ_Radio_4>The dosimeter past the ravine is off the scale. Do not linger there.</SZ_Radio_4>
+  <SZ_Radio_5>Anyone seen the group that went north three days ago? ...No? Understood.</SZ_Radio_5>
+  <SZ_Radio_6>The sky looks wrong today. Check your shelters, just in case.</SZ_Radio_6>
+  <SZ_Radio_7>Heard whispering by the old tower. Do not go there without psi protection.</SZ_Radio_7>
+  <SZ_Radio_8>If you find my backpack by the crossing, keep it. I will not need it anymore.</SZ_Radio_8>
+  <SZ_Radio_9>Silence on the air is a bad sign. Stay sharp.</SZ_Radio_9>
+  <SZ_Radio_10>The cordon patrol is in a foul mood today. Give them a wide berth.</SZ_Radio_10>
+  <SZ_Radio_11>Whoever left the canned meat by the fire — thanks, brother.</SZ_Radio_11>
 </LanguageData>

@@ -75,25 +75,25 @@ ANOM=[
 # Повадки типов аномалий -> поля StalkerZone.AnomalyDef (значения по умолчанию — в AnomalyDef.cs)
 GD, GI = 'SZ_Gravity_Discharge', 'SZ_Gravity_Idle'
 PROFILE={
- 'Springboard': dict(triggerRadius=1.5, cooldownTicks=180, effectRadius=1.5, throwsInsteadOfDamage='true', throwDistance=5, stunTicks=90,
+ 'Springboard': dict(nearRadius=4, nearHediff='SZ_Near_Gravity', triggerRadius=1.5, cooldownTicks=180, effectRadius=1.5, throwsInsteadOfDamage='true', throwDistance=5, stunTicks=90,
                      avoidRadius=2.5, fx='Gravity', sound=GD, idleSound=GI, fleck='Dust', fps=8),
- 'Vortex':      dict(triggerRadius=1.5, cooldownTicks=600, effectRadius=1.9, pullRadius=4.9, pullInterval=60, pullStrength=0.8, avoidRadius=5.5,
+ 'Vortex':      dict(nearRadius=7, nearHediff='SZ_Near_Gravity', triggerRadius=1.5, cooldownTicks=600, effectRadius=1.9, pullRadius=4.9, pullInterval=60, pullStrength=0.8, avoidRadius=5.5,
                      fx='Gravity', sound=GD, idleSound=GI, fleck='Dust', clusterMin=2, clusterMax=3, memberSpacing=7, artifactChance=0.5, fps=8),
- 'Whirligig':   dict(triggerRadius=1.5, cooldownTicks=360, effectRadius=1.9, pullRadius=2.9, pullInterval=60, pullStrength=0.6,
+ 'Whirligig':   dict(nearRadius=5, nearHediff='SZ_Near_Gravity', triggerRadius=1.5, cooldownTicks=360, effectRadius=1.9, pullRadius=2.9, pullInterval=60, pullStrength=0.6,
                      throwsAfterDischarge='true', throwDistance=4, stunTicks=60, avoidRadius=3.5,
                      fx='Gravity', sound=GD, idleSound=GI, fleck='Dust', clusterMax=5, memberSpacing=4, fps=12),
- 'Meatgrinder': dict(triggerRadius=1.5, cooldownTicks=900, effectRadius=1.5, pullRadius=2.9, pullInterval=30, pullStrength=0.9, avoidRadius=3.5,
+ 'Meatgrinder': dict(nearRadius=5, nearHediff='SZ_Near_Gravity', triggerRadius=1.5, cooldownTicks=900, effectRadius=1.5, pullRadius=2.9, pullInterval=30, pullStrength=0.9, avoidRadius=3.5,
                      fx='Gravity', sound=GD, idleSound=GI, fleck='Dust', clusterMin=2, clusterMax=4, memberSpacing=4, fps=12),
- 'Electro':     dict(triggerRadius=2.2, cooldownTicks=240, effectRadius=2.4, chainLightning='true', avoidRadius=3,
+ 'Electro':     dict(nearRadius=4.7, nearHediff='SZ_Near_Static', triggerRadius=2.2, cooldownTicks=240, effectRadius=2.4, chainLightning='true', avoidRadius=3,
                      fx='Electric', sound='SZ_Electro_Discharge', idleSound='SZ_Electro_Idle', fleck='Sparks', fps=10),
- 'Burner':      dict(triggerRadius=1.5, cooldownTicks=300, effectRadius=1.9, avoidRadius=2.5,
+ 'Burner':      dict(nearRadius=4, nearHediff='SZ_Near_Heat', triggerRadius=1.5, cooldownTicks=300, effectRadius=1.9, avoidRadius=2.5,
                      fx='Fire', sound='SZ_Fire_Discharge', idleSound='SZ_Fire_Idle', fleck='Heat', fps=10),
- 'Comet':       dict(triggerRadius=0, moves='true', routeRadius=3, avoidRadius=4.9,
+ 'Comet':       dict(nearRadius=4, nearHediff='SZ_Near_Heat', triggerRadius=0, moves='true', routeRadius=3, avoidRadius=4.9,
                      fx='Fire', sound='SZ_Fire_Discharge', idleSound='SZ_Fire_Idle', fleck='Heat',
                      clusterMin=1, clusterMax=2, memberSpacing=8, artifactChance=0.6, fps=10),
- 'FruitPunch':  dict(triggerRadius=1.5, cooldownTicks=480, effectRadius=1.9, leavesPuddle='true', avoidRadius=2.5,
+ 'FruitPunch':  dict(nearRadius=4, nearHediff='SZ_Near_Fumes', triggerRadius=1.5, cooldownTicks=480, effectRadius=1.9, leavesPuddle='true', avoidRadius=2.5,
                      fx='Acid', sound='SZ_Acid_Discharge', idleSound='SZ_Acid_Idle', fleck='Air', fps=6),
- 'BurntFuzz':   dict(triggerRadius=2.9, cooldownTicks=240, effectRadius=2.9, avoidRadius=3.5,
+ 'BurntFuzz':   dict(nearRadius=5.4, nearHediff='SZ_Near_Itch', triggerRadius=2.9, cooldownTicks=240, effectRadius=2.9, avoidRadius=3.5,
                      fx='Fuzz', sound='SZ_Fuzz_Discharge', fleck='Dust', clusterMax=5, memberSpacing=4, fps=6),
 }
 RARITY_W={'common':(0.185,1),'uncommon':(0.09,2),'rare':(0.04,3)}   # вес и класс детектора
@@ -252,8 +252,8 @@ open(f'{M}/Defs/Anomalies/SZ_Anomalies.xml','w',encoding='utf-8').write(''.join(
 # Облучение — в лучевую болезнь (SZ_Radiation), radiationPerDay в ArtifactExtension (C#: ZoneArtifacts.cs).
 # Каждый свинцовый контейнер в инвентаре гасит излучение одного активного артефакта (самого сильного).
 RAD_PER_DAY={'mild':0.08,'strong':0.25,'none':0.0}
-BELT_EN=' Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.'
-BELT_RU=' Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.'
+BELT_EN=' Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.'
+BELT_RU=' Правая кнопка — надеть на пояс; действует, пока на поясе (в инвентаре), столько артефактов, сколько ячеек даёт костюм. Свинцовый контейнер в инвентаре гасит его излучение.'
 o=[]; w=o.append
 w("""<?xml version="1.0" encoding="utf-8"?>
 <Defs>
@@ -294,6 +294,7 @@ w("""<?xml version="1.0" encoding="utf-8"?>
     </statBases>
     <comps>
       <li Class="CompProperties_Forbiddable"/>
+      <li Class="StalkerZone.CompProperties_ZoneItem"/>   <!-- правая кнопка: "Надеть на пояс" -->
     </comps>
     <thingSetMakerTags>
       <li>RewardStandardLowFreq</li>

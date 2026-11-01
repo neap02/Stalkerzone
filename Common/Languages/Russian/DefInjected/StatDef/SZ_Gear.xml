@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+  <SZ_InventoryCapacity.label>грузоподъёмность снаряжения</SZ_InventoryCapacity.label>
+  <SZ_InventoryCapacity.description>Сколько дополнительной массы существо может нести в инвентаре и в караване благодаря снаряжению (экзоскелеты, рюкзаки).</SZ_InventoryCapacity.description>
   <SZ_ArtifactSlots.label>ячейки пояса</SZ_ArtifactSlots.label>
   <SZ_ArtifactSlots.description>Сколько артефактов из инвентаря действуют одновременно. По умолчанию одна ячейка, костюм добавляет ещё.</SZ_ArtifactSlots.description>
 </LanguageData>

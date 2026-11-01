@@ -43,6 +43,10 @@ namespace StalkerZone
         public SoundDef sound;
         public SoundDef idleSound;
 
+        // --- воздействие вблизи (ещё до срабатывания) ---
+        public float nearRadius;                   // 0 = нет
+        public HediffDef nearHediff;               // жар, статика, тяжесть, пары, жжение
+
         // --- обход ---
         public float avoidRadius = 2.5f;
 

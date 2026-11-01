@@ -18,6 +18,17 @@
     <toStringStyle>Integer</toStringStyle>
   </StatDef>
 
+  <!-- ===== Грузоподъёмность снаряжения, кг: прибавляется к инвентарю и каравану (C#: ZoneHarmony) ===== -->
+  <StatDef>
+    <defName>SZ_InventoryCapacity</defName>
+    <label>gear carrying capacity</label>
+    <description>Extra mass this creature can carry in its inventory and in caravans thanks to its gear (exoskeletons, backpacks).</description>
+    <category>BasicsPawn</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <toStringStyle>FloatOne</toStringStyle>
+    <formatString>{0} kg</formatString>
+  </StatDef>
+
   <SoundDef>
     <defName>SZ_Bolt_Clink</defName>
     <context>MapOnly</context>
@@ -85,7 +96,6 @@
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>1</upgradeSlots></li>
     </comps>
     <costList><Cloth>90</Cloth></costList>
@@ -132,7 +142,6 @@
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>1</upgradeSlots></li>
     </comps>
     <costList><Cloth>80</Cloth></costList>
@@ -181,7 +190,6 @@
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>2</upgradeSlots></li>
     </comps>
     <costList><Steel>60</Steel><Cloth>60</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
@@ -231,7 +239,6 @@
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
     </comps>
     <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
@@ -279,7 +286,6 @@
       <tags><li>SZ_Faction_Duty</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>2</upgradeSlots></li>
     </comps>
     <costList><Steel>60</Steel><Cloth>60</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
@@ -329,7 +335,6 @@
       <tags><li>SZ_Faction_Duty</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
     </comps>
     <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
@@ -379,7 +384,6 @@
       <tags><li>SZ_Faction_Duty</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
     </comps>
     <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
@@ -429,7 +433,6 @@
       <tags><li>SZ_Faction_Freedom</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>1</upgradeSlots></li>
     </comps>
     <costList><Cloth>80</Cloth></costList>
@@ -478,7 +481,6 @@
       <tags><li>SZ_Faction_Freedom</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>2</upgradeSlots></li>
     </comps>
     <costList><Steel>60</Steel><Cloth>60</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
@@ -528,7 +530,6 @@
       <tags><li>SZ_Faction_Freedom</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
     </comps>
     <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
@@ -575,7 +576,6 @@
       <tags><li>SZ_Faction_Bandits</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>1</upgradeSlots></li>
     </comps>
     <costList><Cloth>80</Cloth></costList>
@@ -623,7 +623,6 @@
       <tags><li>SZ_Faction_Bandits</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>2</upgradeSlots></li>
     </comps>
     <costList><Steel>60</Steel><Cloth>60</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
@@ -670,7 +669,6 @@
       <tags><li>SZ_Faction_Military</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>1</upgradeSlots></li>
     </comps>
     <costList><Cloth>80</Cloth></costList>
@@ -719,7 +717,6 @@
       <tags><li>SZ_Faction_Military</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
     </comps>
     <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
@@ -768,7 +765,6 @@
       <tags><li>SZ_Faction_Military</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
     </comps>
     <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
@@ -817,7 +813,6 @@
       <tags><li>SZ_Faction_Monolith</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>2</upgradeSlots></li>
     </comps>
     <costList><Steel>60</Steel><Cloth>60</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
@@ -867,7 +862,6 @@
       <tags><li>SZ_Faction_Monolith</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
     </comps>
     <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
@@ -916,7 +910,6 @@
       <tags><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>1</upgradeSlots></li>
     </comps>
     <costList><Cloth>80</Cloth></costList>
@@ -965,7 +958,6 @@
       <tags><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>2</upgradeSlots></li>
     </comps>
     <costList><Steel>60</Steel><Cloth>60</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
@@ -1015,7 +1007,6 @@
       <tags><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
     </comps>
     <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
@@ -1066,7 +1057,6 @@
       <tags><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
     </comps>
     <costList><Synthread>60</Synthread><Plasteel>30</Plasteel><ComponentSpacer>1</ComponentSpacer></costList>
@@ -1117,7 +1107,6 @@
       <tags><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
     </comps>
     <costList><Synthread>60</Synthread><Plasteel>30</Plasteel><ComponentSpacer>1</ComponentSpacer></costList>
@@ -1161,14 +1150,13 @@
       <SZ_PsiProtection>0.15</SZ_PsiProtection>
       <SZ_ArtifactSlots>4</SZ_ArtifactSlots>
       <MoveSpeed>-0.5</MoveSpeed>
-      <CarryingCapacity>100</CarryingCapacity>
+      <SZ_InventoryCapacity>100</SZ_InventoryCapacity>
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Exo/Exo</wornGraphicPath>
       <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Freedom</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
     </comps>
     <costList><Plasteel>120</Plasteel><ComponentIndustrial>4</ComponentIndustrial><ComponentSpacer>4</ComponentSpacer></costList>
@@ -1212,14 +1200,13 @@
       <SZ_PsiProtection>0.2</SZ_PsiProtection>
       <SZ_ArtifactSlots>3</SZ_ArtifactSlots>
       <MoveSpeed>-0.6</MoveSpeed>
-      <CarryingCapacity>120</CarryingCapacity>
+      <SZ_InventoryCapacity>120</SZ_InventoryCapacity>
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/ExoAssault/ExoAssault</wornGraphicPath>
       <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <comps>
-      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
       <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
     </comps>
     <costList><Plasteel>120</Plasteel><ComponentIndustrial>4</ComponentIndustrial><ComponentSpacer>4</ComponentSpacer></costList>
@@ -1395,11 +1382,11 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- Ремкомплект: кнопка у владельца костюма, +40% прочности в поле (C#: CompSuit) -->
+  <!-- Ремкомплект: +40% прочности костюма; из инвентаря сам при износе ниже 70%, правой кнопкой с земли — сразу (C#: SuitRepair) -->
   <ThingDef>
     <defName>SZ_RepairKit</defName>
     <label>repair kit</label>
-    <description>Patches, sealant and spare plates. Carried in the inventory, it lets the wearer restore 40% of a damaged Zone suit right in the field.</description>
+    <description>Patches, sealant and spare plates. Restores 40% of a worn Zone suit. In the inventory it is used automatically when the suit drops below 70%; right-click it on the ground to pick it up and repair right away.</description>
     <thingClass>ThingWithComps</thingClass>
     <category>Item</category>
     <drawerType>MapMeshOnly</drawerType>
@@ -1425,7 +1412,7 @@
       <Flammability>0.2</Flammability>
       <WorkToMake>2000</WorkToMake>
     </statBases>
-    <comps><li Class="CompProperties_Forbiddable"/></comps>
+    <comps><li Class="CompProperties_Forbiddable"/><li Class="StalkerZone.CompProperties_ZoneItem"/></comps>
     <costList><Steel>15</Steel><Cloth>15</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
     <recipeMaker>
       <researchPrerequisite>Smithing</researchPrerequisite>

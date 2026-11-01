@@ -18,6 +18,7 @@
 
   <!-- Грузиться после ядра и всех DLC, чтобы наши патчи видели их Defs -->
   <loadAfter>
+    <li>brrainz.harmony</li>
     <li>Ludeon.RimWorld</li>
     <li>Ludeon.RimWorld.Royalty</li>
     <li>Ludeon.RimWorld.Ideology</li>

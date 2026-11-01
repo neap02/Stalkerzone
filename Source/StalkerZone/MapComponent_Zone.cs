@@ -50,8 +50,6 @@ namespace StalkerZone
         private readonly Dictionary<int, int> nextBeep = new Dictionary<int, int>();
         private readonly Dictionary<int, int> nextGeiger = new Dictionary<int, int>();
         private readonly Dictionary<int, int> fleeUntil = new Dictionary<int, int>();
-        private readonly Dictionary<int, int> boltReveal = new Dictionary<int, int>();   // id аномалии -> до какого тика метка
-        private const int BoltRevealTicks = 600;                                       // метка от болта: 10 сек.
         private readonly HashSet<AnomalyInstance> detected = new HashSet<AnomalyInstance>();
         private readonly HashSet<IntVec3> markedArtifacts = new HashSet<IntVec3>();
         private readonly List<Puddle> puddles = new List<Puddle>();
@@ -133,6 +131,8 @@ namespace StalkerZone
             int tick = Find.TickManager.TicksGame;
             if (tick % 15 == 0) TickDetectors(tick);
             if (tick % 30 == 0) TickAnomalies(tick);
+            if (tick % 60 == 20) TickNearEffects();
+            if (tick % 250 == 75) ZoneAmbience.Tick(map, tick);
             if (tick % CometMoveInterval == 0) TickComets();
             if (tick % FieldInterval == 0) { TickFields(); TickPuddles(tick); }
             if (tick % HintInterval == 45) TickHints();
@@ -157,16 +157,11 @@ namespace StalkerZone
                 if (a.def != null && view.Contains(a.pos) && !a.pos.Fogged(map))
                     ZoneMats.DrawAnomaly(a.def, a.pos, a.id);
             }
-            if (detected.Count == 0 && markedArtifacts.Count == 0 && boltReveal.Count == 0)
+            if (detected.Count == 0 && markedArtifacts.Count == 0)
                 return;
             float pulse = ZoneMats.Pulse(4f);
-            int now = Find.TickManager.TicksGame;
-            foreach (AnomalyInstance a in anomalies)
-            {
-                bool byBolt = boltReveal.TryGetValue(a.id, out int until) && until > now;
-                if (byBolt || detected.Contains(a))
-                    ZoneMats.DrawMarker(ZoneMats.AnomalyMarker, a.pos.ToVector3Shifted(), 2.3f + 0.3f * pulse);
-            }
+            foreach (AnomalyInstance a in detected)
+                ZoneMats.DrawMarker(ZoneMats.AnomalyMarker, a.pos.ToVector3Shifted(), 2.3f + 0.3f * pulse);
             foreach (IntVec3 cell in markedArtifacts)
                 ZoneMats.DrawMarker(ZoneMats.ArtifactMarker, cell.ToVector3Shifted(), 1.0f + 0.4f * pulse);
         }
@@ -305,59 +300,45 @@ namespace StalkerZone
             tmpPawns.Clear();
             tmpPawns.AddRange(map.mapPawns.AllPawnsSpawned);
             foreach (Pawn pawn in tmpPawns)
+            {
                 ZoneArtifacts.TickPawn(pawn);
+                SuitRepair.TryAutoRepair(pawn);   // ремкомплекты из инвентаря
+            }
             tmpPawns.Clear();
         }
 
-        // ---------- Болт ----------
+        // ---------- Воздействие вблизи ----------
         /// <summary>
-        /// Бросок болта в клетку. Если там аномалия и она заряжена — она срабатывает
-        /// (задевает только тех, кто рядом с ней) и уходит на перезарядку: можно пройти.
-        /// Найденная болтом аномалия 10 секунд подсвечена меткой.
+        /// Рядом с аномалией (до срабатывания) пешка чувствует её: жар, статику, тяжесть,
+        /// едкие пары или жжение. Эффект держится, пока пешка рядом, и проходит за ~20 сек.
         /// </summary>
-        public void ThrowBolt(Pawn thrower, IntVec3 cell, float range)
+        private void TickNearEffects()
         {
-            if (!cell.InBounds(map) || thrower == null)
-                return;
-            if (thrower.Position.DistanceTo(cell) > range)
-            {
-                Messages.Message("SZ_BoltTooFar".Translate(), thrower, MessageTypeDefOf.RejectInput, false);
-                return;
-            }
-            int tick = Find.TickManager.TicksGame;
-            ZoneEffects.PlaySound(SZ_DefOf.SZ_Bolt_Clink, cell, map);
-            FleckMaker.ThrowDustPuff(cell, map, 0.5f);
-
-            bool found = false;
             foreach (AnomalyInstance a in anomalies)
             {
-                if (a.def == null)
+                AnomalyDef def = a.def;
+                if (def == null || def.nearHediff == null || def.nearRadius <= 0f)
                     continue;
-                float reach = Math.Max(a.def.triggerRadius, 1f) + 0.5f;
-                if ((a.pos - cell).LengthHorizontal > reach)
-                    continue;
-                found = true;
-                boltReveal[a.id] = tick + BoltRevealTicks;
-                if (a.def.moves || tick < a.readyTick)
-                    continue;
-
-                if (a.def.throwsInsteadOfDamage)
+                ZoneEffects.PawnsAround(a.pos, map, def.nearRadius, tmpPawns);
+                foreach (Pawn pawn in tmpPawns)
                 {
-                    ZoneEffects.PlaySound(a.def.sound, a.pos, map);
-                    FleckMaker.ThrowDustPuff(a.pos, map, 2f);
+                    if (!pawn.RaceProps.IsFlesh)
+                        continue;
+                    Hediff h = pawn.health.hediffSet.GetFirstHediffOfDef(def.nearHediff);
+                    if (h == null)
+                    {
+                        h = HediffMaker.MakeHediff(def.nearHediff, pawn);
+                        h.Severity = 1f;
+                        pawn.health.AddHediff(h);
+                    }
+                    else
+                    {
+                        h.Severity = 1f;
+                    }
+                    if (Rand.Chance(0.3f))
+                        ZoneEffects.ThrowHint(map, pawn.Position, def.fleck);
                 }
-                else
-                {
-                    ZoneEffects.Discharge(map, a.pos, a.def);
-                    if (a.def.chainLightning)
-                        ZoneEffects.ChainLightning(map, a.pos, a.def, ChainRadius, ChainTargets);
-                    if (a.def.leavesPuddle)
-                        AddPuddle(a.pos, tick);
-                }
-                a.readyTick = tick + a.def.cooldownTicks;
             }
-            if (!found)
-                MoteMaker.ThrowText(cell.ToVector3Shifted(), map, "SZ_BoltClear".Translate(), 3f);
         }
 
         // ---------- Срабатывание и затягивание ----------

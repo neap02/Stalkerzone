@@ -82,6 +82,19 @@ F = [
 ]
 RANK_KEYS = ['Rookie','Fighter','Veteran','Leader']
 
+# ---------- Экипировка по званиям (обязательная): костюм + головной убор ----------
+GEAR={
+ 'Loners':     (['SZ_Suit_LonerJacket'],['SZ_Suit_Stalker'],['SZ_Suit_StalkerReinforced','SZ_Helmet_Stalker'],['SZ_Suit_StalkerReinforced','SZ_Helmet_Stalker']),
+ 'Duty':       (['SZ_Suit_DutyUniform'],['SZ_Suit_Duty','SZ_Helmet_Stalker'],['SZ_Suit_DutyAssault','SZ_Helmet_Stalker'],['SZ_Suit_Exo']),
+ 'Freedom':    (['SZ_Suit_FreedomLight'],['SZ_Suit_Freedom','SZ_GasMask'],['SZ_Suit_FreedomGuardian','SZ_GasMask'],['SZ_Suit_Exo']),
+ 'Bandits':    (['SZ_Suit_Bandit'],['SZ_Suit_Bandit'],['SZ_Suit_BanditCoat','SZ_GasMask'],['SZ_Suit_BanditCoat']),
+ 'Military':   (['SZ_Suit_MilitaryUniform'],['SZ_Suit_Military','SZ_Helmet_Stalker'],['SZ_Suit_MilitaryAssault','SZ_Helmet_Stalker','SZ_GasMask'],['SZ_Suit_MilitaryAssault','SZ_Helmet_Stalker']),
+ 'Monolith':   (['SZ_Suit_MonolithSuit'],['SZ_Suit_MonolithSuit','SZ_Helmet_Psi'],['SZ_Suit_Monolith','SZ_Helmet_Psi'],['SZ_Suit_ExoAssault']),
+ 'Mercenaries':(['SZ_Suit_MercLight'],['SZ_Suit_Mercenary','SZ_Helmet_Stalker'],['SZ_Suit_MercHeavy','SZ_Helmet_Stalker'],['SZ_Suit_ExoAssault']),
+ 'Scientists': (['SZ_Suit_Scientist','SZ_GasMask'],['SZ_Suit_Scientist','SZ_GasMask'],['SZ_Suit_Mercenary','SZ_Helmet_Stalker'],['SZ_Suit_ClosedCycle','SZ_Helmet_Psi']),
+}
+
+
 # ---------- XML ----------
 o=[]; w=o.append
 w('''<?xml version="1.0" encoding="utf-8"?>
@@ -143,6 +156,7 @@ for f in F:
     <weaponTags>{li(wt)}</weaponTags>
     <apparelMoney>{R["apparel"]}</apparelMoney>
     <apparelTags>{li(at)}</apparelTags>
+    <apparelRequired>{li(GEAR[k][i])}</apparelRequired>      <!-- своя экипировка фракции -->
     <initialResistanceRange>{res}</initialResistanceRange>   <!-- сопротивление вербовке -->
     <initialWillRange>{wil}</initialWillRange>               <!-- воля (обращение в рабство) -->
 {bion}  </PawnKindDef>

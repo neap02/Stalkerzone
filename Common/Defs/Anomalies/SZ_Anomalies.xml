@@ -120,6 +120,8 @@
     <glowSize>2.9</glowSize>
     <damage>SZ_GravityCrushLight</damage>
     <per10k>0.275</per10k>
+    <nearRadius>4</nearRadius>
+    <nearHediff>SZ_Near_Gravity</nearHediff>
     <triggerRadius>1.5</triggerRadius>
     <cooldownTicks>180</cooldownTicks>
     <effectRadius>1.5</effectRadius>
@@ -149,6 +151,8 @@
     <glowSize>4.0</glowSize>
     <damage>SZ_GravityCrushHeavy</damage>
     <per10k>0.275</per10k>
+    <nearRadius>7</nearRadius>
+    <nearHediff>SZ_Near_Gravity</nearHediff>
     <triggerRadius>1.5</triggerRadius>
     <cooldownTicks>600</cooldownTicks>
     <effectRadius>1.9</effectRadius>
@@ -182,6 +186,8 @@
     <glowSize>3.6</glowSize>
     <damage>SZ_GravityCrush</damage>
     <per10k>0.13</per10k>
+    <nearRadius>5</nearRadius>
+    <nearHediff>SZ_Near_Gravity</nearHediff>
     <triggerRadius>1.5</triggerRadius>
     <cooldownTicks>360</cooldownTicks>
     <effectRadius>1.9</effectRadius>
@@ -216,6 +222,8 @@
     <glowSize>3.2</glowSize>
     <damage>SZ_GravityShred</damage>
     <per10k>0.225</per10k>
+    <nearRadius>5</nearRadius>
+    <nearHediff>SZ_Near_Gravity</nearHediff>
     <triggerRadius>1.5</triggerRadius>
     <cooldownTicks>900</cooldownTicks>
     <effectRadius>1.5</effectRadius>
@@ -248,6 +256,8 @@
     <glowSize>3.2</glowSize>
     <damage>SZ_ElectricDischarge</damage>
     <per10k>0.5</per10k>
+    <nearRadius>4.7</nearRadius>
+    <nearHediff>SZ_Near_Static</nearHediff>
     <triggerRadius>2.2</triggerRadius>
     <cooldownTicks>240</cooldownTicks>
     <effectRadius>2.4</effectRadius>
@@ -277,6 +287,8 @@
     <glowSize>3.2</glowSize>
     <damage>SZ_ThermalBurn</damage>
     <per10k>0.315</per10k>
+    <nearRadius>4</nearRadius>
+    <nearHediff>SZ_Near_Heat</nearHediff>
     <triggerRadius>1.5</triggerRadius>
     <cooldownTicks>300</cooldownTicks>
     <effectRadius>1.9</effectRadius>
@@ -304,6 +316,8 @@
     <glowSize>2.9</glowSize>
     <damage>SZ_CometBurn</damage>
     <per10k>0.09</per10k>
+    <nearRadius>4</nearRadius>
+    <nearHediff>SZ_Near_Heat</nearHediff>
     <triggerRadius>0</triggerRadius>
     <moves>true</moves>
     <routeRadius>3</routeRadius>
@@ -333,6 +347,8 @@
     <glowSize>3.2</glowSize>
     <damage>SZ_ChemicalBurn</damage>
     <per10k>0.365</per10k>
+    <nearRadius>4</nearRadius>
+    <nearHediff>SZ_Near_Fumes</nearHediff>
     <triggerRadius>1.5</triggerRadius>
     <cooldownTicks>480</cooldownTicks>
     <effectRadius>1.9</effectRadius>
@@ -361,6 +377,8 @@
     <glowSize>3.6</glowSize>
     <damage>SZ_FuzzSting</damage>
     <per10k>0.275</per10k>
+    <nearRadius>5.4</nearRadius>
+    <nearHediff>SZ_Near_Itch</nearHediff>
     <triggerRadius>2.9</triggerRadius>
     <cooldownTicks>240</cooldownTicks>
     <effectRadius>2.9</effectRadius>

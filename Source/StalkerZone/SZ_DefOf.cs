@@ -15,6 +15,7 @@ namespace StalkerZone
         public static StatDef SZ_RadiationResistance;
         public static StatDef SZ_PsiProtection;
         public static StatDef SZ_ArtifactSlots;
+        public static StatDef SZ_InventoryCapacity;
         public static ThingDef SZ_LeadContainer;
         public static ThingDef SZ_RepairKit;
         public static SoundDef SZ_Bolt_Clink;

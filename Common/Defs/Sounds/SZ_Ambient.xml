@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Звуки Зоны (синтез: Source/Tools/gen_ambient.py). Играются у камеры на карте колонии (C#: ZoneAmbience). -->
+
+  <!-- порыв ветра -->
+  <SoundDef>
+    <defName>SZ_Ambient_Wind</defName>
+    <context>Any</context>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains><li Class="AudioGrain_Folder"><clipFolderPath>SZ/Ambient/Wind</clipFolderPath></li></grains>
+        <volumeRange>18~24</volumeRange>
+        <pitchRange>0.9~1.1</pitchRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <!-- низкий гул Зоны -->
+  <SoundDef>
+    <defName>SZ_Ambient_Drone</defName>
+    <context>Any</context>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains><li Class="AudioGrain_Folder"><clipFolderPath>SZ/Ambient/Drone</clipFolderPath></li></grains>
+        <volumeRange>12~16</volumeRange>
+        <pitchRange>0.9~1.1</pitchRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <!-- далёкая перестрелка -->
+  <SoundDef>
+    <defName>SZ_Ambient_Shots</defName>
+    <context>Any</context>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains><li Class="AudioGrain_Folder"><clipFolderPath>SZ/Ambient/Shots</clipFolderPath></li></grains>
+        <volumeRange>10~14</volumeRange>
+        <pitchRange>0.9~1.1</pitchRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <!-- далёкий вой -->
+  <SoundDef>
+    <defName>SZ_Ambient_Howl</defName>
+    <context>Any</context>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains><li Class="AudioGrain_Folder"><clipFolderPath>SZ/Ambient/Howl</clipFolderPath></li></grains>
+        <volumeRange>12~18</volumeRange>
+        <pitchRange>0.9~1.1</pitchRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+</Defs>

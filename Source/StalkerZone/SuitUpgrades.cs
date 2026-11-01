@@ -42,11 +42,10 @@ namespace StalkerZone
     /// Костюм Зоны:
     /// - износ: чем ниже прочность, тем слабее вся броня костюма (до minArmorFactor);
     /// - улучшения со станка (сохраняются в самом костюме);
-    /// - полевой ремонт ремкомплектом из инвентаря владельца.
+    /// - ремонт ремкомплектом: из инвентаря сам (SuitRepair) или правой кнопкой по ремкомплекту.
     /// </summary>
     public class CompSuit : ThingComp
     {
-        private const float FieldRepairFraction = 0.4f;
         private List<SuitUpgradeDef> upgrades = new List<SuitUpgradeDef>();
 
         public CompProperties_Suit Props => (CompProperties_Suit)props;
@@ -108,44 +107,6 @@ namespace StalkerZone
             string list = upgrades.Count > 0 ? string.Join(", ", upgrades.Select(u => u.label)) : "—";
             return "SZ_SuitWear".Translate(WearFactor.ToStringPercent()).Resolve() + "\n"
                 + "SZ_SuitUpgradesInspect".Translate(upgrades.Count, Props.upgradeSlots, list).Resolve();
-        }
-
-        public override IEnumerable<Gizmo> CompGetWornGizmosExtra()
-        {
-            foreach (Gizmo g in base.CompGetWornGizmosExtra())
-                yield return g;
-            Pawn pawn = (parent as Apparel)?.Wearer;
-            if (pawn == null || !pawn.IsColonistPlayerControlled || pawn.inventory == null)
-                yield break;
-            if (parent.HitPoints >= parent.MaxHitPoints)
-                yield break;
-
-            var cmd = new Command_Action
-            {
-                defaultLabel = "SZ_UseRepairKit".Translate(),
-                defaultDesc = "SZ_UseRepairKitDesc".Translate(),
-                icon = ZoneTex.Repair,
-                action = () => FieldRepair(pawn)
-            };
-            if (FindKit(pawn) == null)
-                cmd.Disable("SZ_NoRepairKit".Translate());
-            yield return cmd;
-        }
-
-        private static Thing FindKit(Pawn pawn)
-        {
-            return pawn.inventory.innerContainer.FirstOrDefault(t => t.def == SZ_DefOf.SZ_RepairKit);
-        }
-
-        private void FieldRepair(Pawn pawn)
-        {
-            Thing kit = FindKit(pawn);
-            if (kit == null)
-                return;
-            kit.SplitOff(1).Destroy();
-            parent.HitPoints = Math.Min(parent.MaxHitPoints, parent.HitPoints + (int)Math.Ceiling(parent.MaxHitPoints * FieldRepairFraction));
-            ZoneEffects.PlaySound(SZ_DefOf.SZ_Bolt_Clink, pawn.Position, pawn.Map);
-            Messages.Message("SZ_SuitRepaired".Translate(parent.LabelCap), pawn, MessageTypeDefOf.PositiveEvent, false);
         }
 
         public override void PostExposeData()
@@ -228,6 +189,57 @@ namespace StalkerZone
                 radiation += c.RadiationBonus;
                 psi += c.PsiBonus;
             }
+        }
+    }
+
+    /// <summary>
+    /// Ремкомплекты. Лежат в инвентаре — используются сами, когда надетый костюм Зоны
+    /// изношен ниже 70%. Правая кнопка по ремкомплекту на земле — взять и сразу починить.
+    /// </summary>
+    public static class SuitRepair
+    {
+        public const float AutoRepairBelow = 0.7f;
+        public const float KitRepairFraction = 0.4f;
+        private static readonly HashSet<int> requested = new HashSet<int>();
+
+        /// <summary>Просьба починить при первой возможности, даже если износ меньше порога.</summary>
+        public static void Request(Pawn pawn)
+        {
+            if (pawn != null) requested.Add(pawn.thingIDNumber);
+        }
+
+        public static Apparel MostWornSuit(Pawn pawn)
+        {
+            Apparel worst = null; float worstHp = 1f;
+            if (pawn?.apparel == null) return null;
+            foreach (Apparel a in pawn.apparel.WornApparel)
+            {
+                if (a.TryGetComp<CompSuit>() == null || a.MaxHitPoints <= 0) continue;
+                float hp = (float)a.HitPoints / a.MaxHitPoints;
+                if (hp < worstHp) { worstHp = hp; worst = a; }
+            }
+            return worst;
+        }
+
+        public static void TryAutoRepair(Pawn pawn)
+        {
+            if (pawn == null || pawn.Dead || pawn.inventory == null || pawn.Faction != Faction.OfPlayer)
+                return;
+            bool asked = requested.Contains(pawn.thingIDNumber);
+            Apparel suit = MostWornSuit(pawn);
+            if (suit == null) { requested.Remove(pawn.thingIDNumber); return; }
+            float hp = (float)suit.HitPoints / suit.MaxHitPoints;
+            if (hp >= (asked ? 0.999f : AutoRepairBelow))
+                return;
+            Thing kit = pawn.inventory.innerContainer.FirstOrDefault(t => t.def == SZ_DefOf.SZ_RepairKit);
+            if (kit == null)
+                return;
+            kit.SplitOff(1).Destroy();
+            suit.HitPoints = Math.Min(suit.MaxHitPoints, suit.HitPoints + (int)Math.Ceiling(suit.MaxHitPoints * KitRepairFraction));
+            requested.Remove(pawn.thingIDNumber);
+            if (pawn.Map != null)
+                ZoneEffects.PlaySound(SZ_DefOf.SZ_Bolt_Clink, pawn.Position, pawn.Map);
+            Messages.Message("SZ_SuitRepaired".Translate(suit.LabelCap), pawn, MessageTypeDefOf.PositiveEvent, false);
         }
     }
 }

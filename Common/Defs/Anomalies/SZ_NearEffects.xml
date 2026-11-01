@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Воздействие рядом с аномалией (до срабатывания). Ставит C#-часть (MapComponent_Zone),
+       пока пешка в nearRadius аномалии. Тяжесть 1 и спадает за ~20 сек. после ухода. -->
+
+  <HediffDef>
+    <defName>SZ_Near_Heat</defName>
+    <label>scorching heat</label>
+    <description>The air near a thermal anomaly scorches the skin and makes it hard to think.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(1.0, 0.6, 0.3)</defaultLabelColor>
+    <isBad>true</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay"><severityPerDay>-48</severityPerDay></li>
+    </comps>
+    <stages>
+      <li>
+        <painOffset>0.05</painOffset>
+        <capMods><li><capacity>Consciousness</capacity><offset>-0.05</offset></li></capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>SZ_Near_Static</defName>
+    <label>static charge</label>
+    <description>Static from an electric anomaly makes the hands twitch and the hair stand on end.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.6, 0.8, 1.0)</defaultLabelColor>
+    <isBad>true</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay"><severityPerDay>-48</severityPerDay></li>
+    </comps>
+    <stages>
+      <li>
+        <painOffset>0.02</painOffset>
+        <capMods><li><capacity>Manipulation</capacity><offset>-0.10</offset></li></capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>SZ_Near_Gravity</defName>
+    <label>heaviness</label>
+    <description>A gravitational anomaly pulls at the body: every step is heavy.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.7, 0.55, 1.0)</defaultLabelColor>
+    <isBad>true</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay"><severityPerDay>-48</severityPerDay></li>
+    </comps>
+    <stages>
+      <li>
+        <capMods><li><capacity>Moving</capacity><offset>-0.15</offset></li></capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>SZ_Near_Fumes</defName>
+    <label>caustic fumes</label>
+    <description>Fumes from a chemical anomaly sting the eyes and lungs.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.5, 1.0, 0.4)</defaultLabelColor>
+    <isBad>true</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay"><severityPerDay>-48</severityPerDay></li>
+    </comps>
+    <stages>
+      <li>
+        <capMods><li><capacity>Breathing</capacity><offset>-0.10</offset></li><li><capacity>Consciousness</capacity><offset>-0.05</offset></li></capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>SZ_Near_Itch</defName>
+    <label>burning skin</label>
+    <description>Fibers from burnt fuzz drift in the air and make the skin burn.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(1.0, 0.95, 0.6)</defaultLabelColor>
+    <isBad>true</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay"><severityPerDay>-48</severityPerDay></li>
+    </comps>
+    <stages>
+      <li>
+        <painOffset>0.08</painOffset>
+      </li>
+    </stages>
+  </HediffDef>
+
+</Defs>

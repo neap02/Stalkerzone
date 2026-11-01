@@ -37,6 +37,7 @@
     </statBases>
     <comps>
       <li Class="CompProperties_Forbiddable"/>
+      <li Class="StalkerZone.CompProperties_ZoneItem"/>   <!-- правая кнопка: "Надеть на пояс" -->
     </comps>
     <thingSetMakerTags>
       <li>RewardStandardLowFreq</li>
@@ -65,7 +66,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- медуза, обычный -->
     <defName>SZ_Artifact_Jellyfish</defName>
     <label>jellyfish</label>
-    <description>A translucent, gently pulsing mass that is lighter than it looks. Loads feel lighter to its wearer. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A translucent, gently pulsing mass that is lighter than it looks. Loads feel lighter to its wearer. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Jellyfish</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -103,7 +104,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- каменный цветок, необычный -->
     <defName>SZ_Artifact_StoneFlower</defName>
     <label>stone flower</label>
-    <description>A stone growth shaped like an open flower. It steadies the nerves and dulls pain. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A stone growth shaped like an open flower. It steadies the nerves and dulls pain. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/StoneFlower</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -143,7 +144,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- грави, обычный -->
     <defName>SZ_Artifact_Gravi</defName>
     <label>gravi</label>
-    <description>A dense, perfectly smooth sphere that seems to pull at the hand. It noticeably eases heavy loads. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A dense, perfectly smooth sphere that seems to pull at the hand. It noticeably eases heavy loads. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Gravi</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -181,7 +182,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- ночная звезда, необычный -->
     <defName>SZ_Artifact_NightStar</defName>
     <label>night star</label>
-    <description>A star-shaped artifact that glimmers faintly in the dark. Its wearer is lighter on their feet and can carry far more. Emits strong radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A star-shaped artifact that glimmers faintly in the dark. Its wearer is lighter on their feet and can carry far more. Emits strong radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/NightStar</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -221,7 +222,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- мамины бусы, необычный -->
     <defName>SZ_Artifact_MamasBeads</defName>
     <label>mama's beads</label>
-    <description>A string of hardened, bead-like growths. Its wearer's hands stay steady and aiming comes quicker. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A string of hardened, bead-like growths. Its wearer's hands stay steady and aiming comes quicker. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/MamasBeads</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -259,7 +260,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- золотая рыбка, редкий -->
     <defName>SZ_Artifact_Goldfish</defName>
     <label>goldfish</label>
-    <description>A rare golden artifact shaped like a small fish. Its wearer can carry enormous loads. Emits strong radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A rare golden artifact shaped like a small fish. Its wearer can carry enormous loads. Emits strong radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Goldfish</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -299,7 +300,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- ломоть мяса, обычный -->
     <defName>SZ_Artifact_MeatChunk</defName>
     <label>meat chunk</label>
-    <description>An unpleasant, fleshy growth. It speeds up the healing of wounds, though its wearer feels uneasy. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>An unpleasant, fleshy growth. It speeds up the healing of wounds, though its wearer feels uneasy. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/MeatChunk</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -337,7 +338,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- душа, редкий -->
     <defName>SZ_Artifact_Soul</defName>
     <label>soul</label>
-    <description>A rare, warm artifact that seems almost alive. Wounds and illness fade from its wearer at an astonishing rate. Emits strong radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A rare, warm artifact that seems almost alive. Wounds and illness fade from its wearer at an astonishing rate. Emits strong radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Soul</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -377,7 +378,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- вспышка, обычный -->
     <defName>SZ_Artifact_Flash</defName>
     <label>flash</label>
-    <description>A crackling cluster of blue crystals. Its wearer moves faster. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A crackling cluster of blue crystals. Its wearer moves faster. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Flash</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -415,7 +416,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- бенгальский огонь, обычный -->
     <defName>SZ_Artifact_Sparkler</defName>
     <label>sparkler</label>
-    <description>A brittle artifact that now and then throws off sparks. Work goes faster with it. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A brittle artifact that now and then throws off sparks. Work goes faster with it. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Sparkler</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -453,7 +454,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- батарейка, необычный -->
     <defName>SZ_Artifact_Battery</defName>
     <label>battery</label>
-    <description>A heavy artifact that holds a constant faint charge. Sleep restores its wearer faster, and they move a little quicker. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A heavy artifact that holds a constant faint charge. Sleep restores its wearer faster, and they move a little quicker. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Battery</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -491,7 +492,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- лунный свет, редкий -->
     <defName>SZ_Artifact_Moonlight</defName>
     <label>moonlight</label>
-    <description>A rare, pale sphere with a soft glow. It dulls psychic influence and steadies the mind. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A rare, pale sphere with a soft glow. It dulls psychic influence and steadies the mind. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Moonlight</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -531,7 +532,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- капля, обычный -->
     <defName>SZ_Artifact_Droplet</defName>
     <label>droplet</label>
-    <description>A glassy, teardrop-shaped artifact formed in intense heat. It seems to draw radiation away from its wearer. Does not emit radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A glassy, teardrop-shaped artifact formed in intense heat. It seems to draw radiation away from its wearer. Does not emit radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Droplet</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -569,7 +570,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- огненный шар, необычный -->
     <defName>SZ_Artifact_Fireball</defName>
     <label>fireball</label>
-    <description>A stone that radiates steady warmth. Its wearer barely feels the cold. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A stone that radiates steady warmth. Its wearer barely feels the cold. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Fireball</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -607,7 +608,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- кристалл, редкий -->
     <defName>SZ_Artifact_Crystal</defName>
     <label>crystal</label>
-    <description>A rare faceted crystal born in fire. It shields its wearer from both heat and cold. Emits strong radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A rare faceted crystal born in fire. It shields its wearer from both heat and cold. Emits strong radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Crystal</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -647,7 +648,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- пламя, необычный -->
     <defName>SZ_Artifact_Flame</defName>
     <label>flame</label>
-    <description>A flickering artifact that is warm to the touch. Wounds close faster on its wearer, and the cold bothers them less. Emits strong radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A flickering artifact that is warm to the touch. Wounds close faster on its wearer, and the cold bothers them less. Emits strong radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Flame</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -687,7 +688,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- слизь, обычный -->
     <defName>SZ_Artifact_Slime</defName>
     <label>slime</label>
-    <description>A slick, jelly-like artifact. It helps the body resist toxins. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A slick, jelly-like artifact. It helps the body resist toxins. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Slime</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -725,7 +726,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- слизняк, необычный -->
     <defName>SZ_Artifact_Slug</defName>
     <label>slug</label>
-    <description>A rubbery, slowly shifting lump. It strengthens resistance to toxins and disease. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A rubbery, slowly shifting lump. It strengthens resistance to toxins and disease. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Slug</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -763,7 +764,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- кровь камня, необычный -->
     <defName>SZ_Artifact_StoneBlood</defName>
     <label>stone blood</label>
-    <description>A dark red, porous stone. It speeds up the healing of wounds and helps fight disease. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A dark red, porous stone. It speeds up the healing of wounds and helps fight disease. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/StoneBlood</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -803,7 +804,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- колючка, обычный -->
     <defName>SZ_Artifact_Thorn</defName>
     <label>thorn</label>
-    <description>A cluster of hard, needle-like spines. Its wearer shrugs off pain but grows irritable. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A cluster of hard, needle-like spines. Its wearer shrugs off pain but grows irritable. Emits weak radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Thorn</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -841,7 +842,7 @@
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- морской ёж, необычный -->
     <defName>SZ_Artifact_Urchin</defName>
     <label>urchin</label>
-    <description>A round artifact covered in spines. Its wearer ignores pain and aims faster. Emits strong radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
+    <description>A round artifact covered in spines. Its wearer ignores pain and aims faster. Emits strong radiation. Right-click it to put it on the belt; works while in the belt (inventory), as many as the suit has belt slots. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Urchin</texPath>
       <graphicClass>Graphic_Single</graphicClass>
