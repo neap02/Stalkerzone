@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_Upgrade_Plates.label>улучшить костюм: усиленные бронепластины</SZ_Upgrade_Plates.label>
+  <SZ_Upgrade_Plates.description>Дополнительные бронепластины: лучше защита от пуль и ударов. Занимает одно свободное место для улучшений костюма Зоны.</SZ_Upgrade_Plates.description>
+  <SZ_Upgrade_Plates.jobString>Улучшает костюм.</SZ_Upgrade_Plates.jobString>
+  <SZ_Upgrade_AntiRupture.label>улучшить костюм: противоразрывная сетка</SZ_Upgrade_AntiRupture.label>
+  <SZ_Upgrade_AntiRupture.description>Сетчатый слой против разрывающих гравитационных аномалий. Занимает одно свободное место для улучшений костюма Зоны.</SZ_Upgrade_AntiRupture.description>
+  <SZ_Upgrade_AntiRupture.jobString>Улучшает костюм.</SZ_Upgrade_AntiRupture.jobString>
+  <SZ_Upgrade_Thermal.label>улучшить костюм: термоизоляционный слой</SZ_Upgrade_Thermal.label>
+  <SZ_Upgrade_Thermal.description>Термостойкая подкладка против термических аномалий и огня. Занимает одно свободное место для улучшений костюма Зоны.</SZ_Upgrade_Thermal.description>
+  <SZ_Upgrade_Thermal.jobString>Улучшает костюм.</SZ_Upgrade_Thermal.jobString>
+  <SZ_Upgrade_Dielectric.label>улучшить костюм: диэлектрическая подкладка</SZ_Upgrade_Dielectric.label>
+  <SZ_Upgrade_Dielectric.description>Изолирующая подкладка против электрических аномалий. Занимает одно свободное место для улучшений костюма Зоны.</SZ_Upgrade_Dielectric.description>
+  <SZ_Upgrade_Dielectric.jobString>Улучшает костюм.</SZ_Upgrade_Dielectric.jobString>
+  <SZ_Upgrade_Chemical.label>улучшить костюм: химзащитная пропитка</SZ_Upgrade_Chemical.label>
+  <SZ_Upgrade_Chemical.description>Пропитка, защищающая от едких и токсичных аномалий. Занимает одно свободное место для улучшений костюма Зоны.</SZ_Upgrade_Chemical.description>
+  <SZ_Upgrade_Chemical.jobString>Улучшает костюм.</SZ_Upgrade_Chemical.jobString>
+  <SZ_Upgrade_Lead.label>улучшить костюм: свинцовые вставки</SZ_Upgrade_Lead.label>
+  <SZ_Upgrade_Lead.description>Свинцовые вставки в подкладке: +15% к защите от радиации. Занимает одно свободное место для улучшений костюма Зоны.</SZ_Upgrade_Lead.description>
+  <SZ_Upgrade_Lead.jobString>Улучшает костюм.</SZ_Upgrade_Lead.jobString>
+  <SZ_Upgrade_PsiMesh.label>улучшить костюм: пси-экранирующая сетка</SZ_Upgrade_PsiMesh.label>
+  <SZ_Upgrade_PsiMesh.description>Экранирующая сетка в воротнике: +15% к пси-защите. Занимает одно свободное место для улучшений костюма Зоны.</SZ_Upgrade_PsiMesh.description>
+  <SZ_Upgrade_PsiMesh.jobString>Улучшает костюм.</SZ_Upgrade_PsiMesh.jobString>
+  <SZ_Upgrade_ArtifactMount.label>улучшить костюм: крепление для артефакта</SZ_Upgrade_ArtifactMount.label>
+  <SZ_Upgrade_ArtifactMount.description>Дополнительный контейнер для артефакта: +1 ячейка пояса. Занимает одно свободное место для улучшений костюма Зоны.</SZ_Upgrade_ArtifactMount.description>
+  <SZ_Upgrade_ArtifactMount.jobString>Улучшает костюм.</SZ_Upgrade_ArtifactMount.jobString>
+  <SZ_RepairSuit.label>отремонтировать костюм Зоны</SZ_RepairSuit.label>
+  <SZ_RepairSuit.description>Починить повреждённый костюм Зоны: восстанавливает 60% прочности. Изношенный костюм защищает хуже.</SZ_RepairSuit.description>
+  <SZ_RepairSuit.jobString>Ремонтирует костюм.</SZ_RepairSuit.jobString>
+</LanguageData>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_ArtifactSlots.label>ячейки пояса</SZ_ArtifactSlots.label>
+  <SZ_ArtifactSlots.description>Сколько артефактов из инвентаря действуют одновременно. По умолчанию одна ячейка, костюм добавляет ещё.</SZ_ArtifactSlots.description>
+</LanguageData>

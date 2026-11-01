@@ -1,0 +1,655 @@
+# Генератор снаряжения Зоны (одна таблица -> XML, перевод, графика, звуки):
+# - 24 костюма: по 2–3 на фракцию + особые; своя графика для всех типов тела;
+# - шлемы и противогаз; свинцовый контейнер; ремкомплект;
+# - улучшения костюмов на станке и ремонт; стат ячеек пояса; звук болта; иконки кнопок.
+# Названия, характеристики и рисунки — свои.
+import math, os, random, struct, wave
+from xml.sax.saxutils import escape as esc
+from PIL import Image, ImageDraw, ImageFilter, ImageChops
+
+M='/mnt/user-data/outputs/StalkerZone/Common'
+L=f'{M}/Languages/Russian/DefInjected'
+T=f'{M}/Textures'
+VAN='Things/Pawn/Humanlike/Apparel'
+
+def P(sharp,blunt,heat,strike,rupture,shock,burn,chem,rad,psi,slots=0,move=0,carry=0,cold=10,heatins=0):
+    return dict(sharp=sharp,blunt=blunt,heat=heat,strike=strike,rupture=rupture,shock=shock,burn=burn,chem=chem,
+                rad=rad,psi=psi,slots=slots,move=move,carry=carry,cold=cold,heatins=heatins)
+
+# класс -> (исследование, верстаки, материалы, навык, работа, ячеек улучшений)
+CLS={
+ 'light':  ('ComplexClothing', ['HandTailoringBench','ElectricTailoringBench'], {'Cloth':80}, 4, 8000, 1),
+ 'cloak':  ('ComplexClothing', ['HandTailoringBench','ElectricTailoringBench'], {'Cloth':90}, 4, 8000, 1),
+ 'medium': ('FlakArmor', ['TableMachining'], {'Steel':60,'Cloth':60,'ComponentIndustrial':2}, 6, 14000, 2),
+ 'heavy':  ('FlakArmor', ['TableMachining'], {'Steel':100,'Plasteel':30,'Cloth':40,'ComponentIndustrial':3}, 8, 20000, 3),
+ 'science':('AdvancedFabrication', ['FabricationBench'], {'Synthread':60,'Plasteel':30,'ComponentSpacer':1}, 8, 20000, 3),
+ 'exo':    ('PoweredArmor', ['FabricationBench'], {'Plasteel':120,'ComponentIndustrial':4,'ComponentSpacer':4}, 10, 32000, 3),
+}
+
+# key, en, ru, класс, (основной, второй, акцент), защита, цена, масса, теги фракций, описание en, ru
+SUITS=[
+ # ---- Одиночки ----
+ ('ScoutCloak','scout cloak','маскхалат разведчика','cloak',((0.36,0.40,0.28),(0.25,0.30,0.18),(0.50,0.45,0.30)),
+   P(0.15,0.05,0.10, 0.05,0.03,0.05,0.10,0.05, 0.05,0.00, move=0.10, cold=12),350,2.5,['Loners'],
+   'A light camouflage cloak with a hood. Barely protects, but does not slow its wearer down.',
+   'Лёгкий маскировочный халат с капюшоном. Почти не защищает, зато не сковывает движений.'),
+ ('LonerJacket','stalker jacket','куртка сталкера','light',((0.45,0.36,0.24),(0.30,0.24,0.16),(0.85,0.70,0.30)),
+   P(0.25,0.10,0.15, 0.10,0.05,0.10,0.15,0.10, 0.10,0.00, cold=14),300,3,['Loners'],
+   'A worn leather jacket with sewn-in protective panels. Cheap, light and better than nothing.',
+   'Потёртая кожаная куртка со вшитыми защитными вставками. Дешёвая, лёгкая и лучше, чем ничего.'),
+ ('Stalker','stalker suit','комбинезон сталкера','medium',((0.42,0.45,0.32),(0.30,0.32,0.24),(0.85,0.70,0.30)),
+   P(0.45,0.20,0.25, 0.20,0.10,0.25,0.25,0.25, 0.25,0.05, slots=1),700,6,['Loners'],
+   'A reliable all-round suit for trips into the Zone: armored panels, sealed seams and a rack for two artifacts.',
+   'Надёжный универсальный комбинезон для походов в Зону: бронепанели, проклеенные швы и крепление под два артефакта.'),
+ ('StalkerReinforced','reinforced stalker suit','усиленный комбинезон сталкера','heavy',((0.38,0.40,0.30),(0.26,0.28,0.22),(0.85,0.70,0.30)),
+   P(0.60,0.28,0.30, 0.30,0.18,0.30,0.30,0.30, 0.30,0.05, slots=1, move=-0.1),1100,8,['Loners'],
+   'A veteran\'s suit with extra plates and a sealed hood. Heavier, but holds up against both bullets and anomalies.',
+   'Комбинезон бывалого сталкера с дополнительными пластинами и герметичным капюшоном. Тяжелее, зато держит и пули, и аномалии.'),
+ # ---- Долг ----
+ ('DutyUniform','Duty field uniform','полевая форма Долга','medium',((0.20,0.20,0.20),(0.45,0.08,0.08),(0.80,0.15,0.15)),
+   P(0.45,0.20,0.20, 0.20,0.10,0.15,0.20,0.15, 0.20,0.05),600,5,['Duty'],
+   'Everyday uniform of Duty patrols with a light armored vest.',
+   'Повседневная форма патрулей Долга с лёгким бронежилетом.'),
+ ('Duty','Duty armored suit','бронекостюм Долга','heavy',((0.42,0.08,0.08),(0.18,0.18,0.18),(0.85,0.20,0.20)),
+   P(0.80,0.35,0.30, 0.35,0.20,0.20,0.30,0.20, 0.30,0.10, slots=1, move=-0.2),1300,10,['Duty'],
+   'Heavy armor issued to Duty fighters. Stops bullets and blows well, but weighs its wearer down.',
+   'Тяжёлая броня бойцов Долга. Хорошо держит пули и удары, но тяжела для владельца.'),
+ ('DutyAssault','Duty assault armor','штурмовая броня Долга','heavy',((0.25,0.25,0.25),(0.45,0.08,0.08),(0.85,0.20,0.20)),
+   P(0.95,0.45,0.35, 0.45,0.30,0.25,0.35,0.25, 0.35,0.10, slots=1, move=-0.35),1700,13,['Duty'],
+   'Assault armor for storming mutant lairs. Nearly bulletproof and very heavy.',
+   'Штурмовая броня для зачистки логов мутантов. Почти не пробивается и очень тяжела.'),
+ # ---- Свобода ----
+ ('FreedomLight','Freedom light suit','лёгкий костюм Свободы','light',((0.30,0.50,0.25),(0.20,0.32,0.15),(0.95,0.90,0.40)),
+   P(0.30,0.12,0.20, 0.15,0.08,0.25,0.20,0.20, 0.20,0.05, slots=1, move=0.05),500,3,['Freedom'],
+   'A light suit for fast raids, with a rack for two artifacts.',
+   'Лёгкий костюм для быстрых вылазок, с креплением под два артефакта.'),
+ ('Freedom','Freedom combat suit','комбинезон Свободы','medium',((0.24,0.42,0.20),(0.16,0.28,0.13),(0.95,0.90,0.40)),
+   P(0.50,0.20,0.30, 0.25,0.15,0.35,0.30,0.30, 0.30,0.10, slots=2),900,6,['Freedom'],
+   'A light combat suit favored by Freedom: good anomaly protection and room for three artifacts.',
+   'Лёгкий боевой комбинезон, любимый Свободой: хорошая защита от аномалий и место под три артефакта.'),
+ ('FreedomGuardian','Freedom guardian armor','броня стража Свободы','heavy',((0.20,0.36,0.18),(0.32,0.34,0.30),(0.95,0.90,0.40)),
+   P(0.80,0.35,0.35, 0.35,0.22,0.35,0.35,0.30, 0.35,0.10, slots=2, move=-0.2),1600,11,['Freedom'],
+   'Heavy armor of Freedom\'s best fighters, balanced between firefights and the Zone.',
+   'Тяжёлая броня лучших бойцов Свободы, одинаково годная для перестрелок и для Зоны.'),
+ # ---- Бандиты ----
+ ('Bandit','bandit jacket','бандитская куртка','light',((0.16,0.16,0.16),(0.25,0.22,0.20),(0.55,0.55,0.55)),
+   P(0.30,0.12,0.10, 0.10,0.05,0.05,0.10,0.05, 0.05,0.00, cold=12),250,4,['Bandits'],
+   'A long black coat with a few steel plates sewn into the lining.',
+   'Длинное чёрное пальто с несколькими стальными пластинами в подкладке.'),
+ ('BanditCoat','reinforced leather coat','укреплённый кожаный плащ','medium',((0.30,0.22,0.15),(0.15,0.12,0.10),(0.55,0.55,0.55)),
+   P(0.40,0.18,0.15, 0.15,0.08,0.10,0.15,0.10, 0.10,0.00, slots=1),550,5,['Bandits'],
+   'A heavy leather coat over a stolen armored vest.',
+   'Тяжёлый кожаный плащ поверх краденого бронежилета.'),
+ # ---- Военные ----
+ ('MilitaryUniform','army field uniform','армейская полевая форма','light',((0.40,0.43,0.26),(0.30,0.33,0.20),(0.75,0.70,0.30)),
+   P(0.35,0.12,0.15, 0.10,0.05,0.10,0.15,0.10, 0.15,0.00, cold=15),400,3,['Military'],
+   'Standard field uniform of the cordon troops with a light vest.',
+   'Стандартная полевая форма войск кордона с лёгким жилетом.'),
+ ('Military','army body armor','армейский бронекостюм','heavy',((0.33,0.36,0.20),(0.24,0.26,0.15),(0.75,0.70,0.30)),
+   P(0.70,0.30,0.25, 0.30,0.15,0.15,0.20,0.15, 0.20,0.05, move=-0.1),1000,9,['Military'],
+   'Standard body armor of the cordon troops. Built for firefights, not for anomalies.',
+   'Штатная броня войск кордона. Сделана для перестрелок, а не для аномалий.'),
+ ('MilitaryAssault','army assault armor','армейская штурмовая броня','heavy',((0.30,0.32,0.20),(0.20,0.22,0.15),(0.75,0.70,0.30)),
+   P(0.95,0.45,0.35, 0.40,0.25,0.20,0.30,0.25, 0.30,0.05, move=-0.3),1600,13,['Military'],
+   'Assault armor of the special units. Excellent against bullets, poor against the Zone.',
+   'Штурмовая броня спецподразделений. Отлично держит пули, но слаба против Зоны.'),
+ # ---- Монолит ----
+ ('MonolithSuit','Monolith suit','костюм Монолита','medium',((0.70,0.70,0.66),(0.50,0.52,0.55),(0.40,0.70,0.90)),
+   P(0.50,0.22,0.30, 0.25,0.15,0.30,0.30,0.25, 0.40,0.40, slots=1),1000,6,['Monolith'],
+   'A pale suit of Monolith acolytes. Protects the mind better than the body.',
+   'Бледный костюм послушников Монолита. Разум защищает лучше, чем тело.'),
+ ('Monolith','Monolith armor','броня Монолита','heavy',((0.68,0.68,0.65),(0.45,0.47,0.50),(0.40,0.70,0.90)),
+   P(0.75,0.35,0.35, 0.35,0.25,0.35,0.35,0.30, 0.50,0.60, slots=2, move=-0.15),1500,10,['Monolith'],
+   'Pale armor of the Monolith fanatics. Strongly shields the mind and the body from the Zone.',
+   'Бледная броня фанатиков Монолита. Надёжно защищает разум и тело от Зоны.'),
+ # ---- Наёмники ----
+ ('MercLight','mercenary light suit','лёгкий костюм наёмника','light',((0.25,0.32,0.45),(0.18,0.22,0.30),(0.85,0.85,0.85)),
+   P(0.35,0.15,0.20, 0.15,0.08,0.20,0.20,0.15, 0.15,0.00, slots=1, move=0.05),600,3,['Mercenaries'],
+   'A light tactical suit for quick contracts.',
+   'Лёгкий тактический костюм для быстрых заказов.'),
+ ('Mercenary','mercenary suit','костюм наёмника','medium',((0.20,0.27,0.40),(0.14,0.18,0.26),(0.85,0.85,0.85)),
+   P(0.60,0.25,0.30, 0.25,0.15,0.30,0.30,0.25, 0.25,0.05, slots=1),1100,7,['Mercenaries'],
+   'A professional combat suit: well-balanced protection from bullets and anomalies.',
+   'Профессиональный боевой костюм: сбалансированная защита и от пуль, и от аномалий.'),
+ ('MercHeavy','mercenary heavy armor','тяжёлая броня наёмника','heavy',((0.18,0.22,0.32),(0.30,0.33,0.38),(0.85,0.85,0.85)),
+   P(0.85,0.40,0.35, 0.35,0.22,0.30,0.30,0.25, 0.30,0.05, slots=2, move=-0.25),1700,12,['Mercenaries'],
+   'Heavy armor for well-paid jobs deep in the Zone.',
+   'Тяжёлая броня для хорошо оплаченной работы в глубине Зоны.'),
+ # ---- Учёные ----
+ ('Scientist','scientific suit','научный комбинезон','science',((0.90,0.52,0.15),(0.95,0.95,0.92),(0.20,0.20,0.20)),
+   P(0.20,0.10,0.40, 0.20,0.15,0.50,0.60,0.70, 0.70,0.30, slots=2, move=-0.05, cold=20, heatins=10),1400,7,['Scientists'],
+   'A sealed research suit. Weak against bullets, but the best protection from radiation, chemicals and fire.',
+   'Герметичный научный комбинезон. Слаб против пуль, зато лучше всего защищает от радиации, химии и огня.'),
+ ('ClosedCycle','closed-cycle suit','костюм замкнутого цикла','science',((0.92,0.92,0.88),(0.95,0.55,0.15),(0.25,0.60,0.85)),
+   P(0.40,0.20,0.50, 0.40,0.30,0.65,0.70,0.80, 0.85,0.40, slots=3, move=-0.1, cold=25, heatins=15),2200,9,['Scientists'],
+   'A top-class research suit with its own air supply. The best protection against anomalies the Zone has seen.',
+   'Научный костюм высшего класса с собственной системой дыхания. Лучшая защита от аномалий, какую знала Зона.'),
+ # ---- Особые ----
+ ('Exo','exoskeleton','экзоскелет','exo',((0.22,0.24,0.26),(0.35,0.37,0.40),(0.90,0.55,0.15)),
+   P(1.00,0.50,0.45, 0.50,0.35,0.30,0.40,0.30, 0.35,0.15, slots=4, move=-0.5, carry=100),2000,25,['Duty','Freedom','Monolith','Mercenaries'],
+   'A powered exoskeleton with heavy plating. Carries a huge load and five artifacts, but is slow.',
+   'Силовой экзоскелет с тяжёлой бронёй. Несёт огромный груз и пять артефактов, но медлителен.'),
+ ('ExoAssault','assault exoskeleton','штурмовой экзоскелет','exo',((0.18,0.19,0.20),(0.40,0.40,0.38),(0.85,0.20,0.20)),
+   P(1.25,0.65,0.55, 0.60,0.45,0.35,0.45,0.35, 0.40,0.20, slots=3, move=-0.6, carry=120),2200,30,['Duty','Monolith','Mercenaries'],
+   'An exoskeleton with assault plating. The strongest armor in the Zone, and the slowest.',
+   'Экзоскелет со штурмовой бронёй. Самая прочная броня в Зоне и самая медленная.'),
+]
+
+HEAD=[
+ ('Helmet_Stalker','stalker helmet','шлем сталкера',f'{VAN}/SimpleHelmet/SimpleHelmet','Overhead',['UpperHead'],(0.40,0.42,0.35),
+   dict(sharp=0.40,blunt=0.20,heat=0.10,strike=0.20,rupture=0.10,shock=0.10,burn=0.10,chem=0.05),dict(psi=0.10),
+   250,1.5,('Smithing',['TableMachining'],{'Steel':40},3,4000),['Loners','Duty','Military','Mercenaries'],
+   'A steel helmet with a padded liner. Also slightly dulls psychic pressure.',
+   'Стальной шлем с мягким подшлемником. Немного ослабляет и пси-давление.'),
+ ('Helmet_Psi','psi helmet','пси-шлем',f'{VAN}/AdvancedHelmet/AdvancedHelmet','Overhead',['UpperHead'],(0.75,0.78,0.85),
+   dict(sharp=0.30,blunt=0.15,heat=0.15,strike=0.15,rupture=0.10,shock=0.20,burn=0.15,chem=0.10),dict(psi=0.50),
+   900,1.2,('MicroelectronicsBasics',['FabricationBench'],{'Plasteel':25,'ComponentIndustrial':3},7,9000),['Monolith','Scientists'],
+   'A helmet with a built-in psi shield circuit. Protects the mind from psychic fields and the emission.',
+   'Шлем со встроенной схемой пси-экрана. Защищает разум от пси-полей и Выброса.'),
+ ('GasMask','gas mask','противогаз','Things/Pawn/Humanlike/Apparel/SZ_GasMask/SZ_GasMask','EyeCover',['Eyes'],(1,1,1),
+   dict(chem=0.30),dict(rad=0.15,tox=0.50),
+   200,0.8,('ComplexClothing',['TableMachining'],{'Cloth':20,'Steel':15,'ComponentIndustrial':1},4,3000),['Freedom','Military','Scientists','Bandits'],
+   'A rubber gas mask with a filter. Keeps out radioactive dust and toxic fumes. Can be worn under a helmet.',
+   'Резиновый противогаз с фильтром. Защищает от радиоактивной пыли и ядовитых испарений. Надевается под шлем.'),
+]
+
+# key, en, ru, прибавки к броне костюма, ячейки, радиация, пси, максимум на костюм, исследование, материалы, навык, описание en/ru
+UPG=[
+ ('Plates','reinforced plates','усиленные бронепластины',{'ArmorRating_Sharp':0.15,'ArmorRating_Blunt':0.08,'SZ_ArmorRating_Strike':0.05},0,0,0,2,
+   'FlakArmor',{'Plasteel':20,'Steel':20},6,'Extra armor plates: better protection from bullets and blows.','Дополнительные бронепластины: лучше защита от пуль и ударов.'),
+ ('AntiRupture','anti-rupture mesh','противоразрывная сетка',{'SZ_ArmorRating_Rupture':0.15,'SZ_ArmorRating_Strike':0.05},0,0,0,2,
+   'FlakArmor',{'Plasteel':15,'Cloth':20},6,'A woven mesh layer against tearing gravitational anomalies.','Сетчатый слой против разрывающих гравитационных аномалий.'),
+ ('Thermal','thermal lining','термоизоляционный слой',{'SZ_ArmorRating_Burn':0.15,'ArmorRating_Heat':0.08},0,0,0,2,
+   'ComplexClothing',{'Cloth':30,'ComponentIndustrial':1},4,'A heat-resistant lining against thermal anomalies and fire.','Термостойкая подкладка против термических аномалий и огня.'),
+ ('Dielectric','dielectric lining','диэлектрическая подкладка',{'SZ_ArmorRating_Shock':0.15},0,0,0,2,
+   'ComplexClothing',{'Cloth':20,'ComponentIndustrial':1},4,'An insulating lining against electric anomalies.','Изолирующая подкладка против электрических аномалий.'),
+ ('Chemical','chemical impregnation','химзащитная пропитка',{'SZ_ArmorRating_Chemical':0.15},0,0,0,2,
+   'DrugProduction',{'Cloth':20,'Neutroamine':4},4,'An impregnation that protects against caustic and toxic anomalies.','Пропитка, защищающая от едких и токсичных аномалий.'),
+ ('Lead','lead inserts','свинцовые вставки',{},0,0.15,0,2,
+   'Smithing',{'Steel':30},4,'Lead inserts in the lining: +15% radiation protection.','Свинцовые вставки в подкладке: +15% к защите от радиации.'),
+ ('PsiMesh','psi shielding mesh','пси-экранирующая сетка',{},0,0,0.15,1,
+   'MicroelectronicsBasics',{'ComponentIndustrial':3,'Plasteel':10},7,'A shielding mesh in the collar: +15% psi protection.','Экранирующая сетка в воротнике: +15% к пси-защите.'),
+ ('ArtifactMount','artifact mount','крепление для артефакта',{},1,0,0,1,
+   'MicroelectronicsBasics',{'Steel':15,'ComponentIndustrial':2},6,'An extra artifact container: +1 belt slot.','Дополнительный контейнер для артефакта: +1 ячейка пояса.'),
+]
+
+ARMOR={'sharp':'ArmorRating_Sharp','blunt':'ArmorRating_Blunt','heat':'ArmorRating_Heat',
+       'strike':'SZ_ArmorRating_Strike','rupture':'SZ_ArmorRating_Rupture','shock':'SZ_ArmorRating_Shock',
+       'burn':'SZ_ArmorRating_Burn','chem':'SZ_ArmorRating_Chemical'}
+OFFS={'rad':'SZ_RadiationResistance','psi':'SZ_PsiProtection','slots':'SZ_ArtifactSlots','move':'MoveSpeed',
+      'carry':'CarryingCapacity','tox':'ToxicResistance'}
+
+def recipe_block(research,users,cost,skill):
+    us=''.join(f'<li>{u}</li>' for u in users); cs=''.join(f'<{k}>{v}</{k}>' for k,v in cost.items())
+    return f"""    <costList>{cs}</costList>
+    <recipeMaker>
+      <researchPrerequisite>{research}</researchPrerequisite>
+      <recipeUsers>{us}</recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>{skill}</Crafting></skillRequirements>
+    </recipeMaker>
+"""
+
+o=[]; w=o.append
+w("""<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Файл сгенерирован Source/Tools/gen_gear.py.
+       Снаряжение Зоны. Броня от аномалий — статы категорий (SZ_Protection.xml), работают как
+       обычная броня по закрытым частям тела. Радиация, пси и ячейки пояса — статы владельца.
+       Костюмы: свой рисунок для всех типов тела, износ (CompSuit: ниже прочность — слабее броня),
+       улучшения на станке (SZ_SuitUpgrades.xml), ремонт на станке и ремкомплектом в поле. -->
+
+  <StatDef>
+    <defName>SZ_ArtifactSlots</defName>
+    <label>artifact slots</label>
+    <description>How many artifacts carried in the inventory are active at once. One by default; suits add more.</description>
+    <category>PawnCombat</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <maxValue>5</maxValue>
+    <toStringStyle>Integer</toStringStyle>
+  </StatDef>
+
+  <SoundDef>
+    <defName>SZ_Bolt_Clink</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains><li Class="AudioGrain_Folder"><clipFolderPath>SZ/Bolt</clipFolderPath></li></grains>
+        <volumeRange>30~36</volumeRange>
+        <pitchRange>0.9~1.15</pitchRange>
+        <distRange>5~40</distRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <ThingDef ParentName="ApparelBase" Name="SZ_SuitBase" Abstract="True">
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <apparel>
+      <layers><li>Middle</li><li>Shell</li></layers>
+      <bodyPartGroups><li>Torso</li><li>Neck</li><li>Shoulders</li><li>Arms</li><li>Legs</li></bodyPartGroups>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase" Name="SZ_HeadgearBase" Abstract="True">
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>Headgear</li></thingCategories>
+    <apparel><careIfWornByCorpse>false</careIfWornByCorpse></apparel>
+  </ThingDef>
+""")
+def stat_lines(prot, keys, table):
+    return ''.join(f'      <{table[k]}>{prot[k]}</{table[k]}>\n' for k in keys if prot.get(k))
+
+tr_t=[]
+for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
+    research,users,cost,skill,work,upslots=CLS[cls]
+    armor=stat_lines(prot,['sharp','blunt','heat','strike','rupture','shock','burn','chem'],ARMOR)
+    offs=stat_lines(prot,['rad','psi','slots','move','carry'],OFFS)
+    ins=f'      <Insulation_Cold>{prot["cold"]}</Insulation_Cold>\n'+(f'      <Insulation_Heat>{prot["heatins"]}</Insulation_Heat>\n' if prot['heatins'] else '')
+    tg=''.join(f'<li>SZ_Faction_{t}</li>' for t in tags)
+    w(f"""
+  <!-- {ru}: ячеек пояса {1+prot['slots']}, мест под улучшения {upslots} -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_{k}</defName>
+    <label>{esc(en)}</label>
+    <description>{esc(den)}</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/{k}</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>{int(150+prot['sharp']*250)}</MaxHitPoints>
+      <MarketValue>{val}</MarketValue>
+      <Mass>{mass}</Mass>
+      <WorkToMake>{work}</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+{armor}{ins}    </statBases>
+    <equippedStatOffsets>
+{offs}    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>{VAN}/SZ_Suits/{k}/{k}</wornGraphicPath>
+      <tags>{tg}</tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>{upslots}</upgradeSlots></li>
+    </comps>
+{recipe_block(research,users,cost,skill)}  </ThingDef>
+""")
+    tr_t.append((f'SZ_Suit_{k}',ru,dru))
+
+for (k,en,ru,tex,layer,groups,col,armor_d,offs_d,val,mass,rec,tags,den,dru) in HEAD:
+    research,users,cost,skill,work=rec
+    armor=''.join(f'      <{ARMOR[a]}>{v}</{ARMOR[a]}>\n' for a,v in armor_d.items())
+    offs=''.join(f'      <{OFFS[a]}>{v}</{OFFS[a]}>\n' for a,v in offs_d.items())
+    gr=''.join(f'<li>{g}</li>' for g in groups); tg=''.join(f'<li>SZ_Faction_{t}</li>' for t in tags)
+    color='' if col==(1,1,1) else f'\n      <color>({col[0]:.2f}, {col[1]:.2f}, {col[2]:.2f})</color>'
+    w(f"""
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_{k}</defName>
+    <label>{esc(en)}</label>
+    <description>{esc(den)}</description>
+    <graphicData>
+      <texPath>{tex}</texPath>
+      <graphicClass>Graphic_Single</graphicClass>{color}
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>{val}</MarketValue>
+      <Mass>{mass}</Mass>
+      <WorkToMake>{work}</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+{armor}    </statBases>
+    <equippedStatOffsets>
+{offs}    </equippedStatOffsets>
+    <apparel>
+      <layers><li>{layer}</li></layers>
+      <bodyPartGroups>{gr}</bodyPartGroups>
+      <wornGraphicPath>{tex}</wornGraphicPath>
+      <tags>{tg}</tags>
+    </apparel>
+{recipe_block(research,users,cost,skill)}  </ThingDef>
+""")
+    tr_t.append((f'SZ_{k}',ru,dru))
+
+def item_def(dn,en,den,tex,mass,val,stack,cost,research,skill,work,note):
+    cs=''.join(f'<{k}>{v}</{k}>' for k,v in cost.items())
+    return f"""
+  <!-- {note} -->
+  <ThingDef>
+    <defName>{dn}</defName>
+    <label>{esc(en)}</label>
+    <description>{esc(den)}</description>
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <drawerType>MapMeshOnly</drawerType>
+    <altitudeLayer>Item</altitudeLayer>
+    <selectable>true</selectable>
+    <alwaysHaulable>true</alwaysHaulable>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <rotatable>false</rotatable>
+    <pathCost>14</pathCost>
+    <useHitPoints>true</useHitPoints>
+    <stackLimit>{stack}</stackLimit>
+    <tradeability>All</tradeability>
+    <techLevel>Industrial</techLevel>
+    <thingCategories><li>SZ_Artifacts</li></thingCategories>
+    <graphicData>
+      <texPath>{tex}</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>{val}</MarketValue>
+      <Mass>{mass}</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>{work}</WorkToMake>
+    </statBases>
+    <comps><li Class="CompProperties_Forbiddable"/></comps>
+    <costList>{cs}</costList>
+    <recipeMaker>
+      <researchPrerequisite>{research}</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>{skill}</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+"""
+w(item_def('SZ_LeadContainer','lead container',
+  'A heavy lead-lined box for an artifact. Each container carried in the inventory blocks the radiation of one active artifact (the strongest first), while the artifact keeps working.',
+  'Things/Item/SZ_Gear/LeadContainer',3,120,1,{'Steel':50},'Smithing',3,2500,
+  'Свинцовый контейнер: каждый в инвентаре гасит излучение одного активного артефакта (C#: ZoneArtifacts.cs)'))
+w(item_def('SZ_RepairKit','repair kit',
+  'Patches, sealant and spare plates. Carried in the inventory, it lets the wearer restore 40% of a damaged Zone suit right in the field.',
+  'Things/Item/SZ_Gear/RepairKit',1,80,10,{'Steel':15,'Cloth':15,'ComponentIndustrial':1},'Smithing',4,2000,
+  'Ремкомплект: кнопка у владельца костюма, +40% прочности в поле (C#: CompSuit)'))
+w('\n</Defs>\n')
+open(f'{M}/Defs/Gear/SZ_Gear.xml','w',encoding='utf-8').write(''.join(o))
+tr_t.append(('SZ_LeadContainer','свинцовый контейнер','Тяжёлый ящик со свинцовой обшивкой для артефакта. Каждый контейнер в инвентаре гасит излучение одного активного артефакта (сначала самого сильного), а сам артефакт продолжает действовать.'))
+tr_t.append(('SZ_RepairKit','ремкомплект','Заплаты, герметик и запасные пластины. Если лежит в инвентаре, владелец может восстановить 40% прочности повреждённого костюма Зоны прямо в поле.'))
+
+# ---------- Улучшения и ремонт ----------
+suit_list=''.join(f'<li>SZ_Suit_{s[0]}</li>' for s in SUITS)
+o=[]; w=o.append
+w("""<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Файл сгенерирован Source/Tools/gen_gear.py.
+       Улучшения костюмов Зоны. Ставятся на механическом станке рецептом: костюм не
+       расходуется, материалы расходуются (C#: RecipeWorker_Suit). Мест под улучшения:
+       лёгкий костюм 1, средний 2, тяжёлый/научный/экзо 3. Если места нет, материалы пропадут. -->
+""")
+tr_u=[]; tr_r=[]
+for (k,en,ru,armor_d,slots,rad,psi,mx,research,cost,skill,den,dru) in UPG:
+    ao=''.join(f'<{s}>{v}</{s}>' for s,v in armor_d.items())
+    extra=(f'\n    <slots>{slots}</slots>' if slots else '')+(f'\n    <radiation>{rad}</radiation>' if rad else '')+(f'\n    <psi>{psi}</psi>' if psi else '')
+    mats=''.join(f'\n      <li><filter><thingDefs><li>{m}</li></thingDefs></filter><count>{c}</count></li>' for m,c in cost.items())
+    fix=''.join(f'<li>{m}</li>' for m in cost)
+    w(f"""
+  <StalkerZone.SuitUpgradeDef>
+    <defName>SZ_Up_{k}</defName>
+    <label>{esc(en)}</label>
+    <description>{esc(den)}</description>
+    <armorOffsets>{ao}</armorOffsets>{extra}
+    <maxPerSuit>{mx}</maxPerSuit>
+  </StalkerZone.SuitUpgradeDef>
+
+  <RecipeDef>
+    <defName>SZ_Upgrade_{k}</defName>
+    <label>upgrade suit: {esc(en)}</label>
+    <description>{esc(den)} Uses one free upgrade place of a Zone suit.</description>
+    <jobString>Upgrading suit.</jobString>
+    <workerClass>StalkerZone.RecipeWorker_Suit</workerClass>
+    <workAmount>3000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <recipeUsers><li>TableMachining</li></recipeUsers>
+    <researchPrerequisite>{research}</researchPrerequisite>
+    <skillRequirements><Crafting>{skill}</Crafting></skillRequirements>
+    <ingredients>
+      <li><filter><thingDefs>{suit_list}</thingDefs></filter><count>1</count></li>{mats}
+    </ingredients>
+    <fixedIngredientFilter><thingDefs>{suit_list}{fix}</thingDefs></fixedIngredientFilter>
+    <modExtensions>
+      <li Class="StalkerZone.SuitRecipeExtension"><upgrade>SZ_Up_{k}</upgrade></li>
+    </modExtensions>
+  </RecipeDef>
+""")
+    tr_u.append((f'SZ_Up_{k}',ru,dru))
+    tr_r.append((f'SZ_Upgrade_{k}',f'улучшить костюм: {ru}',dru+' Занимает одно свободное место для улучшений костюма Зоны.','Улучшает костюм.'))
+w(f"""
+  <!-- Ремонт костюма на станке: +60% прочности -->
+  <RecipeDef>
+    <defName>SZ_RepairSuit</defName>
+    <label>repair Zone suit</label>
+    <description>Repair a damaged Zone suit: restores 60% of its durability. A worn suit protects worse.</description>
+    <jobString>Repairing suit.</jobString>
+    <workerClass>StalkerZone.RecipeWorker_Suit</workerClass>
+    <workAmount>2000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <recipeUsers><li>TableMachining</li></recipeUsers>
+    <researchPrerequisite>Smithing</researchPrerequisite>
+    <ingredients>
+      <li><filter><thingDefs>{suit_list}</thingDefs><allowedHitPointsPercents>0~0.99</allowedHitPointsPercents></filter><count>1</count></li>
+      <li><filter><thingDefs><li>Steel</li></thingDefs></filter><count>20</count></li>
+      <li><filter><thingDefs><li>Cloth</li></thingDefs></filter><count>20</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs>{suit_list}<li>Steel</li><li>Cloth</li></thingDefs></fixedIngredientFilter>
+    <modExtensions>
+      <li Class="StalkerZone.SuitRecipeExtension"><repairFraction>0.6</repairFraction></li>
+    </modExtensions>
+  </RecipeDef>
+
+</Defs>
+""")
+tr_r.append(('SZ_RepairSuit','отремонтировать костюм Зоны','Починить повреждённый костюм Зоны: восстанавливает 60% прочности. Изношенный костюм защищает хуже.','Ремонтирует костюм.'))
+open(f'{M}/Defs/Gear/SZ_SuitUpgrades.xml','w',encoding='utf-8').write(''.join(o))
+
+# ---------- Перевод ----------
+for sub in ('ThingDef','StatDef','RecipeDef','StalkerZone.SuitUpgradeDef'):
+    os.makedirs(f'{L}/{sub}',exist_ok=True)
+def tr_file(path,rows,keys):
+    t=['<?xml version="1.0" encoding="utf-8"?>\n<LanguageData>\n']
+    for row in rows:
+        d=row[0]
+        for key,val in zip(keys,row[1:]): t.append(f'  <{d}.{key}>{esc(val)}</{d}.{key}>\n')
+    t.append('</LanguageData>\n'); open(path,'w',encoding='utf-8').write(''.join(t))
+tr_file(f'{L}/ThingDef/SZ_Gear.xml',tr_t,['label','description'])
+tr_file(f'{L}/StalkerZone.SuitUpgradeDef/SZ_SuitUpgrades.xml',tr_u,['label','description'])
+tr_file(f'{L}/RecipeDef/SZ_SuitUpgrades.xml',tr_r,['label','description','jobString'])
+open(f'{L}/StatDef/SZ_Gear.xml','w',encoding='utf-8').write('''<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_ArtifactSlots.label>ячейки пояса</SZ_ArtifactSlots.label>
+  <SZ_ArtifactSlots.description>Сколько артефактов из инвентаря действуют одновременно. По умолчанию одна ячейка, костюм добавляет ещё.</SZ_ArtifactSlots.description>
+</LanguageData>
+''')
+
+# =====================================================================
+# ГРАФИКА КОСТЮМОВ: свой рисунок для каждого типа тела и стороны.
+# BODY — силуэт тела в кадре 128x128 (центр x=64). Если костюм в игре
+# сидит неровно, правятся только эти числа, после чего генератор запускается заново.
+# =====================================================================
+BODY={
+ 'Male':  dict(top=40,bot=104,sh=60,wa=50,hi=52),
+ 'Female':dict(top=42,bot=104,sh=52,wa=42,hi=52),
+ 'Thin':  dict(top=40,bot=104,sh=48,wa=40,hi=42),
+ 'Fat':   dict(top=40,bot=106,sh=66,wa=74,hi=70),
+ 'Hulk':  dict(top=34,bot=104,sh=82,wa=58,hi=60),
+}
+SIDE=0.72      # ширина силуэта сбоку относительно вида спереди
+SS=4           # сглаживание: рисуем в 4 раза крупнее и уменьшаем
+def C(c,k=1.0,a=255): return tuple(max(0,min(255,int(v*255*k))) for v in c)+(a,)
+
+def silhouette(b, view):
+    """Многоугольник силуэта (в увеличенных координатах)."""
+    cx=64; f=SIDE if view=='east' else 1.0
+    top,bot=b['top'],b['bot']; sh,wa,hi=b['sh']*f,b['wa']*f,b['hi']*f
+    ywa=top+(bot-top)*0.55
+    left=[(cx-sh*0.36,top),(cx-sh*0.5,top+9),(cx-wa*0.5,ywa),(cx-hi*0.5,bot-9),(cx-hi*0.4,bot)]
+    pts=left+[(2*cx-x,y) for (x,y) in reversed(left)]
+    return [(x*SS,y*SS) for x,y in pts], ywa
+
+def render(suit, cls, cols, body, view):
+    base,sec,acc=cols; b=BODY[body]
+    N=128*SS; img=Image.new('RGBA',(N,N),(0,0,0,0))
+    poly,ywa=silhouette(b,view)
+    mask=Image.new('L',(N,N),0); ImageDraw.Draw(mask).polygon(poly,fill=255)
+    layer=Image.new('RGBA',(N,N),C(base)); d=ImageDraw.Draw(layer)
+    cx=64*SS; top,bot=b['top']*SS,b['bot']*SS; f=SIDE if view=='east' else 1.0
+    sh=b['sh']*SS*f; wa=b['wa']*SS*f; Y=ywa*SS
+    rnd=random.Random(hash((suit,body,view))&0xffff)
+    def rect(x0,y0,x1,y1,c,r=6): d.rounded_rectangle([x0,y0,x1,y1],radius=r*SS//2,fill=c)
+    if view=='north':
+        # спина: рюкзак / баллоны / силовой блок
+        if cls in ('light','medium','cloak'):
+            rect(cx-sh*0.28,top+14*SS,cx+sh*0.28,Y+6*SS,C(sec,0.85),8)
+            d.line([(cx-sh*0.2,top+2*SS),(cx-sh*0.2,top+14*SS)],fill=C(sec,0.6),width=3*SS)
+            d.line([(cx+sh*0.2,top+2*SS),(cx+sh*0.2,top+14*SS)],fill=C(sec,0.6),width=3*SS)
+        elif cls=='science':
+            for dx in (-0.16,0.16):
+                rect(cx+sh*dx-6*SS,top+10*SS,cx+sh*dx+6*SS,Y+8*SS,C(sec),6)
+        elif cls=='exo':
+            rect(cx-sh*0.30,top+10*SS,cx+sh*0.30,Y,C(sec),4)
+            for i in range(4): d.line([(cx-sh*0.2,top+(16+i*5)*SS),(cx+sh*0.2,top+(16+i*5)*SS)],fill=C(sec,0.6),width=2*SS)
+        else:
+            rect(cx-sh*0.34,top+6*SS,cx+sh*0.34,Y+4*SS,C(sec),5)
+        if cls=='cloak':
+            d.ellipse([cx-sh*0.3,top-6*SS,cx+sh*0.3,top+10*SS],fill=C(base,0.85))
+    else:
+        side = view=='east'
+        if cls=='cloak':
+            for _ in range(40):
+                x=rnd.uniform(cx-sh*0.6,cx+sh*0.6); y=rnd.uniform(top,bot); r=rnd.uniform(3,7)*SS
+                d.ellipse([x-r,y-r*0.7,x+r,y+r*0.7],fill=C(sec if rnd.random()<0.6 else acc))
+            d.arc([cx-sh*0.35,top-8*SS,cx+sh*0.35,top+12*SS],0,180,fill=C(base,0.7),width=3*SS)
+        elif cls=='light':
+            d.rectangle([cx-sh*0.36,top,cx+sh*0.36,top+6*SS],fill=C(base,0.75))              # воротник
+            if not side:
+                d.line([(cx,top+6*SS),(cx,bot-4*SS)],fill=C(base,0.6),width=2*SS)            # молния
+                for dx in (-0.22,0.22): rect(cx+sh*dx-6*SS,top+16*SS,cx+sh*dx+6*SS,top+26*SS,C(sec),3)
+            d.rectangle([cx-wa*0.5,Y+4*SS,cx+wa*0.5,Y+8*SS],fill=C(sec,0.8))                # пояс
+        elif cls=='medium':
+            rect(cx-sh*(0.20 if side else 0.32),top+6*SS,cx+sh*(0.30 if side else 0.32),Y,C(sec),6)  # нагрудник
+            if not side:
+                for dx in (-1,1): d.ellipse([cx+dx*sh*0.5-9*SS,top-2*SS,cx+dx*sh*0.5+9*SS,top+12*SS],fill=C(sec,0.9))
+            d.rectangle([cx-wa*0.52,Y+3*SS,cx+wa*0.52,Y+8*SS],fill=C(sec,0.6))
+            for dx in ((-0.3,-0.1,0.1,0.3) if not side else (0.0,0.25)):
+                rect(cx+wa*dx-4*SS,Y+7*SS,cx+wa*dx+4*SS,Y+14*SS,C(sec,0.8),2)               # подсумки
+        elif cls=='heavy':
+            rect(cx-sh*(0.25 if side else 0.40),top+2*SS,cx+sh*(0.36 if side else 0.40),Y+2*SS,C(sec),5)
+            for i in range(3):
+                y0=Y+(5+i*7)*SS; d.rectangle([cx-wa*0.45,y0,cx+wa*0.45,y0+5*SS],fill=C(sec,0.85-i*0.1))
+            if not side:
+                for dx in (-1,1): d.ellipse([cx+dx*sh*0.48-11*SS,top-4*SS,cx+dx*sh*0.48+11*SS,top+14*SS],fill=C(sec,0.9))
+            d.rectangle([cx-sh*0.3,top-2*SS,cx+sh*0.3,top+5*SS],fill=C(sec,0.7))            # горжет
+        elif cls=='science':
+            for dx in ((-0.42,0.42) if not side else (0.3,)):
+                d.rectangle([cx+sh*dx-3*SS,top+4*SS,cx+sh*dx+3*SS,bot],fill=C(sec))           # полосы
+            for y in (Y+10*SS,Y+18*SS): d.rectangle([cx-wa*0.5,y,cx+wa*0.5,y+3*SS],fill=(215,215,205,255))
+            if not side:
+                rect(cx-10*SS,top+12*SS,cx+10*SS,top+26*SS,C(acc),3)                           # панель приборов
+                for i in range(3): d.ellipse([cx-7*SS+i*6*SS,top+17*SS,cx-4*SS+i*6*SS,top+20*SS],fill=(120,230,140,255))
+        elif cls=='exo':
+            rect(cx-sh*(0.22 if side else 0.34),top+4*SS,cx+sh*(0.32 if side else 0.34),Y,C(sec),3)
+            for i in range(2):
+                y0=Y+(5+i*9)*SS; d.rectangle([cx-wa*0.4,y0,cx+wa*0.4,y0+6*SS],fill=C(sec,0.9))
+            for dx in ((-0.5,0.5) if not side else (0.45,)):                                   # каркас
+                x=cx+sh*dx; d.line([(x,top+4*SS),(x,bot-4*SS)],fill=(150,150,145,255),width=3*SS)
+                for y in (top+6*SS,Y,bot-8*SS): d.ellipse([x-4*SS,y-4*SS,x+4*SS,y+4*SS],fill=(110,110,105,255))
+        # нашивка фракции на плече (вид спереди)
+        if not side and cls!='cloak':
+            d.rectangle([cx-sh*0.42,top+10*SS,cx-sh*0.30,top+18*SS],fill=C(acc))
+    # затенение: светлее сверху-слева, темнее снизу-справа
+    shade=Image.new('L',(N,N),0); sd=ImageDraw.Draw(shade)
+    for i in range(N):
+        sd.line([(0,i),(N,i)],fill=int(70*i/N))
+    dark=Image.new('RGBA',(N,N),(0,0,0,255)); dark.putalpha(shade)
+    layer.alpha_composite(dark)
+    layer.putalpha(ImageChops.multiply(layer.getchannel('A'),mask))
+    img.alpha_composite(layer)
+    ImageDraw.Draw(img).line(poly+[poly[0]],fill=C(base,0.45),width=3*SS)                    # контур
+    return img.resize((128,128),Image.LANCZOS)
+
+for (k,en,ru,cls,cols,*_rest) in SUITS:
+    base_path=f'{T}/{VAN}/SZ_Suits/{k}/{k}'
+    os.makedirs(os.path.dirname(base_path),exist_ok=True)
+    for body in BODY:
+        for view in ('south','east','north'):
+            render(k,cls,cols,body,view).save(f'{base_path}_{body}_{view}.png')
+    icon=render(k,cls,cols,'Male','south').crop((24,28,104,108)).resize((64,64),Image.LANCZOS)
+    os.makedirs(f'{T}/Things/Item/SZ_Suits',exist_ok=True); icon.save(f'{T}/Things/Item/SZ_Suits/{k}.png')
+
+# ---------- Остальная графика ----------
+def save(path,img): os.makedirs(os.path.dirname(path),exist_ok=True); img.save(path)
+def blank(n): return Image.new('RGBA',(n,n),(0,0,0,0))
+RUB=(70,78,66,255); RUBD=(40,45,38,255); GLASS=(150,185,190,255); FIL=(95,100,90,255)
+def mask_south():
+    img=blank(128); d=ImageDraw.Draw(img)
+    d.ellipse([42,44,86,98],fill=RUB,outline=RUBD,width=2)
+    for x in (52,76):
+        d.ellipse([x-9,56,x+9,74],fill=GLASS,outline=RUBD,width=3); d.ellipse([x-4,60,x,64],fill=(210,230,235,255))
+    d.ellipse([54,82,74,104],fill=FIL,outline=RUBD,width=2)
+    for y in (88,93,98): d.line([(58,y),(70,y)],fill=RUBD,width=1)
+    return img
+def mask_east():
+    img=blank(128); d=ImageDraw.Draw(img)
+    d.polygon([(62,46),(84,52),(88,92),(70,98),(60,90)],fill=RUB,outline=RUBD)
+    d.ellipse([72,56,88,74],fill=GLASS,outline=RUBD,width=3); d.rectangle([82,84,96,98],fill=FIL,outline=RUBD)
+    d.line([(60,60),(44,58)],fill=RUBD,width=3); return img
+def mask_north():
+    img=blank(128); d=ImageDraw.Draw(img)
+    for y in (58,72,86): d.line([(44,y),(84,y)],fill=RUBD,width=3)
+    d.line([(64,52),(64,92)],fill=RUBD,width=3); return img
+G=f'{T}/Things/Pawn/Humanlike/Apparel/SZ_GasMask/SZ_GasMask'
+save(f'{G}_south.png',mask_south()); save(f'{G}_east.png',mask_east()); save(f'{G}_north.png',mask_north())
+item=blank(64); item.alpha_composite(mask_south().crop((32,32,96,112)).resize((56,64)),(4,0)); save(f'{G}.png',item)
+img=blank(64); d=ImageDraw.Draw(img)
+d.rounded_rectangle([10,16,54,54],radius=5,fill=(120,124,128,255),outline=(50,52,55,255),width=2)
+d.rectangle([10,24,54,30],fill=(90,92,96,255)); d.rectangle([28,10,36,18],fill=(80,82,85,255)); d.ellipse([24,34,40,50],fill=(240,200,40,255))
+save(f'{T}/Things/Item/SZ_Gear/LeadContainer.png',img)
+img=blank(64); d=ImageDraw.Draw(img)                                   # ремкомплект
+d.rounded_rectangle([8,20,56,52],radius=5,fill=(170,60,45,255),outline=(80,25,20,255),width=2)
+d.rectangle([24,14,40,22],fill=(90,90,90,255)); d.rectangle([28,30,36,46],fill=(240,240,235,255)); d.rectangle([20,34,44,42],fill=(240,240,235,255))
+save(f'{T}/Things/Item/SZ_Gear/RepairKit.png',img)
+img=blank(64); d=ImageDraw.Draw(img)                                   # иконка: болт
+pts=[(32+20*math.cos(a),32+20*math.sin(a)) for a in [i*math.pi/3 for i in range(6)]]
+d.polygon(pts,fill=(170,170,165,255),outline=(70,70,68,255)); d.ellipse([24,24,40,40],fill=(40,40,40,255))
+d.line([(8,58),(22,44)],fill=(200,200,195,255),width=4); save(f'{T}/UI/SZ/Bolt.png',img)
+img=blank(64); d=ImageDraw.Draw(img)                                   # иконка: пояс
+d.rounded_rectangle([8,26,56,46],radius=6,fill=(120,90,55,255),outline=(60,40,20,255),width=2)
+for x in (16,32,48): d.ellipse([x-6,30,x+6,42],fill=(90,200,240,255),outline=(20,70,110,255))
+save(f'{T}/UI/SZ/Belt.png',img)
+img=blank(64); d=ImageDraw.Draw(img)                                   # иконка: ремонт
+d.line([(14,50),(42,22)],fill=(190,190,185,255),width=8); d.ellipse([36,10,56,30],fill=(190,190,185,255)); d.ellipse([42,16,50,24],fill=(0,0,0,0))
+d.rounded_rectangle([8,40,30,58],radius=4,fill=(170,60,45,255)); save(f'{T}/UI/SZ/Repair.png',img)
+
+# ---------- Звук болта ----------
+SR=22050
+def clink(seed):
+    rnd=random.Random(seed); n=int(.35*SR); out=[]
+    fs=[rnd.uniform(1900,2300),rnd.uniform(3100,3500),rnd.uniform(5000,5600)]
+    for i in range(n):
+        t=i/SR; s=sum(math.sin(2*math.pi*f*t)*math.exp(-t*(12+j*6)) for j,f in enumerate(fs))
+        if i<200: s+=rnd.uniform(-1,1)*(1-i/200)
+        out.append(s)
+    pk=max(abs(x) for x in out); return [x/pk*0.85 for x in out]
+os.makedirs(f'{M}/Sounds/SZ/Bolt',exist_ok=True)
+for i in range(2):
+    with wave.open(f'{M}/Sounds/SZ/Bolt/bolt_{i}.wav','wb') as wv:
+        wv.setnchannels(1); wv.setsampwidth(2); wv.setframerate(SR)
+        wv.writeframes(b''.join(struct.pack('<h',int(x*32767)) for x in clink(300+i)))
+print('suits:',len(SUITS),'headgear:',len(HEAD),'upgrades:',len(UPG))

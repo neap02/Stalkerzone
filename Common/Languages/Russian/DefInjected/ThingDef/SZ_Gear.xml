@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_Suit_ScoutCloak.label>маскхалат разведчика</SZ_Suit_ScoutCloak.label>
+  <SZ_Suit_ScoutCloak.description>Лёгкий маскировочный халат с капюшоном. Почти не защищает, зато не сковывает движений.</SZ_Suit_ScoutCloak.description>
+  <SZ_Suit_LonerJacket.label>куртка сталкера</SZ_Suit_LonerJacket.label>
+  <SZ_Suit_LonerJacket.description>Потёртая кожаная куртка со вшитыми защитными вставками. Дешёвая, лёгкая и лучше, чем ничего.</SZ_Suit_LonerJacket.description>
+  <SZ_Suit_Stalker.label>комбинезон сталкера</SZ_Suit_Stalker.label>
+  <SZ_Suit_Stalker.description>Надёжный универсальный комбинезон для походов в Зону: бронепанели, проклеенные швы и крепление под два артефакта.</SZ_Suit_Stalker.description>
+  <SZ_Suit_StalkerReinforced.label>усиленный комбинезон сталкера</SZ_Suit_StalkerReinforced.label>
+  <SZ_Suit_StalkerReinforced.description>Комбинезон бывалого сталкера с дополнительными пластинами и герметичным капюшоном. Тяжелее, зато держит и пули, и аномалии.</SZ_Suit_StalkerReinforced.description>
+  <SZ_Suit_DutyUniform.label>полевая форма Долга</SZ_Suit_DutyUniform.label>
+  <SZ_Suit_DutyUniform.description>Повседневная форма патрулей Долга с лёгким бронежилетом.</SZ_Suit_DutyUniform.description>
+  <SZ_Suit_Duty.label>бронекостюм Долга</SZ_Suit_Duty.label>
+  <SZ_Suit_Duty.description>Тяжёлая броня бойцов Долга. Хорошо держит пули и удары, но тяжела для владельца.</SZ_Suit_Duty.description>
+  <SZ_Suit_DutyAssault.label>штурмовая броня Долга</SZ_Suit_DutyAssault.label>
+  <SZ_Suit_DutyAssault.description>Штурмовая броня для зачистки логов мутантов. Почти не пробивается и очень тяжела.</SZ_Suit_DutyAssault.description>
+  <SZ_Suit_FreedomLight.label>лёгкий костюм Свободы</SZ_Suit_FreedomLight.label>
+  <SZ_Suit_FreedomLight.description>Лёгкий костюм для быстрых вылазок, с креплением под два артефакта.</SZ_Suit_FreedomLight.description>
+  <SZ_Suit_Freedom.label>комбинезон Свободы</SZ_Suit_Freedom.label>
+  <SZ_Suit_Freedom.description>Лёгкий боевой комбинезон, любимый Свободой: хорошая защита от аномалий и место под три артефакта.</SZ_Suit_Freedom.description>
+  <SZ_Suit_FreedomGuardian.label>броня стража Свободы</SZ_Suit_FreedomGuardian.label>
+  <SZ_Suit_FreedomGuardian.description>Тяжёлая броня лучших бойцов Свободы, одинаково годная для перестрелок и для Зоны.</SZ_Suit_FreedomGuardian.description>
+  <SZ_Suit_Bandit.label>бандитская куртка</SZ_Suit_Bandit.label>
+  <SZ_Suit_Bandit.description>Длинное чёрное пальто с несколькими стальными пластинами в подкладке.</SZ_Suit_Bandit.description>
+  <SZ_Suit_BanditCoat.label>укреплённый кожаный плащ</SZ_Suit_BanditCoat.label>
+  <SZ_Suit_BanditCoat.description>Тяжёлый кожаный плащ поверх краденого бронежилета.</SZ_Suit_BanditCoat.description>
+  <SZ_Suit_MilitaryUniform.label>армейская полевая форма</SZ_Suit_MilitaryUniform.label>
+  <SZ_Suit_MilitaryUniform.description>Стандартная полевая форма войск кордона с лёгким жилетом.</SZ_Suit_MilitaryUniform.description>
+  <SZ_Suit_Military.label>армейский бронекостюм</SZ_Suit_Military.label>
+  <SZ_Suit_Military.description>Штатная броня войск кордона. Сделана для перестрелок, а не для аномалий.</SZ_Suit_Military.description>
+  <SZ_Suit_MilitaryAssault.label>армейская штурмовая броня</SZ_Suit_MilitaryAssault.label>
+  <SZ_Suit_MilitaryAssault.description>Штурмовая броня спецподразделений. Отлично держит пули, но слаба против Зоны.</SZ_Suit_MilitaryAssault.description>
+  <SZ_Suit_MonolithSuit.label>костюм Монолита</SZ_Suit_MonolithSuit.label>
+  <SZ_Suit_MonolithSuit.description>Бледный костюм послушников Монолита. Разум защищает лучше, чем тело.</SZ_Suit_MonolithSuit.description>
+  <SZ_Suit_Monolith.label>броня Монолита</SZ_Suit_Monolith.label>
+  <SZ_Suit_Monolith.description>Бледная броня фанатиков Монолита. Надёжно защищает разум и тело от Зоны.</SZ_Suit_Monolith.description>
+  <SZ_Suit_MercLight.label>лёгкий костюм наёмника</SZ_Suit_MercLight.label>
+  <SZ_Suit_MercLight.description>Лёгкий тактический костюм для быстрых заказов.</SZ_Suit_MercLight.description>
+  <SZ_Suit_Mercenary.label>костюм наёмника</SZ_Suit_Mercenary.label>
+  <SZ_Suit_Mercenary.description>Профессиональный боевой костюм: сбалансированная защита и от пуль, и от аномалий.</SZ_Suit_Mercenary.description>
+  <SZ_Suit_MercHeavy.label>тяжёлая броня наёмника</SZ_Suit_MercHeavy.label>
+  <SZ_Suit_MercHeavy.description>Тяжёлая броня для хорошо оплаченной работы в глубине Зоны.</SZ_Suit_MercHeavy.description>
+  <SZ_Suit_Scientist.label>научный комбинезон</SZ_Suit_Scientist.label>
+  <SZ_Suit_Scientist.description>Герметичный научный комбинезон. Слаб против пуль, зато лучше всего защищает от радиации, химии и огня.</SZ_Suit_Scientist.description>
+  <SZ_Suit_ClosedCycle.label>костюм замкнутого цикла</SZ_Suit_ClosedCycle.label>
+  <SZ_Suit_ClosedCycle.description>Научный костюм высшего класса с собственной системой дыхания. Лучшая защита от аномалий, какую знала Зона.</SZ_Suit_ClosedCycle.description>
+  <SZ_Suit_Exo.label>экзоскелет</SZ_Suit_Exo.label>
+  <SZ_Suit_Exo.description>Силовой экзоскелет с тяжёлой бронёй. Несёт огромный груз и пять артефактов, но медлителен.</SZ_Suit_Exo.description>
+  <SZ_Suit_ExoAssault.label>штурмовой экзоскелет</SZ_Suit_ExoAssault.label>
+  <SZ_Suit_ExoAssault.description>Экзоскелет со штурмовой бронёй. Самая прочная броня в Зоне и самая медленная.</SZ_Suit_ExoAssault.description>
+  <SZ_Helmet_Stalker.label>шлем сталкера</SZ_Helmet_Stalker.label>
+  <SZ_Helmet_Stalker.description>Стальной шлем с мягким подшлемником. Немного ослабляет и пси-давление.</SZ_Helmet_Stalker.description>
+  <SZ_Helmet_Psi.label>пси-шлем</SZ_Helmet_Psi.label>
+  <SZ_Helmet_Psi.description>Шлем со встроенной схемой пси-экрана. Защищает разум от пси-полей и Выброса.</SZ_Helmet_Psi.description>
+  <SZ_GasMask.label>противогаз</SZ_GasMask.label>
+  <SZ_GasMask.description>Резиновый противогаз с фильтром. Защищает от радиоактивной пыли и ядовитых испарений. Надевается под шлем.</SZ_GasMask.description>
+  <SZ_LeadContainer.label>свинцовый контейнер</SZ_LeadContainer.label>
+  <SZ_LeadContainer.description>Тяжёлый ящик со свинцовой обшивкой для артефакта. Каждый контейнер в инвентаре гасит излучение одного активного артефакта (сначала самого сильного), а сам артефакт продолжает действовать.</SZ_LeadContainer.description>
+  <SZ_RepairKit.label>ремкомплект</SZ_RepairKit.label>
+  <SZ_RepairKit.description>Заплаты, герметик и запасные пластины. Если лежит в инвентаре, владелец может восстановить 40% прочности повреждённого костюма Зоны прямо в поле.</SZ_RepairKit.description>
+</LanguageData>

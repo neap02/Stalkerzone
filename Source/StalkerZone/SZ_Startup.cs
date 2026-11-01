@@ -12,6 +12,8 @@ namespace StalkerZone
             ZoneDefs.Init();
             AnomalyField.Init();
             Detectors.Init();
+            ZoneArtifacts.Init();
+            SuitBonuses.Init();
             FactionSetup.RemoveVanillaFactionsFromNewWorlds();
             Log.Message("[StalkerZone] Загружено: типов аномалий " + ZoneDefs.Anomalies.Count
                 + ", типов пятен " + ZoneDefs.Fields.Count + ", зона обхода: " + (ZoneDefs.DangerMarker != null) + ".");

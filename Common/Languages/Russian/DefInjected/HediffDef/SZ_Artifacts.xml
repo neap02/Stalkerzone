@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <SZ_ArtifactExposure.label>облучение от артефакта</SZ_ArtifactExposure.label>
-  <SZ_ArtifactExposure.description>Излучение артефакта, который носят на теле. Растёт, пока артефакт надет, и пропадает, когда его снимают. Антирад снижает облучение.</SZ_ArtifactExposure.description>
-  <SZ_ArtifactExposure.stages.0.label>слабое</SZ_ArtifactExposure.stages.0.label>
-  <SZ_ArtifactExposure.stages.1.label>лёгкое</SZ_ArtifactExposure.stages.1.label>
-  <SZ_ArtifactExposure.stages.2.label>среднее</SZ_ArtifactExposure.stages.2.label>
-  <SZ_ArtifactExposure.stages.3.label>тяжёлое</SZ_ArtifactExposure.stages.3.label>
-
-  <SZ_ArtifactExposureStrong.label>сильное облучение от артефакта</SZ_ArtifactExposureStrong.label>
-  <SZ_ArtifactExposureStrong.description>Мощное излучение сильного артефакта, который носят на теле. Быстро растёт, пока артефакт надет, и пропадает, когда его снимают. Антирад снижает облучение.</SZ_ArtifactExposureStrong.description>
-  <SZ_ArtifactExposureStrong.stages.0.label>слабое</SZ_ArtifactExposureStrong.stages.0.label>
-  <SZ_ArtifactExposureStrong.stages.1.label>лёгкое</SZ_ArtifactExposureStrong.stages.1.label>
-  <SZ_ArtifactExposureStrong.stages.2.label>среднее</SZ_ArtifactExposureStrong.stages.2.label>
-  <SZ_ArtifactExposureStrong.stages.3.label>тяжёлое</SZ_ArtifactExposureStrong.stages.3.label>
+  <SZ_ArtifactEffect_Jellyfish.label>артефакт: медуза</SZ_ArtifactEffect_Jellyfish.label>
+  <SZ_ArtifactEffect_Jellyfish.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Jellyfish.description>
+  <SZ_ArtifactEffect_StoneFlower.label>артефакт: каменный цветок</SZ_ArtifactEffect_StoneFlower.label>
+  <SZ_ArtifactEffect_StoneFlower.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_StoneFlower.description>
+  <SZ_ArtifactEffect_Gravi.label>артефакт: грави</SZ_ArtifactEffect_Gravi.label>
+  <SZ_ArtifactEffect_Gravi.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Gravi.description>
+  <SZ_ArtifactEffect_NightStar.label>артефакт: ночная звезда</SZ_ArtifactEffect_NightStar.label>
+  <SZ_ArtifactEffect_NightStar.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_NightStar.description>
+  <SZ_ArtifactEffect_MamasBeads.label>артефакт: мамины бусы</SZ_ArtifactEffect_MamasBeads.label>
+  <SZ_ArtifactEffect_MamasBeads.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_MamasBeads.description>
+  <SZ_ArtifactEffect_Goldfish.label>артефакт: золотая рыбка</SZ_ArtifactEffect_Goldfish.label>
+  <SZ_ArtifactEffect_Goldfish.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Goldfish.description>
+  <SZ_ArtifactEffect_MeatChunk.label>артефакт: ломоть мяса</SZ_ArtifactEffect_MeatChunk.label>
+  <SZ_ArtifactEffect_MeatChunk.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_MeatChunk.description>
+  <SZ_ArtifactEffect_Soul.label>артефакт: душа</SZ_ArtifactEffect_Soul.label>
+  <SZ_ArtifactEffect_Soul.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Soul.description>
+  <SZ_ArtifactEffect_Flash.label>артефакт: вспышка</SZ_ArtifactEffect_Flash.label>
+  <SZ_ArtifactEffect_Flash.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Flash.description>
+  <SZ_ArtifactEffect_Sparkler.label>артефакт: бенгальский огонь</SZ_ArtifactEffect_Sparkler.label>
+  <SZ_ArtifactEffect_Sparkler.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Sparkler.description>
+  <SZ_ArtifactEffect_Battery.label>артефакт: батарейка</SZ_ArtifactEffect_Battery.label>
+  <SZ_ArtifactEffect_Battery.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Battery.description>
+  <SZ_ArtifactEffect_Moonlight.label>артефакт: лунный свет</SZ_ArtifactEffect_Moonlight.label>
+  <SZ_ArtifactEffect_Moonlight.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Moonlight.description>
+  <SZ_ArtifactEffect_Droplet.label>артефакт: капля</SZ_ArtifactEffect_Droplet.label>
+  <SZ_ArtifactEffect_Droplet.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Droplet.description>
+  <SZ_ArtifactEffect_Fireball.label>артефакт: огненный шар</SZ_ArtifactEffect_Fireball.label>
+  <SZ_ArtifactEffect_Fireball.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Fireball.description>
+  <SZ_ArtifactEffect_Crystal.label>артефакт: кристалл</SZ_ArtifactEffect_Crystal.label>
+  <SZ_ArtifactEffect_Crystal.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Crystal.description>
+  <SZ_ArtifactEffect_Flame.label>артефакт: пламя</SZ_ArtifactEffect_Flame.label>
+  <SZ_ArtifactEffect_Flame.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Flame.description>
+  <SZ_ArtifactEffect_Slime.label>артефакт: слизь</SZ_ArtifactEffect_Slime.label>
+  <SZ_ArtifactEffect_Slime.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Slime.description>
+  <SZ_ArtifactEffect_Slug.label>артефакт: слизняк</SZ_ArtifactEffect_Slug.label>
+  <SZ_ArtifactEffect_Slug.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Slug.description>
+  <SZ_ArtifactEffect_StoneBlood.label>артефакт: кровь камня</SZ_ArtifactEffect_StoneBlood.label>
+  <SZ_ArtifactEffect_StoneBlood.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_StoneBlood.description>
+  <SZ_ArtifactEffect_Thorn.label>артефакт: колючка</SZ_ArtifactEffect_Thorn.label>
+  <SZ_ArtifactEffect_Thorn.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Thorn.description>
+  <SZ_ArtifactEffect_Urchin.label>артефакт: морской ёж</SZ_ArtifactEffect_Urchin.label>
+  <SZ_ArtifactEffect_Urchin.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</SZ_ArtifactEffect_Urchin.description>
 </LanguageData>

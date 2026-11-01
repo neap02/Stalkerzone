@@ -10,4 +10,18 @@
   <SZ_RadiationSignTip>Radiation hazard sign.
 
 Marks the edge of contaminated ground. Staying inside causes radiation sickness.</SZ_RadiationSignTip>
+  <SZ_ThrowBolt>Throw bolt</SZ_ThrowBolt>
+  <SZ_ThrowBoltDesc>Throw a bolt at a nearby cell. An anomaly there discharges and stays highlighted for a while; otherwise the way is clear.</SZ_ThrowBoltDesc>
+  <SZ_BoltTooFar>Too far to throw a bolt.</SZ_BoltTooFar>
+  <SZ_BoltClear>Clear</SZ_BoltClear>
+  <SZ_BeltLabel>Artifact to belt</SZ_BeltLabel>
+  <SZ_BeltDesc>Pick up an artifact into the belt (inventory). Active artifacts: as many as the suit's belt slots.</SZ_BeltDesc>
+  <SZ_SuitWear>Protection with wear: {0}</SZ_SuitWear>
+  <SZ_SuitUpgradesInspect>Upgrades ({0}/{1}): {2}</SZ_SuitUpgradesInspect>
+  <SZ_UseRepairKit>Use repair kit</SZ_UseRepairKit>
+  <SZ_UseRepairKitDesc>Spend one repair kit from the inventory to restore 40% of this suit's durability. A worn suit protects worse.</SZ_UseRepairKitDesc>
+  <SZ_NoRepairKit>No repair kit in the inventory.</SZ_NoRepairKit>
+  <SZ_SuitRepaired>{0}: repaired.</SZ_SuitRepaired>
+  <SZ_SuitUpgraded>{0}: upgrade "{1}" installed.</SZ_SuitUpgraded>
+  <SZ_SuitNoRoom>{0}: no room for upgrade "{1}", the materials were wasted.</SZ_SuitNoRoom>
 </LanguageData>

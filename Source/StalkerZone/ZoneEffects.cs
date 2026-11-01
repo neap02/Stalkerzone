@@ -22,7 +22,8 @@ namespace StalkerZone
         {
             if (pawn == null || pawn.Dead || !pawn.RaceProps.IsFlesh)
                 return;
-            float resistance = pawn.GetStatValue(SZ_DefOf.SZ_RadiationResistance);
+            SuitBonuses.Of(pawn, out _, out float suitRad, out _);
+            float resistance = pawn.GetStatValue(SZ_DefOf.SZ_RadiationResistance) + suitRad;
             dose *= 1f - Math.Min(1f, Math.Max(0f, resistance));
             if (dose > 0f)
                 HealthUtility.AdjustSeverity(pawn, SZ_DefOf.SZ_Radiation, dose);
@@ -34,7 +35,8 @@ namespace StalkerZone
             if (pawn == null || pawn.Dead || !pawn.RaceProps.IsFlesh)
                 return;
             dose *= Math.Max(0f, pawn.GetStatValue(StatDefOf.PsychicSensitivity));
-            dose *= 1f - Math.Min(1f, Math.Max(0f, pawn.GetStatValue(SZ_DefOf.SZ_PsiProtection)));
+            SuitBonuses.Of(pawn, out _, out _, out float suitPsi);
+            dose *= 1f - Math.Min(1f, Math.Max(0f, pawn.GetStatValue(SZ_DefOf.SZ_PsiProtection) + suitPsi));
             if (dose <= 0f)
                 return;
             HealthUtility.AdjustSeverity(pawn, SZ_DefOf.SZ_PsiExposure, dose);

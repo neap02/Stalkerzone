@@ -10,4 +10,18 @@
   <SZ_RadiationSignTip>Знак радиационной опасности.
 
 Отмечает край заражённой земли. Пребывание внутри вызывает лучевую болезнь.</SZ_RadiationSignTip>
+  <SZ_ThrowBolt>Бросить болт</SZ_ThrowBolt>
+  <SZ_ThrowBoltDesc>Бросить болт в клетку поблизости. Если там аномалия — она сработает и будет подсвечена какое-то время; если нет — путь чист.</SZ_ThrowBoltDesc>
+  <SZ_BoltTooFar>Слишком далеко, болт не долетит.</SZ_BoltTooFar>
+  <SZ_BoltClear>Чисто</SZ_BoltClear>
+  <SZ_BeltLabel>Артефакт на пояс</SZ_BeltLabel>
+  <SZ_BeltDesc>Подобрать артефакт на пояс (в инвентарь). Действуют столько артефактов, сколько ячеек пояса даёт костюм.</SZ_BeltDesc>
+  <SZ_SuitWear>Защита с учётом износа: {0}</SZ_SuitWear>
+  <SZ_SuitUpgradesInspect>Улучшения ({0}/{1}): {2}</SZ_SuitUpgradesInspect>
+  <SZ_UseRepairKit>Ремкомплект</SZ_UseRepairKit>
+  <SZ_UseRepairKitDesc>Потратить один ремкомплект из инвентаря и восстановить 40% прочности костюма. Изношенный костюм защищает хуже.</SZ_UseRepairKitDesc>
+  <SZ_NoRepairKit>В инвентаре нет ремкомплекта.</SZ_NoRepairKit>
+  <SZ_SuitRepaired>{0}: отремонтирован.</SZ_SuitRepaired>
+  <SZ_SuitUpgraded>{0}: установлено улучшение «{1}».</SZ_SuitUpgraded>
+  <SZ_SuitNoRoom>{0}: нет места для улучшения «{1}», материалы потрачены зря.</SZ_SuitNoRoom>
 </LanguageData>

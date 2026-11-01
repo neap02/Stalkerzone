@@ -1,140 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Своя категория в складах: внутри "Одежды", т.к. артефакт носится на поясе -->
+  <!-- Файл сгенерирован Source/Tools/gen_zone.py. -->
+
   <ThingCategoryDef>
     <defName>SZ_Artifacts</defName>
     <label>artifacts</label>
-    <parent>Apparel</parent>
+    <parent>Manufactured</parent>
   </ThingCategoryDef>
 
-  <!-- Свой слой одежды для артефакта: занимает пояс, но не конфликтует
-       с поясными вещами (детектор, щит-пояс). Один артефакт за раз. -->
-  <ApparelLayerDef>
-    <defName>SZ_ArtifactLayer</defName>
-    <label>artifact</label>
-    <drawOrder>350</drawOrder>
-  </ApparelLayerDef>
-
-  <!-- ================= ОБЛУЧЕНИЕ ОТ АРТЕФАКТА =================
-       Появляется, пока артефакт на поясе (CompProperties_CauseHediff_Apparel),
-       и исчезает, когда его снимают (HediffCompProperties_RemoveIfApparelDropped).
-       Растёт, пока артефакт надет. Антирад снижает (makeImmuneTo в SZ_AntiradEffect).
-       Не смертельно: максимум 1.0, но на высоких стадиях сильные штрафы и риск рака. -->
-  <HediffDef Name="SZ_ArtifactExposureBase" Abstract="True">
-    <hediffClass>HediffWithComps</hediffClass>
-    <defaultLabelColor>(0.95, 0.75, 0.3)</defaultLabelColor>
-    <isBad>true</isBad>
-    <initialSeverity>0.01</initialSeverity>
-    <maxSeverity>1</maxSeverity>
-    <comps>
-      <li Class="HediffCompProperties_RemoveIfApparelDropped"/>
-    </comps>
-    <stages>
-      <li>
-        <label>faint</label>
-      </li>
-      <li>
-        <label>minor</label>
-        <minSeverity>0.25</minSeverity>
-        <capMods>
-          <li><capacity>Consciousness</capacity><offset>-0.05</offset></li>
-        </capMods>
-      </li>
-      <li>
-        <label>moderate</label>
-        <minSeverity>0.5</minSeverity>
-        <vomitMtbDays>4</vomitMtbDays>
-        <capMods>
-          <li><capacity>Consciousness</capacity><offset>-0.1</offset></li>
-          <li><capacity>BloodFiltration</capacity><offset>-0.1</offset></li>
-        </capMods>
-      </li>
-      <li>
-        <label>serious</label>
-        <minSeverity>0.8</minSeverity>
-        <vomitMtbDays>1</vomitMtbDays>
-        <painOffset>0.1</painOffset>
-        <capMods>
-          <li><capacity>Consciousness</capacity><offset>-0.2</offset></li>
-          <li><capacity>BloodFiltration</capacity><offset>-0.2</offset></li>
-          <li><capacity>Moving</capacity><offset>-0.1</offset></li>
-        </capMods>
-        <hediffGivers>
-          <li Class="HediffGiver_Random">
-            <hediff>Carcinoma</hediff>
-            <mtbDays>150</mtbDays>
-            <canAffectAnyLivePart>true</canAffectAnyLivePart>
-          </li>
-        </hediffGivers>
-      </li>
-    </stages>
-  </HediffDef>
-
-  <!-- Слабое излучение: до тяжёлой стадии ~16 дней -->
-  <HediffDef ParentName="SZ_ArtifactExposureBase">
-    <defName>SZ_ArtifactExposure</defName>
-    <label>artifact exposure</label>
-    <description>Radiation from an artifact worn on the body. Grows while the artifact is worn and disappears once it is taken off. Anti-rad reduces it.</description>
-    <comps>
-      <li Class="HediffCompProperties_Immunizable">
-        <severityPerDayNotImmune>0.05</severityPerDayNotImmune>
-        <severityPerDayImmune>-0.3</severityPerDayImmune>
-      </li>
-    </comps>
-  </HediffDef>
-
-  <!-- Сильное излучение: до тяжёлой стадии ~5 дней -->
-  <HediffDef ParentName="SZ_ArtifactExposureBase">
-    <defName>SZ_ArtifactExposureStrong</defName>
-    <label>strong artifact exposure</label>
-    <description>Intense radiation from a powerful artifact worn on the body. Grows quickly while the artifact is worn and disappears once it is taken off. Anti-rad reduces it.</description>
-    <comps>
-      <li Class="HediffCompProperties_Immunizable">
-        <severityPerDayNotImmune>0.15</severityPerDayNotImmune>
-        <severityPerDayImmune>-0.3</severityPerDayImmune>
-      </li>
-    </comps>
-  </HediffDef>
-
-  <!-- ================= БАЗА АРТЕФАКТА =================
-       Артефакт = предмет одежды на поясе в своём слое SZ_ArtifactLayer, один за раз.
-       Бонусы даёт equippedStatOffsets, облучение — CompProperties_CauseHediff_Apparel. -->
-  <ThingDef ParentName="ApparelBase" Name="SZ_ArtifactBase" Abstract="True">
-    <thingCategories Inherit="False">
+  <!-- ================= БАЗА АРТЕФАКТА: ПРЕДМЕТ =================
+       Не одежда: артефакт кладут в пояс (инвентарь пешки). C#-часть
+       (MapComponent_Zone) включает эффекты первых N артефактов и облучение. -->
+  <ThingDef Name="SZ_ArtifactBase" Abstract="True">
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <drawerType>MapMeshOnly</drawerType>
+    <altitudeLayer>Item</altitudeLayer>
+    <selectable>true</selectable>
+    <alwaysHaulable>true</alwaysHaulable>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <rotatable>false</rotatable>
+    <pathCost>14</pathCost>
+    <useHitPoints>true</useHitPoints>
+    <stackLimit>1</stackLimit>
+    <tradeability>All</tradeability>
+    <techLevel>Ultra</techLevel>
+    <thingCategories>
       <li>SZ_Artifacts</li>
     </thingCategories>
-    <techLevel>Ultra</techLevel>
-    <tradeability>All</tradeability>
-    <smeltable>false</smeltable>
     <statBases>
       <MaxHitPoints>200</MaxHitPoints>
       <Flammability>0</Flammability>
-      <DeteriorationRate>0</DeteriorationRate>  <!-- не портится на улице -->
-      <EquipDelay>1</EquipDelay>
+      <DeteriorationRate>0</DeteriorationRate>
+      <Beauty>5</Beauty>
     </statBases>
+    <comps>
+      <li Class="CompProperties_Forbiddable"/>
+    </comps>
     <thingSetMakerTags>
-      <li>RewardStandardLowFreq</li>             <!-- могут выпадать наградой за квесты -->
+      <li>RewardStandardLowFreq</li>
     </thingSetMakerTags>
-    <apparel>
-      <layers>
-        <li>SZ_ArtifactLayer</li>
-      </layers>
-      <bodyPartGroups>
-        <li>Waist</li>
-      </bodyPartGroups>
-      <countsAsClothingForNudity>false</countsAsClothingForNudity>
-      <careIfWornByCorpse>false</careIfWornByCorpse>
-      <careIfDamaged>false</careIfDamaged>
-      <wearPerDay>0</wearPerDay>                 <!-- не изнашивается -->
-    </apparel>
   </ThingDef>
 
   <!-- ============ Из аномалии «трамплин» ============ -->
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Jellyfish</defName>
+    <label>artifact: jellyfish</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><CarryingCapacity>25</CarryingCapacity></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><CarryingCapacity>50</CarryingCapacity></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><CarryingCapacity>75</CarryingCapacity></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><CarryingCapacity>100</CarryingCapacity></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><CarryingCapacity>125</CarryingCapacity></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- медуза, обычный -->
     <defName>SZ_Artifact_Jellyfish</defName>
     <label>jellyfish</label>
-    <description>A translucent, gently pulsing mass that is lighter than it looks. Loads feel lighter to its wearer. Emits weak radiation.</description>
+    <description>A translucent, gently pulsing mass that is lighter than it looks. Loads feel lighter to its wearer. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Jellyfish</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -143,19 +74,36 @@
       <MarketValue>500</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <CarryingCapacity>25</CarryingCapacity>  <!-- грузоподъёмность -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Jellyfish</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
+
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_StoneFlower</defName>
+    <label>artifact: stone flower</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><PainShockThreshold>0.1</PainShockThreshold><MentalBreakThreshold>-0.03</MentalBreakThreshold></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><PainShockThreshold>0.2</PainShockThreshold><MentalBreakThreshold>-0.06</MentalBreakThreshold></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><PainShockThreshold>0.3</PainShockThreshold><MentalBreakThreshold>-0.09</MentalBreakThreshold></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><PainShockThreshold>0.4</PainShockThreshold><MentalBreakThreshold>-0.12</MentalBreakThreshold></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><PainShockThreshold>0.5</PainShockThreshold><MentalBreakThreshold>-0.15</MentalBreakThreshold></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- каменный цветок, необычный -->
     <defName>SZ_Artifact_StoneFlower</defName>
     <label>stone flower</label>
-    <description>A stone growth shaped like an open flower. It steadies the nerves and dulls pain. Emits weak radiation.</description>
+    <description>A stone growth shaped like an open flower. It steadies the nerves and dulls pain. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/StoneFlower</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -164,22 +112,38 @@
       <MarketValue>900</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <PainShockThreshold>0.1</PainShockThreshold>  <!-- болевой порог -->
-      <MentalBreakThreshold>-0.03</MentalBreakThreshold>  <!-- порог срыва (минус = лучше) -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_StoneFlower</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
 
+
   <!-- ============ Из аномалии «воронка» ============ -->
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Gravi</defName>
+    <label>artifact: gravi</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><CarryingCapacity>40</CarryingCapacity></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><CarryingCapacity>80</CarryingCapacity></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><CarryingCapacity>120</CarryingCapacity></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><CarryingCapacity>160</CarryingCapacity></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><CarryingCapacity>200</CarryingCapacity></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- грави, обычный -->
     <defName>SZ_Artifact_Gravi</defName>
     <label>gravi</label>
-    <description>A dense, perfectly smooth sphere that seems to pull at the hand. It noticeably eases heavy loads. Emits weak radiation.</description>
+    <description>A dense, perfectly smooth sphere that seems to pull at the hand. It noticeably eases heavy loads. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Gravi</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -188,19 +152,36 @@
       <MarketValue>700</MarketValue>
       <Mass>1</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <CarryingCapacity>40</CarryingCapacity>  <!-- грузоподъёмность -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Gravi</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
+
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_NightStar</defName>
+    <label>artifact: night star</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><CarryingCapacity>50</CarryingCapacity><MoveSpeed>0.1</MoveSpeed></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><CarryingCapacity>100</CarryingCapacity><MoveSpeed>0.2</MoveSpeed></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><CarryingCapacity>150</CarryingCapacity><MoveSpeed>0.3</MoveSpeed></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><CarryingCapacity>200</CarryingCapacity><MoveSpeed>0.4</MoveSpeed></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><CarryingCapacity>250</CarryingCapacity><MoveSpeed>0.5</MoveSpeed></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- ночная звезда, необычный -->
     <defName>SZ_Artifact_NightStar</defName>
     <label>night star</label>
-    <description>A star-shaped artifact that glimmers faintly in the dark. Its wearer is lighter on their feet and can carry far more. Emits strong radiation.</description>
+    <description>A star-shaped artifact that glimmers faintly in the dark. Its wearer is lighter on their feet and can carry far more. Emits strong radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/NightStar</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -209,22 +190,38 @@
       <MarketValue>1300</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <CarryingCapacity>50</CarryingCapacity>  <!-- грузоподъёмность -->
-      <MoveSpeed>0.1</MoveSpeed>  <!-- скорость -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposureStrong</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_NightStar</effectHediff>
+        <radiationPerDay>0.25</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
 
+
   <!-- ============ Из аномалии «карусель» ============ -->
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_MamasBeads</defName>
+    <label>artifact: mama's beads</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><AimingDelayFactor>-0.15</AimingDelayFactor></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><AimingDelayFactor>-0.3</AimingDelayFactor></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><AimingDelayFactor>-0.45</AimingDelayFactor></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><AimingDelayFactor>-0.6</AimingDelayFactor></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><AimingDelayFactor>-0.75</AimingDelayFactor></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- мамины бусы, необычный -->
     <defName>SZ_Artifact_MamasBeads</defName>
     <label>mama's beads</label>
-    <description>A string of hardened, bead-like growths. Its wearer's hands stay steady and aiming comes quicker. Emits weak radiation.</description>
+    <description>A string of hardened, bead-like growths. Its wearer's hands stay steady and aiming comes quicker. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/MamasBeads</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -233,19 +230,36 @@
       <MarketValue>1100</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <AimingDelayFactor>-0.15</AimingDelayFactor>  <!-- время прицеливания (минус = быстрее) -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_MamasBeads</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
+
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Goldfish</defName>
+    <label>artifact: goldfish</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><CarryingCapacity>80</CarryingCapacity></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><CarryingCapacity>160</CarryingCapacity></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><CarryingCapacity>240</CarryingCapacity></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><CarryingCapacity>320</CarryingCapacity></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><CarryingCapacity>400</CarryingCapacity></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- золотая рыбка, редкий -->
     <defName>SZ_Artifact_Goldfish</defName>
     <label>goldfish</label>
-    <description>A rare golden artifact shaped like a small fish. Its wearer can carry enormous loads. Emits strong radiation.</description>
+    <description>A rare golden artifact shaped like a small fish. Its wearer can carry enormous loads. Emits strong radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Goldfish</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -254,21 +268,38 @@
       <MarketValue>2500</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <CarryingCapacity>80</CarryingCapacity>  <!-- грузоподъёмность -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposureStrong</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Goldfish</effectHediff>
+        <radiationPerDay>0.25</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
 
+
   <!-- ============ Из аномалии «мясорубка» ============ -->
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_MeatChunk</defName>
+    <label>artifact: meat chunk</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><InjuryHealingFactor>0.3</InjuryHealingFactor><MentalBreakThreshold>0.02</MentalBreakThreshold></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><InjuryHealingFactor>0.6</InjuryHealingFactor><MentalBreakThreshold>0.04</MentalBreakThreshold></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><InjuryHealingFactor>0.9</InjuryHealingFactor><MentalBreakThreshold>0.06</MentalBreakThreshold></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><InjuryHealingFactor>1.2</InjuryHealingFactor><MentalBreakThreshold>0.08</MentalBreakThreshold></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><InjuryHealingFactor>1.5</InjuryHealingFactor><MentalBreakThreshold>0.1</MentalBreakThreshold></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- ломоть мяса, обычный -->
     <defName>SZ_Artifact_MeatChunk</defName>
     <label>meat chunk</label>
-    <description>An unpleasant, fleshy growth. It speeds up the healing of wounds, though its wearer feels uneasy. Emits weak radiation.</description>
+    <description>An unpleasant, fleshy growth. It speeds up the healing of wounds, though its wearer feels uneasy. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/MeatChunk</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -277,20 +308,36 @@
       <MarketValue>500</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <InjuryHealingFactor>0.3</InjuryHealingFactor>  <!-- заживление ран -->
-      <MentalBreakThreshold>0.02</MentalBreakThreshold>  <!-- порог срыва (минус = лучше) -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_MeatChunk</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
+
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Soul</defName>
+    <label>artifact: soul</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><InjuryHealingFactor>1.0</InjuryHealingFactor><ImmunityGainSpeed>0.2</ImmunityGainSpeed></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><InjuryHealingFactor>2.0</InjuryHealingFactor><ImmunityGainSpeed>0.4</ImmunityGainSpeed></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><InjuryHealingFactor>3.0</InjuryHealingFactor><ImmunityGainSpeed>0.6</ImmunityGainSpeed></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><InjuryHealingFactor>4.0</InjuryHealingFactor><ImmunityGainSpeed>0.8</ImmunityGainSpeed></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><InjuryHealingFactor>5.0</InjuryHealingFactor><ImmunityGainSpeed>1.0</ImmunityGainSpeed></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- душа, редкий -->
     <defName>SZ_Artifact_Soul</defName>
     <label>soul</label>
-    <description>A rare, warm artifact that seems almost alive. Wounds and illness fade from its wearer at an astonishing rate. Emits strong radiation.</description>
+    <description>A rare, warm artifact that seems almost alive. Wounds and illness fade from its wearer at an astonishing rate. Emits strong radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Soul</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -299,22 +346,38 @@
       <MarketValue>3000</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <InjuryHealingFactor>1.0</InjuryHealingFactor>  <!-- заживление ран -->
-      <ImmunityGainSpeed>0.2</ImmunityGainSpeed>  <!-- иммунитет -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposureStrong</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Soul</effectHediff>
+        <radiationPerDay>0.25</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
 
+
   <!-- ============ Из аномалии «электра» ============ -->
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Flash</defName>
+    <label>artifact: flash</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><MoveSpeed>0.3</MoveSpeed></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><MoveSpeed>0.6</MoveSpeed></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><MoveSpeed>0.9</MoveSpeed></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><MoveSpeed>1.2</MoveSpeed></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><MoveSpeed>1.5</MoveSpeed></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- вспышка, обычный -->
     <defName>SZ_Artifact_Flash</defName>
     <label>flash</label>
-    <description>A crackling cluster of blue crystals. Its wearer moves faster. Emits weak radiation.</description>
+    <description>A crackling cluster of blue crystals. Its wearer moves faster. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Flash</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -323,19 +386,36 @@
       <MarketValue>600</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <MoveSpeed>0.3</MoveSpeed>  <!-- скорость -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Flash</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
+
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Sparkler</defName>
+    <label>artifact: sparkler</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><WorkSpeedGlobal>0.08</WorkSpeedGlobal></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><WorkSpeedGlobal>0.16</WorkSpeedGlobal></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><WorkSpeedGlobal>0.24</WorkSpeedGlobal></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><WorkSpeedGlobal>0.32</WorkSpeedGlobal></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><WorkSpeedGlobal>0.4</WorkSpeedGlobal></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- бенгальский огонь, обычный -->
     <defName>SZ_Artifact_Sparkler</defName>
     <label>sparkler</label>
-    <description>A brittle artifact that now and then throws off sparks. Work goes faster with it. Emits weak radiation.</description>
+    <description>A brittle artifact that now and then throws off sparks. Work goes faster with it. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Sparkler</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -344,19 +424,36 @@
       <MarketValue>600</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <WorkSpeedGlobal>0.08</WorkSpeedGlobal>  <!-- скорость работы -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Sparkler</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
+
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Battery</defName>
+    <label>artifact: battery</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><RestRateMultiplier>0.3</RestRateMultiplier><MoveSpeed>0.15</MoveSpeed></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><RestRateMultiplier>0.6</RestRateMultiplier><MoveSpeed>0.3</MoveSpeed></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><RestRateMultiplier>0.9</RestRateMultiplier><MoveSpeed>0.45</MoveSpeed></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><RestRateMultiplier>1.2</RestRateMultiplier><MoveSpeed>0.6</MoveSpeed></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><RestRateMultiplier>1.5</RestRateMultiplier><MoveSpeed>0.75</MoveSpeed></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- батарейка, необычный -->
     <defName>SZ_Artifact_Battery</defName>
     <label>battery</label>
-    <description>A heavy artifact that holds a constant faint charge. Sleep restores its wearer faster, and they move a little quicker. Emits weak radiation.</description>
+    <description>A heavy artifact that holds a constant faint charge. Sleep restores its wearer faster, and they move a little quicker. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Battery</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -365,20 +462,36 @@
       <MarketValue>1000</MarketValue>
       <Mass>1</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <RestRateMultiplier>0.3</RestRateMultiplier>  <!-- восстановление сна -->
-      <MoveSpeed>0.15</MoveSpeed>  <!-- скорость -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Battery</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
+
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Moonlight</defName>
+    <label>artifact: moonlight</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><PsychicSensitivity>-0.3</PsychicSensitivity><MentalBreakThreshold>-0.05</MentalBreakThreshold></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><PsychicSensitivity>-0.6</PsychicSensitivity><MentalBreakThreshold>-0.1</MentalBreakThreshold></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><PsychicSensitivity>-0.9</PsychicSensitivity><MentalBreakThreshold>-0.15</MentalBreakThreshold></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><PsychicSensitivity>-1.2</PsychicSensitivity><MentalBreakThreshold>-0.2</MentalBreakThreshold></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><PsychicSensitivity>-1.5</PsychicSensitivity><MentalBreakThreshold>-0.25</MentalBreakThreshold></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- лунный свет, редкий -->
     <defName>SZ_Artifact_Moonlight</defName>
     <label>moonlight</label>
-    <description>A rare, pale sphere with a soft glow. It dulls psychic influence and steadies the mind. Emits weak radiation.</description>
+    <description>A rare, pale sphere with a soft glow. It dulls psychic influence and steadies the mind. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Moonlight</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -387,22 +500,38 @@
       <MarketValue>2200</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <PsychicSensitivity>-0.3</PsychicSensitivity>  <!-- пси-чувствительность -->
-      <MentalBreakThreshold>-0.05</MentalBreakThreshold>  <!-- порог срыва (минус = лучше) -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Moonlight</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
 
+
   <!-- ============ Из аномалии «жарка» ============ -->
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Droplet</defName>
+    <label>artifact: droplet</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><SZ_RadiationResistance>0.3</SZ_RadiationResistance><ComfyTemperatureMax>5</ComfyTemperatureMax></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><SZ_RadiationResistance>0.6</SZ_RadiationResistance><ComfyTemperatureMax>10</ComfyTemperatureMax></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><SZ_RadiationResistance>0.9</SZ_RadiationResistance><ComfyTemperatureMax>15</ComfyTemperatureMax></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><SZ_RadiationResistance>1.2</SZ_RadiationResistance><ComfyTemperatureMax>20</ComfyTemperatureMax></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><SZ_RadiationResistance>1.5</SZ_RadiationResistance><ComfyTemperatureMax>25</ComfyTemperatureMax></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- капля, обычный -->
     <defName>SZ_Artifact_Droplet</defName>
     <label>droplet</label>
-    <description>A glassy, teardrop-shaped artifact formed in intense heat. It seems to draw radiation away from its wearer. Does not emit radiation.</description>
+    <description>A glassy, teardrop-shaped artifact formed in intense heat. It seems to draw radiation away from its wearer. Does not emit radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Droplet</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -411,15 +540,36 @@
       <MarketValue>700</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <SZ_RadiationResistance>0.3</SZ_RadiationResistance>  <!-- защита от радиации -->
-      <ComfyTemperatureMax>5</ComfyTemperatureMax>  <!-- комфортная макс. t° -->
-    </equippedStatOffsets>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Droplet</effectHediff>
+        <radiationPerDay>0.0</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
+      </li>
+    </modExtensions>
   </ThingDef>
+
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Fireball</defName>
+    <label>artifact: fireball</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><ComfyTemperatureMin>-25</ComfyTemperatureMin></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><ComfyTemperatureMin>-50</ComfyTemperatureMin></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><ComfyTemperatureMin>-75</ComfyTemperatureMin></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><ComfyTemperatureMin>-100</ComfyTemperatureMin></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><ComfyTemperatureMin>-125</ComfyTemperatureMin></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- огненный шар, необычный -->
     <defName>SZ_Artifact_Fireball</defName>
     <label>fireball</label>
-    <description>A stone that radiates steady warmth. Its wearer barely feels the cold. Emits weak radiation.</description>
+    <description>A stone that radiates steady warmth. Its wearer barely feels the cold. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Fireball</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -428,19 +578,36 @@
       <MarketValue>900</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <ComfyTemperatureMin>-25</ComfyTemperatureMin>  <!-- комфортная мин. t° (минус = теплее) -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Fireball</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
+
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Crystal</defName>
+    <label>artifact: crystal</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><ComfyTemperatureMin>-20</ComfyTemperatureMin><ComfyTemperatureMax>20</ComfyTemperatureMax></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><ComfyTemperatureMin>-40</ComfyTemperatureMin><ComfyTemperatureMax>40</ComfyTemperatureMax></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><ComfyTemperatureMin>-60</ComfyTemperatureMin><ComfyTemperatureMax>60</ComfyTemperatureMax></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><ComfyTemperatureMin>-80</ComfyTemperatureMin><ComfyTemperatureMax>80</ComfyTemperatureMax></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><ComfyTemperatureMin>-100</ComfyTemperatureMin><ComfyTemperatureMax>100</ComfyTemperatureMax></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- кристалл, редкий -->
     <defName>SZ_Artifact_Crystal</defName>
     <label>crystal</label>
-    <description>A rare faceted crystal born in fire. It shields its wearer from both heat and cold. Emits strong radiation.</description>
+    <description>A rare faceted crystal born in fire. It shields its wearer from both heat and cold. Emits strong radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Crystal</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -449,22 +616,38 @@
       <MarketValue>2200</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <ComfyTemperatureMin>-20</ComfyTemperatureMin>  <!-- комфортная мин. t° (минус = теплее) -->
-      <ComfyTemperatureMax>20</ComfyTemperatureMax>  <!-- комфортная макс. t° -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposureStrong</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Crystal</effectHediff>
+        <radiationPerDay>0.25</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
 
+
   <!-- ============ Из аномалии «комета» ============ -->
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Flame</defName>
+    <label>artifact: flame</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><InjuryHealingFactor>0.5</InjuryHealingFactor><ComfyTemperatureMin>-10</ComfyTemperatureMin></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><InjuryHealingFactor>1.0</InjuryHealingFactor><ComfyTemperatureMin>-20</ComfyTemperatureMin></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><InjuryHealingFactor>1.5</InjuryHealingFactor><ComfyTemperatureMin>-30</ComfyTemperatureMin></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><InjuryHealingFactor>2.0</InjuryHealingFactor><ComfyTemperatureMin>-40</ComfyTemperatureMin></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><InjuryHealingFactor>2.5</InjuryHealingFactor><ComfyTemperatureMin>-50</ComfyTemperatureMin></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- пламя, необычный -->
     <defName>SZ_Artifact_Flame</defName>
     <label>flame</label>
-    <description>A flickering artifact that is warm to the touch. Wounds close faster on its wearer, and the cold bothers them less. Emits strong radiation.</description>
+    <description>A flickering artifact that is warm to the touch. Wounds close faster on its wearer, and the cold bothers them less. Emits strong radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Flame</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -473,22 +656,38 @@
       <MarketValue>1300</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <InjuryHealingFactor>0.5</InjuryHealingFactor>  <!-- заживление ран -->
-      <ComfyTemperatureMin>-10</ComfyTemperatureMin>  <!-- комфортная мин. t° (минус = теплее) -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposureStrong</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Flame</effectHediff>
+        <radiationPerDay>0.25</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
 
+
   <!-- ============ Из аномалии «холодец» ============ -->
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Slime</defName>
+    <label>artifact: slime</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><ToxicResistance>0.3</ToxicResistance></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><ToxicResistance>0.6</ToxicResistance></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><ToxicResistance>0.9</ToxicResistance></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><ToxicResistance>1.2</ToxicResistance></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><ToxicResistance>1.5</ToxicResistance></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- слизь, обычный -->
     <defName>SZ_Artifact_Slime</defName>
     <label>slime</label>
-    <description>A slick, jelly-like artifact. It helps the body resist toxins. Emits weak radiation.</description>
+    <description>A slick, jelly-like artifact. It helps the body resist toxins. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Slime</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -497,19 +696,36 @@
       <MarketValue>500</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <ToxicResistance>0.3</ToxicResistance>  <!-- сопротивление токсинам -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Slime</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
+
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Slug</defName>
+    <label>artifact: slug</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><ToxicResistance>0.5</ToxicResistance><ImmunityGainSpeed>0.15</ImmunityGainSpeed></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><ToxicResistance>1.0</ToxicResistance><ImmunityGainSpeed>0.3</ImmunityGainSpeed></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><ToxicResistance>1.5</ToxicResistance><ImmunityGainSpeed>0.45</ImmunityGainSpeed></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><ToxicResistance>2.0</ToxicResistance><ImmunityGainSpeed>0.6</ImmunityGainSpeed></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><ToxicResistance>2.5</ToxicResistance><ImmunityGainSpeed>0.75</ImmunityGainSpeed></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- слизняк, необычный -->
     <defName>SZ_Artifact_Slug</defName>
     <label>slug</label>
-    <description>A rubbery, slowly shifting lump. It strengthens resistance to toxins and disease. Emits weak radiation.</description>
+    <description>A rubbery, slowly shifting lump. It strengthens resistance to toxins and disease. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Slug</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -518,20 +734,36 @@
       <MarketValue>900</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <ToxicResistance>0.5</ToxicResistance>  <!-- сопротивление токсинам -->
-      <ImmunityGainSpeed>0.15</ImmunityGainSpeed>  <!-- иммунитет -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Slug</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
+
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_StoneBlood</defName>
+    <label>artifact: stone blood</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><InjuryHealingFactor>0.4</InjuryHealingFactor><ImmunityGainSpeed>0.1</ImmunityGainSpeed></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><InjuryHealingFactor>0.8</InjuryHealingFactor><ImmunityGainSpeed>0.2</ImmunityGainSpeed></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><InjuryHealingFactor>1.2</InjuryHealingFactor><ImmunityGainSpeed>0.3</ImmunityGainSpeed></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><InjuryHealingFactor>1.6</InjuryHealingFactor><ImmunityGainSpeed>0.4</ImmunityGainSpeed></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><InjuryHealingFactor>2.0</InjuryHealingFactor><ImmunityGainSpeed>0.5</ImmunityGainSpeed></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- кровь камня, необычный -->
     <defName>SZ_Artifact_StoneBlood</defName>
     <label>stone blood</label>
-    <description>A dark red, porous stone. It speeds up the healing of wounds and helps fight disease. Emits weak radiation.</description>
+    <description>A dark red, porous stone. It speeds up the healing of wounds and helps fight disease. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/StoneBlood</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -540,22 +772,38 @@
       <MarketValue>1000</MarketValue>
       <Mass>1</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <InjuryHealingFactor>0.4</InjuryHealingFactor>  <!-- заживление ран -->
-      <ImmunityGainSpeed>0.1</ImmunityGainSpeed>  <!-- иммунитет -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_StoneBlood</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
 
+
   <!-- ============ Из аномалии «жгучий пух» ============ -->
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Thorn</defName>
+    <label>artifact: thorn</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><PainShockThreshold>0.15</PainShockThreshold><MentalBreakThreshold>0.03</MentalBreakThreshold></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><PainShockThreshold>0.3</PainShockThreshold><MentalBreakThreshold>0.06</MentalBreakThreshold></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><PainShockThreshold>0.45</PainShockThreshold><MentalBreakThreshold>0.09</MentalBreakThreshold></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><PainShockThreshold>0.6</PainShockThreshold><MentalBreakThreshold>0.12</MentalBreakThreshold></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><PainShockThreshold>0.75</PainShockThreshold><MentalBreakThreshold>0.15</MentalBreakThreshold></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- колючка, обычный -->
     <defName>SZ_Artifact_Thorn</defName>
     <label>thorn</label>
-    <description>A cluster of hard, needle-like spines. Its wearer shrugs off pain but grows irritable. Emits weak radiation.</description>
+    <description>A cluster of hard, needle-like spines. Its wearer shrugs off pain but grows irritable. Emits weak radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Thorn</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -564,20 +812,36 @@
       <MarketValue>500</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <PainShockThreshold>0.15</PainShockThreshold>  <!-- болевой порог -->
-      <MentalBreakThreshold>0.03</MentalBreakThreshold>  <!-- порог срыва (минус = лучше) -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposure</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Thorn</effectHediff>
+        <radiationPerDay>0.08</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
+
+  <HediffDef>
+    <defName>SZ_ArtifactEffect_Urchin</defName>
+    <label>artifact: urchin</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+      <li><label>x1</label><statOffsets><PainShockThreshold>0.25</PainShockThreshold><AimingDelayFactor>-0.1</AimingDelayFactor></statOffsets></li>
+      <li><label>x2</label><minSeverity>1.5</minSeverity><statOffsets><PainShockThreshold>0.5</PainShockThreshold><AimingDelayFactor>-0.2</AimingDelayFactor></statOffsets></li>
+      <li><label>x3</label><minSeverity>2.5</minSeverity><statOffsets><PainShockThreshold>0.75</PainShockThreshold><AimingDelayFactor>-0.3</AimingDelayFactor></statOffsets></li>
+      <li><label>x4</label><minSeverity>3.5</minSeverity><statOffsets><PainShockThreshold>1.0</PainShockThreshold><AimingDelayFactor>-0.4</AimingDelayFactor></statOffsets></li>
+      <li><label>x5</label><minSeverity>4.5</minSeverity><statOffsets><PainShockThreshold>1.25</PainShockThreshold><AimingDelayFactor>-0.5</AimingDelayFactor></statOffsets></li>
+    </stages>
+  </HediffDef>
+
   <ThingDef ParentName="SZ_ArtifactBase">   <!-- морской ёж, необычный -->
     <defName>SZ_Artifact_Urchin</defName>
     <label>urchin</label>
-    <description>A round artifact covered in spines. Its wearer ignores pain and aims faster. Emits strong radiation.</description>
+    <description>A round artifact covered in spines. Its wearer ignores pain and aims faster. Emits strong radiation. Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/Urchin</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -586,15 +850,13 @@
       <MarketValue>1200</MarketValue>
       <Mass>0.5</Mass>
     </statBases>
-    <equippedStatOffsets>
-      <PainShockThreshold>0.25</PainShockThreshold>  <!-- болевой порог -->
-      <AimingDelayFactor>-0.1</AimingDelayFactor>  <!-- время прицеливания (минус = быстрее) -->
-    </equippedStatOffsets>
-    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>SZ_ArtifactExposureStrong</hediff>
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_Urchin</effectHediff>
+        <radiationPerDay>0.25</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
       </li>
-    </comps>
+    </modExtensions>
   </ThingDef>
+
 
 </Defs>

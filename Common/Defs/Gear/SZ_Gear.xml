@@ -1,0 +1,1439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Файл сгенерирован Source/Tools/gen_gear.py.
+       Снаряжение Зоны. Броня от аномалий — статы категорий (SZ_Protection.xml), работают как
+       обычная броня по закрытым частям тела. Радиация, пси и ячейки пояса — статы владельца.
+       Костюмы: свой рисунок для всех типов тела, износ (CompSuit: ниже прочность — слабее броня),
+       улучшения на станке (SZ_SuitUpgrades.xml), ремонт на станке и ремкомплектом в поле. -->
+
+  <StatDef>
+    <defName>SZ_ArtifactSlots</defName>
+    <label>artifact slots</label>
+    <description>How many artifacts carried in the inventory are active at once. One by default; suits add more.</description>
+    <category>PawnCombat</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <maxValue>5</maxValue>
+    <toStringStyle>Integer</toStringStyle>
+  </StatDef>
+
+  <SoundDef>
+    <defName>SZ_Bolt_Clink</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains><li Class="AudioGrain_Folder"><clipFolderPath>SZ/Bolt</clipFolderPath></li></grains>
+        <volumeRange>30~36</volumeRange>
+        <pitchRange>0.9~1.15</pitchRange>
+        <distRange>5~40</distRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <ThingDef ParentName="ApparelBase" Name="SZ_SuitBase" Abstract="True">
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <apparel>
+      <layers><li>Middle</li><li>Shell</li></layers>
+      <bodyPartGroups><li>Torso</li><li>Neck</li><li>Shoulders</li><li>Arms</li><li>Legs</li></bodyPartGroups>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+  </ThingDef>
+
+  <ThingDef ParentName="ApparelBase" Name="SZ_HeadgearBase" Abstract="True">
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>Headgear</li></thingCategories>
+    <apparel><careIfWornByCorpse>false</careIfWornByCorpse></apparel>
+  </ThingDef>
+
+  <!-- маскхалат разведчика: ячеек пояса 1, мест под улучшения 1 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_ScoutCloak</defName>
+    <label>scout cloak</label>
+    <description>A light camouflage cloak with a hood. Barely protects, but does not slow its wearer down.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/ScoutCloak</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>187</MaxHitPoints>
+      <MarketValue>350</MarketValue>
+      <Mass>2.5</Mass>
+      <WorkToMake>8000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.15</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.05</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.1</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.05</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.03</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.05</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.1</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.05</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>12</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.05</SZ_RadiationResistance>
+      <MoveSpeed>0.1</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/ScoutCloak/ScoutCloak</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>1</upgradeSlots></li>
+    </comps>
+    <costList><Cloth>90</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- куртка сталкера: ячеек пояса 1, мест под улучшения 1 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_LonerJacket</defName>
+    <label>stalker jacket</label>
+    <description>A worn leather jacket with sewn-in protective panels. Cheap, light and better than nothing.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/LonerJacket</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>212</MaxHitPoints>
+      <MarketValue>300</MarketValue>
+      <Mass>3</Mass>
+      <WorkToMake>8000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.25</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.1</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.15</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.1</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.05</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.1</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.15</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.1</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>14</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.1</SZ_RadiationResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/LonerJacket/LonerJacket</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>1</upgradeSlots></li>
+    </comps>
+    <costList><Cloth>80</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- комбинезон сталкера: ячеек пояса 2, мест под улучшения 2 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_Stalker</defName>
+    <label>stalker suit</label>
+    <description>A reliable all-round suit for trips into the Zone: armored panels, sealed seams and a rack for two artifacts.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/Stalker</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>262</MaxHitPoints>
+      <MarketValue>700</MarketValue>
+      <Mass>6</Mass>
+      <WorkToMake>14000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.45</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.25</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.2</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.1</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.25</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.25</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.25</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.25</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <SZ_ArtifactSlots>1</SZ_ArtifactSlots>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Stalker/Stalker</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>2</upgradeSlots></li>
+    </comps>
+    <costList><Steel>60</Steel><Cloth>60</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- усиленный комбинезон сталкера: ячеек пояса 2, мест под улучшения 3 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_StalkerReinforced</defName>
+    <label>reinforced stalker suit</label>
+    <description>A veteran's suit with extra plates and a sealed hood. Heavier, but holds up against both bullets and anomalies.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/StalkerReinforced</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>300</MaxHitPoints>
+      <MarketValue>1100</MarketValue>
+      <Mass>8</Mass>
+      <WorkToMake>20000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.6</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.28</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.3</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.3</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.18</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.3</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.3</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.3</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.3</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <SZ_ArtifactSlots>1</SZ_ArtifactSlots>
+      <MoveSpeed>-0.1</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/StalkerReinforced/StalkerReinforced</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
+    </comps>
+    <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- полевая форма Долга: ячеек пояса 1, мест под улучшения 2 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_DutyUniform</defName>
+    <label>Duty field uniform</label>
+    <description>Everyday uniform of Duty patrols with a light armored vest.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/DutyUniform</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>262</MaxHitPoints>
+      <MarketValue>600</MarketValue>
+      <Mass>5</Mass>
+      <WorkToMake>14000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.45</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.2</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.2</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.1</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.15</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.2</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.15</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.2</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/DutyUniform/DutyUniform</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>2</upgradeSlots></li>
+    </comps>
+    <costList><Steel>60</Steel><Cloth>60</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- бронекостюм Долга: ячеек пояса 2, мест под улучшения 3 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_Duty</defName>
+    <label>Duty armored suit</label>
+    <description>Heavy armor issued to Duty fighters. Stops bullets and blows well, but weighs its wearer down.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/Duty</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>350</MaxHitPoints>
+      <MarketValue>1300</MarketValue>
+      <Mass>10</Mass>
+      <WorkToMake>20000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.8</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.3</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.35</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.2</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.2</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.3</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.2</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.3</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.1</SZ_PsiProtection>
+      <SZ_ArtifactSlots>1</SZ_ArtifactSlots>
+      <MoveSpeed>-0.2</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Duty/Duty</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
+    </comps>
+    <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- штурмовая броня Долга: ячеек пояса 2, мест под улучшения 3 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_DutyAssault</defName>
+    <label>Duty assault armor</label>
+    <description>Assault armor for storming mutant lairs. Nearly bulletproof and very heavy.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/DutyAssault</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>387</MaxHitPoints>
+      <MarketValue>1700</MarketValue>
+      <Mass>13</Mass>
+      <WorkToMake>20000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.95</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.45</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.35</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.45</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.3</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.25</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.35</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.25</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.35</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.1</SZ_PsiProtection>
+      <SZ_ArtifactSlots>1</SZ_ArtifactSlots>
+      <MoveSpeed>-0.35</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/DutyAssault/DutyAssault</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
+    </comps>
+    <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- лёгкий костюм Свободы: ячеек пояса 2, мест под улучшения 1 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_FreedomLight</defName>
+    <label>Freedom light suit</label>
+    <description>A light suit for fast raids, with a rack for two artifacts.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/FreedomLight</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>225</MaxHitPoints>
+      <MarketValue>500</MarketValue>
+      <Mass>3</Mass>
+      <WorkToMake>8000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.12</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.2</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.15</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.08</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.25</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.2</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.2</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.2</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <SZ_ArtifactSlots>1</SZ_ArtifactSlots>
+      <MoveSpeed>0.05</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/FreedomLight/FreedomLight</wornGraphicPath>
+      <tags><li>SZ_Faction_Freedom</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>1</upgradeSlots></li>
+    </comps>
+    <costList><Cloth>80</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- комбинезон Свободы: ячеек пояса 3, мест под улучшения 2 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_Freedom</defName>
+    <label>Freedom combat suit</label>
+    <description>A light combat suit favored by Freedom: good anomaly protection and room for three artifacts.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/Freedom</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>275</MaxHitPoints>
+      <MarketValue>900</MarketValue>
+      <Mass>6</Mass>
+      <WorkToMake>14000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.5</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.3</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.25</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.15</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.35</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.3</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.3</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.3</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.1</SZ_PsiProtection>
+      <SZ_ArtifactSlots>2</SZ_ArtifactSlots>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Freedom/Freedom</wornGraphicPath>
+      <tags><li>SZ_Faction_Freedom</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>2</upgradeSlots></li>
+    </comps>
+    <costList><Steel>60</Steel><Cloth>60</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- броня стража Свободы: ячеек пояса 3, мест под улучшения 3 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_FreedomGuardian</defName>
+    <label>Freedom guardian armor</label>
+    <description>Heavy armor of Freedom's best fighters, balanced between firefights and the Zone.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/FreedomGuardian</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>350</MaxHitPoints>
+      <MarketValue>1600</MarketValue>
+      <Mass>11</Mass>
+      <WorkToMake>20000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.8</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.35</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.35</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.22</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.35</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.35</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.3</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.35</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.1</SZ_PsiProtection>
+      <SZ_ArtifactSlots>2</SZ_ArtifactSlots>
+      <MoveSpeed>-0.2</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/FreedomGuardian/FreedomGuardian</wornGraphicPath>
+      <tags><li>SZ_Faction_Freedom</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
+    </comps>
+    <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- бандитская куртка: ячеек пояса 1, мест под улучшения 1 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_Bandit</defName>
+    <label>bandit jacket</label>
+    <description>A long black coat with a few steel plates sewn into the lining.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/Bandit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>225</MaxHitPoints>
+      <MarketValue>250</MarketValue>
+      <Mass>4</Mass>
+      <WorkToMake>8000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.12</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.1</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.1</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.05</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.05</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.1</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.05</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>12</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.05</SZ_RadiationResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Bandit/Bandit</wornGraphicPath>
+      <tags><li>SZ_Faction_Bandits</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>1</upgradeSlots></li>
+    </comps>
+    <costList><Cloth>80</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- укреплённый кожаный плащ: ячеек пояса 2, мест под улучшения 2 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_BanditCoat</defName>
+    <label>reinforced leather coat</label>
+    <description>A heavy leather coat over a stolen armored vest.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/BanditCoat</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>250</MaxHitPoints>
+      <MarketValue>550</MarketValue>
+      <Mass>5</Mass>
+      <WorkToMake>14000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.4</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.18</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.15</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.15</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.08</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.1</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.15</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.1</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.1</SZ_RadiationResistance>
+      <SZ_ArtifactSlots>1</SZ_ArtifactSlots>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/BanditCoat/BanditCoat</wornGraphicPath>
+      <tags><li>SZ_Faction_Bandits</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>2</upgradeSlots></li>
+    </comps>
+    <costList><Steel>60</Steel><Cloth>60</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- армейская полевая форма: ячеек пояса 1, мест под улучшения 1 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_MilitaryUniform</defName>
+    <label>army field uniform</label>
+    <description>Standard field uniform of the cordon troops with a light vest.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/MilitaryUniform</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>237</MaxHitPoints>
+      <MarketValue>400</MarketValue>
+      <Mass>3</Mass>
+      <WorkToMake>8000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.35</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.12</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.15</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.1</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.05</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.1</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.15</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.1</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>15</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.15</SZ_RadiationResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/MilitaryUniform/MilitaryUniform</wornGraphicPath>
+      <tags><li>SZ_Faction_Military</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>1</upgradeSlots></li>
+    </comps>
+    <costList><Cloth>80</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- армейский бронекостюм: ячеек пояса 1, мест под улучшения 3 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_Military</defName>
+    <label>army body armor</label>
+    <description>Standard body armor of the cordon troops. Built for firefights, not for anomalies.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/Military</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>325</MaxHitPoints>
+      <MarketValue>1000</MarketValue>
+      <Mass>9</Mass>
+      <WorkToMake>20000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.7</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.3</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.25</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.3</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.15</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.15</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.2</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.15</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.2</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <MoveSpeed>-0.1</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Military/Military</wornGraphicPath>
+      <tags><li>SZ_Faction_Military</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
+    </comps>
+    <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- армейская штурмовая броня: ячеек пояса 1, мест под улучшения 3 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_MilitaryAssault</defName>
+    <label>army assault armor</label>
+    <description>Assault armor of the special units. Excellent against bullets, poor against the Zone.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/MilitaryAssault</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>387</MaxHitPoints>
+      <MarketValue>1600</MarketValue>
+      <Mass>13</Mass>
+      <WorkToMake>20000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.95</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.45</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.35</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.4</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.25</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.2</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.3</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.25</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.3</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <MoveSpeed>-0.3</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/MilitaryAssault/MilitaryAssault</wornGraphicPath>
+      <tags><li>SZ_Faction_Military</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
+    </comps>
+    <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- костюм Монолита: ячеек пояса 2, мест под улучшения 2 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_MonolithSuit</defName>
+    <label>Monolith suit</label>
+    <description>A pale suit of Monolith acolytes. Protects the mind better than the body.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/MonolithSuit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>275</MaxHitPoints>
+      <MarketValue>1000</MarketValue>
+      <Mass>6</Mass>
+      <WorkToMake>14000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.5</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.22</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.3</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.25</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.15</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.3</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.3</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.25</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.4</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.4</SZ_PsiProtection>
+      <SZ_ArtifactSlots>1</SZ_ArtifactSlots>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/MonolithSuit/MonolithSuit</wornGraphicPath>
+      <tags><li>SZ_Faction_Monolith</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>2</upgradeSlots></li>
+    </comps>
+    <costList><Steel>60</Steel><Cloth>60</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- броня Монолита: ячеек пояса 3, мест под улучшения 3 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_Monolith</defName>
+    <label>Monolith armor</label>
+    <description>Pale armor of the Monolith fanatics. Strongly shields the mind and the body from the Zone.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/Monolith</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>337</MaxHitPoints>
+      <MarketValue>1500</MarketValue>
+      <Mass>10</Mass>
+      <WorkToMake>20000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.75</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.35</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.35</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.25</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.35</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.35</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.3</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.5</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.6</SZ_PsiProtection>
+      <SZ_ArtifactSlots>2</SZ_ArtifactSlots>
+      <MoveSpeed>-0.15</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Monolith/Monolith</wornGraphicPath>
+      <tags><li>SZ_Faction_Monolith</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
+    </comps>
+    <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- лёгкий костюм наёмника: ячеек пояса 2, мест под улучшения 1 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_MercLight</defName>
+    <label>mercenary light suit</label>
+    <description>A light tactical suit for quick contracts.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/MercLight</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>237</MaxHitPoints>
+      <MarketValue>600</MarketValue>
+      <Mass>3</Mass>
+      <WorkToMake>8000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.35</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.15</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.2</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.15</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.08</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.2</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.2</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.15</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.15</SZ_RadiationResistance>
+      <SZ_ArtifactSlots>1</SZ_ArtifactSlots>
+      <MoveSpeed>0.05</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/MercLight/MercLight</wornGraphicPath>
+      <tags><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>1</upgradeSlots></li>
+    </comps>
+    <costList><Cloth>80</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- костюм наёмника: ячеек пояса 2, мест под улучшения 2 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_Mercenary</defName>
+    <label>mercenary suit</label>
+    <description>A professional combat suit: well-balanced protection from bullets and anomalies.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/Mercenary</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>300</MaxHitPoints>
+      <MarketValue>1100</MarketValue>
+      <Mass>7</Mass>
+      <WorkToMake>14000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.6</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.25</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.3</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.25</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.15</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.3</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.3</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.25</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.25</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <SZ_ArtifactSlots>1</SZ_ArtifactSlots>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Mercenary/Mercenary</wornGraphicPath>
+      <tags><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>2</upgradeSlots></li>
+    </comps>
+    <costList><Steel>60</Steel><Cloth>60</Cloth><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- тяжёлая броня наёмника: ячеек пояса 3, мест под улучшения 3 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_MercHeavy</defName>
+    <label>mercenary heavy armor</label>
+    <description>Heavy armor for well-paid jobs deep in the Zone.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/MercHeavy</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>362</MaxHitPoints>
+      <MarketValue>1700</MarketValue>
+      <Mass>12</Mass>
+      <WorkToMake>20000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.85</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.4</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.35</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.35</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.22</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.3</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.3</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.25</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.3</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <SZ_ArtifactSlots>2</SZ_ArtifactSlots>
+      <MoveSpeed>-0.25</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/MercHeavy/MercHeavy</wornGraphicPath>
+      <tags><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
+    </comps>
+    <costList><Steel>100</Steel><Plasteel>30</Plasteel><Cloth>40</Cloth><ComponentIndustrial>3</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- научный комбинезон: ячеек пояса 3, мест под улучшения 3 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_Scientist</defName>
+    <label>scientific suit</label>
+    <description>A sealed research suit. Weak against bullets, but the best protection from radiation, chemicals and fire.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/Scientist</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <MarketValue>1400</MarketValue>
+      <Mass>7</Mass>
+      <WorkToMake>20000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.2</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.1</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.4</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.2</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.15</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.5</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.6</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.7</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>20</Insulation_Cold>
+      <Insulation_Heat>10</Insulation_Heat>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.7</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.3</SZ_PsiProtection>
+      <SZ_ArtifactSlots>2</SZ_ArtifactSlots>
+      <MoveSpeed>-0.05</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Scientist/Scientist</wornGraphicPath>
+      <tags><li>SZ_Faction_Scientists</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
+    </comps>
+    <costList><Synthread>60</Synthread><Plasteel>30</Plasteel><ComponentSpacer>1</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- костюм замкнутого цикла: ячеек пояса 4, мест под улучшения 3 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_ClosedCycle</defName>
+    <label>closed-cycle suit</label>
+    <description>A top-class research suit with its own air supply. The best protection against anomalies the Zone has seen.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/ClosedCycle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>250</MaxHitPoints>
+      <MarketValue>2200</MarketValue>
+      <Mass>9</Mass>
+      <WorkToMake>20000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>0.4</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.5</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.4</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.3</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.65</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.7</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.8</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>25</Insulation_Cold>
+      <Insulation_Heat>15</Insulation_Heat>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.85</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.4</SZ_PsiProtection>
+      <SZ_ArtifactSlots>3</SZ_ArtifactSlots>
+      <MoveSpeed>-0.1</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/ClosedCycle/ClosedCycle</wornGraphicPath>
+      <tags><li>SZ_Faction_Scientists</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
+    </comps>
+    <costList><Synthread>60</Synthread><Plasteel>30</Plasteel><ComponentSpacer>1</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>8</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- экзоскелет: ячеек пояса 5, мест под улучшения 3 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_Exo</defName>
+    <label>exoskeleton</label>
+    <description>A powered exoskeleton with heavy plating. Carries a huge load and five artifacts, but is slow.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/Exo</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>400</MaxHitPoints>
+      <MarketValue>2000</MarketValue>
+      <Mass>25</Mass>
+      <WorkToMake>32000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>1.0</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.5</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.45</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.5</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.35</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.3</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.4</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.3</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.35</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.15</SZ_PsiProtection>
+      <SZ_ArtifactSlots>4</SZ_ArtifactSlots>
+      <MoveSpeed>-0.5</MoveSpeed>
+      <CarryingCapacity>100</CarryingCapacity>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Exo/Exo</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Freedom</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
+    </comps>
+    <costList><Plasteel>120</Plasteel><ComponentIndustrial>4</ComponentIndustrial><ComponentSpacer>4</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>PoweredArmor</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>10</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- штурмовой экзоскелет: ячеек пояса 4, мест под улучшения 3 -->
+  <ThingDef ParentName="SZ_SuitBase">
+    <defName>SZ_Suit_ExoAssault</defName>
+    <label>assault exoskeleton</label>
+    <description>An exoskeleton with assault plating. The strongest armor in the Zone, and the slowest.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Suits/ExoAssault</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>462</MaxHitPoints>
+      <MarketValue>2200</MarketValue>
+      <Mass>30</Mass>
+      <WorkToMake>32000</WorkToMake>
+      <EquipDelay>4</EquipDelay>
+      <Flammability>0.3</Flammability>
+      <ArmorRating_Sharp>1.25</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.65</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.55</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.6</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.45</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.35</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.45</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.35</SZ_ArmorRating_Chemical>
+      <Insulation_Cold>10</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.4</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.2</SZ_PsiProtection>
+      <SZ_ArtifactSlots>3</SZ_ArtifactSlots>
+      <MoveSpeed>-0.6</MoveSpeed>
+      <CarryingCapacity>120</CarryingCapacity>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/ExoAssault/ExoAssault</wornGraphicPath>
+      <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <comps>
+      <li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li>
+      <li Class="StalkerZone.CompProperties_Suit"><upgradeSlots>3</upgradeSlots></li>
+    </comps>
+    <costList><Plasteel>120</Plasteel><ComponentIndustrial>4</ComponentIndustrial><ComponentSpacer>4</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>PoweredArmor</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>10</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helmet_Stalker</defName>
+    <label>stalker helmet</label>
+    <description>A steel helmet with a padded liner. Also slightly dulls psychic pressure.</description>
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/SimpleHelmet/SimpleHelmet</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(0.40, 0.42, 0.35)</color>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>250</MarketValue>
+      <Mass>1.5</Mass>
+      <WorkToMake>4000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.4</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.1</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.2</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.1</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.1</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.1</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.05</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.1</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SimpleHelmet/SimpleHelmet</wornGraphicPath>
+      <tags><li>SZ_Faction_Loners</li><li>SZ_Faction_Duty</li><li>SZ_Faction_Military</li><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <costList><Steel>40</Steel></costList>
+    <recipeMaker>
+      <researchPrerequisite>Smithing</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_Helmet_Psi</defName>
+    <label>psi helmet</label>
+    <description>A helmet with a built-in psi shield circuit. Protects the mind from psychic fields and the emission.</description>
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/AdvancedHelmet/AdvancedHelmet</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(0.75, 0.78, 0.85)</color>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>900</MarketValue>
+      <Mass>1.2</Mass>
+      <WorkToMake>9000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.15</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.15</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.15</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.1</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.2</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.15</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.1</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_PsiProtection>0.5</SZ_PsiProtection>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>Overhead</li></layers>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/AdvancedHelmet/AdvancedHelmet</wornGraphicPath>
+      <tags><li>SZ_Faction_Monolith</li><li>SZ_Faction_Scientists</li></tags>
+    </apparel>
+    <costList><Plasteel>25</Plasteel><ComponentIndustrial>3</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_HeadgearBase">
+    <defName>SZ_GasMask</defName>
+    <label>gas mask</label>
+    <description>A rubber gas mask with a filter. Keeps out radioactive dust and toxic fumes. Can be worn under a helmet.</description>
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/SZ_GasMask/SZ_GasMask</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>200</MarketValue>
+      <Mass>0.8</Mass>
+      <WorkToMake>3000</WorkToMake>
+      <EquipDelay>1.5</EquipDelay>
+      <SZ_ArmorRating_Chemical>0.3</SZ_ArmorRating_Chemical>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_RadiationResistance>0.15</SZ_RadiationResistance>
+      <ToxicResistance>0.5</ToxicResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <layers><li>EyeCover</li></layers>
+      <bodyPartGroups><li>Eyes</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_GasMask/SZ_GasMask</wornGraphicPath>
+      <tags><li>SZ_Faction_Freedom</li><li>SZ_Faction_Military</li><li>SZ_Faction_Scientists</li><li>SZ_Faction_Bandits</li></tags>
+    </apparel>
+    <costList><Cloth>20</Cloth><Steel>15</Steel><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- Свинцовый контейнер: каждый в инвентаре гасит излучение одного активного артефакта (C#: ZoneArtifacts.cs) -->
+  <ThingDef>
+    <defName>SZ_LeadContainer</defName>
+    <label>lead container</label>
+    <description>A heavy lead-lined box for an artifact. Each container carried in the inventory blocks the radiation of one active artifact (the strongest first), while the artifact keeps working.</description>
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <drawerType>MapMeshOnly</drawerType>
+    <altitudeLayer>Item</altitudeLayer>
+    <selectable>true</selectable>
+    <alwaysHaulable>true</alwaysHaulable>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <rotatable>false</rotatable>
+    <pathCost>14</pathCost>
+    <useHitPoints>true</useHitPoints>
+    <stackLimit>1</stackLimit>
+    <tradeability>All</tradeability>
+    <techLevel>Industrial</techLevel>
+    <thingCategories><li>SZ_Artifacts</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Gear/LeadContainer</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>120</MarketValue>
+      <Mass>3</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>2500</WorkToMake>
+    </statBases>
+    <comps><li Class="CompProperties_Forbiddable"/></comps>
+    <costList><Steel>50</Steel></costList>
+    <recipeMaker>
+      <researchPrerequisite>Smithing</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- Ремкомплект: кнопка у владельца костюма, +40% прочности в поле (C#: CompSuit) -->
+  <ThingDef>
+    <defName>SZ_RepairKit</defName>
+    <label>repair kit</label>
+    <description>Patches, sealant and spare plates. Carried in the inventory, it lets the wearer restore 40% of a damaged Zone suit right in the field.</description>
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <drawerType>MapMeshOnly</drawerType>
+    <altitudeLayer>Item</altitudeLayer>
+    <selectable>true</selectable>
+    <alwaysHaulable>true</alwaysHaulable>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <rotatable>false</rotatable>
+    <pathCost>14</pathCost>
+    <useHitPoints>true</useHitPoints>
+    <stackLimit>10</stackLimit>
+    <tradeability>All</tradeability>
+    <techLevel>Industrial</techLevel>
+    <thingCategories><li>SZ_Artifacts</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Gear/RepairKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>80</MarketValue>
+      <Mass>1</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>2000</WorkToMake>
+    </statBases>
+    <comps><li Class="CompProperties_Forbiddable"/></comps>
+    <costList><Steel>15</Steel><Cloth>15</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>Smithing</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+</Defs>

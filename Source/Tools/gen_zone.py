@@ -246,155 +246,88 @@ w('\n</Defs>\n')
 open(f'{M}/Defs/Anomalies/SZ_Anomalies.xml','w',encoding='utf-8').write(''.join(o))
 
 # =============== SZ_Artifacts.xml ===============
+# Артефакт — обычный предмет. Действует, когда лежит в "поясе" (инвентаре пешки):
+# активны первые N артефактов, N = стат SZ_ArtifactSlots (даёт костюм, без костюма 1).
+# Эффект — HediffDef SZ_ArtifactEffect_X со стадиями ×1..×5 (несколько одинаковых складываются).
+# Облучение — в лучевую болезнь (SZ_Radiation), radiationPerDay в ArtifactExtension (C#: ZoneArtifacts.cs).
+# Каждый свинцовый контейнер в инвентаре гасит излучение одного активного артефакта (самого сильного).
+RAD_PER_DAY={'mild':0.08,'strong':0.25,'none':0.0}
+BELT_EN=' Works when carried in the artifact belt (inventory); the number of belt slots depends on the suit. A lead container in the inventory blocks its radiation.'
+BELT_RU=' Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.'
 o=[]; w=o.append
-w('''<?xml version="1.0" encoding="utf-8"?>
+w("""<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Своя категория в складах: внутри "Одежды", т.к. артефакт носится на поясе -->
+  <!-- Файл сгенерирован Source/Tools/gen_zone.py. -->
+
   <ThingCategoryDef>
     <defName>SZ_Artifacts</defName>
     <label>artifacts</label>
-    <parent>Apparel</parent>
+    <parent>Manufactured</parent>
   </ThingCategoryDef>
 
-  <!-- Свой слой одежды для артефакта: занимает пояс, но не конфликтует
-       с поясными вещами (детектор, щит-пояс). Один артефакт за раз. -->
-  <ApparelLayerDef>
-    <defName>SZ_ArtifactLayer</defName>
-    <label>artifact</label>
-    <drawOrder>350</drawOrder>
-  </ApparelLayerDef>
-
-  <!-- ================= ОБЛУЧЕНИЕ ОТ АРТЕФАКТА =================
-       Появляется, пока артефакт на поясе (CompProperties_CauseHediff_Apparel),
-       и исчезает, когда его снимают (HediffCompProperties_RemoveIfApparelDropped).
-       Растёт, пока артефакт надет. Антирад снижает (makeImmuneTo в SZ_AntiradEffect).
-       Не смертельно: максимум 1.0, но на высоких стадиях сильные штрафы и риск рака. -->
-  <HediffDef Name="SZ_ArtifactExposureBase" Abstract="True">
-    <hediffClass>HediffWithComps</hediffClass>
-    <defaultLabelColor>(0.95, 0.75, 0.3)</defaultLabelColor>
-    <isBad>true</isBad>
-    <initialSeverity>0.01</initialSeverity>
-    <maxSeverity>1</maxSeverity>
-    <comps>
-      <li Class="HediffCompProperties_RemoveIfApparelDropped"/>
-    </comps>
-    <stages>
-      <li>
-        <label>faint</label>
-      </li>
-      <li>
-        <label>minor</label>
-        <minSeverity>0.25</minSeverity>
-        <capMods>
-          <li><capacity>Consciousness</capacity><offset>-0.05</offset></li>
-        </capMods>
-      </li>
-      <li>
-        <label>moderate</label>
-        <minSeverity>0.5</minSeverity>
-        <vomitMtbDays>4</vomitMtbDays>
-        <capMods>
-          <li><capacity>Consciousness</capacity><offset>-0.1</offset></li>
-          <li><capacity>BloodFiltration</capacity><offset>-0.1</offset></li>
-        </capMods>
-      </li>
-      <li>
-        <label>serious</label>
-        <minSeverity>0.8</minSeverity>
-        <vomitMtbDays>1</vomitMtbDays>
-        <painOffset>0.1</painOffset>
-        <capMods>
-          <li><capacity>Consciousness</capacity><offset>-0.2</offset></li>
-          <li><capacity>BloodFiltration</capacity><offset>-0.2</offset></li>
-          <li><capacity>Moving</capacity><offset>-0.1</offset></li>
-        </capMods>
-        <hediffGivers>
-          <li Class="HediffGiver_Random">
-            <hediff>Carcinoma</hediff>
-            <mtbDays>150</mtbDays>
-            <canAffectAnyLivePart>true</canAffectAnyLivePart>
-          </li>
-        </hediffGivers>
-      </li>
-    </stages>
-  </HediffDef>
-
-  <!-- Слабое излучение: до тяжёлой стадии ~16 дней -->
-  <HediffDef ParentName="SZ_ArtifactExposureBase">
-    <defName>SZ_ArtifactExposure</defName>
-    <label>artifact exposure</label>
-    <description>Radiation from an artifact worn on the body. Grows while the artifact is worn and disappears once it is taken off. Anti-rad reduces it.</description>
-    <comps>
-      <li Class="HediffCompProperties_Immunizable">
-        <severityPerDayNotImmune>0.05</severityPerDayNotImmune>
-        <severityPerDayImmune>-0.3</severityPerDayImmune>
-      </li>
-    </comps>
-  </HediffDef>
-
-  <!-- Сильное излучение: до тяжёлой стадии ~5 дней -->
-  <HediffDef ParentName="SZ_ArtifactExposureBase">
-    <defName>SZ_ArtifactExposureStrong</defName>
-    <label>strong artifact exposure</label>
-    <description>Intense radiation from a powerful artifact worn on the body. Grows quickly while the artifact is worn and disappears once it is taken off. Anti-rad reduces it.</description>
-    <comps>
-      <li Class="HediffCompProperties_Immunizable">
-        <severityPerDayNotImmune>0.15</severityPerDayNotImmune>
-        <severityPerDayImmune>-0.3</severityPerDayImmune>
-      </li>
-    </comps>
-  </HediffDef>
-
-  <!-- ================= БАЗА АРТЕФАКТА =================
-       Артефакт = предмет одежды на поясе в своём слое SZ_ArtifactLayer, один за раз.
-       Бонусы даёт equippedStatOffsets, облучение — CompProperties_CauseHediff_Apparel. -->
-  <ThingDef ParentName="ApparelBase" Name="SZ_ArtifactBase" Abstract="True">
-    <thingCategories Inherit="False">
+  <!-- ================= БАЗА АРТЕФАКТА: ПРЕДМЕТ =================
+       Не одежда: артефакт кладут в пояс (инвентарь пешки). C#-часть
+       (MapComponent_Zone) включает эффекты первых N артефактов и облучение. -->
+  <ThingDef Name="SZ_ArtifactBase" Abstract="True">
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <drawerType>MapMeshOnly</drawerType>
+    <altitudeLayer>Item</altitudeLayer>
+    <selectable>true</selectable>
+    <alwaysHaulable>true</alwaysHaulable>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <rotatable>false</rotatable>
+    <pathCost>14</pathCost>
+    <useHitPoints>true</useHitPoints>
+    <stackLimit>1</stackLimit>
+    <tradeability>All</tradeability>
+    <techLevel>Ultra</techLevel>
+    <thingCategories>
       <li>SZ_Artifacts</li>
     </thingCategories>
-    <techLevel>Ultra</techLevel>
-    <tradeability>All</tradeability>
-    <smeltable>false</smeltable>
     <statBases>
       <MaxHitPoints>200</MaxHitPoints>
       <Flammability>0</Flammability>
-      <DeteriorationRate>0</DeteriorationRate>  <!-- не портится на улице -->
-      <EquipDelay>1</EquipDelay>
+      <DeteriorationRate>0</DeteriorationRate>
+      <Beauty>5</Beauty>
     </statBases>
+    <comps>
+      <li Class="CompProperties_Forbiddable"/>
+    </comps>
     <thingSetMakerTags>
-      <li>RewardStandardLowFreq</li>             <!-- могут выпадать наградой за квесты -->
+      <li>RewardStandardLowFreq</li>
     </thingSetMakerTags>
-    <apparel>
-      <layers>
-        <li>SZ_ArtifactLayer</li>
-      </layers>
-      <bodyPartGroups>
-        <li>Waist</li>
-      </bodyPartGroups>
-      <countsAsClothingForNudity>false</countsAsClothingForNudity>
-      <careIfWornByCorpse>false</careIfWornByCorpse>
-      <careIfDamaged>false</careIfDamaged>
-      <wearPerDay>0</wearPerDay>                 <!-- не изнашивается -->
-    </apparel>
   </ThingDef>
-''')
+""")
 for a in ANOM:
     w(f'\n  <!-- ============ Из аномалии «{a[2]}» ============ -->\n')
     for r in ART:
         if r[3]!=a[0]: continue
         k,en,ru,an,rar,val,mass,offs,exp,den,dru=r
-        offs_xml=''.join(f'      <{s}>{v}</{s}>{"  <!-- "+STAT_RU[s]+" -->"}\n' for s,v in offs.items())
-        comp='' if EXPO[exp] is None else f'''    <comps>
-      <li Class="CompProperties_CauseHediff_Apparel">
-        <hediff>{EXPO[exp]}</hediff>
-      </li>
-    </comps>
-'''
-        w(f'''  <ThingDef ParentName="SZ_ArtifactBase">   <!-- {ru}, {RARITY[rar][1]} -->
+        # эффект: стадии ×1..×5
+        stages=''
+        for n in range(1,6):
+            so=''.join(f'<{st}>{round(v*n,3)}</{st}>' for st,v in offs.items())
+            ms='' if n==1 else f'<minSeverity>{n-0.5}</minSeverity>'
+            stages+=f'      <li><label>x{n}</label>{ms}<statOffsets>{so}</statOffsets></li>\n'
+        w(f"""  <HediffDef>
+    <defName>SZ_ArtifactEffect_{k}</defName>
+    <label>artifact: {esc(en)}</label>
+    <description>Effect of the artifact carried in the belt. Several identical artifacts add up.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.85, 1.0)</defaultLabelColor>
+    <isBad>false</isBad>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>5</maxSeverity>
+    <stages>
+{stages}    </stages>
+  </HediffDef>
+
+  <ThingDef ParentName="SZ_ArtifactBase">   <!-- {ru}, {RARITY[rar][1]} -->
     <defName>SZ_Artifact_{k}</defName>
     <label>{esc(en)}</label>
-    <description>{esc(den+RAD_EN[exp])}</description>
+    <description>{esc(den+RAD_EN[exp]+BELT_EN)}</description>
     <graphicData>
       <texPath>Things/Item/SZ_Artifacts/{k}</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -403,10 +336,15 @@ for a in ANOM:
       <MarketValue>{val}</MarketValue>
       <Mass>{mass}</Mass>
     </statBases>
-    <equippedStatOffsets>
-{offs_xml}    </equippedStatOffsets>
-{comp}  </ThingDef>
-''')
+    <modExtensions>
+      <li Class="StalkerZone.ArtifactExtension">
+        <effectHediff>SZ_ArtifactEffect_{k}</effectHediff>
+        <radiationPerDay>{RAD_PER_DAY[exp]}</radiationPerDay>   <!-- лучевая болезнь в сутки, пока на поясе -->
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+""")
 w('\n</Defs>\n')
 open(f'{M}/Defs/Artifacts/SZ_Artifacts.xml','w',encoding='utf-8').write(''.join(o))
 
@@ -435,7 +373,12 @@ if os.path.exists(_old): os.remove(_old)
 o=['<?xml version="1.0" encoding="utf-8"?>\n<LanguageData>\n']
 for r in ART:
     dn=f'SZ_Artifact_{r[0]}'
-    o.append(f'  <{dn}.label>{esc(r[2])}</{dn}.label>\n  <{dn}.description>{esc(r[10]+RAD_RU[r[8]])}</{dn}.description>\n')
+    o.append(f'  <{dn}.label>{esc(r[2])}</{dn}.label>\n  <{dn}.description>{esc(r[10]+RAD_RU[r[8]]+BELT_RU)}</{dn}.description>\n')
 o.append('</LanguageData>\n'); open(f'{L}/ThingDef/SZ_Artifacts.xml','w',encoding='utf-8').write(''.join(o))
+o=['<?xml version="1.0" encoding="utf-8"?>\n<LanguageData>\n']
+for r in ART:
+    dn=f'SZ_ArtifactEffect_{r[0]}'
+    o.append(f'  <{dn}.label>артефакт: {esc(r[2])}</{dn}.label>\n  <{dn}.description>Действие артефакта на поясе. Несколько одинаковых артефактов складываются.</{dn}.description>\n')
+o.append('</LanguageData>\n'); open(f'{L}/HediffDef/SZ_Artifacts.xml','w',encoding='utf-8').write(''.join(o))
 
 print(f'anomaly types: {len(ANOM)}, variants/artifacts: {len(ART)}, damage defs: {len(DAMAGE)}')

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_Up_Plates.label>усиленные бронепластины</SZ_Up_Plates.label>
+  <SZ_Up_Plates.description>Дополнительные бронепластины: лучше защита от пуль и ударов.</SZ_Up_Plates.description>
+  <SZ_Up_AntiRupture.label>противоразрывная сетка</SZ_Up_AntiRupture.label>
+  <SZ_Up_AntiRupture.description>Сетчатый слой против разрывающих гравитационных аномалий.</SZ_Up_AntiRupture.description>
+  <SZ_Up_Thermal.label>термоизоляционный слой</SZ_Up_Thermal.label>
+  <SZ_Up_Thermal.description>Термостойкая подкладка против термических аномалий и огня.</SZ_Up_Thermal.description>
+  <SZ_Up_Dielectric.label>диэлектрическая подкладка</SZ_Up_Dielectric.label>
+  <SZ_Up_Dielectric.description>Изолирующая подкладка против электрических аномалий.</SZ_Up_Dielectric.description>
+  <SZ_Up_Chemical.label>химзащитная пропитка</SZ_Up_Chemical.label>
+  <SZ_Up_Chemical.description>Пропитка, защищающая от едких и токсичных аномалий.</SZ_Up_Chemical.description>
+  <SZ_Up_Lead.label>свинцовые вставки</SZ_Up_Lead.label>
+  <SZ_Up_Lead.description>Свинцовые вставки в подкладке: +15% к защите от радиации.</SZ_Up_Lead.description>
+  <SZ_Up_PsiMesh.label>пси-экранирующая сетка</SZ_Up_PsiMesh.label>
+  <SZ_Up_PsiMesh.description>Экранирующая сетка в воротнике: +15% к пси-защите.</SZ_Up_PsiMesh.description>
+  <SZ_Up_ArtifactMount.label>крепление для артефакта</SZ_Up_ArtifactMount.label>
+  <SZ_Up_ArtifactMount.description>Дополнительный контейнер для артефакта: +1 ячейка пояса.</SZ_Up_ArtifactMount.description>
+</LanguageData>

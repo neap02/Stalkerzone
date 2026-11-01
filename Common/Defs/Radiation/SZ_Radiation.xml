@@ -110,8 +110,6 @@
       <li>
         <makeImmuneTo>
           <li>SZ_Radiation</li>
-          <li>SZ_ArtifactExposure</li>        <!-- облучение от артефактов -->
-          <li>SZ_ArtifactExposureStrong</li>
         </makeImmuneTo>
         <!-- Побочный эффект: лёгкая заторможенность -->
         <capMods>

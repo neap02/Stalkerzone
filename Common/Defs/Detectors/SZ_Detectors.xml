@@ -30,6 +30,8 @@
       <careIfDamaged>false</careIfDamaged>
       <wearPerDay>0</wearPerDay>
     </apparel>
+    <!-- Кнопки "Бросить болт" и "Артефакт на пояс" у владельца (C#: CompBoltThrower.cs) -->
+    <comps><li Class="StalkerZone.CompProperties_BoltThrower"><range>12</range></li></comps>
   </ThingDef>
 
   <!-- Класс 1: аномалии в 10 клетках, обычные артефакты в 4 клетках -->

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Файл сгенерирован Source/Tools/gen_factions.py.
+       Отношения фракций Зоны между собой и стартовое отношение к игроку.
+       Выставляются один раз на игру (C#: GameComponent_ZoneFactions), дальше живут сами.
+       kind: Hostile — вражда, Neutral — нейтралитет, Ally — союз (воюют вместе). -->
+  <StalkerZone.FactionRelationsDef>
+    <defName>SZ_ZoneRelations</defName>
+    <relations>
+      <li><a>SZ_Faction_Loners</a><b>SZ_Faction_Duty</b><kind>Neutral</kind><goodwill>40</goodwill></li>
+      <li><a>SZ_Faction_Loners</a><b>SZ_Faction_Freedom</b><kind>Neutral</kind><goodwill>30</goodwill></li>
+      <li><a>SZ_Faction_Loners</a><b>SZ_Faction_Bandits</b><kind>Hostile</kind><goodwill>-80</goodwill></li>
+      <li><a>SZ_Faction_Loners</a><b>SZ_Faction_Military</b><kind>Hostile</kind><goodwill>-60</goodwill></li>
+      <li><a>SZ_Faction_Loners</a><b>SZ_Faction_Monolith</b><kind>Hostile</kind><goodwill>-100</goodwill></li>
+      <li><a>SZ_Faction_Loners</a><b>SZ_Faction_Mercenaries</b><kind>Hostile</kind><goodwill>-50</goodwill></li>
+      <li><a>SZ_Faction_Loners</a><b>SZ_Faction_Scientists</b><kind>Ally</kind><goodwill>70</goodwill></li>
+      <li><a>SZ_Faction_Duty</a><b>SZ_Faction_Freedom</b><kind>Hostile</kind><goodwill>-100</goodwill></li>
+      <li><a>SZ_Faction_Duty</a><b>SZ_Faction_Bandits</b><kind>Hostile</kind><goodwill>-90</goodwill></li>
+      <li><a>SZ_Faction_Duty</a><b>SZ_Faction_Military</b><kind>Neutral</kind><goodwill>20</goodwill></li>
+      <li><a>SZ_Faction_Duty</a><b>SZ_Faction_Monolith</b><kind>Hostile</kind><goodwill>-100</goodwill></li>
+      <li><a>SZ_Faction_Duty</a><b>SZ_Faction_Mercenaries</b><kind>Hostile</kind><goodwill>-70</goodwill></li>
+      <li><a>SZ_Faction_Duty</a><b>SZ_Faction_Scientists</b><kind>Neutral</kind><goodwill>50</goodwill></li>
+      <li><a>SZ_Faction_Freedom</a><b>SZ_Faction_Bandits</b><kind>Neutral</kind><goodwill>-30</goodwill></li>
+      <li><a>SZ_Faction_Freedom</a><b>SZ_Faction_Military</b><kind>Hostile</kind><goodwill>-80</goodwill></li>
+      <li><a>SZ_Faction_Freedom</a><b>SZ_Faction_Monolith</b><kind>Hostile</kind><goodwill>-100</goodwill></li>
+      <li><a>SZ_Faction_Freedom</a><b>SZ_Faction_Mercenaries</b><kind>Neutral</kind><goodwill>0</goodwill></li>
+      <li><a>SZ_Faction_Freedom</a><b>SZ_Faction_Scientists</b><kind>Neutral</kind><goodwill>30</goodwill></li>
+      <li><a>SZ_Faction_Bandits</a><b>SZ_Faction_Military</b><kind>Hostile</kind><goodwill>-90</goodwill></li>
+      <li><a>SZ_Faction_Bandits</a><b>SZ_Faction_Monolith</b><kind>Hostile</kind><goodwill>-100</goodwill></li>
+      <li><a>SZ_Faction_Bandits</a><b>SZ_Faction_Mercenaries</b><kind>Neutral</kind><goodwill>0</goodwill></li>
+      <li><a>SZ_Faction_Bandits</a><b>SZ_Faction_Scientists</b><kind>Hostile</kind><goodwill>-60</goodwill></li>
+      <li><a>SZ_Faction_Military</a><b>SZ_Faction_Monolith</b><kind>Hostile</kind><goodwill>-100</goodwill></li>
+      <li><a>SZ_Faction_Military</a><b>SZ_Faction_Mercenaries</b><kind>Hostile</kind><goodwill>-60</goodwill></li>
+      <li><a>SZ_Faction_Military</a><b>SZ_Faction_Scientists</b><kind>Ally</kind><goodwill>70</goodwill></li>
+      <li><a>SZ_Faction_Monolith</a><b>SZ_Faction_Mercenaries</b><kind>Hostile</kind><goodwill>-100</goodwill></li>
+      <li><a>SZ_Faction_Monolith</a><b>SZ_Faction_Scientists</b><kind>Hostile</kind><goodwill>-100</goodwill></li>
+      <li><a>SZ_Faction_Mercenaries</a><b>SZ_Faction_Scientists</b><kind>Neutral</kind><goodwill>0</goodwill></li>
+    </relations>
+    <playerGoodwill>
+      <li><faction>SZ_Faction_Loners</faction><goodwill>20</goodwill></li>
+      <li><faction>SZ_Faction_Duty</faction><goodwill>0</goodwill></li>
+      <li><faction>SZ_Faction_Freedom</faction><goodwill>0</goodwill></li>
+      <li><faction>SZ_Faction_Bandits</faction><goodwill>-60</goodwill></li>
+      <li><faction>SZ_Faction_Military</faction><goodwill>-80</goodwill></li>
+      <li><faction>SZ_Faction_Mercenaries</faction><goodwill>-20</goodwill></li>
+      <li><faction>SZ_Faction_Scientists</faction><goodwill>30</goodwill></li>
+    </playerGoodwill>
+  </StalkerZone.FactionRelationsDef>
+
+</Defs>

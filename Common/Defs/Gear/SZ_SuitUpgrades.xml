@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Файл сгенерирован Source/Tools/gen_gear.py.
+       Улучшения костюмов Зоны. Ставятся на механическом станке рецептом: костюм не
+       расходуется, материалы расходуются (C#: RecipeWorker_Suit). Мест под улучшения:
+       лёгкий костюм 1, средний 2, тяжёлый/научный/экзо 3. Если места нет, материалы пропадут. -->
+
+  <StalkerZone.SuitUpgradeDef>
+    <defName>SZ_Up_Plates</defName>
+    <label>reinforced plates</label>
+    <description>Extra armor plates: better protection from bullets and blows.</description>
+    <armorOffsets><ArmorRating_Sharp>0.15</ArmorRating_Sharp><ArmorRating_Blunt>0.08</ArmorRating_Blunt><SZ_ArmorRating_Strike>0.05</SZ_ArmorRating_Strike></armorOffsets>
+    <maxPerSuit>2</maxPerSuit>
+  </StalkerZone.SuitUpgradeDef>
+
+  <RecipeDef>
+    <defName>SZ_Upgrade_Plates</defName>
+    <label>upgrade suit: reinforced plates</label>
+    <description>Extra armor plates: better protection from bullets and blows. Uses one free upgrade place of a Zone suit.</description>
+    <jobString>Upgrading suit.</jobString>
+    <workerClass>StalkerZone.RecipeWorker_Suit</workerClass>
+    <workAmount>3000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <recipeUsers><li>TableMachining</li></recipeUsers>
+    <researchPrerequisite>FlakArmor</researchPrerequisite>
+    <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    <ingredients>
+      <li><filter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li></thingDefs></filter><count>1</count></li>
+      <li><filter><thingDefs><li>Plasteel</li></thingDefs></filter><count>20</count></li>
+      <li><filter><thingDefs><li>Steel</li></thingDefs></filter><count>20</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li><li>Plasteel</li><li>Steel</li></thingDefs></fixedIngredientFilter>
+    <modExtensions>
+      <li Class="StalkerZone.SuitRecipeExtension"><upgrade>SZ_Up_Plates</upgrade></li>
+    </modExtensions>
+  </RecipeDef>
+
+  <StalkerZone.SuitUpgradeDef>
+    <defName>SZ_Up_AntiRupture</defName>
+    <label>anti-rupture mesh</label>
+    <description>A woven mesh layer against tearing gravitational anomalies.</description>
+    <armorOffsets><SZ_ArmorRating_Rupture>0.15</SZ_ArmorRating_Rupture><SZ_ArmorRating_Strike>0.05</SZ_ArmorRating_Strike></armorOffsets>
+    <maxPerSuit>2</maxPerSuit>
+  </StalkerZone.SuitUpgradeDef>
+
+  <RecipeDef>
+    <defName>SZ_Upgrade_AntiRupture</defName>
+    <label>upgrade suit: anti-rupture mesh</label>
+    <description>A woven mesh layer against tearing gravitational anomalies. Uses one free upgrade place of a Zone suit.</description>
+    <jobString>Upgrading suit.</jobString>
+    <workerClass>StalkerZone.RecipeWorker_Suit</workerClass>
+    <workAmount>3000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <recipeUsers><li>TableMachining</li></recipeUsers>
+    <researchPrerequisite>FlakArmor</researchPrerequisite>
+    <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    <ingredients>
+      <li><filter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li></thingDefs></filter><count>1</count></li>
+      <li><filter><thingDefs><li>Plasteel</li></thingDefs></filter><count>15</count></li>
+      <li><filter><thingDefs><li>Cloth</li></thingDefs></filter><count>20</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li><li>Plasteel</li><li>Cloth</li></thingDefs></fixedIngredientFilter>
+    <modExtensions>
+      <li Class="StalkerZone.SuitRecipeExtension"><upgrade>SZ_Up_AntiRupture</upgrade></li>
+    </modExtensions>
+  </RecipeDef>
+
+  <StalkerZone.SuitUpgradeDef>
+    <defName>SZ_Up_Thermal</defName>
+    <label>thermal lining</label>
+    <description>A heat-resistant lining against thermal anomalies and fire.</description>
+    <armorOffsets><SZ_ArmorRating_Burn>0.15</SZ_ArmorRating_Burn><ArmorRating_Heat>0.08</ArmorRating_Heat></armorOffsets>
+    <maxPerSuit>2</maxPerSuit>
+  </StalkerZone.SuitUpgradeDef>
+
+  <RecipeDef>
+    <defName>SZ_Upgrade_Thermal</defName>
+    <label>upgrade suit: thermal lining</label>
+    <description>A heat-resistant lining against thermal anomalies and fire. Uses one free upgrade place of a Zone suit.</description>
+    <jobString>Upgrading suit.</jobString>
+    <workerClass>StalkerZone.RecipeWorker_Suit</workerClass>
+    <workAmount>3000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <recipeUsers><li>TableMachining</li></recipeUsers>
+    <researchPrerequisite>ComplexClothing</researchPrerequisite>
+    <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    <ingredients>
+      <li><filter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li></thingDefs></filter><count>1</count></li>
+      <li><filter><thingDefs><li>Cloth</li></thingDefs></filter><count>30</count></li>
+      <li><filter><thingDefs><li>ComponentIndustrial</li></thingDefs></filter><count>1</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li><li>Cloth</li><li>ComponentIndustrial</li></thingDefs></fixedIngredientFilter>
+    <modExtensions>
+      <li Class="StalkerZone.SuitRecipeExtension"><upgrade>SZ_Up_Thermal</upgrade></li>
+    </modExtensions>
+  </RecipeDef>
+
+  <StalkerZone.SuitUpgradeDef>
+    <defName>SZ_Up_Dielectric</defName>
+    <label>dielectric lining</label>
+    <description>An insulating lining against electric anomalies.</description>
+    <armorOffsets><SZ_ArmorRating_Shock>0.15</SZ_ArmorRating_Shock></armorOffsets>
+    <maxPerSuit>2</maxPerSuit>
+  </StalkerZone.SuitUpgradeDef>
+
+  <RecipeDef>
+    <defName>SZ_Upgrade_Dielectric</defName>
+    <label>upgrade suit: dielectric lining</label>
+    <description>An insulating lining against electric anomalies. Uses one free upgrade place of a Zone suit.</description>
+    <jobString>Upgrading suit.</jobString>
+    <workerClass>StalkerZone.RecipeWorker_Suit</workerClass>
+    <workAmount>3000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <recipeUsers><li>TableMachining</li></recipeUsers>
+    <researchPrerequisite>ComplexClothing</researchPrerequisite>
+    <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    <ingredients>
+      <li><filter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li></thingDefs></filter><count>1</count></li>
+      <li><filter><thingDefs><li>Cloth</li></thingDefs></filter><count>20</count></li>
+      <li><filter><thingDefs><li>ComponentIndustrial</li></thingDefs></filter><count>1</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li><li>Cloth</li><li>ComponentIndustrial</li></thingDefs></fixedIngredientFilter>
+    <modExtensions>
+      <li Class="StalkerZone.SuitRecipeExtension"><upgrade>SZ_Up_Dielectric</upgrade></li>
+    </modExtensions>
+  </RecipeDef>
+
+  <StalkerZone.SuitUpgradeDef>
+    <defName>SZ_Up_Chemical</defName>
+    <label>chemical impregnation</label>
+    <description>An impregnation that protects against caustic and toxic anomalies.</description>
+    <armorOffsets><SZ_ArmorRating_Chemical>0.15</SZ_ArmorRating_Chemical></armorOffsets>
+    <maxPerSuit>2</maxPerSuit>
+  </StalkerZone.SuitUpgradeDef>
+
+  <RecipeDef>
+    <defName>SZ_Upgrade_Chemical</defName>
+    <label>upgrade suit: chemical impregnation</label>
+    <description>An impregnation that protects against caustic and toxic anomalies. Uses one free upgrade place of a Zone suit.</description>
+    <jobString>Upgrading suit.</jobString>
+    <workerClass>StalkerZone.RecipeWorker_Suit</workerClass>
+    <workAmount>3000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <recipeUsers><li>TableMachining</li></recipeUsers>
+    <researchPrerequisite>DrugProduction</researchPrerequisite>
+    <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    <ingredients>
+      <li><filter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li></thingDefs></filter><count>1</count></li>
+      <li><filter><thingDefs><li>Cloth</li></thingDefs></filter><count>20</count></li>
+      <li><filter><thingDefs><li>Neutroamine</li></thingDefs></filter><count>4</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li><li>Cloth</li><li>Neutroamine</li></thingDefs></fixedIngredientFilter>
+    <modExtensions>
+      <li Class="StalkerZone.SuitRecipeExtension"><upgrade>SZ_Up_Chemical</upgrade></li>
+    </modExtensions>
+  </RecipeDef>
+
+  <StalkerZone.SuitUpgradeDef>
+    <defName>SZ_Up_Lead</defName>
+    <label>lead inserts</label>
+    <description>Lead inserts in the lining: +15% radiation protection.</description>
+    <armorOffsets></armorOffsets>
+    <radiation>0.15</radiation>
+    <maxPerSuit>2</maxPerSuit>
+  </StalkerZone.SuitUpgradeDef>
+
+  <RecipeDef>
+    <defName>SZ_Upgrade_Lead</defName>
+    <label>upgrade suit: lead inserts</label>
+    <description>Lead inserts in the lining: +15% radiation protection. Uses one free upgrade place of a Zone suit.</description>
+    <jobString>Upgrading suit.</jobString>
+    <workerClass>StalkerZone.RecipeWorker_Suit</workerClass>
+    <workAmount>3000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <recipeUsers><li>TableMachining</li></recipeUsers>
+    <researchPrerequisite>Smithing</researchPrerequisite>
+    <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    <ingredients>
+      <li><filter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li></thingDefs></filter><count>1</count></li>
+      <li><filter><thingDefs><li>Steel</li></thingDefs></filter><count>30</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li><li>Steel</li></thingDefs></fixedIngredientFilter>
+    <modExtensions>
+      <li Class="StalkerZone.SuitRecipeExtension"><upgrade>SZ_Up_Lead</upgrade></li>
+    </modExtensions>
+  </RecipeDef>
+
+  <StalkerZone.SuitUpgradeDef>
+    <defName>SZ_Up_PsiMesh</defName>
+    <label>psi shielding mesh</label>
+    <description>A shielding mesh in the collar: +15% psi protection.</description>
+    <armorOffsets></armorOffsets>
+    <psi>0.15</psi>
+    <maxPerSuit>1</maxPerSuit>
+  </StalkerZone.SuitUpgradeDef>
+
+  <RecipeDef>
+    <defName>SZ_Upgrade_PsiMesh</defName>
+    <label>upgrade suit: psi shielding mesh</label>
+    <description>A shielding mesh in the collar: +15% psi protection. Uses one free upgrade place of a Zone suit.</description>
+    <jobString>Upgrading suit.</jobString>
+    <workerClass>StalkerZone.RecipeWorker_Suit</workerClass>
+    <workAmount>3000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <recipeUsers><li>TableMachining</li></recipeUsers>
+    <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+    <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    <ingredients>
+      <li><filter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li></thingDefs></filter><count>1</count></li>
+      <li><filter><thingDefs><li>ComponentIndustrial</li></thingDefs></filter><count>3</count></li>
+      <li><filter><thingDefs><li>Plasteel</li></thingDefs></filter><count>10</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li><li>ComponentIndustrial</li><li>Plasteel</li></thingDefs></fixedIngredientFilter>
+    <modExtensions>
+      <li Class="StalkerZone.SuitRecipeExtension"><upgrade>SZ_Up_PsiMesh</upgrade></li>
+    </modExtensions>
+  </RecipeDef>
+
+  <StalkerZone.SuitUpgradeDef>
+    <defName>SZ_Up_ArtifactMount</defName>
+    <label>artifact mount</label>
+    <description>An extra artifact container: +1 belt slot.</description>
+    <armorOffsets></armorOffsets>
+    <slots>1</slots>
+    <maxPerSuit>1</maxPerSuit>
+  </StalkerZone.SuitUpgradeDef>
+
+  <RecipeDef>
+    <defName>SZ_Upgrade_ArtifactMount</defName>
+    <label>upgrade suit: artifact mount</label>
+    <description>An extra artifact container: +1 belt slot. Uses one free upgrade place of a Zone suit.</description>
+    <jobString>Upgrading suit.</jobString>
+    <workerClass>StalkerZone.RecipeWorker_Suit</workerClass>
+    <workAmount>3000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <recipeUsers><li>TableMachining</li></recipeUsers>
+    <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+    <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    <ingredients>
+      <li><filter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li></thingDefs></filter><count>1</count></li>
+      <li><filter><thingDefs><li>Steel</li></thingDefs></filter><count>15</count></li>
+      <li><filter><thingDefs><li>ComponentIndustrial</li></thingDefs></filter><count>2</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li><li>Steel</li><li>ComponentIndustrial</li></thingDefs></fixedIngredientFilter>
+    <modExtensions>
+      <li Class="StalkerZone.SuitRecipeExtension"><upgrade>SZ_Up_ArtifactMount</upgrade></li>
+    </modExtensions>
+  </RecipeDef>
+
+  <!-- Ремонт костюма на станке: +60% прочности -->
+  <RecipeDef>
+    <defName>SZ_RepairSuit</defName>
+    <label>repair Zone suit</label>
+    <description>Repair a damaged Zone suit: restores 60% of its durability. A worn suit protects worse.</description>
+    <jobString>Repairing suit.</jobString>
+    <workerClass>StalkerZone.RecipeWorker_Suit</workerClass>
+    <workAmount>2000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <recipeUsers><li>TableMachining</li></recipeUsers>
+    <researchPrerequisite>Smithing</researchPrerequisite>
+    <ingredients>
+      <li><filter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li></thingDefs><allowedHitPointsPercents>0~0.99</allowedHitPointsPercents></filter><count>1</count></li>
+      <li><filter><thingDefs><li>Steel</li></thingDefs></filter><count>20</count></li>
+      <li><filter><thingDefs><li>Cloth</li></thingDefs></filter><count>20</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs><li>SZ_Suit_ScoutCloak</li><li>SZ_Suit_LonerJacket</li><li>SZ_Suit_Stalker</li><li>SZ_Suit_StalkerReinforced</li><li>SZ_Suit_DutyUniform</li><li>SZ_Suit_Duty</li><li>SZ_Suit_DutyAssault</li><li>SZ_Suit_FreedomLight</li><li>SZ_Suit_Freedom</li><li>SZ_Suit_FreedomGuardian</li><li>SZ_Suit_Bandit</li><li>SZ_Suit_BanditCoat</li><li>SZ_Suit_MilitaryUniform</li><li>SZ_Suit_Military</li><li>SZ_Suit_MilitaryAssault</li><li>SZ_Suit_MonolithSuit</li><li>SZ_Suit_Monolith</li><li>SZ_Suit_MercLight</li><li>SZ_Suit_Mercenary</li><li>SZ_Suit_MercHeavy</li><li>SZ_Suit_Scientist</li><li>SZ_Suit_ClosedCycle</li><li>SZ_Suit_Exo</li><li>SZ_Suit_ExoAssault</li><li>Steel</li><li>Cloth</li></thingDefs></fixedIngredientFilter>
+    <modExtensions>
+      <li Class="StalkerZone.SuitRecipeExtension"><repairFraction>0.6</repairFraction></li>
+    </modExtensions>
+  </RecipeDef>
+
+</Defs>

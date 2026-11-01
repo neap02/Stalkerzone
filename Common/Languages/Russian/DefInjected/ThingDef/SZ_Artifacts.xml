@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <SZ_Artifact_Jellyfish.label>медуза</SZ_Artifact_Jellyfish.label>
-  <SZ_Artifact_Jellyfish.description>Полупрозрачный, мягко пульсирующий комок, легче, чем кажется. Груз владельцу кажется легче. Слабо излучает.</SZ_Artifact_Jellyfish.description>
+  <SZ_Artifact_Jellyfish.description>Полупрозрачный, мягко пульсирующий комок, легче, чем кажется. Груз владельцу кажется легче. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Jellyfish.description>
   <SZ_Artifact_StoneFlower.label>каменный цветок</SZ_Artifact_StoneFlower.label>
-  <SZ_Artifact_StoneFlower.description>Каменный нарост в форме раскрытого цветка. Успокаивает нервы и притупляет боль. Слабо излучает.</SZ_Artifact_StoneFlower.description>
+  <SZ_Artifact_StoneFlower.description>Каменный нарост в форме раскрытого цветка. Успокаивает нервы и притупляет боль. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_StoneFlower.description>
   <SZ_Artifact_Gravi.label>грави</SZ_Artifact_Gravi.label>
-  <SZ_Artifact_Gravi.description>Плотный, идеально гладкий шар, будто тянущий руку вниз. Заметно облегчает тяжёлую ношу. Слабо излучает.</SZ_Artifact_Gravi.description>
+  <SZ_Artifact_Gravi.description>Плотный, идеально гладкий шар, будто тянущий руку вниз. Заметно облегчает тяжёлую ношу. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Gravi.description>
   <SZ_Artifact_NightStar.label>ночная звезда</SZ_Artifact_NightStar.label>
-  <SZ_Artifact_NightStar.description>Артефакт в форме звезды, слабо мерцающий в темноте. Владелец легче на ногу и уносит куда больше. Сильно излучает.</SZ_Artifact_NightStar.description>
+  <SZ_Artifact_NightStar.description>Артефакт в форме звезды, слабо мерцающий в темноте. Владелец легче на ногу и уносит куда больше. Сильно излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_NightStar.description>
   <SZ_Artifact_MamasBeads.label>мамины бусы</SZ_Artifact_MamasBeads.label>
-  <SZ_Artifact_MamasBeads.description>Нить затвердевших наростов, похожих на бусины. Руки владельца не дрожат, и целится он быстрее. Слабо излучает.</SZ_Artifact_MamasBeads.description>
+  <SZ_Artifact_MamasBeads.description>Нить затвердевших наростов, похожих на бусины. Руки владельца не дрожат, и целится он быстрее. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_MamasBeads.description>
   <SZ_Artifact_Goldfish.label>золотая рыбка</SZ_Artifact_Goldfish.label>
-  <SZ_Artifact_Goldfish.description>Редкий золотистый артефакт в форме маленькой рыбки. Владелец может нести огромный груз. Сильно излучает.</SZ_Artifact_Goldfish.description>
+  <SZ_Artifact_Goldfish.description>Редкий золотистый артефакт в форме маленькой рыбки. Владелец может нести огромный груз. Сильно излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Goldfish.description>
   <SZ_Artifact_MeatChunk.label>ломоть мяса</SZ_Artifact_MeatChunk.label>
-  <SZ_Artifact_MeatChunk.description>Неприятный мясистый нарост. Ускоряет заживление ран, хотя владельцу с ним не по себе. Слабо излучает.</SZ_Artifact_MeatChunk.description>
+  <SZ_Artifact_MeatChunk.description>Неприятный мясистый нарост. Ускоряет заживление ран, хотя владельцу с ним не по себе. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_MeatChunk.description>
   <SZ_Artifact_Soul.label>душа</SZ_Artifact_Soul.label>
-  <SZ_Artifact_Soul.description>Редкий тёплый артефакт, кажущийся почти живым. Раны и болезни отступают от владельца поразительно быстро. Сильно излучает.</SZ_Artifact_Soul.description>
+  <SZ_Artifact_Soul.description>Редкий тёплый артефакт, кажущийся почти живым. Раны и болезни отступают от владельца поразительно быстро. Сильно излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Soul.description>
   <SZ_Artifact_Flash.label>вспышка</SZ_Artifact_Flash.label>
-  <SZ_Artifact_Flash.description>Потрескивающая друза голубых кристаллов. Владелец двигается быстрее. Слабо излучает.</SZ_Artifact_Flash.description>
+  <SZ_Artifact_Flash.description>Потрескивающая друза голубых кристаллов. Владелец двигается быстрее. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Flash.description>
   <SZ_Artifact_Sparkler.label>бенгальский огонь</SZ_Artifact_Sparkler.label>
-  <SZ_Artifact_Sparkler.description>Хрупкий артефакт, время от времени рассыпающий искры. С ним работа идёт быстрее. Слабо излучает.</SZ_Artifact_Sparkler.description>
+  <SZ_Artifact_Sparkler.description>Хрупкий артефакт, время от времени рассыпающий искры. С ним работа идёт быстрее. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Sparkler.description>
   <SZ_Artifact_Battery.label>батарейка</SZ_Artifact_Battery.label>
-  <SZ_Artifact_Battery.description>Тяжёлый артефакт с постоянным слабым зарядом. Владелец быстрее высыпается и двигается чуть быстрее. Слабо излучает.</SZ_Artifact_Battery.description>
+  <SZ_Artifact_Battery.description>Тяжёлый артефакт с постоянным слабым зарядом. Владелец быстрее высыпается и двигается чуть быстрее. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Battery.description>
   <SZ_Artifact_Moonlight.label>лунный свет</SZ_Artifact_Moonlight.label>
-  <SZ_Artifact_Moonlight.description>Редкая бледная сфера с мягким свечением. Ослабляет психическое воздействие и успокаивает разум. Слабо излучает.</SZ_Artifact_Moonlight.description>
+  <SZ_Artifact_Moonlight.description>Редкая бледная сфера с мягким свечением. Ослабляет психическое воздействие и успокаивает разум. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Moonlight.description>
   <SZ_Artifact_Droplet.label>капля</SZ_Artifact_Droplet.label>
-  <SZ_Artifact_Droplet.description>Стеклянистый артефакт в форме капли, рождённый в сильном жаре. Словно оттягивает радиацию от владельца. Не излучает.</SZ_Artifact_Droplet.description>
+  <SZ_Artifact_Droplet.description>Стеклянистый артефакт в форме капли, рождённый в сильном жаре. Словно оттягивает радиацию от владельца. Не излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Droplet.description>
   <SZ_Artifact_Fireball.label>огненный шар</SZ_Artifact_Fireball.label>
-  <SZ_Artifact_Fireball.description>Камень, от которого идёт ровное тепло. Владелец почти не чувствует холода. Слабо излучает.</SZ_Artifact_Fireball.description>
+  <SZ_Artifact_Fireball.description>Камень, от которого идёт ровное тепло. Владелец почти не чувствует холода. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Fireball.description>
   <SZ_Artifact_Crystal.label>кристалл</SZ_Artifact_Crystal.label>
-  <SZ_Artifact_Crystal.description>Редкий гранёный кристалл, рождённый в огне. Защищает владельца и от жары, и от холода. Сильно излучает.</SZ_Artifact_Crystal.description>
+  <SZ_Artifact_Crystal.description>Редкий гранёный кристалл, рождённый в огне. Защищает владельца и от жары, и от холода. Сильно излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Crystal.description>
   <SZ_Artifact_Flame.label>пламя</SZ_Artifact_Flame.label>
-  <SZ_Artifact_Flame.description>Мерцающий артефакт, тёплый на ощупь. Раны владельца затягиваются быстрее, и холод его меньше беспокоит. Сильно излучает.</SZ_Artifact_Flame.description>
+  <SZ_Artifact_Flame.description>Мерцающий артефакт, тёплый на ощупь. Раны владельца затягиваются быстрее, и холод его меньше беспокоит. Сильно излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Flame.description>
   <SZ_Artifact_Slime.label>слизь</SZ_Artifact_Slime.label>
-  <SZ_Artifact_Slime.description>Скользкий, желеобразный артефакт. Помогает организму сопротивляться токсинам. Слабо излучает.</SZ_Artifact_Slime.description>
+  <SZ_Artifact_Slime.description>Скользкий, желеобразный артефакт. Помогает организму сопротивляться токсинам. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Slime.description>
   <SZ_Artifact_Slug.label>слизняк</SZ_Artifact_Slug.label>
-  <SZ_Artifact_Slug.description>Упругий, медленно шевелящийся комок. Повышает устойчивость к токсинам и болезням. Слабо излучает.</SZ_Artifact_Slug.description>
+  <SZ_Artifact_Slug.description>Упругий, медленно шевелящийся комок. Повышает устойчивость к токсинам и болезням. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Slug.description>
   <SZ_Artifact_StoneBlood.label>кровь камня</SZ_Artifact_StoneBlood.label>
-  <SZ_Artifact_StoneBlood.description>Тёмно-красный пористый камень. Ускоряет заживление ран и помогает бороться с болезнями. Слабо излучает.</SZ_Artifact_StoneBlood.description>
+  <SZ_Artifact_StoneBlood.description>Тёмно-красный пористый камень. Ускоряет заживление ран и помогает бороться с болезнями. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_StoneBlood.description>
   <SZ_Artifact_Thorn.label>колючка</SZ_Artifact_Thorn.label>
-  <SZ_Artifact_Thorn.description>Пучок твёрдых игловидных шипов. Владелец легко терпит боль, но становится раздражительным. Слабо излучает.</SZ_Artifact_Thorn.description>
+  <SZ_Artifact_Thorn.description>Пучок твёрдых игловидных шипов. Владелец легко терпит боль, но становится раздражительным. Слабо излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Thorn.description>
   <SZ_Artifact_Urchin.label>морской ёж</SZ_Artifact_Urchin.label>
-  <SZ_Artifact_Urchin.description>Круглый артефакт, покрытый шипами. Владелец не замечает боли и целится быстрее. Сильно излучает.</SZ_Artifact_Urchin.description>
+  <SZ_Artifact_Urchin.description>Круглый артефакт, покрытый шипами. Владелец не замечает боли и целится быстрее. Сильно излучает. Действует, когда лежит на поясе (в инвентаре); число ячеек пояса зависит от костюма. Свинцовый контейнер в инвентаре гасит его излучение.</SZ_Artifact_Urchin.description>
 </LanguageData>

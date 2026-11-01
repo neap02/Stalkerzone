@@ -266,4 +266,36 @@ def icon(kind):
     return img
 for f in F:
     icon(f['icon']).save(f'{M}/Textures/World/SZ_Factions/{f["key"]}.png')
-print('factions:', len(F), 'pawnkinds:', len(F)*4)
+
+# ---------- Отношения между фракциями (в духе оригинала) ----------
+# H — вражда, N — нейтралитет, A — союз; число — доброжелательность (-100..100)
+REL = {
+ ('Loners','Duty'):('N',40),      ('Loners','Freedom'):('N',30),     ('Loners','Bandits'):('H',-80),
+ ('Loners','Military'):('H',-60), ('Loners','Monolith'):('H',-100),  ('Loners','Mercenaries'):('H',-50),
+ ('Loners','Scientists'):('A',70),
+ ('Duty','Freedom'):('H',-100),   ('Duty','Bandits'):('H',-90),      ('Duty','Military'):('N',20),
+ ('Duty','Monolith'):('H',-100),  ('Duty','Mercenaries'):('H',-70),  ('Duty','Scientists'):('N',50),
+ ('Freedom','Bandits'):('N',-30), ('Freedom','Military'):('H',-80),  ('Freedom','Monolith'):('H',-100),
+ ('Freedom','Mercenaries'):('N',0), ('Freedom','Scientists'):('N',30),
+ ('Bandits','Military'):('H',-90), ('Bandits','Monolith'):('H',-100), ('Bandits','Mercenaries'):('N',0),
+ ('Bandits','Scientists'):('H',-60),
+ ('Military','Monolith'):('H',-100), ('Military','Mercenaries'):('H',-60), ('Military','Scientists'):('A',70),
+ ('Monolith','Mercenaries'):('H',-100), ('Monolith','Scientists'):('H',-100),
+ ('Mercenaries','Scientists'):('N',0),
+}
+# Стартовое отношение к игроку (Монолит — вечный враг, его не трогаем)
+PLAYER = {'Loners':20,'Duty':0,'Freedom':0,'Bandits':-60,'Military':-80,'Mercenaries':-20,'Scientists':30}
+KIND={'H':'Hostile','N':'Neutral','A':'Ally'}
+keys=[f['key'] for f in F]
+for i,a in enumerate(keys):
+    for b in keys[i+1:]:
+        assert (a,b) in REL or (b,a) in REL, f'нет отношения {a}-{b}'
+o=['<?xml version="1.0" encoding="utf-8"?>\n<Defs>\n\n  <!-- Файл сгенерирован Source/Tools/gen_factions.py.\n       Отношения фракций Зоны между собой и стартовое отношение к игроку.\n       Выставляются один раз на игру (C#: GameComponent_ZoneFactions), дальше живут сами.\n       kind: Hostile — вражда, Neutral — нейтралитет, Ally — союз (воюют вместе). -->\n  <StalkerZone.FactionRelationsDef>\n    <defName>SZ_ZoneRelations</defName>\n    <relations>\n']
+for (a,b),(k,g) in REL.items():
+    o.append(f'      <li><a>SZ_Faction_{a}</a><b>SZ_Faction_{b}</b><kind>{KIND[k]}</kind><goodwill>{g}</goodwill></li>\n')
+o.append('    </relations>\n    <playerGoodwill>\n')
+for k,g in PLAYER.items():
+    o.append(f'      <li><faction>SZ_Faction_{k}</faction><goodwill>{g}</goodwill></li>\n')
+o.append('    </playerGoodwill>\n  </StalkerZone.FactionRelationsDef>\n\n</Defs>\n')
+open(f'{M}/Defs/Factions/SZ_FactionRelations.xml','w',encoding='utf-8').write(''.join(o))
+print('factions:', len(F), 'pawnkinds:', len(F)*4, 'relations:', len(REL))
