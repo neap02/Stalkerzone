@@ -1,0 +1,54 @@
+# Сборка StalkerZone.dll в облаке GitHub.
+# Запускается сама при изменении кода в Source/ или вручную:
+# вкладка Actions → "Build StalkerZone" → Run workflow.
+name: Build StalkerZone
+
+on:
+  push:
+    paths:
+      - 'Source/**'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+
+# Право записи нужно, чтобы бот закоммитил готовую DLL обратно в репозиторий
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      # Только 1.6 (net472): референсы игры берутся из NuGet (Krafs.Rimworld.Ref).
+      # Файлы игры в облаке не нужны, и выкладывать их нельзя.
+      # На 1.7 эта DLL работает через шим (см. LoadFolders.xml).
+      - name: Build 1.6 DLL
+        run: dotnet build Source/StalkerZone/StalkerZone.csproj -c Release -f net472
+
+      # Копия DLL: вкладка Actions → нужный запуск → блок Artifacts
+      - name: Upload DLL
+        uses: actions/upload-artifact@v6
+        with:
+          name: StalkerZone-1.6-dll
+          path: 1.6/Assemblies/StalkerZone.dll
+
+      # Кладём DLL в репозиторий: тогда "Code → Download ZIP" сразу даёт готовый мод.
+      # [skip ci] в сообщении не даёт сборке запустить саму себя повторно.
+      - name: Commit DLL
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f 1.6/Assemblies/StalkerZone.dll
+          if git diff --cached --quiet; then
+            echo "DLL не изменилась, коммит не нужен"
+          else
+            git commit -m "Build: update StalkerZone.dll [skip ci]"
+            git push
+          fi

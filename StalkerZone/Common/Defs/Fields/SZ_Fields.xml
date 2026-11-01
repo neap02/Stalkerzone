@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ================= ПСИ-ВОЗДЕЙСТВИЕ =================
+       Наносят пси-поля и пик Выброса (только C#-часть).
+       Доза умножается на пси-чувствительность: пси-глухие не страдают.
+       Само проходит (−1.0 в сутки), но на последней стадии пешка без сознания
+       и при 1.0 умирает. Психоз на средней стадии вызывает C#. -->
+  <HediffDef>
+    <defName>SZ_PsiExposure</defName>
+    <label>psychic exposure</label>
+    <description>Damage to the mind from a powerful psychic field. Causes headaches, disorientation and bouts of psychosis, then unconsciousness. Fatal at full strength. Fades on its own once the victim leaves the field.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.75, 0.55, 1.0)</defaultLabelColor>
+    <isBad>true</isBad>
+    <initialSeverity>0.01</initialSeverity>
+    <lethalSeverity>1</lethalSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-1</severityPerDay>   <!-- проходит за сутки вне поля -->
+      </li>
+    </comps>
+    <stages>
+      <!-- 0: незаметно -->
+      <li>
+        <becomeVisible>false</becomeVisible>
+      </li>
+      <!-- 1: головная боль -->
+      <li>
+        <label>headache</label>
+        <minSeverity>0.1</minSeverity>
+        <painOffset>0.05</painOffset>
+        <capMods>
+          <li><capacity>Consciousness</capacity><offset>-0.1</offset></li>
+        </capMods>
+      </li>
+      <!-- 2: дезориентация, возможен психоз (C#) -->
+      <li>
+        <label>disoriented</label>
+        <minSeverity>0.45</minSeverity>
+        <painOffset>0.1</painOffset>
+        <capMods>
+          <li><capacity>Consciousness</capacity><offset>-0.25</offset></li>
+          <li><capacity>Moving</capacity><offset>-0.1</offset></li>
+        </capMods>
+      </li>
+      <!-- 3: пси-шок, без сознания -->
+      <li>
+        <label>psychic shock</label>
+        <minSeverity>0.7</minSeverity>
+        <lifeThreatening>true</lifeThreatening>
+        <capMods>
+          <li><capacity>Consciousness</capacity><setMax>0.1</setMax></li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- ================= ПЯТНА ЗОНЫ =================
+       StalkerZone.ZoneFieldDef — не вещь, а описание явления (C#: ZoneFieldDef.cs).
+       Пятна и знаки на карте — записи MapComponent_Zone: их нельзя выбрать, атаковать,
+       перенести или заспавнить как предмет. Рисует их сама Зона, при наведении — подсказка. -->
+
+  <StalkerZone.ZoneFieldDef>
+    <defName>SZ_Field_Psi</defName>
+    <label>psychic field</label>
+    <description>An invisible zone of psychic pressure, felt as a ringing in the ears. Prolonged exposure causes psychosis, unconsciousness and death. Psychically deaf creatures are unaffected; psi protection reduces the effect.</description>
+    <kind>Psi</kind>
+    <radius>6.9</radius>
+    <dosePerHour>0.6</dosePerHour>             <!-- ~70 мин внутри до потери сознания -->
+    <texPath>Things/Building/SZ_Fields/PsiField</texPath>
+    <drawSize>14</drawSize>
+    <fps>4</fps>
+    <avoidRadius>7.4</avoidRadius>
+    <per10k>0.05~0.12</per10k>                 <!-- 0–1 на карту -->
+  </StalkerZone.ZoneFieldDef>
+
+  <StalkerZone.ZoneFieldDef>
+    <defName>SZ_Field_Radiation</defName>
+    <label>radioactive spot</label>
+    <description>Contaminated ground: dead grass and sickly yellow stains. Anyone who lingers here slowly develops radiation sickness. Radiation resistance reduces the dose. The area is marked with radiation hazard signs.</description>
+    <kind>Radiation</kind>
+    <radius>4.9</radius>
+    <dosePerHour>0.15</dosePerHour>            <!-- ~6,5 ч внутри до смерти без защиты -->
+    <texPath>Things/Building/SZ_Fields/RadiationSpot</texPath>
+    <drawSize>10</drawSize>
+    <fps>3</fps>
+    <avoidRadius>5.4</avoidRadius>
+    <per10k>0.25~0.5</per10k>                  <!-- 1–3 на карту -->
+    <geiger>true</geiger>                       <!-- детекторы щёлкают дозиметром -->
+    <signTexPath>Things/Building/SZ_Fields/RadiationSign</signTexPath>
+    <signCount>4</signCount>
+    <signDistance>5.5</signDistance>
+  </StalkerZone.ZoneFieldDef>
+
+  <!-- ================= ЗОНА ОБХОДА (НЕВИДИМАЯ, СЛУЖЕБНАЯ) =================
+       Единственное, что осталось вещью. В 1.6 поиск пути читает стоимость только
+       из грунта и вещей на клетке, а сам расчёт пути нельзя изменить патчем.
+       Поэтому C#-часть кладёт эту невидимую вещь в каждую клетку вокруг аномалий
+       и пятен: высокая стоимость пути заставляет пешек обходить опасные места.
+       Не видна, не выбирается, не атакуется, ничего не делает сама. -->
+  <ThingDef>
+    <defName>SZ_AnomalyDanger</defName>
+    <label>(service) anomaly avoidance</label>
+    <thingClass>Building</thingClass>
+    <category>Building</category>
+    <graphicData>
+      <texPath>Things/Building/SZ_Fields/Invisible</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <drawerType>None</drawerType>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <passability>Standable</passability>
+    <pathCost>250</pathCost>                          <!-- обычная клетка ~13: обход почти всегда выгоднее -->
+    <pathCostIgnoreRepeat>false</pathCostIgnoreRepeat> <!-- стоимость за каждую клетку зоны, а не один раз -->
+    <selectable>false</selectable>
+    <useHitPoints>false</useHitPoints>
+    <rotatable>false</rotatable>
+    <tickerType>Never</tickerType>
+    <building>
+      <isEdifice>false</isEdifice>
+      <claimable>false</claimable>
+      <deconstructible>false</deconstructible>
+    </building>
+  </ThingDef>
+
+</Defs>

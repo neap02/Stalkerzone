@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <SZ_Faction_Loners.label>одиночки</SZ_Faction_Loners.label>
+  <SZ_Faction_Loners.fixedName>Одиночки</SZ_Faction_Loners.fixedName>
+  <SZ_Faction_Loners.description>Сталкеры без группировки: приходят в Зону поодиночке или малыми группами за артефактами и заработком. Торгуют со всеми, кто не стреляет первым.</SZ_Faction_Loners.description>
+  <SZ_Faction_Loners.pawnSingular>сталкер</SZ_Faction_Loners.pawnSingular>
+  <SZ_Faction_Loners.pawnsPlural>сталкеры</SZ_Faction_Loners.pawnsPlural>
+  <SZ_Faction_Loners.leaderTitle>старожил</SZ_Faction_Loners.leaderTitle>
+
+  <SZ_Faction_Duty.label>долг</SZ_Faction_Duty.label>
+  <SZ_Faction_Duty.fixedName>Долг</SZ_Faction_Duty.fixedName>
+  <SZ_Faction_Duty.description>Дисциплинированный военизированный орден: Зона для него — угроза, которую нужно сдержать и уничтожить. Строгая иерархия, тяжёлое оружие и никакого терпения к анархистам.</SZ_Faction_Duty.description>
+  <SZ_Faction_Duty.pawnSingular>боец Долга</SZ_Faction_Duty.pawnSingular>
+  <SZ_Faction_Duty.pawnsPlural>бойцы Долга</SZ_Faction_Duty.pawnsPlural>
+  <SZ_Faction_Duty.leaderTitle>генерал</SZ_Faction_Duty.leaderTitle>
+
+  <SZ_Faction_Freedom.label>свобода</SZ_Faction_Freedom.label>
+  <SZ_Faction_Freedom.fixedName>Свобода</SZ_Faction_Freedom.fixedName>
+  <SZ_Faction_Freedom.description>Вольные анархисты, уверенные, что Зона принадлежит всем. Расслаблены в лагере, опасны в бою и давние соперники Долга.</SZ_Faction_Freedom.description>
+  <SZ_Faction_Freedom.pawnSingular>боец Свободы</SZ_Faction_Freedom.pawnSingular>
+  <SZ_Faction_Freedom.pawnsPlural>бойцы Свободы</SZ_Faction_Freedom.pawnsPlural>
+  <SZ_Faction_Freedom.leaderTitle>лидер</SZ_Faction_Freedom.leaderTitle>
+
+  <SZ_Faction_Bandits.label>бандиты</SZ_Faction_Bandits.label>
+  <SZ_Faction_Bandits.fixedName>Бандиты</SZ_Faction_Bandits.fixedName>
+  <SZ_Faction_Bandits.description>Шайки головорезов, промышляющие за счёт сталкеров: засады, грабежи и поборы. У них можно купить товар, если выдержите цены.</SZ_Faction_Bandits.description>
+  <SZ_Faction_Bandits.pawnSingular>бандит</SZ_Faction_Bandits.pawnSingular>
+  <SZ_Faction_Bandits.pawnsPlural>бандиты</SZ_Faction_Bandits.pawnsPlural>
+  <SZ_Faction_Bandits.leaderTitle>главарь</SZ_Faction_Bandits.leaderTitle>
+
+  <SZ_Faction_Military.label>военные</SZ_Faction_Military.label>
+  <SZ_Faction_Military.fixedName>Военные</SZ_Faction_Military.fixedName>
+  <SZ_Faction_Military.description>Правительственные войска, охраняющие кордон вокруг Зоны. Хорошо вооружены и организованы, нарушителей расстреливают без предупреждения.</SZ_Faction_Military.description>
+  <SZ_Faction_Military.pawnSingular>солдат</SZ_Faction_Military.pawnSingular>
+  <SZ_Faction_Military.pawnsPlural>солдаты</SZ_Faction_Military.pawnsPlural>
+  <SZ_Faction_Military.leaderTitle>командир</SZ_Faction_Military.leaderTitle>
+
+  <SZ_Faction_Monolith.label>монолит</SZ_Faction_Monolith.label>
+  <SZ_Faction_Monolith.fixedName>Монолит</SZ_Faction_Monolith.fixedName>
+  <SZ_Faction_Monolith.description>Фанатики из сердца Зоны, служащие тому, что они называют Монолитом. Не ведут переговоров, не отступают и нападают на всех.</SZ_Faction_Monolith.description>
+  <SZ_Faction_Monolith.pawnSingular>фанатик Монолита</SZ_Faction_Monolith.pawnSingular>
+  <SZ_Faction_Monolith.pawnsPlural>фанатики Монолита</SZ_Faction_Monolith.pawnsPlural>
+  <SZ_Faction_Monolith.leaderTitle>проповедник</SZ_Faction_Monolith.leaderTitle>
+
+  <SZ_Faction_Mercenaries.label>наёмники</SZ_Faction_Mercenaries.label>
+  <SZ_Faction_Mercenaries.fixedName>Наёмники</SZ_Faction_Mercenaries.fixedName>
+  <SZ_Faction_Mercenaries.description>Профессиональные солдаты удачи, работающие на того, кто платит. Отличное снаряжение, холодный расчёт и никаких лишних вопросов.</SZ_Faction_Mercenaries.description>
+  <SZ_Faction_Mercenaries.pawnSingular>наёмник</SZ_Faction_Mercenaries.pawnSingular>
+  <SZ_Faction_Mercenaries.pawnsPlural>наёмники</SZ_Faction_Mercenaries.pawnsPlural>
+  <SZ_Faction_Mercenaries.leaderTitle>командир</SZ_Faction_Mercenaries.leaderTitle>
+
+  <SZ_Faction_Scientists.label>учёные</SZ_Faction_Scientists.label>
+  <SZ_Faction_Scientists.fixedName>Учёные</SZ_Faction_Scientists.fixedName>
+  <SZ_Faction_Scientists.description>Исследователи, изучающие аномалии и артефакты из укреплённых лагерей. Вооружены слабо, но хорошо платят за образцы и продают редкое снаряжение.</SZ_Faction_Scientists.description>
+  <SZ_Faction_Scientists.pawnSingular>учёный</SZ_Faction_Scientists.pawnSingular>
+  <SZ_Faction_Scientists.pawnsPlural>учёные</SZ_Faction_Scientists.pawnsPlural>
+  <SZ_Faction_Scientists.leaderTitle>руководитель исследований</SZ_Faction_Scientists.leaderTitle>
+</LanguageData>

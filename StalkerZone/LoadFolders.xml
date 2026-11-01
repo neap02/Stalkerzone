@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Какие папки грузить для каждой версии игры.
+     Если файл есть, игра грузит ТОЛЬКО перечисленные папки. -->
+<loadFolders>
+  <v1.6>
+    <li>/</li>       <!-- корень мода -->
+    <li>Common</li>  <!-- общий XML, текстуры, переводы -->
+    <li>1.6</li>     <!-- DLL под 1.6 (net472), собирается в GitHub Actions -->
+    <!-- Грузится только если включён DLC Anomaly -->
+    <li IfModActive="Ludeon.RimWorld.Anomaly">Mods/Anomaly</li>
+  </v1.6>
+  <v1.7>
+    <li>/</li>
+    <li>Common</li>
+    <!-- Пока нет нативной сборки под 1.7, грузим DLL от 1.6: она работает через шим Waylith.
+         Когда соберёте DLL под 1.7 на ПК, замените 1.6 на 1.7.
+         ВАЖНО: не подключайте обе папки сразу, иначе классы задвоятся. -->
+    <li>1.6</li>
+    <li IfModActive="Ludeon.RimWorld.Anomaly">Mods/Anomaly</li>
+  </v1.7>
+</loadFolders>

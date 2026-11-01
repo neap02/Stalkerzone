@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Файл сгенерирован Source/Tools/gen_factions.py.
+       Фракции Зоны. Наследуют ванильную основу фракций-поселенцев (OutlanderFactionBase):
+       культура, предыстории, поселения и прочее берутся из неё, а отряды, отношение,
+       торговля, цвета и эмблема — свои.
+
+       ЗАДЕЛ ПОД КОСТЮМЫ: у каждой фракции свой тег одежды SZ_Faction_[Фракция]
+       (в apparelTags её бойцов). Достаточно дать будущему костюму этот тег:
+         <apparel><tags><li>SZ_Faction_Duty</li></tags></apparel>
+       и бойцы фракции начнут в нём появляться. -->
+
+  <!-- ===== Общая основа бойца Зоны ===== -->
+  <PawnKindDef Name="SZ_StalkerBase" Abstract="True">
+    <race>Human</race>
+    <isFighter>true</isFighter>
+    <itemQuality>Normal</itemQuality>
+    <apparelAllowHeadgearChance>0.7</apparelAllowHeadgearChance>
+    <chemicalAddictionChance>0.05</chemicalAddictionChance>
+    <invNutrition>2.55</invNutrition>
+    <!-- В карманах: серебро, лекарство или антирад -->
+    <inventoryOptions>
+      <skipChance>0.5</skipChance>
+      <subOptionsChooseOne>
+        <li><thingDef>Silver</thingDef><countRange>30~150</countRange></li>
+        <li><thingDef>MedicineIndustrial</thingDef><countRange>1~2</countRange></li>
+        <li><thingDef>SZ_Antirad</thingDef><countRange>1~3</countRange></li>
+      </subOptionsChooseOne>
+    </inventoryOptions>
+  </PawnKindDef>
+
+  <!-- ================= ОДИНОЧКИ ================= -->
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Loners_Rookie</defName>
+    <label>rookie stalker</label>
+    <defaultFactionType>SZ_Faction_Loners</defaultFactionType>
+    <combatPower>45</combatPower>
+    <gearHealthRange>0.4~1.2</gearHealthRange>
+    <weaponMoney>100~250</weaponMoney>
+    <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
+    <apparelMoney>150~400</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Loners</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Loners_Fighter</defName>
+    <label>stalker</label>
+    <defaultFactionType>SZ_Faction_Loners</defaultFactionType>
+    <combatPower>75</combatPower>
+    <gearHealthRange>0.6~1.5</gearHealthRange>
+    <weaponMoney>250~500</weaponMoney>
+    <weaponTags><li>Gun</li></weaponTags>
+    <apparelMoney>400~900</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Loners</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Loners_Veteran</defName>
+    <label>veteran stalker</label>
+    <defaultFactionType>SZ_Faction_Loners</defaultFactionType>
+    <combatPower>120</combatPower>
+    <gearHealthRange>0.8~1.8</gearHealthRange>
+    <weaponMoney>500~900</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li></weaponTags>
+    <apparelMoney>900~1800</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Loners</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Loners_Leader</defName>
+    <label>old-timer</label>
+    <defaultFactionType>SZ_Faction_Loners</defaultFactionType>
+    <factionLeader>true</factionLeader>
+    <combatPower>140</combatPower>
+    <gearHealthRange>1~2</gearHealthRange>
+    <weaponMoney>600~1000</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li></weaponTags>
+    <apparelMoney>1200~2200</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Loners</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+
+  <FactionDef ParentName="OutlanderFactionBase">
+    <defName>SZ_Faction_Loners</defName>
+    <label>loners</label>
+    <fixedName>Loners</fixedName>
+    <description>Unaffiliated stalkers who come to the Zone alone or in small groups, chasing artifacts and a living. They trade with anyone who does not shoot first.</description>
+    <pawnSingular>stalker</pawnSingular>
+    <pawnsPlural>stalkers</pawnsPlural>
+    <leaderTitle>old-timer</leaderTitle>
+    <factionIconPath>World/SZ_Factions/Loners</factionIconPath>
+    <colorSpectrum Inherit="False"><li>(0.62, 0.48, 0.25)</li><li>(0.75, 0.62, 0.30)</li></colorSpectrum>
+    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <maxCountAtGameStart>1</maxCountAtGameStart>
+    <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
+    <basicMemberKind>SZ_Loners_Fighter</basicMemberKind>
+    <pawnGroupMakers Inherit="False">
+      <!-- Набеги и бои -->
+      <li>
+        <kindDef>Combat</kindDef>
+        <options><SZ_Loners_Rookie>6</SZ_Loners_Rookie><SZ_Loners_Fighter>8</SZ_Loners_Fighter><SZ_Loners_Veteran>3</SZ_Loners_Veteran><SZ_Loners_Leader>1</SZ_Loners_Leader></options>
+      </li>
+      <!-- Гости -->
+      <li>
+        <kindDef>Peaceful</kindDef>
+        <options><SZ_Loners_Rookie>6</SZ_Loners_Rookie><SZ_Loners_Fighter>4</SZ_Loners_Fighter></options>
+      </li>
+      <li>
+        <kindDef>Trader</kindDef>
+        <traders><Town_Trader>1</Town_Trader></traders>
+        <carriers><Muffalo>6</Muffalo><Dromedary>5</Dromedary></carriers>
+        <guards><SZ_Loners_Fighter>8</SZ_Loners_Fighter><SZ_Loners_Veteran>3</SZ_Loners_Veteran></guards>
+      </li>
+      <!-- Защитники поселения -->
+      <li>
+        <kindDef>Settlement</kindDef>
+        <options><SZ_Loners_Rookie>6</SZ_Loners_Rookie><SZ_Loners_Fighter>8</SZ_Loners_Fighter><SZ_Loners_Veteran>3</SZ_Loners_Veteran><SZ_Loners_Leader>1</SZ_Loners_Leader></options>
+      </li>
+    </pawnGroupMakers>
+  </FactionDef>
+
+  <!-- ================= ДОЛГ ================= -->
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Duty_Rookie</defName>
+    <label>Duty recruit</label>
+    <defaultFactionType>SZ_Faction_Duty</defaultFactionType>
+    <combatPower>45</combatPower>
+    <gearHealthRange>0.4~1.2</gearHealthRange>
+    <weaponMoney>100~250</weaponMoney>
+    <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
+    <apparelMoney>150~400</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Duty</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Duty_Fighter</defName>
+    <label>Duty fighter</label>
+    <defaultFactionType>SZ_Faction_Duty</defaultFactionType>
+    <combatPower>75</combatPower>
+    <gearHealthRange>0.6~1.5</gearHealthRange>
+    <weaponMoney>250~500</weaponMoney>
+    <weaponTags><li>Gun</li></weaponTags>
+    <apparelMoney>400~900</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Duty</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Duty_Veteran</defName>
+    <label>Duty veteran</label>
+    <defaultFactionType>SZ_Faction_Duty</defaultFactionType>
+    <combatPower>120</combatPower>
+    <gearHealthRange>0.8~1.8</gearHealthRange>
+    <weaponMoney>500~900</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li><li>GunHeavy</li></weaponTags>
+    <apparelMoney>900~1800</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Duty</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Duty_Leader</defName>
+    <label>Duty general</label>
+    <defaultFactionType>SZ_Faction_Duty</defaultFactionType>
+    <factionLeader>true</factionLeader>
+    <combatPower>140</combatPower>
+    <gearHealthRange>1~2</gearHealthRange>
+    <weaponMoney>600~1000</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li><li>GunHeavy</li></weaponTags>
+    <apparelMoney>1200~2200</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Duty</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+
+  <FactionDef ParentName="OutlanderFactionBase">
+    <defName>SZ_Faction_Duty</defName>
+    <label>duty</label>
+    <fixedName>Duty</fixedName>
+    <description>A disciplined paramilitary order that sees the Zone as a threat to be contained and destroyed. Strict ranks, heavy weapons and little patience for anarchists.</description>
+    <pawnSingular>Duty fighter</pawnSingular>
+    <pawnsPlural>Duty fighters</pawnsPlural>
+    <leaderTitle>general</leaderTitle>
+    <factionIconPath>World/SZ_Factions/Duty</factionIconPath>
+    <colorSpectrum Inherit="False"><li>(0.45, 0.08, 0.08)</li><li>(0.30, 0.05, 0.05)</li></colorSpectrum>
+    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <maxCountAtGameStart>1</maxCountAtGameStart>
+    <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
+    <basicMemberKind>SZ_Duty_Fighter</basicMemberKind>
+    <pawnGroupMakers Inherit="False">
+      <!-- Набеги и бои -->
+      <li>
+        <kindDef>Combat</kindDef>
+        <options><SZ_Duty_Rookie>3</SZ_Duty_Rookie><SZ_Duty_Fighter>8</SZ_Duty_Fighter><SZ_Duty_Veteran>5</SZ_Duty_Veteran><SZ_Duty_Leader>1</SZ_Duty_Leader></options>
+      </li>
+      <!-- Гости -->
+      <li>
+        <kindDef>Peaceful</kindDef>
+        <options><SZ_Duty_Rookie>6</SZ_Duty_Rookie><SZ_Duty_Fighter>4</SZ_Duty_Fighter></options>
+      </li>
+      <li>
+        <kindDef>Trader</kindDef>
+        <traders><Town_Trader>1</Town_Trader></traders>
+        <carriers><Muffalo>6</Muffalo><Dromedary>5</Dromedary></carriers>
+        <guards><SZ_Duty_Fighter>8</SZ_Duty_Fighter><SZ_Duty_Veteran>3</SZ_Duty_Veteran></guards>
+      </li>
+      <!-- Защитники поселения -->
+      <li>
+        <kindDef>Settlement</kindDef>
+        <options><SZ_Duty_Rookie>3</SZ_Duty_Rookie><SZ_Duty_Fighter>8</SZ_Duty_Fighter><SZ_Duty_Veteran>5</SZ_Duty_Veteran><SZ_Duty_Leader>1</SZ_Duty_Leader></options>
+      </li>
+    </pawnGroupMakers>
+  </FactionDef>
+
+  <!-- ================= СВОБОДА ================= -->
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Freedom_Rookie</defName>
+    <label>Freedom newcomer</label>
+    <defaultFactionType>SZ_Faction_Freedom</defaultFactionType>
+    <combatPower>45</combatPower>
+    <gearHealthRange>0.4~1.2</gearHealthRange>
+    <weaponMoney>100~250</weaponMoney>
+    <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
+    <apparelMoney>150~400</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Freedom</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Freedom_Fighter</defName>
+    <label>Freedom fighter</label>
+    <defaultFactionType>SZ_Faction_Freedom</defaultFactionType>
+    <combatPower>75</combatPower>
+    <gearHealthRange>0.6~1.5</gearHealthRange>
+    <weaponMoney>250~500</weaponMoney>
+    <weaponTags><li>Gun</li></weaponTags>
+    <apparelMoney>400~900</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Freedom</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Freedom_Veteran</defName>
+    <label>Freedom veteran</label>
+    <defaultFactionType>SZ_Faction_Freedom</defaultFactionType>
+    <combatPower>120</combatPower>
+    <gearHealthRange>0.8~1.8</gearHealthRange>
+    <weaponMoney>500~900</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li></weaponTags>
+    <apparelMoney>900~1800</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Freedom</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Freedom_Leader</defName>
+    <label>Freedom leader</label>
+    <defaultFactionType>SZ_Faction_Freedom</defaultFactionType>
+    <factionLeader>true</factionLeader>
+    <combatPower>140</combatPower>
+    <gearHealthRange>1~2</gearHealthRange>
+    <weaponMoney>600~1000</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li></weaponTags>
+    <apparelMoney>1200~2200</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Freedom</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+
+  <FactionDef ParentName="OutlanderFactionBase">
+    <defName>SZ_Faction_Freedom</defName>
+    <label>freedom</label>
+    <fixedName>Freedom</fixedName>
+    <description>Free-spirited anarchists who believe the Zone belongs to everyone. Relaxed in camp, dangerous in a fight, and sworn rivals of Duty.</description>
+    <pawnSingular>Freedom fighter</pawnSingular>
+    <pawnsPlural>Freedom fighters</pawnsPlural>
+    <leaderTitle>leader</leaderTitle>
+    <factionIconPath>World/SZ_Factions/Freedom</factionIconPath>
+    <colorSpectrum Inherit="False"><li>(0.20, 0.45, 0.18)</li><li>(0.30, 0.60, 0.25)</li></colorSpectrum>
+    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <maxCountAtGameStart>1</maxCountAtGameStart>
+    <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
+    <basicMemberKind>SZ_Freedom_Fighter</basicMemberKind>
+    <pawnGroupMakers Inherit="False">
+      <!-- Набеги и бои -->
+      <li>
+        <kindDef>Combat</kindDef>
+        <options><SZ_Freedom_Rookie>4</SZ_Freedom_Rookie><SZ_Freedom_Fighter>8</SZ_Freedom_Fighter><SZ_Freedom_Veteran>4</SZ_Freedom_Veteran><SZ_Freedom_Leader>1</SZ_Freedom_Leader></options>
+      </li>
+      <!-- Гости -->
+      <li>
+        <kindDef>Peaceful</kindDef>
+        <options><SZ_Freedom_Rookie>6</SZ_Freedom_Rookie><SZ_Freedom_Fighter>4</SZ_Freedom_Fighter></options>
+      </li>
+      <li>
+        <kindDef>Trader</kindDef>
+        <traders><Town_Trader>1</Town_Trader></traders>
+        <carriers><Muffalo>6</Muffalo><Dromedary>5</Dromedary></carriers>
+        <guards><SZ_Freedom_Fighter>8</SZ_Freedom_Fighter><SZ_Freedom_Veteran>3</SZ_Freedom_Veteran></guards>
+      </li>
+      <!-- Защитники поселения -->
+      <li>
+        <kindDef>Settlement</kindDef>
+        <options><SZ_Freedom_Rookie>4</SZ_Freedom_Rookie><SZ_Freedom_Fighter>8</SZ_Freedom_Fighter><SZ_Freedom_Veteran>4</SZ_Freedom_Veteran><SZ_Freedom_Leader>1</SZ_Freedom_Leader></options>
+      </li>
+    </pawnGroupMakers>
+  </FactionDef>
+
+  <!-- ================= БАНДИТЫ ================= -->
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Bandits_Rookie</defName>
+    <label>thug</label>
+    <defaultFactionType>SZ_Faction_Bandits</defaultFactionType>
+    <combatPower>45</combatPower>
+    <gearHealthRange>0.4~1.2</gearHealthRange>
+    <weaponMoney>100~250</weaponMoney>
+    <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
+    <apparelMoney>150~400</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Bandits</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Bandits_Fighter</defName>
+    <label>bandit</label>
+    <defaultFactionType>SZ_Faction_Bandits</defaultFactionType>
+    <combatPower>75</combatPower>
+    <gearHealthRange>0.6~1.5</gearHealthRange>
+    <weaponMoney>250~500</weaponMoney>
+    <weaponTags><li>Gun</li></weaponTags>
+    <apparelMoney>400~900</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Bandits</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Bandits_Veteran</defName>
+    <label>gang enforcer</label>
+    <defaultFactionType>SZ_Faction_Bandits</defaultFactionType>
+    <combatPower>120</combatPower>
+    <gearHealthRange>0.8~1.8</gearHealthRange>
+    <weaponMoney>500~900</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li></weaponTags>
+    <apparelMoney>900~1800</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Bandits</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Bandits_Leader</defName>
+    <label>gang boss</label>
+    <defaultFactionType>SZ_Faction_Bandits</defaultFactionType>
+    <factionLeader>true</factionLeader>
+    <combatPower>140</combatPower>
+    <gearHealthRange>1~2</gearHealthRange>
+    <weaponMoney>600~1000</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li></weaponTags>
+    <apparelMoney>1200~2200</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Bandits</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+
+  <FactionDef ParentName="OutlanderFactionBase">
+    <defName>SZ_Faction_Bandits</defName>
+    <label>bandits</label>
+    <fixedName>Bandits</fixedName>
+    <description>Gangs of thugs who prey on stalkers: ambushes, robbery and protection rackets. You can buy their goods, if you can stomach the prices.</description>
+    <pawnSingular>bandit</pawnSingular>
+    <pawnsPlural>bandits</pawnsPlural>
+    <leaderTitle>boss</leaderTitle>
+    <factionIconPath>World/SZ_Factions/Bandits</factionIconPath>
+    <colorSpectrum Inherit="False"><li>(0.15, 0.15, 0.15)</li><li>(0.30, 0.28, 0.25)</li></colorSpectrum>
+    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <maxCountAtGameStart>1</maxCountAtGameStart>
+    <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
+    <basicMemberKind>SZ_Bandits_Fighter</basicMemberKind>
+    <naturalEnemy>true</naturalEnemy>          <!-- враждебны с начала, но можно помириться -->
+    <pawnGroupMakers Inherit="False">
+      <!-- Набеги и бои -->
+      <li>
+        <kindDef>Combat</kindDef>
+        <options><SZ_Bandits_Rookie>8</SZ_Bandits_Rookie><SZ_Bandits_Fighter>6</SZ_Bandits_Fighter><SZ_Bandits_Veteran>2</SZ_Bandits_Veteran><SZ_Bandits_Leader>1</SZ_Bandits_Leader></options>
+      </li>
+      <!-- Гости -->
+      <li>
+        <kindDef>Peaceful</kindDef>
+        <options><SZ_Bandits_Rookie>6</SZ_Bandits_Rookie><SZ_Bandits_Fighter>4</SZ_Bandits_Fighter></options>
+      </li>
+      <li>
+        <kindDef>Trader</kindDef>
+        <traders><Town_Trader>1</Town_Trader></traders>
+        <carriers><Muffalo>6</Muffalo><Dromedary>5</Dromedary></carriers>
+        <guards><SZ_Bandits_Fighter>8</SZ_Bandits_Fighter><SZ_Bandits_Veteran>3</SZ_Bandits_Veteran></guards>
+      </li>
+      <!-- Защитники поселения -->
+      <li>
+        <kindDef>Settlement</kindDef>
+        <options><SZ_Bandits_Rookie>8</SZ_Bandits_Rookie><SZ_Bandits_Fighter>6</SZ_Bandits_Fighter><SZ_Bandits_Veteran>2</SZ_Bandits_Veteran><SZ_Bandits_Leader>1</SZ_Bandits_Leader></options>
+      </li>
+    </pawnGroupMakers>
+  </FactionDef>
+
+  <!-- ================= ВОЕННЫЕ ================= -->
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Military_Rookie</defName>
+    <label>private</label>
+    <defaultFactionType>SZ_Faction_Military</defaultFactionType>
+    <combatPower>45</combatPower>
+    <gearHealthRange>0.4~1.2</gearHealthRange>
+    <weaponMoney>100~250</weaponMoney>
+    <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
+    <apparelMoney>150~400</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Military</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Military_Fighter</defName>
+    <label>soldier</label>
+    <defaultFactionType>SZ_Faction_Military</defaultFactionType>
+    <combatPower>75</combatPower>
+    <gearHealthRange>0.6~1.5</gearHealthRange>
+    <weaponMoney>250~500</weaponMoney>
+    <weaponTags><li>Gun</li></weaponTags>
+    <apparelMoney>400~900</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Military</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Military_Veteran</defName>
+    <label>sergeant</label>
+    <defaultFactionType>SZ_Faction_Military</defaultFactionType>
+    <combatPower>120</combatPower>
+    <gearHealthRange>0.8~1.8</gearHealthRange>
+    <weaponMoney>500~900</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li><li>GunHeavy</li></weaponTags>
+    <apparelMoney>900~1800</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Military</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Military_Leader</defName>
+    <label>officer</label>
+    <defaultFactionType>SZ_Faction_Military</defaultFactionType>
+    <factionLeader>true</factionLeader>
+    <combatPower>140</combatPower>
+    <gearHealthRange>1~2</gearHealthRange>
+    <weaponMoney>600~1000</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li><li>GunHeavy</li></weaponTags>
+    <apparelMoney>1200~2200</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Military</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+
+  <FactionDef ParentName="OutlanderFactionBase">
+    <defName>SZ_Faction_Military</defName>
+    <label>military</label>
+    <fixedName>Military</fixedName>
+    <description>Government troops guarding the cordon around the Zone. Well armed and organised, they shoot trespassers on sight.</description>
+    <pawnSingular>soldier</pawnSingular>
+    <pawnsPlural>soldiers</pawnsPlural>
+    <leaderTitle>commander</leaderTitle>
+    <factionIconPath>World/SZ_Factions/Military</factionIconPath>
+    <colorSpectrum Inherit="False"><li>(0.30, 0.34, 0.18)</li><li>(0.40, 0.42, 0.25)</li></colorSpectrum>
+    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <maxCountAtGameStart>1</maxCountAtGameStart>
+    <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
+    <basicMemberKind>SZ_Military_Fighter</basicMemberKind>
+    <naturalEnemy>true</naturalEnemy>          <!-- враждебны с начала, но можно помириться -->
+    <caravanTraderKinds Inherit="False" />     <!-- не торгуют -->
+    <visitorTraderKinds Inherit="False" />
+    <baseTraderKinds Inherit="False" />
+    <pawnGroupMakers Inherit="False">
+      <!-- Набеги и бои -->
+      <li>
+        <kindDef>Combat</kindDef>
+        <options><SZ_Military_Rookie>4</SZ_Military_Rookie><SZ_Military_Fighter>8</SZ_Military_Fighter><SZ_Military_Veteran>5</SZ_Military_Veteran><SZ_Military_Leader>1</SZ_Military_Leader></options>
+      </li>
+      <!-- Гости -->
+      <li>
+        <kindDef>Peaceful</kindDef>
+        <options><SZ_Military_Rookie>6</SZ_Military_Rookie><SZ_Military_Fighter>4</SZ_Military_Fighter></options>
+      </li>
+      <!-- Защитники поселения -->
+      <li>
+        <kindDef>Settlement</kindDef>
+        <options><SZ_Military_Rookie>4</SZ_Military_Rookie><SZ_Military_Fighter>8</SZ_Military_Fighter><SZ_Military_Veteran>5</SZ_Military_Veteran><SZ_Military_Leader>1</SZ_Military_Leader></options>
+      </li>
+    </pawnGroupMakers>
+  </FactionDef>
+
+  <!-- ================= МОНОЛИТ ================= -->
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Monolith_Rookie</defName>
+    <label>Monolith acolyte</label>
+    <defaultFactionType>SZ_Faction_Monolith</defaultFactionType>
+    <combatPower>45</combatPower>
+    <gearHealthRange>0.4~1.2</gearHealthRange>
+    <weaponMoney>100~250</weaponMoney>
+    <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
+    <apparelMoney>150~400</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Monolith</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Monolith_Fighter</defName>
+    <label>Monolith fighter</label>
+    <defaultFactionType>SZ_Faction_Monolith</defaultFactionType>
+    <combatPower>75</combatPower>
+    <gearHealthRange>0.6~1.5</gearHealthRange>
+    <weaponMoney>250~500</weaponMoney>
+    <weaponTags><li>Gun</li></weaponTags>
+    <apparelMoney>400~900</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Monolith</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Monolith_Veteran</defName>
+    <label>Monolith zealot</label>
+    <defaultFactionType>SZ_Faction_Monolith</defaultFactionType>
+    <combatPower>120</combatPower>
+    <gearHealthRange>0.8~1.8</gearHealthRange>
+    <weaponMoney>500~900</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li><li>GunHeavy</li></weaponTags>
+    <apparelMoney>900~1800</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Monolith</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Monolith_Leader</defName>
+    <label>Monolith preacher</label>
+    <defaultFactionType>SZ_Faction_Monolith</defaultFactionType>
+    <factionLeader>true</factionLeader>
+    <combatPower>140</combatPower>
+    <gearHealthRange>1~2</gearHealthRange>
+    <weaponMoney>600~1000</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li><li>GunHeavy</li></weaponTags>
+    <apparelMoney>1200~2200</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Monolith</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+
+  <FactionDef ParentName="OutlanderFactionBase">
+    <defName>SZ_Faction_Monolith</defName>
+    <label>monolith</label>
+    <fixedName>Monolith</fixedName>
+    <description>Fanatics from the heart of the Zone who serve something they call the Monolith. They do not negotiate, do not retreat and attack everyone.</description>
+    <pawnSingular>Monolith fanatic</pawnSingular>
+    <pawnsPlural>Monolith fanatics</pawnsPlural>
+    <leaderTitle>preacher</leaderTitle>
+    <factionIconPath>World/SZ_Factions/Monolith</factionIconPath>
+    <colorSpectrum Inherit="False"><li>(0.75, 0.75, 0.72)</li><li>(0.55, 0.58, 0.60)</li></colorSpectrum>
+    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <maxCountAtGameStart>1</maxCountAtGameStart>
+    <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
+    <basicMemberKind>SZ_Monolith_Fighter</basicMemberKind>
+    <permanentEnemy>true</permanentEnemy>      <!-- вечные враги -->
+    <caravanTraderKinds Inherit="False" />     <!-- не торгуют -->
+    <visitorTraderKinds Inherit="False" />
+    <baseTraderKinds Inherit="False" />
+    <pawnGroupMakers Inherit="False">
+      <!-- Набеги и бои -->
+      <li>
+        <kindDef>Combat</kindDef>
+        <options><SZ_Monolith_Rookie>2</SZ_Monolith_Rookie><SZ_Monolith_Fighter>8</SZ_Monolith_Fighter><SZ_Monolith_Veteran>6</SZ_Monolith_Veteran><SZ_Monolith_Leader>1</SZ_Monolith_Leader></options>
+      </li>
+      <!-- Гости -->
+      <li>
+        <kindDef>Peaceful</kindDef>
+        <options><SZ_Monolith_Rookie>6</SZ_Monolith_Rookie><SZ_Monolith_Fighter>4</SZ_Monolith_Fighter></options>
+      </li>
+      <!-- Защитники поселения -->
+      <li>
+        <kindDef>Settlement</kindDef>
+        <options><SZ_Monolith_Rookie>2</SZ_Monolith_Rookie><SZ_Monolith_Fighter>8</SZ_Monolith_Fighter><SZ_Monolith_Veteran>6</SZ_Monolith_Veteran><SZ_Monolith_Leader>1</SZ_Monolith_Leader></options>
+      </li>
+    </pawnGroupMakers>
+  </FactionDef>
+
+  <!-- ================= НАЁМНИКИ ================= -->
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Mercenaries_Rookie</defName>
+    <label>hired gun</label>
+    <defaultFactionType>SZ_Faction_Mercenaries</defaultFactionType>
+    <combatPower>45</combatPower>
+    <gearHealthRange>0.4~1.2</gearHealthRange>
+    <weaponMoney>100~250</weaponMoney>
+    <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
+    <apparelMoney>150~400</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Mercenaries</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Mercenaries_Fighter</defName>
+    <label>mercenary</label>
+    <defaultFactionType>SZ_Faction_Mercenaries</defaultFactionType>
+    <combatPower>75</combatPower>
+    <gearHealthRange>0.6~1.5</gearHealthRange>
+    <weaponMoney>250~500</weaponMoney>
+    <weaponTags><li>Gun</li></weaponTags>
+    <apparelMoney>400~900</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Mercenaries</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Mercenaries_Veteran</defName>
+    <label>mercenary specialist</label>
+    <defaultFactionType>SZ_Faction_Mercenaries</defaultFactionType>
+    <combatPower>120</combatPower>
+    <gearHealthRange>0.8~1.8</gearHealthRange>
+    <weaponMoney>500~900</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li></weaponTags>
+    <apparelMoney>900~1800</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Mercenaries</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Mercenaries_Leader</defName>
+    <label>mercenary commander</label>
+    <defaultFactionType>SZ_Faction_Mercenaries</defaultFactionType>
+    <factionLeader>true</factionLeader>
+    <combatPower>140</combatPower>
+    <gearHealthRange>1~2</gearHealthRange>
+    <weaponMoney>600~1000</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li></weaponTags>
+    <apparelMoney>1200~2200</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Mercenaries</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+
+  <FactionDef ParentName="OutlanderFactionBase">
+    <defName>SZ_Faction_Mercenaries</defName>
+    <label>mercenaries</label>
+    <fixedName>Mercenaries</fixedName>
+    <description>Professional soldiers of fortune working for whoever pays. Excellent equipment, cold calculation, no questions asked.</description>
+    <pawnSingular>mercenary</pawnSingular>
+    <pawnsPlural>mercenaries</pawnsPlural>
+    <leaderTitle>commander</leaderTitle>
+    <factionIconPath>World/SZ_Factions/Mercenaries</factionIconPath>
+    <colorSpectrum Inherit="False"><li>(0.15, 0.25, 0.45)</li><li>(0.25, 0.35, 0.55)</li></colorSpectrum>
+    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <maxCountAtGameStart>1</maxCountAtGameStart>
+    <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
+    <basicMemberKind>SZ_Mercenaries_Fighter</basicMemberKind>
+    <pawnGroupMakers Inherit="False">
+      <!-- Набеги и бои -->
+      <li>
+        <kindDef>Combat</kindDef>
+        <options><SZ_Mercenaries_Rookie>2</SZ_Mercenaries_Rookie><SZ_Mercenaries_Fighter>6</SZ_Mercenaries_Fighter><SZ_Mercenaries_Veteran>6</SZ_Mercenaries_Veteran><SZ_Mercenaries_Leader>1</SZ_Mercenaries_Leader></options>
+      </li>
+      <!-- Гости -->
+      <li>
+        <kindDef>Peaceful</kindDef>
+        <options><SZ_Mercenaries_Rookie>6</SZ_Mercenaries_Rookie><SZ_Mercenaries_Fighter>4</SZ_Mercenaries_Fighter></options>
+      </li>
+      <li>
+        <kindDef>Trader</kindDef>
+        <traders><Town_Trader>1</Town_Trader></traders>
+        <carriers><Muffalo>6</Muffalo><Dromedary>5</Dromedary></carriers>
+        <guards><SZ_Mercenaries_Fighter>8</SZ_Mercenaries_Fighter><SZ_Mercenaries_Veteran>3</SZ_Mercenaries_Veteran></guards>
+      </li>
+      <!-- Защитники поселения -->
+      <li>
+        <kindDef>Settlement</kindDef>
+        <options><SZ_Mercenaries_Rookie>2</SZ_Mercenaries_Rookie><SZ_Mercenaries_Fighter>6</SZ_Mercenaries_Fighter><SZ_Mercenaries_Veteran>6</SZ_Mercenaries_Veteran><SZ_Mercenaries_Leader>1</SZ_Mercenaries_Leader></options>
+      </li>
+    </pawnGroupMakers>
+  </FactionDef>
+
+  <!-- ================= УЧЁНЫЕ ================= -->
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Scientists_Rookie</defName>
+    <label>lab assistant</label>
+    <defaultFactionType>SZ_Faction_Scientists</defaultFactionType>
+    <combatPower>45</combatPower>
+    <gearHealthRange>0.4~1.2</gearHealthRange>
+    <weaponMoney>100~250</weaponMoney>
+    <weaponTags><li>SimpleGun</li><li>Gun</li></weaponTags>
+    <apparelMoney>150~400</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>SZ_Faction_Scientists</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Scientists_Fighter</defName>
+    <label>scientist</label>
+    <defaultFactionType>SZ_Faction_Scientists</defaultFactionType>
+    <combatPower>75</combatPower>
+    <gearHealthRange>0.6~1.5</gearHealthRange>
+    <weaponMoney>250~500</weaponMoney>
+    <weaponTags><li>Gun</li></weaponTags>
+    <apparelMoney>400~900</apparelMoney>
+    <apparelTags><li>IndustrialBasic</li><li>IndustrialMilitaryBasic</li><li>SZ_Faction_Scientists</li></apparelTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Scientists_Veteran</defName>
+    <label>expedition guard</label>
+    <defaultFactionType>SZ_Faction_Scientists</defaultFactionType>
+    <combatPower>120</combatPower>
+    <gearHealthRange>0.8~1.8</gearHealthRange>
+    <weaponMoney>500~900</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li><li>SniperRifle</li></weaponTags>
+    <apparelMoney>900~1800</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryBasic</li><li>IndustrialMilitaryAdvanced</li><li>SZ_Faction_Scientists</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+  <PawnKindDef ParentName="SZ_StalkerBase">
+    <defName>SZ_Scientists_Leader</defName>
+    <label>chief researcher</label>
+    <defaultFactionType>SZ_Faction_Scientists</defaultFactionType>
+    <factionLeader>true</factionLeader>
+    <combatPower>140</combatPower>
+    <gearHealthRange>1~2</gearHealthRange>
+    <weaponMoney>600~1000</weaponMoney>
+    <weaponTags><li>IndustrialGunAdvanced</li></weaponTags>
+    <apparelMoney>1200~2200</apparelMoney>
+    <apparelTags><li>IndustrialMilitaryAdvanced</li><li>IndustrialAdvanced</li><li>SZ_Faction_Scientists</li></apparelTags>
+    <techHediffsChance>0.15</techHediffsChance>
+    <techHediffsMoney>300~900</techHediffsMoney>
+    <techHediffsTags><li>Simple</li><li>Advanced</li></techHediffsTags>
+  </PawnKindDef>
+
+  <FactionDef ParentName="OutlanderFactionBase">
+    <defName>SZ_Faction_Scientists</defName>
+    <label>scientists</label>
+    <fixedName>Scientists</fixedName>
+    <description>Researchers studying anomalies and artifacts from fortified camps. Poorly armed, but pay well for samples and sell rare equipment.</description>
+    <pawnSingular>scientist</pawnSingular>
+    <pawnsPlural>scientists</pawnsPlural>
+    <leaderTitle>chief researcher</leaderTitle>
+    <factionIconPath>World/SZ_Factions/Scientists</factionIconPath>
+    <colorSpectrum Inherit="False"><li>(0.85, 0.50, 0.15)</li><li>(0.95, 0.95, 0.92)</li></colorSpectrum>
+    <requiredCountAtGameStart>0</requiredCountAtGameStart>   <!-- можно убрать при создании мира -->
+    <maxCountAtGameStart>1</maxCountAtGameStart>
+    <canMakeRandomly>false</canMakeRandomly>                <!-- одна такая фракция на мир -->
+    <basicMemberKind>SZ_Scientists_Fighter</basicMemberKind>
+    <pawnGroupMakers Inherit="False">
+      <!-- Набеги и бои -->
+      <li>
+        <kindDef>Combat</kindDef>
+        <options><SZ_Scientists_Rookie>8</SZ_Scientists_Rookie><SZ_Scientists_Fighter>4</SZ_Scientists_Fighter><SZ_Scientists_Veteran>3</SZ_Scientists_Veteran><SZ_Scientists_Leader>1</SZ_Scientists_Leader></options>
+      </li>
+      <!-- Гости -->
+      <li>
+        <kindDef>Peaceful</kindDef>
+        <options><SZ_Scientists_Rookie>6</SZ_Scientists_Rookie><SZ_Scientists_Fighter>4</SZ_Scientists_Fighter></options>
+      </li>
+      <li>
+        <kindDef>Trader</kindDef>
+        <traders><Town_Trader>1</Town_Trader></traders>
+        <carriers><Muffalo>6</Muffalo><Dromedary>5</Dromedary></carriers>
+        <guards><SZ_Scientists_Fighter>8</SZ_Scientists_Fighter><SZ_Scientists_Veteran>3</SZ_Scientists_Veteran></guards>
+      </li>
+      <!-- Защитники поселения -->
+      <li>
+        <kindDef>Settlement</kindDef>
+        <options><SZ_Scientists_Rookie>8</SZ_Scientists_Rookie><SZ_Scientists_Fighter>4</SZ_Scientists_Fighter><SZ_Scientists_Veteran>3</SZ_Scientists_Veteran><SZ_Scientists_Leader>1</SZ_Scientists_Leader></options>
+      </li>
+    </pawnGroupMakers>
+  </FactionDef>
+
+</Defs>

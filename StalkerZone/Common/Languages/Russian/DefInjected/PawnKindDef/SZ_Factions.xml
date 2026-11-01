@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_Loners_Rookie.label>новичок</SZ_Loners_Rookie.label>
+  <SZ_Loners_Fighter.label>сталкер</SZ_Loners_Fighter.label>
+  <SZ_Loners_Veteran.label>бывалый сталкер</SZ_Loners_Veteran.label>
+  <SZ_Loners_Leader.label>старожил</SZ_Loners_Leader.label>
+  <SZ_Duty_Rookie.label>новобранец Долга</SZ_Duty_Rookie.label>
+  <SZ_Duty_Fighter.label>боец Долга</SZ_Duty_Fighter.label>
+  <SZ_Duty_Veteran.label>ветеран Долга</SZ_Duty_Veteran.label>
+  <SZ_Duty_Leader.label>генерал Долга</SZ_Duty_Leader.label>
+  <SZ_Freedom_Rookie.label>новичок Свободы</SZ_Freedom_Rookie.label>
+  <SZ_Freedom_Fighter.label>боец Свободы</SZ_Freedom_Fighter.label>
+  <SZ_Freedom_Veteran.label>ветеран Свободы</SZ_Freedom_Veteran.label>
+  <SZ_Freedom_Leader.label>лидер Свободы</SZ_Freedom_Leader.label>
+  <SZ_Bandits_Rookie.label>шестёрка</SZ_Bandits_Rookie.label>
+  <SZ_Bandits_Fighter.label>бандит</SZ_Bandits_Fighter.label>
+  <SZ_Bandits_Veteran.label>громила</SZ_Bandits_Veteran.label>
+  <SZ_Bandits_Leader.label>главарь</SZ_Bandits_Leader.label>
+  <SZ_Military_Rookie.label>рядовой</SZ_Military_Rookie.label>
+  <SZ_Military_Fighter.label>солдат</SZ_Military_Fighter.label>
+  <SZ_Military_Veteran.label>сержант</SZ_Military_Veteran.label>
+  <SZ_Military_Leader.label>офицер</SZ_Military_Leader.label>
+  <SZ_Monolith_Rookie.label>послушник Монолита</SZ_Monolith_Rookie.label>
+  <SZ_Monolith_Fighter.label>боец Монолита</SZ_Monolith_Fighter.label>
+  <SZ_Monolith_Veteran.label>ревнитель Монолита</SZ_Monolith_Veteran.label>
+  <SZ_Monolith_Leader.label>проповедник Монолита</SZ_Monolith_Leader.label>
+  <SZ_Mercenaries_Rookie.label>стрелок</SZ_Mercenaries_Rookie.label>
+  <SZ_Mercenaries_Fighter.label>наёмник</SZ_Mercenaries_Fighter.label>
+  <SZ_Mercenaries_Veteran.label>специалист</SZ_Mercenaries_Veteran.label>
+  <SZ_Mercenaries_Leader.label>командир наёмников</SZ_Mercenaries_Leader.label>
+  <SZ_Scientists_Rookie.label>лаборант</SZ_Scientists_Rookie.label>
+  <SZ_Scientists_Fighter.label>научный сотрудник</SZ_Scientists_Fighter.label>
+  <SZ_Scientists_Veteran.label>охранник экспедиции</SZ_Scientists_Veteran.label>
+  <SZ_Scientists_Leader.label>руководитель исследований</SZ_Scientists_Leader.label>
+</LanguageData>

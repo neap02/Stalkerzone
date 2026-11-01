@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Файл сгенерирован Source/Tools/gen_zone.py из одной таблицы.
+       Аномалии по мотивам Зоны: названия узнаваемые, описания, баланс, текстуры и звуки свои. -->
+
+  <!-- ================= УРОН АНОМАЛИЙ =================
+       По одному DamageDef на тип аномалии. defaultDamage и defaultArmorPenetration —
+       характеристики удара; armorCategory — какая защита от него спасает (SZ_Protection.xml). -->
+  <DamageDef Name="SZ_AnomalyDamageBase" Abstract="True">
+    <workerClass>DamageWorker_AddInjury</workerClass>
+    <externalViolence>true</externalViolence>
+    <combatLogRules>Damage_Bomb</combatLogRules>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_GravityCrushLight</defName>
+    <label>gravitational blow</label>
+    <deathMessage>{0} was killed by a gravitational anomaly.</deathMessage>
+    <hediff>Crush</hediff>
+    <armorCategory>SZ_Strike</armorCategory>       <!-- категория защиты -->
+    <defaultDamage>12</defaultDamage>
+    <defaultArmorPenetration>0.15</defaultArmorPenetration>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_GravityCrushHeavy</defName>
+    <label>gravitational collapse</label>
+    <deathMessage>{0} was crushed by a gravitational collapse.</deathMessage>
+    <hediff>Crush</hediff>
+    <armorCategory>SZ_Strike</armorCategory>       <!-- категория защиты -->
+    <defaultDamage>35</defaultDamage>
+    <defaultArmorPenetration>0.35</defaultArmorPenetration>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_GravityCrush</defName>
+    <label>gravitational crush</label>
+    <deathMessage>{0} was crushed by a gravitational anomaly.</deathMessage>
+    <hediff>Crush</hediff>
+    <armorCategory>SZ_Strike</armorCategory>       <!-- категория защиты -->
+    <defaultDamage>22</defaultDamage>
+    <defaultArmorPenetration>0.25</defaultArmorPenetration>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_GravityShred</defName>
+    <label>gravitational shredding</label>
+    <deathMessage>{0} was torn apart by an anomaly.</deathMessage>
+    <hediff>Cut</hediff>
+    <armorCategory>SZ_Rupture</armorCategory>       <!-- категория защиты -->
+    <defaultDamage>40</defaultDamage>
+    <defaultArmorPenetration>0.4</defaultArmorPenetration>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_ElectricDischarge</defName>
+    <label>electric discharge</label>
+    <deathMessage>{0} was killed by an anomalous electric discharge.</deathMessage>
+    <hediff>Burn</hediff>
+    <armorCategory>SZ_Shock</armorCategory>       <!-- категория защиты -->
+    <defaultDamage>18</defaultDamage>
+    <defaultArmorPenetration>0.3</defaultArmorPenetration>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_ThermalBurn</defName>
+    <label>anomalous heat</label>
+    <deathMessage>{0} was burned alive by a thermal anomaly.</deathMessage>
+    <hediff>Burn</hediff>
+    <armorCategory>SZ_Burn</armorCategory>       <!-- категория защиты -->
+    <defaultDamage>22</defaultDamage>
+    <defaultArmorPenetration>0.3</defaultArmorPenetration>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_CometBurn</defName>
+    <label>fiery touch</label>
+    <deathMessage>{0} was burned by a comet.</deathMessage>
+    <hediff>Burn</hediff>
+    <armorCategory>SZ_Burn</armorCategory>       <!-- категория защиты -->
+    <defaultDamage>14</defaultDamage>
+    <defaultArmorPenetration>0.25</defaultArmorPenetration>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_ChemicalBurn</defName>
+    <label>caustic splash</label>
+    <deathMessage>{0} was dissolved by a chemical anomaly.</deathMessage>
+    <hediff>Burn</hediff>
+    <armorCategory>SZ_Chemical</armorCategory>       <!-- категория защиты -->
+    <defaultDamage>16</defaultDamage>
+    <defaultArmorPenetration>0.2</defaultArmorPenetration>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_FuzzSting</defName>
+    <label>stinging fibers</label>
+    <deathMessage>{0} was killed by stinging fibers.</deathMessage>
+    <hediff>Scratch</hediff>
+    <armorCategory>SZ_Chemical</armorCategory>       <!-- категория защиты -->
+    <defaultDamage>9</defaultDamage>
+    <defaultArmorPenetration>0.1</defaultArmorPenetration>
+  </DamageDef>
+
+  <!-- ================= ТИПЫ АНОМАЛИЙ =================
+       StalkerZone.AnomalyDef — не вещь, а описание явления (C#: AnomalyDef.cs).
+       Аномалии на карте — записи MapComponent_Zone: их нельзя выбрать, атаковать,
+       перенести, купить или заспавнить как предмет. Рисует их сама Зона,
+       при наведении курсора показывается подсказка с описанием и уроном.
+       artifacts: какие артефакты прячутся рядом (weight — частота, tier — какой детектор найдёт). -->
+
+  <!-- Трамплин: гравитационная: слабый удар, маленький радиус -->
+  <StalkerZone.AnomalyDef>
+    <defName>SZ_Anomaly_Springboard</defName>
+    <label>springboard</label>
+    <description>A patch of air where dust hangs strangely still. Whatever steps into it is slammed by a short burst of gravity. Damage: 12 (strike), armor penetration 15%. Artifacts are sometimes found in or near it.</description>
+    <texPath>Things/Building/SZ_Anomalies/Springboard</texPath>
+    <drawSize>1.6</drawSize>
+    <glowColor>(0.63, 0.43, 1.00, 0.45)</glowColor>
+    <glowSize>2.9</glowSize>
+    <damage>SZ_GravityCrushLight</damage>
+    <per10k>0.275</per10k>
+    <triggerRadius>1.5</triggerRadius>
+    <cooldownTicks>180</cooldownTicks>
+    <effectRadius>1.5</effectRadius>
+    <throwsInsteadOfDamage>true</throwsInsteadOfDamage>
+    <throwDistance>5</throwDistance>
+    <stunTicks>90</stunTicks>
+    <avoidRadius>2.5</avoidRadius>
+    <fx>Gravity</fx>
+    <sound>SZ_Gravity_Discharge</sound>
+    <idleSound>SZ_Gravity_Idle</idleSound>
+    <fleck>Dust</fleck>
+    <fps>8</fps>
+    <artifacts>
+      <li><artifact>SZ_Artifact_Jellyfish</artifact><weight>0.185</weight><tier>1</tier></li>   <!-- медуза, обычный -->
+      <li><artifact>SZ_Artifact_StoneFlower</artifact><weight>0.09</weight><tier>2</tier></li>   <!-- каменный цветок, необычный -->
+    </artifacts>
+  </StalkerZone.AnomalyDef>
+
+  <!-- Воронка: гравитационная: сильный урон, большой радиус -->
+  <StalkerZone.AnomalyDef>
+    <defName>SZ_Anomaly_Vortex</defName>
+    <label>vortex</label>
+    <description>A wide swirl of leaves and debris circling a single point. It drags in anything within about five cells and crushes it at the center. A creature moving away can break free, especially right after a discharge. Damage: 35 (strike), armor penetration 35%. Artifacts are sometimes found in or near it.</description>
+    <texPath>Things/Building/SZ_Anomalies/Vortex</texPath>
+    <drawSize>2.2</drawSize>
+    <glowColor>(0.59, 0.47, 0.86, 0.45)</glowColor>
+    <glowSize>4.0</glowSize>
+    <damage>SZ_GravityCrushHeavy</damage>
+    <per10k>0.275</per10k>
+    <triggerRadius>1.5</triggerRadius>
+    <cooldownTicks>600</cooldownTicks>
+    <effectRadius>1.9</effectRadius>
+    <pullRadius>4.9</pullRadius>
+    <pullInterval>60</pullInterval>
+    <pullStrength>0.8</pullStrength>
+    <avoidRadius>5.5</avoidRadius>
+    <fx>Gravity</fx>
+    <sound>SZ_Gravity_Discharge</sound>
+    <idleSound>SZ_Gravity_Idle</idleSound>
+    <fleck>Dust</fleck>
+    <clusterMin>2</clusterMin>
+    <clusterMax>3</clusterMax>
+    <memberSpacing>7</memberSpacing>
+    <artifactChance>0.5</artifactChance>
+    <fps>8</fps>
+    <artifacts>
+      <li><artifact>SZ_Artifact_Gravi</artifact><weight>0.185</weight><tier>1</tier></li>   <!-- грави, обычный -->
+      <li><artifact>SZ_Artifact_NightStar</artifact><weight>0.09</weight><tier>2</tier></li>   <!-- ночная звезда, необычный -->
+    </artifacts>
+  </StalkerZone.AnomalyDef>
+
+  <!-- Карусель: гравитационная: средний урон и радиус -->
+  <StalkerZone.AnomalyDef>
+    <defName>SZ_Anomaly_Whirligig</defName>
+    <label>whirligig</label>
+    <description>A spinning column of distorted air. It pulls in anything that comes too close, batters it and flings it aside. Moving away helps to break free. Damage: 22 (strike), armor penetration 25%. Artifacts are sometimes found in or near it.</description>
+    <texPath>Things/Building/SZ_Anomalies/Whirligig</texPath>
+    <drawSize>2.0</drawSize>
+    <glowColor>(0.47, 0.55, 1.00, 0.45)</glowColor>
+    <glowSize>3.6</glowSize>
+    <damage>SZ_GravityCrush</damage>
+    <per10k>0.13</per10k>
+    <triggerRadius>1.5</triggerRadius>
+    <cooldownTicks>360</cooldownTicks>
+    <effectRadius>1.9</effectRadius>
+    <pullRadius>2.9</pullRadius>
+    <pullInterval>60</pullInterval>
+    <pullStrength>0.6</pullStrength>
+    <throwsAfterDischarge>true</throwsAfterDischarge>
+    <throwDistance>4</throwDistance>
+    <stunTicks>60</stunTicks>
+    <avoidRadius>3.5</avoidRadius>
+    <fx>Gravity</fx>
+    <sound>SZ_Gravity_Discharge</sound>
+    <idleSound>SZ_Gravity_Idle</idleSound>
+    <fleck>Dust</fleck>
+    <clusterMax>5</clusterMax>
+    <memberSpacing>4</memberSpacing>
+    <fps>12</fps>
+    <artifacts>
+      <li><artifact>SZ_Artifact_MamasBeads</artifact><weight>0.09</weight><tier>2</tier></li>   <!-- мамины бусы, необычный -->
+      <li><artifact>SZ_Artifact_Goldfish</artifact><weight>0.04</weight><tier>3</tier></li>   <!-- золотая рыбка, редкий -->
+    </artifacts>
+  </StalkerZone.AnomalyDef>
+
+  <!-- Мясорубка: гравитационная: резаные раны, очень опасна -->
+  <StalkerZone.AnomalyDef>
+    <defName>SZ_Anomaly_Meatgrinder</defName>
+    <label>meatgrinder</label>
+    <description>A small knot of twisted space, deadly to anything alive. It sucks in whatever comes near and tears it apart. Only quick retreat right after a discharge gives a chance to escape. Damage: 40 (rupture), armor penetration 40%. Artifacts are sometimes found in or near it.</description>
+    <texPath>Things/Building/SZ_Anomalies/Meatgrinder</texPath>
+    <drawSize>1.8</drawSize>
+    <glowColor>(0.86, 0.24, 0.24, 0.45)</glowColor>
+    <glowSize>3.2</glowSize>
+    <damage>SZ_GravityShred</damage>
+    <per10k>0.225</per10k>
+    <triggerRadius>1.5</triggerRadius>
+    <cooldownTicks>900</cooldownTicks>
+    <effectRadius>1.5</effectRadius>
+    <pullRadius>2.9</pullRadius>
+    <pullInterval>30</pullInterval>
+    <pullStrength>0.9</pullStrength>
+    <avoidRadius>3.5</avoidRadius>
+    <fx>Gravity</fx>
+    <sound>SZ_Gravity_Discharge</sound>
+    <idleSound>SZ_Gravity_Idle</idleSound>
+    <fleck>Dust</fleck>
+    <clusterMin>2</clusterMin>
+    <clusterMax>4</clusterMax>
+    <memberSpacing>4</memberSpacing>
+    <fps>12</fps>
+    <artifacts>
+      <li><artifact>SZ_Artifact_MeatChunk</artifact><weight>0.185</weight><tier>1</tier></li>   <!-- ломоть мяса, обычный -->
+      <li><artifact>SZ_Artifact_Soul</artifact><weight>0.04</weight><tier>3</tier></li>   <!-- душа, редкий -->
+    </artifacts>
+  </StalkerZone.AnomalyDef>
+
+  <!-- Электра: электрическая: ожоги, большой радиус -->
+  <StalkerZone.AnomalyDef>
+    <defName>SZ_Anomaly_Electro</defName>
+    <label>electro</label>
+    <description>A knot of crackling energy hanging just above the ground. Anything that touches it is hit by a powerful discharge. Damage: 18 (electric shock), armor penetration 30%. Artifacts are sometimes found in or near it.</description>
+    <texPath>Things/Building/SZ_Anomalies/Electro</texPath>
+    <drawSize>1.8</drawSize>
+    <glowColor>(0.35, 0.55, 1.00, 0.45)</glowColor>
+    <glowSize>3.2</glowSize>
+    <damage>SZ_ElectricDischarge</damage>
+    <per10k>0.5</per10k>
+    <triggerRadius>2.2</triggerRadius>
+    <cooldownTicks>240</cooldownTicks>
+    <effectRadius>2.4</effectRadius>
+    <chainLightning>true</chainLightning>
+    <avoidRadius>3</avoidRadius>
+    <fx>Electric</fx>
+    <sound>SZ_Electro_Discharge</sound>
+    <idleSound>SZ_Electro_Idle</idleSound>
+    <fleck>Sparks</fleck>
+    <fps>10</fps>
+    <artifacts>
+      <li><artifact>SZ_Artifact_Flash</artifact><weight>0.185</weight><tier>1</tier></li>   <!-- вспышка, обычный -->
+      <li><artifact>SZ_Artifact_Sparkler</artifact><weight>0.185</weight><tier>1</tier></li>   <!-- бенгальский огонь, обычный -->
+      <li><artifact>SZ_Artifact_Battery</artifact><weight>0.09</weight><tier>2</tier></li>   <!-- батарейка, необычный -->
+      <li><artifact>SZ_Artifact_Moonlight</artifact><weight>0.04</weight><tier>3</tier></li>   <!-- лунный свет, редкий -->
+    </artifacts>
+  </StalkerZone.AnomalyDef>
+
+  <!-- Жарка: термическая: ванильный огонь, поджигает -->
+  <StalkerZone.AnomalyDef>
+    <defName>SZ_Anomaly_Burner</defName>
+    <label>burner</label>
+    <description>A patch of shimmering, scorching air. When disturbed, it erupts in a column of fire. Damage: 22 (burn), armor penetration 30%. Artifacts are sometimes found in or near it.</description>
+    <texPath>Things/Building/SZ_Anomalies/Burner</texPath>
+    <drawSize>1.8</drawSize>
+    <glowColor>(1.00, 0.55, 0.24, 0.45)</glowColor>
+    <glowSize>3.2</glowSize>
+    <damage>SZ_ThermalBurn</damage>
+    <per10k>0.315</per10k>
+    <triggerRadius>1.5</triggerRadius>
+    <cooldownTicks>300</cooldownTicks>
+    <effectRadius>1.9</effectRadius>
+    <avoidRadius>2.5</avoidRadius>
+    <fx>Fire</fx>
+    <sound>SZ_Fire_Discharge</sound>
+    <idleSound>SZ_Fire_Idle</idleSound>
+    <fleck>Heat</fleck>
+    <fps>10</fps>
+    <artifacts>
+      <li><artifact>SZ_Artifact_Droplet</artifact><weight>0.185</weight><tier>1</tier></li>   <!-- капля, обычный -->
+      <li><artifact>SZ_Artifact_Fireball</artifact><weight>0.09</weight><tier>2</tier></li>   <!-- огненный шар, необычный -->
+      <li><artifact>SZ_Artifact_Crystal</artifact><weight>0.04</weight><tier>3</tier></li>   <!-- кристалл, редкий -->
+    </artifacts>
+  </StalkerZone.AnomalyDef>
+
+  <!-- Комета: термическая: движется по кругу (только с C#) -->
+  <StalkerZone.AnomalyDef>
+    <defName>SZ_Anomaly_Comet</defName>
+    <label>comet</label>
+    <description>A fiery clot that drifts in a slow circle, scorching everything in its path. Damage: 14 (burn), armor penetration 25%. Artifacts are sometimes found in or near it.</description>
+    <texPath>Things/Building/SZ_Anomalies/Comet</texPath>
+    <drawSize>1.6</drawSize>
+    <glowColor>(1.00, 0.59, 0.27, 0.45)</glowColor>
+    <glowSize>2.9</glowSize>
+    <damage>SZ_CometBurn</damage>
+    <per10k>0.09</per10k>
+    <triggerRadius>0</triggerRadius>
+    <moves>true</moves>
+    <routeRadius>3</routeRadius>
+    <avoidRadius>4.9</avoidRadius>
+    <fx>Fire</fx>
+    <sound>SZ_Fire_Discharge</sound>
+    <idleSound>SZ_Fire_Idle</idleSound>
+    <fleck>Heat</fleck>
+    <clusterMin>1</clusterMin>
+    <clusterMax>2</clusterMax>
+    <memberSpacing>8</memberSpacing>
+    <artifactChance>0.6</artifactChance>
+    <fps>10</fps>
+    <artifacts>
+      <li><artifact>SZ_Artifact_Flame</artifact><weight>0.09</weight><tier>2</tier></li>   <!-- пламя, необычный -->
+    </artifacts>
+  </StalkerZone.AnomalyDef>
+
+  <!-- Холодец: химическая: ожоги -->
+  <StalkerZone.AnomalyDef>
+    <defName>SZ_Anomaly_FruitPunch</defName>
+    <label>fruit punch</label>
+    <description>A pool of glowing green ooze. It splashes caustic liquid on anyone nearby. Damage: 16 (chemical burn), armor penetration 20%. Artifacts are sometimes found in or near it.</description>
+    <texPath>Things/Building/SZ_Anomalies/FruitPunch</texPath>
+    <drawSize>1.8</drawSize>
+    <glowColor>(0.35, 0.90, 0.35, 0.45)</glowColor>
+    <glowSize>3.2</glowSize>
+    <damage>SZ_ChemicalBurn</damage>
+    <per10k>0.365</per10k>
+    <triggerRadius>1.5</triggerRadius>
+    <cooldownTicks>480</cooldownTicks>
+    <effectRadius>1.9</effectRadius>
+    <leavesPuddle>true</leavesPuddle>
+    <avoidRadius>2.5</avoidRadius>
+    <fx>Acid</fx>
+    <sound>SZ_Acid_Discharge</sound>
+    <idleSound>SZ_Acid_Idle</idleSound>
+    <fleck>Air</fleck>
+    <fps>6</fps>
+    <artifacts>
+      <li><artifact>SZ_Artifact_Slime</artifact><weight>0.185</weight><tier>1</tier></li>   <!-- слизь, обычный -->
+      <li><artifact>SZ_Artifact_Slug</artifact><weight>0.09</weight><tier>2</tier></li>   <!-- слизняк, необычный -->
+      <li><artifact>SZ_Artifact_StoneBlood</artifact><weight>0.09</weight><tier>2</tier></li>   <!-- кровь камня, необычный -->
+    </artifacts>
+  </StalkerZone.AnomalyDef>
+
+  <!-- Жгучий пух: биологическая: слабые царапины, очень большой радиус -->
+  <StalkerZone.AnomalyDef>
+    <defName>SZ_Anomaly_BurntFuzz</defName>
+    <label>burnt fuzz</label>
+    <description>Pale, hair-like strands hanging in the air. Touching them sends stinging fibers in every direction. Damage: 9 (chemical burn), armor penetration 10%. Artifacts are sometimes found in or near it.</description>
+    <texPath>Things/Building/SZ_Anomalies/BurntFuzz</texPath>
+    <drawSize>2.0</drawSize>
+    <glowColor>(0.94, 0.90, 0.67, 0.45)</glowColor>
+    <glowSize>3.6</glowSize>
+    <damage>SZ_FuzzSting</damage>
+    <per10k>0.275</per10k>
+    <triggerRadius>2.9</triggerRadius>
+    <cooldownTicks>240</cooldownTicks>
+    <effectRadius>2.9</effectRadius>
+    <avoidRadius>3.5</avoidRadius>
+    <fx>Fuzz</fx>
+    <sound>SZ_Fuzz_Discharge</sound>
+    <fleck>Dust</fleck>
+    <clusterMax>5</clusterMax>
+    <memberSpacing>4</memberSpacing>
+    <fps>6</fps>
+    <artifacts>
+      <li><artifact>SZ_Artifact_Thorn</artifact><weight>0.185</weight><tier>1</tier></li>   <!-- колючка, обычный -->
+      <li><artifact>SZ_Artifact_Urchin</artifact><weight>0.09</weight><tier>2</tier></li>   <!-- морской ёж, необычный -->
+    </artifacts>
+  </StalkerZone.AnomalyDef>
+
+</Defs>

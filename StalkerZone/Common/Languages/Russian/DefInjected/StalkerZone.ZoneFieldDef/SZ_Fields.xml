@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_Field_Psi.label>пси-поле</SZ_Field_Psi.label>
+  <SZ_Field_Psi.description>Невидимая зона пси-давления, которая ощущается как звон в ушах. Долгое пребывание вызывает психоз, потерю сознания и смерть. Пси-глухих не затрагивает, пси-защита ослабляет воздействие.</SZ_Field_Psi.description>
+  <SZ_Field_Radiation.label>радиоактивное пятно</SZ_Field_Radiation.label>
+  <SZ_Field_Radiation.description>Заражённая земля: пожухлая трава и болезненно-жёлтые разводы. У тех, кто здесь задерживается, постепенно развивается лучевая болезнь. Защита от радиации снижает дозу. Границу отмечают знаки радиационной опасности.</SZ_Field_Radiation.description>
+</LanguageData>

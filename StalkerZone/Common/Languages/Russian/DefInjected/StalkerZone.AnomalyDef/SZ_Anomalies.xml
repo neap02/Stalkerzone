@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_Anomaly_Springboard.label>трамплин</SZ_Anomaly_Springboard.label>
+  <SZ_Anomaly_Springboard.description>Пятно воздуха, в котором пыль странно застыла на месте. Того, кто в него шагнёт, бьёт коротким всплеском гравитации. Урон: 12 (удар), пробитие брони 15%. В ней или рядом с ней иногда находят артефакты.</SZ_Anomaly_Springboard.description>
+  <SZ_Anomaly_Vortex.label>воронка</SZ_Anomaly_Vortex.label>
+  <SZ_Anomaly_Vortex.description>Широкий вихрь из листьев и мусора, кружащий вокруг одной точки. Затягивает всё в радиусе пяти клеток и сминает в центре. Тот, кто уходит прочь, может вырваться, особенно сразу после разряда. Урон: 35 (удар), пробитие брони 35%. В ней или рядом с ней иногда находят артефакты.</SZ_Anomaly_Vortex.description>
+  <SZ_Anomaly_Whirligig.label>карусель</SZ_Anomaly_Whirligig.label>
+  <SZ_Anomaly_Whirligig.description>Вращающийся столб искажённого воздуха. Подтягивает всё, что подойдёт слишком близко, бьёт и отшвыривает. Чтобы вырваться, нужно уходить прочь. Урон: 22 (удар), пробитие брони 25%. В ней или рядом с ней иногда находят артефакты.</SZ_Anomaly_Whirligig.description>
+  <SZ_Anomaly_Meatgrinder.label>мясорубка</SZ_Anomaly_Meatgrinder.label>
+  <SZ_Anomaly_Meatgrinder.description>Небольшой узел искривлённого пространства, смертельный для всего живого. Втягивает всё, что подойдёт близко, и разрывает. Шанс вырваться даёт только быстрый отход сразу после разряда. Урон: 40 (разрыв), пробитие брони 40%. В ней или рядом с ней иногда находят артефакты.</SZ_Anomaly_Meatgrinder.description>
+  <SZ_Anomaly_Electro.label>электра</SZ_Anomaly_Electro.label>
+  <SZ_Anomaly_Electro.description>Сгусток потрескивающей энергии над самой землёй. Всё, что его касается, бьёт мощным разрядом. Урон: 18 (электрошок), пробитие брони 30%. В ней или рядом с ней иногда находят артефакты.</SZ_Anomaly_Electro.description>
+  <SZ_Anomaly_Burner.label>жарка</SZ_Anomaly_Burner.label>
+  <SZ_Anomaly_Burner.description>Пятно дрожащего раскалённого воздуха. Если его потревожить, оно взрывается столбом огня. Урон: 22 (ожог), пробитие брони 30%. В ней или рядом с ней иногда находят артефакты.</SZ_Anomaly_Burner.description>
+  <SZ_Anomaly_Comet.label>комета</SZ_Anomaly_Comet.label>
+  <SZ_Anomaly_Comet.description>Огненный сгусток, медленно кружащий по одному и тому же маршруту и обжигающий всё на пути. Урон: 14 (ожог), пробитие брони 25%. В ней или рядом с ней иногда находят артефакты.</SZ_Anomaly_Comet.description>
+  <SZ_Anomaly_FruitPunch.label>холодец</SZ_Anomaly_FruitPunch.label>
+  <SZ_Anomaly_FruitPunch.description>Лужа светящейся зелёной жижи. Обдаёт едкой жидкостью всех, кто рядом. Урон: 16 (химический ожог), пробитие брони 20%. В ней или рядом с ней иногда находят артефакты.</SZ_Anomaly_FruitPunch.description>
+  <SZ_Anomaly_BurntFuzz.label>жгучий пух</SZ_Anomaly_BurntFuzz.label>
+  <SZ_Anomaly_BurntFuzz.description>Бледные волосовидные нити, свисающие в воздухе. Если их задеть, во все стороны летят жгучие волокна. Урон: 9 (химический ожог), пробитие брони 10%. В ней или рядом с ней иногда находят артефакты.</SZ_Anomaly_BurntFuzz.description>
+</LanguageData>
