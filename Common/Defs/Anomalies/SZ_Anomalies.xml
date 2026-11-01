@@ -24,7 +24,7 @@
     <explosionCellFleck>BlastEMP</explosionCellFleck>
     <explosionColorCenter>(0.6, 0.8, 1.0)</explosionColorCenter>
     <explosionColorEdge>(0.3, 0.5, 1.0)</explosionColorEdge>
-    <soundExplosion>Explosion_EMP</soundExplosion>
+    <soundExplosion>SZ_Electro_Discharge</soundExplosion>
   </DamageDef>
 
   <DamageDef ParentName="SZ_AnomalyDamageBase">
@@ -38,7 +38,7 @@
     <explosionCellFleck>BlastDry</explosionCellFleck>
     <explosionColorCenter>(0.7, 0.5, 1.0)</explosionColorCenter>
     <explosionColorEdge>(0.4, 0.2, 0.7)</explosionColorEdge>
-    <soundExplosion>Explosion_Bomb</soundExplosion>
+    <soundExplosion>SZ_Gravity_Discharge</soundExplosion>
   </DamageDef>
 
   <DamageDef ParentName="SZ_AnomalyDamageBase">
@@ -52,7 +52,7 @@
     <explosionCellFleck>BlastDry</explosionCellFleck>
     <explosionColorCenter>(0.7, 0.5, 1.0)</explosionColorCenter>
     <explosionColorEdge>(0.4, 0.2, 0.7)</explosionColorEdge>
-    <soundExplosion>Explosion_Bomb</soundExplosion>
+    <soundExplosion>SZ_Gravity_Discharge</soundExplosion>
   </DamageDef>
 
   <DamageDef ParentName="SZ_AnomalyDamageBase">
@@ -66,7 +66,7 @@
     <explosionCellFleck>BlastDry</explosionCellFleck>
     <explosionColorCenter>(0.6, 0.4, 0.9)</explosionColorCenter>
     <explosionColorEdge>(0.3, 0.15, 0.6)</explosionColorEdge>
-    <soundExplosion>Explosion_Bomb</soundExplosion>
+    <soundExplosion>SZ_Gravity_Discharge</soundExplosion>
   </DamageDef>
 
   <DamageDef ParentName="SZ_AnomalyDamageBase">
@@ -80,7 +80,21 @@
     <explosionCellFleck>BlastDry</explosionCellFleck>
     <explosionColorCenter>(0.9, 0.2, 0.2)</explosionColorCenter>
     <explosionColorEdge>(0.5, 0.05, 0.1)</explosionColorEdge>
-    <soundExplosion>Explosion_Bomb</soundExplosion>
+    <soundExplosion>SZ_Gravity_Discharge</soundExplosion>
+  </DamageDef>
+
+  <DamageDef ParentName="SZ_AnomalyDamageBase">
+    <defName>SZ_ThermalBurn</defName>
+    <label>anomalous heat</label>
+    <deathMessage>{0} was burned alive by a thermal anomaly.</deathMessage>
+    <hediff>Burn</hediff>
+    <armorCategory>Heat</armorCategory>
+    <defaultDamage>16</defaultDamage>
+    <defaultArmorPenetration>0.25</defaultArmorPenetration>
+    <explosionCellFleck>BlastFlame</explosionCellFleck>
+    <explosionColorCenter>(1.0, 0.6, 0.2)</explosionColorCenter>
+    <explosionColorEdge>(0.8, 0.3, 0.1)</explosionColorEdge>
+    <soundExplosion>SZ_Fire_Discharge</soundExplosion>
   </DamageDef>
 
   <DamageDef ParentName="SZ_AnomalyDamageBase">
@@ -94,7 +108,7 @@
     <explosionCellFleck>BlastDry</explosionCellFleck>
     <explosionColorCenter>(0.4, 1.0, 0.4)</explosionColorCenter>
     <explosionColorEdge>(0.2, 0.6, 0.2)</explosionColorEdge>
-    <soundExplosion>Explosion_Bomb</soundExplosion>
+    <soundExplosion>SZ_Acid_Discharge</soundExplosion>
   </DamageDef>
 
   <DamageDef ParentName="SZ_AnomalyDamageBase">
@@ -108,7 +122,7 @@
     <explosionCellFleck>BlastDry</explosionCellFleck>
     <explosionColorCenter>(1.0, 0.95, 0.7)</explosionColorCenter>
     <explosionColorEdge>(0.8, 0.75, 0.5)</explosionColorEdge>
-    <soundExplosion>Explosion_Bomb</soundExplosion>
+    <soundExplosion>SZ_Fuzz_Discharge</soundExplosion>
   </DamageDef>
 
   <!-- ================= БАЗА АНОМАЛИИ =================
@@ -118,7 +132,7 @@
        C#-режим: при старте аномалия становится вечной (без HP, не мина), срабатывание
        и повадки ведёт MapComponent_Zone, а killedLeavings — просто "какой артефакт рядом".
        pathCost: колонисты обходят клетку аномалии в обоих режимах.
-       Текстуры полупрозрачные: аномалии еле заметны. -->
+       Звук разряда в XML-режиме задаёт soundExplosion у DamageDef (свои SoundDef). -->
   <ThingDef ParentName="BuildingBase" Name="SZ_AnomalyBase" Abstract="True">
     <thingClass>Building_TrapExplosive</thingClass>
     <altitudeLayer>Building</altitudeLayer>
@@ -165,8 +179,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
-        <glowColor>(80,55,127,0)</glowColor>
+        <glowRadius>2.5</glowRadius>
+        <glowColor>(120,82,191,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -201,8 +215,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
-        <glowColor>(75,60,110,0)</glowColor>
+        <glowRadius>2.5</glowRadius>
+        <glowColor>(112,90,165,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -237,8 +251,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
-        <glowColor>(60,70,127,0)</glowColor>
+        <glowRadius>2.5</glowRadius>
+        <glowColor>(90,105,191,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -273,8 +287,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
-        <glowColor>(110,30,30,0)</glowColor>
+        <glowRadius>2.5</glowRadius>
+        <glowColor>(165,45,45,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -309,8 +323,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
-        <glowColor>(45,70,127,0)</glowColor>
+        <glowRadius>2.5</glowRadius>
+        <glowColor>(67,105,191,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -352,13 +366,13 @@
     <comps>
       <li Class="CompProperties_Explosive">
         <explosiveRadius>2.4</explosiveRadius>
-        <explosiveDamageType>Flame</explosiveDamageType>
+        <explosiveDamageType>SZ_ThermalBurn</explosiveDamageType>
         <startWickHitPointsPercent>0.5</startWickHitPointsPercent>
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
-        <glowColor>(127,70,30,0)</glowColor>
+        <glowRadius>2.5</glowRadius>
+        <glowColor>(191,105,45,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -394,13 +408,13 @@
     <comps>
       <li Class="CompProperties_Explosive">
         <explosiveRadius>1.9</explosiveRadius>
-        <explosiveDamageType>Flame</explosiveDamageType>
+        <explosiveDamageType>SZ_ThermalBurn</explosiveDamageType>
         <startWickHitPointsPercent>0.5</startWickHitPointsPercent>
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
-        <glowColor>(127,75,35,0)</glowColor>
+        <glowRadius>2.5</glowRadius>
+        <glowColor>(191,112,52,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -429,8 +443,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
-        <glowColor>(45,115,45,0)</glowColor>
+        <glowRadius>2.5</glowRadius>
+        <glowColor>(67,172,67,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -471,8 +485,8 @@
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
-        <glowColor>(120,115,85,0)</glowColor>
+        <glowRadius>2.5</glowRadius>
+        <glowColor>(180,172,127,0)</glowColor>
       </li>
     </comps>
   </ThingDef>

@@ -7,36 +7,37 @@ namespace StalkerZone
 {
     /// <summary>
     /// Поле аномалий карты (только C#).
-    /// - Аномалии стоят скоплениями по 1–6 штук одного типа (размер — в AnomalyProfile).
-    /// - Рядом с аномалиями лежат артефакты (запрещённые для подбора: решение за игроком).
-    /// - Выброс сносит старое поле и неподобранные артефакты и строит новое.
-    /// Сколько аномалий и какие варианты — из тех же GenStepDef, что и генерация карты.
-    /// Пси-поля и радиоактивные пятна ставятся один раз на карту.
+    /// - Аномалии стоят скоплениями одного типа (размер — в AnomalyProfile).
+    /// - Рядом с аномалиями прячутся артефакты: их нет на карте, пока их не найдёт детектор.
+    /// - Выброс сносит старое поле, ненайденные и неподобранные артефакты и строит новое.
+    /// - Пси-поля и радиоактивные пятна (со знаками опасности) — один раз на карту.
     /// </summary>
     public static class AnomalyField
     {
-        private const float FieldCenterSpacing = 14f;   // между центрами скоплений
-        private const int FieldRadius = 6;              // разброс аномалий вокруг центра
-        private const float SpotSpacing = 8f;           // для пси-полей и пятен
+        private const float FieldCenterSpacing = 14f;
+        private const int FieldRadius = 6;
+        private const float SpotSpacing = 8f;
+        private const float SignDistance = 5.5f;     // знаки по краю радиоактивного пятна (радиус 4.9)
         private const int MaxTries = 300;
 
-        private static readonly FloatRange PsiFieldsPer10k = new FloatRange(0.05f, 0.12f);     // 0–1 на карту
-        private static readonly FloatRange RadiationSpotsPer10k = new FloatRange(0.25f, 0.5f); // 1–3 на карту
+        private static readonly FloatRange PsiFieldsPer10k = new FloatRange(0.05f, 0.12f);
+        private static readonly FloatRange RadiationSpotsPer10k = new FloatRange(0.25f, 0.5f);
 
         private class Variant { public ThingDef def; public float weight; }
         private class AnomalyType { public string name; public float weight; public List<Variant> variants = new List<Variant>(); }
 
         private static readonly List<AnomalyType> types = new List<AnomalyType>();
+        private static readonly Dictionary<ThingDef, int> artifactTier = new Dictionary<ThingDef, int>();
         private static float expectedPer10k;
         private static readonly List<Thing> tmpThings = new List<Thing>();
         private static readonly List<IntVec3> tmpCells = new List<IntVec3>();
 
         public static int VariantCount { get; private set; }
 
-        /// <summary>Таблица типов и вариантов из GenStepDef. Вызывается один раз при старте.</summary>
+        /// <summary>Таблица типов и вариантов из GenStepDef. Редкость варианта = редкость артефакта.</summary>
         public static void Init()
         {
-            types.Clear();
+            types.Clear(); artifactTier.Clear();
             expectedPer10k = 0f;
             VariantCount = 0;
             foreach (GenStepDef stepDef in DefDatabase<GenStepDef>.AllDefsListForReading)
@@ -55,7 +56,17 @@ namespace StalkerZone
                 type.weight += weight;
                 expectedPer10k += weight;
                 VariantCount++;
+
+                // обычный (частый вариант) — 1, необычный — 2, редкий — 3
+                ThingDef artifact = ZoneDefs.ArtifactOf(scatter.thingDef);
+                if (artifact != null)
+                    artifactTier[artifact] = weight >= 0.15f ? 1 : weight >= 0.07f ? 2 : 3;
             }
+        }
+
+        public static int TierOf(ThingDef artifact)
+        {
+            return artifact != null && artifactTier.TryGetValue(artifact, out int t) ? t : 1;
         }
 
         /// <summary>Сносит старое поле аномалий и строит новое. Возвращает число аномалий.</summary>
@@ -65,7 +76,6 @@ namespace StalkerZone
                 return 0;
             MapComponent_Zone zone = map.GetComponent<MapComponent_Zone>();
 
-            // Старые аномалии исчезают (Vanish: без взрыва), неподобранные артефакты — тоже
             tmpThings.Clear();
             foreach (ThingDef def in ZoneDefs.AllAnomalies)
                 tmpThings.AddRange(map.listerThings.ThingsOfDef(def));
@@ -76,8 +86,8 @@ namespace StalkerZone
             }
             tmpThings.Clear();
             zone?.RemoveUnclaimedArtifacts();
+            zone?.ClearLatentArtifacts();
 
-            // Новые скопления, пока не наберём ожидаемое число аномалий
             float expected = map.Area / 10000f * expectedPer10k;
             int spawned = 0, failures = 0;
             while (spawned < expected && failures < 10)
@@ -107,51 +117,71 @@ namespace StalkerZone
                     continue;
                 Thing anomaly = GenSpawn.Spawn(ThingMaker.MakeThing(def), cell, map);
                 made++;
-                if (Rand.Chance(profile.artifactChance))
-                    SpawnArtifactNear(anomaly, profile, zone);
+                if (zone != null && Rand.Chance(profile.artifactChance))
+                    HideArtifactNear(anomaly, profile, zone);
             }
             return made;
         }
 
-        /// <summary>Кладёт артефакт этой аномалии в клетку рядом с ней (в зоне срабатывания).</summary>
-        private static void SpawnArtifactNear(Thing anomaly, AnomalyProfile profile, MapComponent_Zone zone)
+        /// <summary>Прячет артефакт рядом с аномалией: на карте он появится, когда его найдёт детектор.</summary>
+        private static void HideArtifactNear(Thing anomaly, AnomalyProfile profile, MapComponent_Zone zone)
         {
             ThingDef artifact = ZoneDefs.ArtifactOf(anomaly.def);
             if (artifact == null)
                 return;
             Map map = anomaly.Map;
-            float radius = Math.Max(1.5f, Math.Max(profile.triggerRadius, 3f));
+            float radius = Math.Max(2.5f, profile.triggerRadius + 1f);
             tmpCells.Clear();
             foreach (IntVec3 c in GenRadial.RadialCellsAround(anomaly.Position, radius, false))
             {
-                if (c.InBounds(map) && c.Standable(map) && c.GetEdifice(map) == null && c.GetFirstItem(map) == null)
+                if (c.InBounds(map) && c.Standable(map) && c.GetEdifice(map) == null)
                     tmpCells.Add(c);
             }
-            if (tmpCells.Count == 0)
-                return;
-            Thing item = GenSpawn.Spawn(ThingMaker.MakeThing(artifact), tmpCells.RandomElement(), map);
-            item.SetForbidden(true, false);   // колонисты не полезут за ним сами
-            zone?.RegisterFieldArtifact(item);
+            if (tmpCells.Count > 0)
+                zone.AddLatentArtifact(tmpCells.RandomElement(), artifact, TierOf(artifact));
             tmpCells.Clear();
         }
 
-        /// <summary>Пси-поля и радиоактивные пятна. Один раз на карту.</summary>
+        /// <summary>Пси-поля и радиоактивные пятна со знаками. Один раз на карту.</summary>
         public static void SpawnFields(Map map)
         {
             if (ZoneDefs.PsiField != null)
                 SpawnScattered(map, ZoneDefs.PsiField, PsiFieldsPer10k);
             if (ZoneDefs.RadiationSpot != null)
-                SpawnScattered(map, ZoneDefs.RadiationSpot, RadiationSpotsPer10k);
+            {
+                foreach (Thing spot in SpawnScattered(map, ZoneDefs.RadiationSpot, RadiationSpotsPer10k))
+                    PlaceSigns(spot);
+            }
         }
 
-        private static void SpawnScattered(Map map, ThingDef def, FloatRange per10k)
+        /// <summary>Четыре знака радиационной опасности по краю пятна.</summary>
+        public static void PlaceSigns(Thing spot)
         {
+            if (ZoneDefs.RadiationSign == null || !spot.Spawned)
+                return;
+            Map map = spot.Map;
+            for (int k = 0; k < 4; k++)
+            {
+                double a = Math.PI / 4 + k * Math.PI / 2;
+                IntVec3 target = spot.Position + new IntVec3((int)Math.Round(Math.Cos(a) * SignDistance), 0, (int)Math.Round(Math.Sin(a) * SignDistance));
+                if (CellFinder.TryFindRandomCellNear(target, map, 1,
+                        c => c.InBounds(map) && c.Standable(map) && c.GetEdifice(map) == null && !map.areaManager.Home[c], out IntVec3 cell))
+                {
+                    GenSpawn.Spawn(ThingMaker.MakeThing(ZoneDefs.RadiationSign), cell, map);
+                }
+            }
+        }
+
+        private static List<Thing> SpawnScattered(Map map, ThingDef def, FloatRange per10k)
+        {
+            var result = new List<Thing>();
             int count = GenMath.RoundRandom(map.Area / 10000f * per10k.RandomInRange);
             for (int i = 0; i < count; i++)
             {
                 if (CellFinderLoose.TryGetRandomCellWith(c => CanPlaceAt(c, map, def, SpotSpacing), map, MaxTries, out IntVec3 cell))
-                    GenSpawn.Spawn(ThingMaker.MakeThing(def), cell, map);
+                    result.Add(GenSpawn.Spawn(ThingMaker.MakeThing(def), cell, map));
             }
+            return result;
         }
 
         /// <summary>Подходит ли клетка: вне колонии, не под крышей, пусто, грунт держит, далеко от других.</summary>

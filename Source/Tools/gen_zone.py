@@ -7,19 +7,21 @@ TEX='/mnt/user-data/outputs/StalkerZone/Common/Textures/Things'
 # ---------------- Урон ----------------
 # key, en label, ru label, hediff, armor, dmg, ap, fleck, sound, colorCenter, colorEdge, en death, ru death
 DAMAGE=[
- ('SZ_ElectricDischarge','electric discharge','электрический разряд','Burn','Heat',14,0.3,'BlastEMP','Explosion_EMP','(0.6, 0.8, 1.0)','(0.3, 0.5, 1.0)',
+ ('SZ_ElectricDischarge','electric discharge','электрический разряд','Burn','Heat',14,0.3,'BlastEMP','SZ_Electro_Discharge','(0.6, 0.8, 1.0)','(0.3, 0.5, 1.0)',
   '{0} was killed by an anomalous electric discharge.','{0} погибает от разряда аномалии.'),
- ('SZ_GravityCrushLight','gravitational blow','гравитационный удар','Crush','Blunt',10,0.15,'BlastDry','Explosion_Bomb','(0.7, 0.5, 1.0)','(0.4, 0.2, 0.7)',
+ ('SZ_GravityCrushLight','gravitational blow','гравитационный удар','Crush','Blunt',10,0.15,'BlastDry','SZ_Gravity_Discharge','(0.7, 0.5, 1.0)','(0.4, 0.2, 0.7)',
   '{0} was killed by a gravitational anomaly.','{0} погибает в гравитационной аномалии.'),
- ('SZ_GravityCrush','gravitational crush','гравитационное сдавливание','Crush','Blunt',18,0.2,'BlastDry','Explosion_Bomb','(0.7, 0.5, 1.0)','(0.4, 0.2, 0.7)',
+ ('SZ_GravityCrush','gravitational crush','гравитационное сдавливание','Crush','Blunt',18,0.2,'BlastDry','SZ_Gravity_Discharge','(0.7, 0.5, 1.0)','(0.4, 0.2, 0.7)',
   '{0} was crushed by a gravitational anomaly.','{0} раздавлен гравитационной аномалией.'),
- ('SZ_GravityCrushHeavy','gravitational collapse','гравитационный коллапс','Crush','Blunt',24,0.3,'BlastDry','Explosion_Bomb','(0.6, 0.4, 0.9)','(0.3, 0.15, 0.6)',
+ ('SZ_GravityCrushHeavy','gravitational collapse','гравитационный коллапс','Crush','Blunt',24,0.3,'BlastDry','SZ_Gravity_Discharge','(0.6, 0.4, 0.9)','(0.3, 0.15, 0.6)',
   '{0} was crushed by a gravitational collapse.','{0} раздавлен гравитационным коллапсом.'),
- ('SZ_GravityShred','gravitational shredding','гравитационный разрыв','Cut','Sharp',30,0.35,'BlastDry','Explosion_Bomb','(0.9, 0.2, 0.2)','(0.5, 0.05, 0.1)',
+ ('SZ_GravityShred','gravitational shredding','гравитационный разрыв','Cut','Sharp',30,0.35,'BlastDry','SZ_Gravity_Discharge','(0.9, 0.2, 0.2)','(0.5, 0.05, 0.1)',
   '{0} was torn apart by an anomaly.','{0} разорван аномалией.'),
- ('SZ_ChemicalBurn','caustic splash','едкий всплеск','Burn','Heat',12,0.2,'BlastDry','Explosion_Bomb','(0.4, 1.0, 0.4)','(0.2, 0.6, 0.2)',
+ ('SZ_ThermalBurn','anomalous heat','аномальный жар','Burn','Heat',16,0.25,'BlastFlame','SZ_Fire_Discharge','(1.0, 0.6, 0.2)','(0.8, 0.3, 0.1)',
+  '{0} was burned alive by a thermal anomaly.','{0} сгорает в термической аномалии.'),
+ ('SZ_ChemicalBurn','caustic splash','едкий всплеск','Burn','Heat',12,0.2,'BlastDry','SZ_Acid_Discharge','(0.4, 1.0, 0.4)','(0.2, 0.6, 0.2)',
   '{0} was dissolved by a chemical anomaly.','{0} погибает в химической аномалии.'),
- ('SZ_FuzzSting','stinging fibers','жгучие волокна','Scratch','Sharp',7,0.1,'BlastDry','Explosion_Bomb','(1.0, 0.95, 0.7)','(0.8, 0.75, 0.5)',
+ ('SZ_FuzzSting','stinging fibers','жгучие волокна','Scratch','Sharp',7,0.1,'BlastDry','SZ_Fuzz_Discharge','(1.0, 0.95, 0.7)','(0.8, 0.75, 0.5)',
   '{0} was killed by stinging fibers.','{0} погибает от жгучих волокон.'),
 ]
 
@@ -43,10 +45,10 @@ ANOM=[
  ('Electro','electro','электра','Electro','SZ_ElectricDischarge',2.9,(90,140,255),1.8,
   'A knot of crackling energy hanging just above the ground. Anything that touches it is hit by a powerful discharge.',
   'Сгусток потрескивающей энергии над самой землёй. Всё, что его касается, бьёт мощным разрядом.','электрическая: ожоги, большой радиус'),
- ('Burner','burner','жарка','Burner','Flame',2.4,(255,140,60),1.8,
+ ('Burner','burner','жарка','Burner','SZ_ThermalBurn',2.4,(255,140,60),1.8,
   'A patch of shimmering, scorching air. When disturbed, it erupts in a column of fire.',
   'Пятно дрожащего раскалённого воздуха. Если его потревожить, оно взрывается столбом огня.','термическая: ванильный огонь, поджигает'),
- ('Comet','comet','комета','Comet','Flame',1.9,(255,150,70),1.6,
+ ('Comet','comet','комета','Comet','SZ_ThermalBurn',1.9,(255,150,70),1.6,
   'A fiery clot that drifts in a slow circle, scorching everything in its path.',
   'Огненный сгусток, медленно кружащий по одному и тому же маршруту и обжигающий всё на пути.','термическая: движется по кругу (только с C#)'),
  ('FruitPunch','fruit punch','холодец','FruitPunch','SZ_ChemicalBurn',2.2,(90,230,90),1.8,
@@ -182,7 +184,7 @@ w('''
        C#-режим: при старте аномалия становится вечной (без HP, не мина), срабатывание
        и повадки ведёт MapComponent_Zone, а killedLeavings — просто "какой артефакт рядом".
        pathCost: колонисты обходят клетку аномалии в обоих режимах.
-       Текстуры полупрозрачные: аномалии еле заметны. -->
+       Звук разряда в XML-режиме задаёт soundExplosion у DamageDef (свои SoundDef). -->
   <ThingDef ParentName="BuildingBase" Name="SZ_AnomalyBase" Abstract="True">
     <thingClass>Building_TrapExplosive</thingClass>
     <altitudeLayer>Building</altitudeLayer>
@@ -232,8 +234,8 @@ for a in ANOM:
         <wickTicks>10~20</wickTicks>         <!-- почти мгновенный разряд -->
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>1.5</glowRadius>          <!-- еле заметное свечение -->
-        <glowColor>({glow[0]//2},{glow[1]//2},{glow[2]//2},0)</glowColor>
+        <glowRadius>2.5</glowRadius>
+        <glowColor>({glow[0]*3//4},{glow[1]*3//4},{glow[2]*3//4},0)</glowColor>
       </li>
     </comps>
   </ThingDef>
@@ -281,6 +283,14 @@ w('''<?xml version="1.0" encoding="utf-8"?>
     <label>artifacts</label>
     <parent>Apparel</parent>
   </ThingCategoryDef>
+
+  <!-- Свой слой одежды для артефакта: занимает пояс, но не конфликтует
+       с поясными вещами (детектор, щит-пояс). Один артефакт за раз. -->
+  <ApparelLayerDef>
+    <defName>SZ_ArtifactLayer</defName>
+    <label>artifact</label>
+    <drawOrder>350</drawOrder>
+  </ApparelLayerDef>
 
   <!-- ================= ОБЛУЧЕНИЕ ОТ АРТЕФАКТА =================
        Появляется, пока артефакт на поясе (CompProperties_CauseHediff_Apparel),
@@ -364,7 +374,7 @@ w('''<?xml version="1.0" encoding="utf-8"?>
   </HediffDef>
 
   <!-- ================= БАЗА АРТЕФАКТА =================
-       Артефакт = предмет одежды на поясе (слой Belt, как щит-пояс), один за раз.
+       Артефакт = предмет одежды на поясе в своём слое SZ_ArtifactLayer, один за раз.
        Бонусы даёт equippedStatOffsets, облучение — CompProperties_CauseHediff_Apparel. -->
   <ThingDef ParentName="ApparelBase" Name="SZ_ArtifactBase" Abstract="True">
     <thingCategories Inherit="False">
@@ -384,7 +394,7 @@ w('''<?xml version="1.0" encoding="utf-8"?>
     </thingSetMakerTags>
     <apparel>
       <layers>
-        <li>Belt</li>
+        <li>SZ_ArtifactLayer</li>
       </layers>
       <bodyPartGroups>
         <li>Waist</li>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ================= ДЕТЕКТОРЫ =================
+       Носятся на поясе (слой Belt) вместе с артефактом. Работают через C#-часть:
+       - пищат у аномалий: чем ближе, тем чаще;
+       - подсвечивают аномалии в радиусе оранжевой меткой;
+       - находят артефакты: без детектора артефакты в поле аномалий не найти;
+       - щёлкают дозиметром в радиоактивных пятнах.
+       Класс детектора: какие артефакты он видит и на каком расстоянии
+       (числа в Source/StalkerZone/Detectors.cs). -->
+  <ThingDef ParentName="ApparelBase" Name="SZ_DetectorBase" Abstract="True">
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Mass>0.4</Mass>
+      <Flammability>0.2</Flammability>
+      <EquipDelay>1</EquipDelay>
+    </statBases>
+    <apparel>
+      <layers>
+        <li>Belt</li>
+      </layers>
+      <bodyPartGroups>
+        <li>Waist</li>
+      </bodyPartGroups>
+      <countsAsClothingForNudity>false</countsAsClothingForNudity>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+      <careIfDamaged>false</careIfDamaged>
+      <wearPerDay>0</wearPerDay>
+    </apparel>
+  </ThingDef>
+
+  <!-- Класс 1: аномалии в 10 клетках, обычные артефакты в 4 клетках -->
+  <ThingDef ParentName="SZ_DetectorBase">
+    <defName>SZ_Detector_Basic</defName>
+    <label>signal detector</label>
+    <description>A simple anomaly detector worn on the belt. Beeps faster as its wearer approaches an anomaly and marks anomalies within 10 cells. Finds only common artifacts, and only right next to them. Clicks like a dosimeter in contaminated areas.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Detectors/Basic</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>350</MarketValue>
+      <WorkToMake>6000</WorkToMake>
+    </statBases>
+    <costList>
+      <Steel>30</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements>
+        <Crafting>4</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- Класс 2: аномалии в 14 клетках, обычные и необычные артефакты в 7,
+       метки на артефактах в 14 клетках -->
+  <ThingDef ParentName="SZ_DetectorBase">
+    <defName>SZ_Detector_Advanced</defName>
+    <label>search detector</label>
+    <description>A sensitive anomaly detector with a small display. Marks anomalies within 14 cells and shows the location of common and uncommon artifacts within 14 cells; reveals them from 7 cells away. Clicks like a dosimeter in contaminated areas.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Detectors/Advanced</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>900</MarketValue>
+      <WorkToMake>9000</WorkToMake>
+    </statBases>
+    <costList>
+      <Steel>30</Steel>
+      <Plasteel>15</Plasteel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements>
+        <Crafting>6</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- Класс 3: аномалии в 18 клетках, все артефакты в 10, метки в 30 клетках -->
+  <ThingDef ParentName="SZ_DetectorBase">
+    <defName>SZ_Detector_Scanner</defName>
+    <label>anomaly scanner</label>
+    <description>A top-class scanner. Marks anomalies within 18 cells, shows the location of every kind of artifact within 30 cells, including the rarest, and reveals them from 10 cells away. Clicks like a dosimeter in contaminated areas.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Detectors/Scanner</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>2200</MarketValue>
+      <WorkToMake>14000</WorkToMake>
+    </statBases>
+    <costList>
+      <Plasteel>30</Plasteel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+      <ComponentSpacer>2</ComponentSpacer>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
+      <recipeUsers>
+        <li>FabricationBench</li>
+      </recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+</Defs>

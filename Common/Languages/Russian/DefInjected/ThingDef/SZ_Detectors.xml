@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_Detector_Basic.label>сигнальный детектор</SZ_Detector_Basic.label>
+  <SZ_Detector_Basic.description>Простой детектор аномалий, носится на поясе. Пищит тем чаще, чем ближе аномалия, и отмечает аномалии в 10 клетках. Находит только обычные артефакты, и только вплотную. В заражённых местах щёлкает, как дозиметр.</SZ_Detector_Basic.description>
+  <SZ_Detector_Advanced.label>поисковый детектор</SZ_Detector_Advanced.label>
+  <SZ_Detector_Advanced.description>Чувствительный детектор аномалий с небольшим экраном. Отмечает аномалии в 14 клетках и показывает, где лежат обычные и необычные артефакты в 14 клетках; обнаруживает их с 7 клеток. В заражённых местах щёлкает, как дозиметр.</SZ_Detector_Advanced.description>
+  <SZ_Detector_Scanner.label>сканер аномалий</SZ_Detector_Scanner.label>
+  <SZ_Detector_Scanner.description>Сканер высшего класса. Отмечает аномалии в 18 клетках, показывает, где лежат артефакты любой редкости в 30 клетках, включая самые редкие, и обнаруживает их с 10 клеток. В заражённых местах щёлкает, как дозиметр.</SZ_Detector_Scanner.description>
+</LanguageData>

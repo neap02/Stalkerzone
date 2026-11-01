@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = '/mnt/user-data/outputs/StalkerZone/Common/Textures/Things/Building'
 FRAMES = 8
-FADE = 0.4          # "еле заметны": общая прозрачность аномалий (комета ярче)
+FADE = 0.8          # видимость аномалий (1.0 = полностью непрозрачные; комета всегда яркая)
 S = 128; C = S / 2
 
 def blank(n=S): return Image.new('RGBA', (n, n), (0, 0, 0, 0))
@@ -149,19 +149,82 @@ def frames_psi():
     return out
 
 def frames_radiation():
-    out = []; n = 256
+    """Заражённая земля: пятнистые жёлто-бурые разводы, сухая трава, лёгкое мерцание.
+    Границу показывают знаки радиационной опасности (отдельные предметы на карте)."""
+    out = []; n = 256; c = n / 2
+    rnd0 = random.Random(77)
+    blobs = [(c + rnd0.uniform(-90, 90), c + rnd0.uniform(-90, 90), rnd0.uniform(18, 48)) for _ in range(26)]
+    specks = [(c + rnd0.uniform(-110, 110), c + rnd0.uniform(-110, 110)) for _ in range(160)]
     for i in range(FRAMES):
-        t = i / FRAMES; rnd = random.Random(500 + i)
-        img = radial((200, 230, 60), .7, 60 + int(15 * math.sin(t * 6.28)), n); d = ImageDraw.Draw(img)
-        for k in range(36):    # пунктирная граница медленно вращается
-            a0 = k * 10 + t * 10; d.arc([8, 8, n - 8, n - 8], a0, a0 + 5, fill=(220, 240, 90, 140), width=3)
-        for _ in range(25):    # мерцающие частицы
-            a = rnd.uniform(0, 6.28); r = rnd.uniform(0, n / 2 - 16)
-            x, y = n / 2 + math.cos(a) * r, n / 2 + math.sin(a) * r
-            d.ellipse([x - 1.5, y - 1.5, x + 1.5, y + 1.5], fill=(240, 255, 140, 170))
-        out.append(img.filter(ImageFilter.GaussianBlur(1)))
+        t = i / FRAMES; rnd = random.Random(600 + i)
+        img = blank(n); d = ImageDraw.Draw(img)
+        for (x, y, r) in blobs:
+            k = .85 + .15 * math.sin(t * 6.28 + x * .05)
+            d.ellipse([x - r, y - r * .8, x + r, y + r * .8], fill=(int(150 * k), int(140 * k), 50, 70))
+        img = img.filter(ImageFilter.GaussianBlur(10))
+        d = ImageDraw.Draw(img)
+        for (x, y) in specks:   # пожухлые травинки
+            if math.hypot(x - c, y - c) < 115:
+                d.line([(x, y), (x + rnd0.uniform(-2, 2), y - rnd0.uniform(3, 6))], fill=(170, 150, 70, 150), width=1)
+        for _ in range(14):     # редкие светящиеся частицы (мерцают между кадрами)
+            a = rnd.uniform(0, 6.28); r = rnd.uniform(0, 100)
+            x, y = c + math.cos(a) * r, c + math.sin(a) * r
+            d.ellipse([x - 1.2, y - 1.2, x + 1.2, y + 1.2], fill=(220, 255, 120, 140))
+        # мягкий край, чтобы пятно сливалось с землёй
+        px = img.load()
+        for y in range(n):
+            for x in range(n):
+                dd = math.hypot(x - c + .5, y - c + .5) / c
+                r_, g_, b_, a_ = px[x, y]
+                px[x, y] = (r_, g_, b_, int(a_ * max(0, 1 - dd ** 3)))
+        out.append(img)
     return out
 
+def single(path, img):
+    os.makedirs(os.path.dirname(path), exist_ok=True); img.save(path)
+
+def trefoil(d, cx, cy, r, col, bg):
+    """Знак радиационной опасности (международный символ): три сектора и центр."""
+    for k in range(3):
+        a0 = -90 + k * 120 - 30
+        d.pieslice([cx - r, cy - r, cx + r, cy + r], a0, a0 + 60, fill=col)
+    d.ellipse([cx - r * .38, cy - r * .38, cx + r * .38, cy + r * .38], fill=bg)
+    d.ellipse([cx - r * .22, cy - r * .22, cx + r * .22, cy + r * .22], fill=col)
+
+def radiation_sign():
+    img = blank(64); d = ImageDraw.Draw(img)
+    d.rectangle([29, 30, 34, 62], fill=(110, 80, 50, 255), outline=(60, 40, 20, 255))   # столб
+    d.polygon([(32, 4), (56, 28), (32, 52), (8, 28)], fill=(250, 210, 40, 255), outline=(30, 30, 30, 255))  # ромб
+    trefoil(d, 32, 28, 12, (20, 20, 20, 255), (250, 210, 40, 255))
+    return img
+
+def anomaly_marker():
+    """Метка детектора над аномалией: оранжевое пунктирное кольцо с засечками."""
+    n = 128; img = blank(n); d = ImageDraw.Draw(img)
+    for k in range(24):
+        a0 = k * 15; d.arc([6, 6, n - 6, n - 6], a0, a0 + 9, fill=(255, 150, 40, 230), width=5)
+    for k in range(4):
+        a = k * math.pi / 2; x1, y1 = n / 2 + math.cos(a) * 58, n / 2 + math.sin(a) * 58
+        x2, y2 = n / 2 + math.cos(a) * 44, n / 2 + math.sin(a) * 44
+        d.line([(x1, y1), (x2, y2)], fill=(255, 190, 80, 255), width=5)
+    return img
+
+def artifact_marker():
+    """Метка найденного детектором артефакта: зелёный ромб со свечением."""
+    n = 64; img = radial((120, 255, 160), 1.5, 120, n); d = ImageDraw.Draw(img)
+    d.polygon([(32, 8), (52, 32), (32, 56), (12, 32)], outline=(170, 255, 190, 255), width=4)
+    d.ellipse([28, 28, 36, 36], fill=(220, 255, 230, 255))
+    return img
+
+def detector(screen, body, accent, tier):
+    img = blank(64); d = ImageDraw.Draw(img)
+    d.rounded_rectangle([14, 8, 50, 58], radius=6, fill=body, outline=(25, 25, 25, 255))
+    d.rectangle([19, 13, 45, 33], fill=screen, outline=(20, 20, 20, 255))
+    for k in range(tier):   # полоски на экране = класс детектора
+        d.line([(23, 29 - k * 5), (41, 29 - k * 5)], fill=accent, width=2)
+    d.ellipse([22, 39, 30, 47], fill=accent); d.ellipse([34, 39, 42, 47], fill=(70, 70, 70, 255))
+    d.line([(44, 8), (50, 0)], fill=(40, 40, 40, 255), width=3)   # антенна
+    return img
 A = 'SZ_Anomalies'
 save(A, 'Electro', frames_electro(), FADE)
 save(A, 'Burner', frames_burner(), FADE)
@@ -174,4 +237,13 @@ save(A, 'BurntFuzz', frames_fuzz(), FADE)
 save(A, 'Comet', frames_comet(), 1.0)
 save('SZ_Fields', 'PsiField', frames_psi(), 1.0)
 save('SZ_Fields', 'RadiationSpot', frames_radiation(), 1.0)
+B = ROOT
+I = '/mnt/user-data/outputs/StalkerZone/Common/Textures/Things/Item'
+FX = '/mnt/user-data/outputs/StalkerZone/Common/Textures/SZ_Fx'
+single(f'{B}/SZ_Fields/RadiationSign.png', radiation_sign())
+single(f'{FX}/AnomalyMarker.png', anomaly_marker())
+single(f'{FX}/ArtifactMarker.png', artifact_marker())
+single(f'{I}/SZ_Detectors/Basic.png', detector((60, 90, 60, 255), (150, 145, 130, 255), (120, 230, 120, 255), 1))
+single(f'{I}/SZ_Detectors/Advanced.png', detector((50, 80, 110, 255), (110, 120, 130, 255), (110, 200, 255, 255), 2))
+single(f'{I}/SZ_Detectors/Scanner.png', detector((90, 60, 110, 255), (70, 70, 80, 255), (220, 140, 255, 255), 3))
 print('frames ok')

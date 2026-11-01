@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using RimWorld;
 using Verse;
+using Verse.Sound;
 
 namespace StalkerZone
 {
-    /// <summary>Общие эффекты Зоны: облучение, пси, разряды аномалий, перемещение пешек.</summary>
+    /// <summary>Общие эффекты Зоны: облучение, пси, разряды аномалий, перемещение пешек, звуки.</summary>
     public static class ZoneEffects
     {
         private const float PsiBreakMinSeverity = 0.45f;
@@ -13,6 +14,7 @@ namespace StalkerZone
         private const float PsiBreakChancePerDose = 0.05f;
         private const float ChainDamage = 10f;
 
+        private static readonly List<Pawn> tmpVictims = new List<Pawn>();
         private static readonly List<Pawn> tmpChain = new List<Pawn>();
 
         // ---------- Радиация и пси ----------
@@ -26,7 +28,6 @@ namespace StalkerZone
                 HealthUtility.AdjustSeverity(pawn, SZ_DefOf.SZ_Radiation, dose);
         }
 
-        /// <summary>Пси-доза × пси-чувствительность. Пси-глухие не страдают.</summary>
         public static void AddPsi(Pawn pawn, float dose)
         {
             if (pawn == null || pawn.Dead || !pawn.RaceProps.IsFlesh)
@@ -49,22 +50,76 @@ namespace StalkerZone
                 pawn.mindState?.mentalStateHandler?.TryStartMentalState(MentalStateDefOf.Wander_Psychotic, "SZ_PsiBreakReason".Translate());
         }
 
-        // ---------- Аномалии ----------
+        // ---------- Срабатывание аномалии ----------
         /// <summary>
-        /// Разряд аномалии: взрыв с уроном и радиусом из её CompProperties_Explosive (XML).
-        /// Сама аномалия не страдает — она вечная.
+        /// Срабатывание без взрыва: звук, эффект и урон своим типом всем в радиусе действия.
+        /// Возвращает задетых пешек (список переиспользуется, не хранить).
         /// </summary>
-        public static void Explode(Thing anomaly)
+        public static List<Pawn> Discharge(Thing anomaly, AnomalyProfile p)
         {
-            CompProperties_Explosive props = anomaly.def.GetCompProperties<CompProperties_Explosive>();
-            if (props == null || props.explosiveDamageType == null || !anomaly.Spawned)
-                return;
-            GenExplosion.DoExplosion(anomaly.Position, anomaly.Map, props.explosiveRadius, props.explosiveDamageType, anomaly,
-                ignoredThings: new List<Thing> { anomaly });
+            Map map = anomaly.Map;
+            IntVec3 pos = anomaly.Position;
+            PlaySound(p.Sound, pos, map);
+            ShowDischargeFx(anomaly, p);
+
+            PawnsAround(pos, map, p.effectRadius, tmpVictims);
+            DamageDef damage = p.Damage;
+            if (damage != null)
+            {
+                foreach (Pawn pawn in tmpVictims)
+                    pawn.TakeDamage(new DamageInfo(damage, p.damageAmount, p.armorPenetration, -1f, anomaly));
+            }
+            return tmpVictims;
         }
 
-        /// <summary>Электра: разряд перескакивает на до count случайных пешек в радиусе.</summary>
-        public static void ChainLightning(Thing anomaly, float radius, int count)
+        private static void ShowDischargeFx(Thing anomaly, AnomalyProfile p)
+        {
+            Map map = anomaly.Map;
+            IntVec3 pos = anomaly.Position;
+            int cells = GenRadial.NumCellsInRadius(p.effectRadius);
+            switch (p.fx)
+            {
+                case DischargeFx.Electric:
+                    FleckMaker.ThrowLightningGlow(anomaly.DrawPos, map, 3f);
+                    for (int i = 0; i < 8; i++)
+                    {
+                        IntVec3 c = pos + GenRadial.RadialPattern[Rand.Range(0, cells)];
+                        if (c.InBounds(map)) FleckMaker.ThrowMicroSparks(c.ToVector3Shifted(), map);
+                    }
+                    break;
+                case DischargeFx.Fire:
+                    FleckMaker.ThrowFireGlow(anomaly.DrawPos, map, 2.5f);
+                    FleckMaker.ThrowHeatGlow(pos, map, 2.5f);
+                    for (int i = 0; i < 3; i++) FleckMaker.ThrowSmoke(anomaly.DrawPos, map, 1.5f);
+                    break;
+                case DischargeFx.Acid:
+                    for (int i = 0; i < 6; i++)
+                    {
+                        IntVec3 c = pos + GenRadial.RadialPattern[Rand.Range(0, cells)];
+                        if (c.InBounds(map)) FleckMaker.ThrowAirPuffUp(c.ToVector3Shifted(), map);
+                    }
+                    break;
+                case DischargeFx.Fuzz:
+                    for (int i = 0; i < 10; i++)
+                    {
+                        IntVec3 c = pos + GenRadial.RadialPattern[Rand.Range(0, cells)];
+                        if (c.InBounds(map)) FleckMaker.ThrowDustPuff(c, map, 0.6f);
+                    }
+                    break;
+                default: // гравитация: кольцо пыли
+                    for (int i = 0; i < 12; i++)
+                    {
+                        double a = i * Math.PI / 6;
+                        IntVec3 c = pos + new IntVec3((int)Math.Round(Math.Cos(a) * p.effectRadius), 0, (int)Math.Round(Math.Sin(a) * p.effectRadius));
+                        if (c.InBounds(map)) FleckMaker.ThrowDustPuff(c, map, 1.2f);
+                    }
+                    FleckMaker.ThrowDustPuff(pos, map, 2f);
+                    break;
+            }
+        }
+
+        /// <summary>Электра: разряд перескакивает на до count случайных пешек в радиусе (искры по линии).</summary>
+        public static void ChainLightning(Thing anomaly, float radius, int count, DamageDef damage)
         {
             Map map = anomaly.Map;
             PawnsAround(anomaly.Position, map, radius, tmpChain);
@@ -73,9 +128,15 @@ namespace StalkerZone
             {
                 if (hit >= count)
                     break;
+                IntVec3 a = anomaly.Position, b = target.Position;
+                for (int k = 1; k <= 3; k++)
+                {
+                    IntVec3 c = new IntVec3(a.x + (b.x - a.x) * k / 4, 0, a.z + (b.z - a.z) * k / 4);
+                    if (c.InBounds(map)) FleckMaker.ThrowMicroSparks(c.ToVector3Shifted(), map);
+                }
                 FleckMaker.ThrowLightningGlow(target.DrawPos, map, 1.5f);
-                FleckMaker.ThrowMicroSparks(target.DrawPos, map);
-                target.TakeDamage(new DamageInfo(SZ_DefOf.SZ_ElectricDischarge, ChainDamage, 0.3f, -1f, anomaly));
+                if (damage != null)
+                    target.TakeDamage(new DamageInfo(damage, ChainDamage, 0.3f, -1f, anomaly));
                 hit++;
             }
             tmpChain.Clear();
@@ -101,10 +162,12 @@ namespace StalkerZone
                 dest = cur;
             }
             if (dest != pawn.Position)
+            {
+                FleckMaker.ThrowDustPuff(pawn.Position, map, 1f);
                 MovePawn(pawn, dest);
+            }
         }
 
-        /// <summary>Мгновенно переносит пешку в клетку.</summary>
         public static void MovePawn(Pawn pawn, IntVec3 dest)
         {
             pawn.pather?.StopDead();
@@ -112,7 +175,6 @@ namespace StalkerZone
             pawn.Notify_Teleported();
         }
 
-        /// <summary>Живые пешки в радиусе вокруг клетки.</summary>
         public static void PawnsAround(IntVec3 center, Map map, float radius, List<Pawn> result)
         {
             result.Clear();
@@ -123,7 +185,12 @@ namespace StalkerZone
             }
         }
 
-        /// <summary>Эффект "вблизи видно": искры, марево, пыль.</summary>
+        public static void PlaySound(SoundDef sound, IntVec3 cell, Map map)
+        {
+            sound?.PlayOneShot(SoundInfo.InMap(new TargetInfo(cell, map)));
+        }
+
+        /// <summary>Подсказка "видно вблизи": искры, марево, пыль.</summary>
         public static void ThrowHint(Thing anomaly, AnomalyFleck fleck)
         {
             Map map = anomaly.Map;

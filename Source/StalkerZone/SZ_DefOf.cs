@@ -17,6 +17,9 @@ namespace StalkerZone
         public static ThoughtDef SZ_ExposedToEmission;
         public static DamageDef SZ_ElectricDischarge;
         public static DamageDef SZ_ChemicalBurn;
+        public static SoundDef SZ_Detector_Beep;
+        public static SoundDef SZ_Detector_Artifact;
+        public static SoundDef SZ_Geiger_Click;
 
         static SZ_DefOf()
         {

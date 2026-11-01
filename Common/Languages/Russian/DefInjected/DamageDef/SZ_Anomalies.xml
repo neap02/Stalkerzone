@@ -10,6 +10,8 @@
   <SZ_GravityCrushHeavy.deathMessage>{0} раздавлен гравитационным коллапсом.</SZ_GravityCrushHeavy.deathMessage>
   <SZ_GravityShred.label>гравитационный разрыв</SZ_GravityShred.label>
   <SZ_GravityShred.deathMessage>{0} разорван аномалией.</SZ_GravityShred.deathMessage>
+  <SZ_ThermalBurn.label>аномальный жар</SZ_ThermalBurn.label>
+  <SZ_ThermalBurn.deathMessage>{0} сгорает в термической аномалии.</SZ_ThermalBurn.deathMessage>
   <SZ_ChemicalBurn.label>едкий всплеск</SZ_ChemicalBurn.label>
   <SZ_ChemicalBurn.deathMessage>{0} погибает в химической аномалии.</SZ_ChemicalBurn.deathMessage>
   <SZ_FuzzSting.label>жгучие волокна</SZ_FuzzSting.label>

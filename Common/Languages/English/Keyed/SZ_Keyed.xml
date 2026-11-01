@@ -5,4 +5,6 @@
   <SZ_AnomaliesShiftedText>The emission has passed and the anomaly field has changed. The old anomalies are gone and new ones have formed elsewhere, possibly holding fresh artifacts.</SZ_AnomaliesShiftedText>
   <SZ_ShelterOrdered>Emission approaching: colonists are heading for shelter. Drafted colonists stay where you put them.</SZ_ShelterOrdered>
   <SZ_PsiBreakReason>psychic exposure</SZ_PsiBreakReason>
+  <SZ_CannotAttackAnomaly>An anomaly can't be attacked: it has no body to hit. Go around it.</SZ_CannotAttackAnomaly>
+  <SZ_ArtifactDetected>Detector: artifact found nearby ({0}).</SZ_ArtifactDetected>
 </LanguageData>

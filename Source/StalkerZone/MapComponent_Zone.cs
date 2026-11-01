@@ -2,27 +2,27 @@ using System;
 using System.Collections.Generic;
 using RimWorld;
 using Verse;
+using Verse.AI;
 
 namespace StalkerZone
 {
     /// <summary>
     /// Поведение Зоны на карте (только C#). Добавляется игрой к каждой карте сама.
-    /// - Аномалии вечные: срабатывают на приближение и перезаряжаются (AnomalyProfile).
-    /// - У каждого типа свои повадки: затягивание, отброс, цепной разряд, едкая лужа.
-    /// - Комета ходит по кругу и обжигает.
+    /// - Аномалии вечные: срабатывают на приближение, бьют своим уроном (без взрыва), перезаряжаются.
+    /// - Повадки: затягивание, отброс, цепной разряд, едкая лужа; комета ходит по кругу.
+    /// - Атаковать аномалию нельзя: приказ отменяется.
+    /// - Детекторы: писк, метки аномалий, поиск артефактов, дозиметр.
     /// - Пси-поля и радиоактивные пятна действуют на всех в радиусе.
-    /// - Аномалии еле заметны; рядом с колонистом их выдают искры, марево или пыль.
     /// </summary>
     public class MapComponent_Zone : MapComponent
     {
         private const int CometRouteRadius = 3;
         private const int CometMoveInterval = 60;
-        private const float CometBurnDamage = 8f;
 
         private const float ChainRadius = 6.9f;
         private const int ChainTargets = 3;
 
-        private const int PuddleDurationTicks = 3600;      // ≈ 1,5 игрового часа
+        private const int PuddleDurationTicks = 3600;
         private const float PuddleRadius = 1.9f;
         private const float PuddleDamage = 3f;
 
@@ -34,17 +34,24 @@ namespace StalkerZone
         private const float TicksPerHour = 2500f;
 
         private const int HintInterval = 90;
-        private const float HintRadius = 8f;               // "видно вблизи": в 8 клетках от колониста
+        private const float HintRadius = 8f;
+        private const float IdleSoundChance = 0.3f;
 
-        // Сохраняется
+        // ---------- сохраняется ----------
         private bool fieldsSpawned;
         private bool anomaliesBuilt;
+        private bool signsPlaced;
         private Dictionary<int, IntVec3> cometOrigins = new Dictionary<int, IntVec3>();
         private Dictionary<int, int> cometSteps = new Dictionary<int, int>();
         private List<Thing> fieldArtifacts = new List<Thing>();
+        private List<LatentArtifact> latentArtifacts = new List<LatentArtifact>();
 
-        // Не сохраняется
+        // ---------- не сохраняется ----------
         private readonly Dictionary<int, int> readyTick = new Dictionary<int, int>();
+        private readonly Dictionary<int, int> nextBeep = new Dictionary<int, int>();
+        private readonly Dictionary<int, int> nextGeiger = new Dictionary<int, int>();
+        private readonly HashSet<Thing> detectedAnomalies = new HashSet<Thing>();
+        private readonly HashSet<IntVec3> markedArtifacts = new HashSet<IntVec3>();
         private readonly List<Puddle> puddles = new List<Puddle>();
         private readonly List<Thing> tmpThings = new List<Thing>();
         private readonly List<Pawn> tmpPawns = new List<Pawn>();
@@ -59,8 +66,6 @@ namespace StalkerZone
         public override void FinalizeInit()
         {
             base.FinalizeInit();
-            // Один раз на карту: поле аномалий скоплениями (заменяет разбросанные генерацией)
-            // и пси-поля с радиоактивными пятнами.
             if (!anomaliesBuilt)
             {
                 AnomalyField.Rebuild(map);
@@ -68,8 +73,16 @@ namespace StalkerZone
             }
             if (!fieldsSpawned)
             {
-                AnomalyField.SpawnFields(map);
+                AnomalyField.SpawnFields(map);   // ставит и знаки
                 fieldsSpawned = true;
+                signsPlaced = true;
+            }
+            if (!signsPlaced && ZoneDefs.RadiationSpot != null)
+            {
+                // карта из прошлой версии: пятна уже есть, знаков нет
+                foreach (Thing spot in map.listerThings.ThingsOfDef(ZoneDefs.RadiationSpot))
+                    AnomalyField.PlaceSigns(spot);
+                signsPlaced = true;
             }
         }
 
@@ -78,6 +91,10 @@ namespace StalkerZone
             base.MapComponentTick();
             int tick = Find.TickManager.TicksGame;
 
+            if (tick % 10 == 0)
+                TickAttackGuard();
+            if (tick % 15 == 0)
+                TickDetectors(tick);
             if (tick % 30 == 0)
                 TickAnomalies(tick);
             if (tick % CometMoveInterval == 0)
@@ -89,6 +106,137 @@ namespace StalkerZone
             }
             if (tick % HintInterval == 45)
                 TickHints();
+        }
+
+        /// <summary>Метки детектора рисуются каждый кадр поверх карты.</summary>
+        public override void MapComponentUpdate()
+        {
+            base.MapComponentUpdate();
+            if (Find.CurrentMap != map || (detectedAnomalies.Count == 0 && markedArtifacts.Count == 0))
+                return;
+            float pulse = ZoneMats.Pulse(4f);
+            foreach (Thing anomaly in detectedAnomalies)
+            {
+                if (anomaly.Spawned)
+                    ZoneMats.DrawMarker(ZoneMats.AnomalyMarker, anomaly.DrawPos, 2.3f + 0.3f * pulse);
+            }
+            foreach (IntVec3 cell in markedArtifacts)
+                ZoneMats.DrawMarker(ZoneMats.ArtifactMarker, cell.ToVector3Shifted(), 1.0f + 0.4f * pulse);
+        }
+
+        // ---------- Запрет атаки ----------
+        private void TickAttackGuard()
+        {
+            var colonists = map.mapPawns.FreeColonistsSpawned;
+            for (int i = 0; i < colonists.Count; i++)
+            {
+                Pawn pawn = colonists[i];
+                Job job = pawn.CurJob;
+                if (job == null || (job.def != JobDefOf.AttackMelee && job.def != JobDefOf.AttackStatic))
+                    continue;
+                Thing target = job.targetA.Thing;
+                if (target == null || !ZoneDefs.IsAnomaly(target.def))
+                    continue;
+                pawn.jobs.EndCurrentJob(JobCondition.InterruptForced);
+                Messages.Message("SZ_CannotAttackAnomaly".Translate(), pawn, MessageTypeDefOf.RejectInput, false);
+            }
+        }
+
+        // ---------- Детекторы ----------
+        private void TickDetectors(int tick)
+        {
+            detectedAnomalies.Clear();
+            markedArtifacts.Clear();
+            var colonists = map.mapPawns.FreeColonistsSpawned;
+            if (colonists.Count == 0)
+                return;
+            CollectThings(ZoneDefs.AllAnomalies);
+
+            for (int ci = 0; ci < colonists.Count; ci++)
+            {
+                Pawn pawn = colonists[ci];
+                DetectorTier tier = Detectors.BestOf(pawn);
+                if (tier == null)
+                    continue;
+                IntVec3 pos = pawn.Position;
+                int id = pawn.thingIDNumber;
+
+                // Аномалии: метки и писк (чем ближе, тем чаще)
+                float nearest = float.MaxValue;
+                foreach (Thing anomaly in tmpThings)
+                {
+                    if (!anomaly.Spawned)
+                        continue;
+                    float d = anomaly.Position.DistanceTo(pos);
+                    if (d <= tier.anomalyRange)
+                    {
+                        detectedAnomalies.Add(anomaly);
+                        if (d < nearest) nearest = d;
+                    }
+                }
+                if (nearest < float.MaxValue && (!nextBeep.TryGetValue(id, out int nb) || tick >= nb))
+                {
+                    ZoneEffects.PlaySound(SZ_DefOf.SZ_Detector_Beep, pos, map);
+                    nextBeep[id] = tick + 15 + (int)(nearest * 10f);   // вплотную ~4 раза в сек., на краю раз в 2 сек.
+                }
+
+                // Артефакты: находим вблизи, метим издалека
+                for (int i = latentArtifacts.Count - 1; i >= 0; i--)
+                {
+                    LatentArtifact la = latentArtifacts[i];
+                    if (la.def == null || la.tier > tier.level)
+                        continue;
+                    float d = la.cell.DistanceTo(pos);
+                    if (d <= tier.revealRange)
+                    {
+                        Reveal(la);
+                        latentArtifacts.RemoveAt(i);
+                    }
+                    else if (d <= tier.markRange)
+                    {
+                        markedArtifacts.Add(la.cell);
+                    }
+                }
+
+                // Дозиметр: щелчки в радиоактивном пятне, чаще ближе к центру
+                if (ZoneDefs.RadiationSpot != null && (!nextGeiger.TryGetValue(id, out int ng) || tick >= ng))
+                {
+                    float best = float.MaxValue;
+                    foreach (Thing spot in map.listerThings.ThingsOfDef(ZoneDefs.RadiationSpot))
+                        best = Math.Min(best, spot.Position.DistanceTo(pos));
+                    if (best <= RadiationSpotRadius + 1f)
+                    {
+                        ZoneEffects.PlaySound(SZ_DefOf.SZ_Geiger_Click, pos, map);
+                        nextGeiger[id] = tick + (int)(best * 4f) + Rand.Range(0, 12);
+                    }
+                }
+            }
+        }
+
+        /// <summary>Артефакт найден: появляется на земле (запрещён для подбора — решение за игроком).</summary>
+        private void Reveal(LatentArtifact la)
+        {
+            IntVec3 cell = la.cell;
+            if (!cell.InBounds(map) || !cell.Standable(map) || cell.GetEdifice(map) != null)
+            {
+                if (!CellFinder.TryFindRandomCellNear(la.cell, map, 2, c => c.Standable(map) && c.GetEdifice(map) == null, out cell))
+                    return;
+            }
+            Thing item = GenSpawn.Spawn(ThingMaker.MakeThing(la.def), cell, map);
+            item.SetForbidden(true, false);
+            fieldArtifacts.Add(item);
+            ZoneEffects.PlaySound(SZ_DefOf.SZ_Detector_Artifact, cell, map);
+            Messages.Message("SZ_ArtifactDetected".Translate(item.LabelCap), item, MessageTypeDefOf.PositiveEvent, false);
+        }
+
+        public void AddLatentArtifact(IntVec3 cell, ThingDef def, int tier)
+        {
+            latentArtifacts.Add(new LatentArtifact { cell = cell, def = def, tier = tier });
+        }
+
+        public void ClearLatentArtifacts()
+        {
+            latentArtifacts.Clear();
         }
 
         // ---------- Аномалии: затягивание и срабатывание ----------
@@ -118,7 +266,6 @@ namespace StalkerZone
             }
         }
 
-        /// <summary>Тянет пешек на клетку к центру (воронка, карусель, мясорубка).</summary>
         private void Pull(Thing anomaly, AnomalyProfile p)
         {
             IntVec3 center = anomaly.Position;
@@ -127,18 +274,23 @@ namespace StalkerZone
             {
                 IntVec3 pos = pawn.Position;
                 if (pos.DistanceTo(center) <= 1.5f)
-                    continue;   // уже в зоне срабатывания
+                    continue;
                 IntVec3 next = pos + new IntVec3(Math.Sign(center.x - pos.x), 0, Math.Sign(center.z - pos.z));
                 if (next.InBounds(map) && next.Walkable(map))
+                {
+                    FleckMaker.ThrowDustPuff(pos, map, 0.6f);
                     ZoneEffects.MovePawn(pawn, next);
+                }
             }
         }
 
         private void Trigger(Thing anomaly, AnomalyProfile p, int tick)
         {
-            // Трамплин: без взрыва, отбрасывает и оглушает
-            if (p.throwsInsteadOfExplosion)
+            // Трамплин: удар и отброс, без урона по площади
+            if (p.throwsInsteadOfDamage)
             {
+                ZoneEffects.PlaySound(p.Sound, anomaly.Position, map);
+                FleckMaker.ThrowDustPuff(anomaly.Position, map, 2f);
                 foreach (Pawn pawn in tmpPawns)
                 {
                     ZoneEffects.ThrowPawn(pawn, anomaly.Position, p.throwDistance, false);
@@ -149,14 +301,14 @@ namespace StalkerZone
                 return;
             }
 
-            ZoneEffects.Explode(anomaly);
+            List<Pawn> victims = ZoneEffects.Discharge(anomaly, p);
 
             if (p.chainLightning)
-                ZoneEffects.ChainLightning(anomaly, ChainRadius, ChainTargets);
+                ZoneEffects.ChainLightning(anomaly, ChainRadius, ChainTargets, p.Damage);
 
-            if (p.throwsAfterExplosion)   // карусель швыряет в случайную сторону
+            if (p.throwsAfterDischarge)
             {
-                foreach (Pawn pawn in tmpPawns)
+                foreach (Pawn pawn in victims)
                 {
                     if (pawn.Dead || !pawn.Spawned)
                         continue;
@@ -193,7 +345,7 @@ namespace StalkerZone
             }
         }
 
-        // ---------- Комета: ходит по кругу и обжигает ----------
+        // ---------- Комета ----------
         private void TickComets()
         {
             CollectThings(ZoneDefs.Comets);
@@ -201,6 +353,7 @@ namespace StalkerZone
             {
                 if (!comet.Spawned)
                     continue;
+                AnomalyProfile p = ZoneDefs.ProfileOf(comet.def);
                 int id = comet.thingIDNumber;
                 if (!cometOrigins.TryGetValue(id, out IntVec3 origin))
                 {
@@ -216,11 +369,18 @@ namespace StalkerZone
                 {
                     comet.DeSpawn();
                     GenSpawn.Spawn(comet, dest, map);
+                    FleckMaker.ThrowHeatGlow(dest, map, 1.5f);
                 }
 
                 ZoneEffects.PawnsAround(comet.Position, map, 1.5f, tmpPawns);
-                foreach (Pawn pawn in tmpPawns)
-                    pawn.TakeDamage(new DamageInfo(DamageDefOf.Flame, CometBurnDamage, 0f, -1f, comet));
+                if (tmpPawns.Count > 0)
+                {
+                    ZoneEffects.PlaySound(p.Sound, comet.Position, map);
+                    FleckMaker.ThrowFireGlow(comet.DrawPos, map, 2f);
+                    DamageDef damage = p.Damage ?? DamageDefOf.Flame;
+                    foreach (Pawn pawn in tmpPawns)
+                        pawn.TakeDamage(new DamageInfo(damage, p.damageAmount, 0.2f, -1f, comet));
+                }
             }
         }
 
@@ -249,7 +409,7 @@ namespace StalkerZone
             }
         }
 
-        // ---------- "Еле заметны, видно вблизи" ----------
+        // ---------- Признаки и звуки вблизи (без детектора) ----------
         private void TickHints()
         {
             var colonists = map.mapPawns.FreeColonistsSpawned;
@@ -264,7 +424,10 @@ namespace StalkerZone
                 {
                     if (colonist.Position.DistanceTo(anomaly.Position) <= HintRadius)
                     {
-                        ZoneEffects.ThrowHint(anomaly, ZoneDefs.ProfileOf(anomaly.def).fleck);
+                        AnomalyProfile p = ZoneDefs.ProfileOf(anomaly.def);
+                        ZoneEffects.ThrowHint(anomaly, p.fleck);
+                        if (Rand.Chance(IdleSoundChance))
+                            ZoneEffects.PlaySound(p.IdleSound, anomaly.Position, map);
                         break;
                     }
                 }
@@ -272,14 +435,9 @@ namespace StalkerZone
         }
 
         // ---------- Артефакты поля ----------
-        public void RegisterFieldArtifact(Thing item)
-        {
-            fieldArtifacts.Add(item);
-        }
-
         /// <summary>
-        /// Перед новым полем: убирает артефакты, которые игрок так и не забрал
-        /// (лежат вне колонии и всё ещё запрещены). Остальные считаются найденными.
+        /// Перед новым полем: убирает найденные, но не подобранные артефакты
+        /// (лежат вне колонии и всё ещё запрещены).
         /// </summary>
         public void RemoveUnclaimedArtifacts()
         {
@@ -324,15 +482,19 @@ namespace StalkerZone
                 fieldArtifacts.RemoveAll(t => t == null || t.Destroyed);
             Scribe_Values.Look(ref fieldsSpawned, "fieldsSpawned", false);
             Scribe_Values.Look(ref anomaliesBuilt, "anomaliesBuilt", false);
+            Scribe_Values.Look(ref signsPlaced, "signsPlaced", false);
             Scribe_Collections.Look(ref cometOrigins, "cometOrigins", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref cometSteps, "cometSteps", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref fieldArtifacts, "fieldArtifacts", LookMode.Reference);
+            Scribe_Collections.Look(ref latentArtifacts, "latentArtifacts", LookMode.Deep);
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 if (cometOrigins == null) cometOrigins = new Dictionary<int, IntVec3>();
                 if (cometSteps == null) cometSteps = new Dictionary<int, int>();
                 if (fieldArtifacts == null) fieldArtifacts = new List<Thing>();
+                if (latentArtifacts == null) latentArtifacts = new List<LatentArtifact>();
                 fieldArtifacts.RemoveAll(t => t == null);
+                latentArtifacts.RemoveAll(la => la == null || la.def == null);
             }
         }
     }

@@ -93,13 +93,40 @@
   <ThingDef ParentName="SZ_FieldBase">
     <defName>SZ_Field_Radiation</defName>
     <label>radioactive spot</label>
-    <description>Contaminated ground. Anyone who lingers here slowly develops radiation sickness. Radiation resistance reduces the dose.</description>
+    <description>Contaminated ground: dead grass and sickly yellow stains. Anyone who lingers here slowly develops radiation sickness. Radiation resistance reduces the dose. The area is marked with radiation hazard signs.</description>
     <graphicData>
       <texPath>Things/Building/SZ_Fields/RadiationSpot</texPath>  <!-- папка с 8 кадрами -->
       <graphicClass>Graphic_Flicker</graphicClass>
       <shaderType>Transparent</shaderType>
       <drawSize>(10,10)</drawSize>             <!-- ≈ радиус действия 4.9 клетки -->
     </graphicData>
+  </ThingDef>
+
+  <!-- ================= ЗНАК РАДИАЦИОННОЙ ОПАСНОСТИ =================
+       Ставится C#-частью по краю каждого радиоактивного пятна (4 штуки). Чисто метка:
+       не мешает ходить, не горит, не ломается. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>SZ_RadiationSign</defName>
+    <label>radiation hazard sign</label>
+    <description>A post with a radiation hazard sign marking the edge of contaminated ground.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Things/Building/SZ_Fields/RadiationSign</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <rotatable>false</rotatable>
+    <useHitPoints>false</useHitPoints>
+    <destroyable>false</destroyable>
+    <stealable>false</stealable>
+    <tickerType>Never</tickerType>
+    <building>
+      <isEdifice>false</isEdifice>
+      <claimable>false</claimable>
+      <deconstructible>false</deconstructible>
+    </building>
   </ThingDef>
 
 </Defs>

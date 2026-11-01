@@ -8,6 +8,14 @@
     <parent>Apparel</parent>
   </ThingCategoryDef>
 
+  <!-- Свой слой одежды для артефакта: занимает пояс, но не конфликтует
+       с поясными вещами (детектор, щит-пояс). Один артефакт за раз. -->
+  <ApparelLayerDef>
+    <defName>SZ_ArtifactLayer</defName>
+    <label>artifact</label>
+    <drawOrder>350</drawOrder>
+  </ApparelLayerDef>
+
   <!-- ================= ОБЛУЧЕНИЕ ОТ АРТЕФАКТА =================
        Появляется, пока артефакт на поясе (CompProperties_CauseHediff_Apparel),
        и исчезает, когда его снимают (HediffCompProperties_RemoveIfApparelDropped).
@@ -90,7 +98,7 @@
   </HediffDef>
 
   <!-- ================= БАЗА АРТЕФАКТА =================
-       Артефакт = предмет одежды на поясе (слой Belt, как щит-пояс), один за раз.
+       Артефакт = предмет одежды на поясе в своём слое SZ_ArtifactLayer, один за раз.
        Бонусы даёт equippedStatOffsets, облучение — CompProperties_CauseHediff_Apparel. -->
   <ThingDef ParentName="ApparelBase" Name="SZ_ArtifactBase" Abstract="True">
     <thingCategories Inherit="False">
@@ -110,7 +118,7 @@
     </thingSetMakerTags>
     <apparel>
       <layers>
-        <li>Belt</li>
+        <li>SZ_ArtifactLayer</li>
       </layers>
       <bodyPartGroups>
         <li>Waist</li>

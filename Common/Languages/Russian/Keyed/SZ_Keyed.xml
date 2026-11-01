@@ -5,4 +5,6 @@
   <SZ_AnomaliesShiftedText>Выброс прошёл, и поле аномалий изменилось. Старые аномалии исчезли, а новые возникли в других местах. В них могут быть свежие артефакты.</SZ_AnomaliesShiftedText>
   <SZ_ShelterOrdered>Приближается Выброс: колонисты уходят в укрытие. Призванные колонисты остаются там, где вы их поставили.</SZ_ShelterOrdered>
   <SZ_PsiBreakReason>пси-воздействие</SZ_PsiBreakReason>
+  <SZ_CannotAttackAnomaly>Аномалию нельзя атаковать: бить там нечего. Обходите её.</SZ_CannotAttackAnomaly>
+  <SZ_ArtifactDetected>Детектор: рядом найден артефакт ({0}).</SZ_ArtifactDetected>
 </LanguageData>
