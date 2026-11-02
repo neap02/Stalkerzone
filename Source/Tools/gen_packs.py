@@ -100,9 +100,6 @@ for (k,en,ru,style,cols,st,val,mass,rec,tags,den,dru) in ITEMS:
     <graphicData>
       <texPath>Things/Item/SZ_Packs/{k}</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>({cols[0][0]:.2f}, {cols[0][1]:.2f}, {cols[0][2]:.2f})</color>
-      <colorTwo>({cols[1][0]:.2f}, {cols[1][1]:.2f}, {cols[1][2]:.2f})</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -116,7 +113,6 @@ for (k,en,ru,style,cols,st,val,mass,rec,tags,den,dru) in ITEMS:
 {offs}    </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>{APP}/{k}/{k}</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags>{tg}</tags>
     </apparel>
     <costList>{cs}</costList>
@@ -249,16 +245,21 @@ def render_pack(k,style,cols,body,view,seed=0):
     layer=grain(layer,seed)
     return finish(layer,mask,yA-40,(yB-yA)+80)
 
-import suit_art3 as art
+import suit_art4 as art
+_WL=[(104,100,70),(72,80,52),(130,112,78),(52,48,36)]
+PLOOK={'Bag':('woodland',_WL,(80,72,52),None),'Tourist':('solid',[(84,98,106)],(52,60,66),None),
+       'Raid':('woodland',[(86,92,62),(62,70,46),(110,100,70),(46,46,34)],(70,76,52),None),
+       'Frame':('solid',[(112,84,56)],(70,54,38),None),'Lead':('solid',[(120,124,126)],(80,84,86),None),
+       'Medic':('solid',[(70,88,60)],(50,62,44),None),'Tank':('solid',[(150,154,156)],(60,60,60),None),
+       'TwinTank':('solid',[(214,128,40)],(60,60,60),None),'ClosedCycle':('solid',[(220,220,214)],(80,140,190),None),
+       'Cooling':('solid',[(70,76,82)],(60,130,180),None)}
 for n,(k,en,ru,style,cols,*_r) in enumerate(ITEMS):
     path=f'{T}/{APP}/{k}/{k}'; os.makedirs(os.path.dirname(path),exist_ok=True)
     for body in ('Male','Female','Thin','Fat','Hulk'):
         for view in ('south','east','north'):
-            c,m=art.render_pack(style,body,view,seed=n*17)
-            c.save(f'{path}_{body}_{view}.png',optimize=True); m.save(f'{path}_{body}_{view}_m.png',optimize=True)
-    c,m=art.render_pack(style,'Male','north',seed=n*17)
+            art.render_pack(style,PLOOK[k],body,view,seed=n*17).save(f'{path}_{body}_{view}.png',optimize=True)
+    c=art.render_pack(style,PLOOK[k],'Male','north',seed=n*17)
     bb=c.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16; cx,cy=(bb[0]+bb[2])//2,(bb[1]+bb[3])//2
     box=(cx-side//2,cy-side//2,cx+side//2,cy+side//2); os.makedirs(f'{T}/Things/Item/SZ_Packs',exist_ok=True)
     c.crop(box).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/SZ_Packs/{k}.png')
-    m.crop(box).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/SZ_Packs/{k}_m.png')
 print('packs:',len(ITEMS))

@@ -174,6 +174,43 @@ UPG=[
 ]
 
 # Стиль шлема по классу костюма (и особые случаи)
+
+# Внешний вид: (камуфляж, палитра RGB, цвет снаряжения, цвет нашивки). Камуфляжи свои, обобщённые.
+_WL=[(104,100,70),(72,80,52),(130,112,78),(52,48,36)]
+_WD=[(84,84,60),(60,66,46),(110,96,68),(44,42,32)]
+_FR=[(78,104,58),(56,80,42),(108,120,74),(40,52,30)]
+_DG=[(66,66,68),(42,42,44),(92,92,94)]
+_FL=[(96,104,70),(64,74,48),(122,110,78)]
+_MN=[(176,178,176),(140,142,142),(112,114,116)]
+_MR=[(62,72,92),(44,52,70),(84,94,112)]
+LOOK={
+ 'ScoutCloak':('woodland',[(86,96,60),(60,72,44),(112,108,72),(46,50,34)],(70,78,58),(200,170,60)),
+ 'LonerJacket':('solid',[(98,80,58)],(70,66,50),(210,170,60)),
+ 'Stalker':('woodland',_WL,(98,92,64),(210,170,60)),
+ 'StalkerReinforced':('woodland',_WD,(132,112,80),(210,170,60)),
+ 'DutyUniform':('digital',_DG,(40,40,42),(170,40,40)),
+ 'Duty':('digital',[(58,58,60),(38,38,40),(80,80,82)],(92,32,30),(190,46,40)),
+ 'DutyAssault':('digital',[(46,46,48),(30,30,32),(66,66,68)],(84,30,28),(190,46,40)),
+ 'FreedomLight':('woodland',_FR,(66,82,50),(230,210,90)),
+ 'Freedom':('woodland',_FR,(66,82,50),(230,210,90)),
+ 'FreedomGuardian':('woodland',_FR,(58,72,44),(230,210,90)),
+ 'Bandit':('solid',[(40,38,36)],(52,46,40),(150,150,150)),
+ 'BanditCoat':('solid',[(70,52,38)],(48,40,32),(150,150,150)),
+ 'MilitaryUniform':('flora',_FL,(88,92,62),(200,180,80)),
+ 'Military':('flora',_FL,(80,86,58),(200,180,80)),
+ 'MilitaryAssault':('flora',_FL,(70,76,52),(200,180,80)),
+ 'MonolithSuit':('urban',_MN,(120,122,124),(100,170,220)),
+ 'Monolith':('urban',_MN,(108,110,112),(100,170,220)),
+ 'MercLight':('urban',_MR,(40,42,46),(220,220,220)),
+ 'Mercenary':('urban',_MR,(40,42,46),(220,220,220)),
+ 'MercHeavy':('urban',_MR,(36,38,42),(220,220,220)),
+ 'Scientist':('solid',[(214,128,40)],(90,90,90),(60,60,60)),
+ 'ClosedCycle':('solid',[(222,222,214)],(110,110,110),(214,128,40)),
+ 'Exo':('solid',[(62,64,66)],(70,72,74),(220,130,40)),
+ 'ExoAssault':('solid',[(50,52,54)],(62,64,66),(200,50,40)),
+ 'Helmet_Stalker':('woodland',_WL,(98,92,64),(210,170,60)),
+ 'Helmet_Psi':('urban',_MN,(120,122,124),(100,170,220)),
+}
 HEADCOL={'Helmet_Stalker':((0.40,0.42,0.35),(0.30,0.32,0.26)),'Helmet_Psi':((0.62,0.64,0.70),(0.45,0.47,0.52))}
 HSTYLE={'light':'cap','cloak':'hood','medium':'combat','heavy':'visor','science':'sealed','exo':'exo'}
 HSTYLE_BY_SUIT={'MonolithSuit':'psi','Bandit':'hood','BanditCoat':'hood'}
@@ -284,9 +321,6 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
     <graphicData>
       <texPath>Things/Item/SZ_Suits/{k}</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>({cols[0][0]:.2f}, {cols[0][1]:.2f}, {cols[0][2]:.2f})</color>
-      <colorTwo>({cols[1][0]:.2f}, {cols[1][1]:.2f}, {cols[1][2]:.2f})</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>{int(150+prot['sharp']*250)}</MaxHitPoints>
@@ -300,7 +334,6 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
 {offs}    </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>{VAN}/SZ_Suits/{k}/{k}</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags>{tg}</tags>
     </apparel>
     <comps>
@@ -325,9 +358,6 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/{k}</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>({cols[0][0]:.2f}, {cols[0][1]:.2f}, {cols[0][2]:.2f})</color>
-      <colorTwo>({cols[1][0]:.2f}, {cols[1][1]:.2f}, {cols[1][2]:.2f})</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>{int(90+prot['sharp']*150)}</MaxHitPoints>
@@ -342,7 +372,6 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
       <layers><li>Overhead</li></layers>
       <bodyPartGroups>{grp}</bodyPartGroups>
       <wornGraphicPath>{VAN}/SZ_Helmets/{k}/{k}</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags>{tg}</tags>
     </apparel>
 {recipe_block(research,users,hcost,max(1,skill-1))}  </ThingDef>
@@ -350,6 +379,7 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
     tr_t.append((f'SZ_Helm_{k}',f'{ru} ({hru})',f'{hru.capitalize()} из комплекта «{ru}».'+(' Закрывает всю голову.' if st in HFULL else '')))
 
 def head_gfx(k):
+    return ''
     if k=='GasMask': return ''
     a,b=HEADCOL[k]
     return (f"\n      <shaderType>CutoutComplex</shaderType>\n      <color>({a[0]:.2f}, {a[1]:.2f}, {a[2]:.2f})</color>"
@@ -381,7 +411,7 @@ for (k,en,ru,tex,layer,groups,col,armor_d,offs_d,val,mass,rec,tags,den,dru) in H
     <apparel>
       <layers><li>{layer}</li></layers>
       <bodyPartGroups>{gr}</bodyPartGroups>
-      <wornGraphicPath>{tex}</wornGraphicPath>{'' if k=='GasMask' else chr(10)+'      <useWornGraphicMask>true</useWornGraphicMask>'}
+      <wornGraphicPath>{tex}</wornGraphicPath>
       <tags>{tg}</tags>
     </apparel>
 {recipe_block(research,users,cost,skill)}  </ThingDef>
@@ -477,9 +507,6 @@ for (k,kind,en,ru,st,val,mass,cost,tags,den,dru) in EXO:
     <graphicData>
       <texPath>Things/Item/SZ_Exo/{k}</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>({a[0]:.2f}, {a[1]:.2f}, {a[2]:.2f})</color>
-      <colorTwo>({b[0]:.2f}, {b[1]:.2f}, {b[2]:.2f})</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>260</MaxHitPoints>
@@ -495,7 +522,6 @@ for (k,kind,en,ru,st,val,mass,cost,tags,den,dru) in EXO:
       <layers><li>SZ_ExoLayer</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>{VAN}/SZ_Exo/{k}/{k}</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags>{tg}</tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -611,44 +637,44 @@ open(f'{L}/StatDef/SZ_Gear.xml','w',encoding='utf-8').write('''<?xml version="1.
 ''')
 
 # =====================================================================
-# ГРАФИКА: Source/Tools/suit_art3.py — детальный стиль: серые текстуры + маска цвета (_m),
-# тонкие внутренние линии, мягкий объём, мелкие детали. Комбинезон — одна деталь,
-# каркас экзоскелета — отдельная вещь.
+# ГРАФИКА: Source/Tools/suit_art4.py — реалистичный стиль: цвет и камуфляж запечены
+# в текстуру, тональные линии, тени под деталями, стропа и пряжки, стройные шлемы.
 # =====================================================================
 import sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import suit_art3 as art
+import suit_art4 as art
 BODIES=['Male','Female','Thin','Fat','Hulk']
-def save_pair(pair,path):
-    c,m=pair; c.save(path+'.png',optimize=True); m.save(path+'_m.png',optimize=True)
-def save_icon(pair,folder,name):
-    c,m=pair; bb=c.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16
-    cx,cy=(bb[0]+bb[2])//2,(bb[1]+bb[3])//2; box=(cx-side//2,cy-side//2,cx+side//2,cy+side//2)
+def save_icon(im,folder,name):
+    bb=im.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16
+    cx,cy=(bb[0]+bb[2])//2,(bb[1]+bb[3])//2
     os.makedirs(f'{T}/Things/Item/{folder}',exist_ok=True)
-    c.crop(box).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/{folder}/{name}.png')
-    m.crop(box).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/{folder}/{name}_m.png')
-# Тяжёлая часть (≈700 спрайтов, несколько минут). SZ_SKIP_SUIT_ART=1 — пропустить.
+    im.crop((cx-side//2,cy-side//2,cx+side//2,cy+side//2)).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/{folder}/{name}.png')
+ONLY=set(x for x in os.environ.get('SZ_ONLY','').split(',') if x)   # частями: SZ_ONLY=Duty,Freedom или EXTRA
 if os.environ.get('SZ_SKIP_SUIT_ART')!='1':
     for n,(k,en,ru,cls,cols,*_rest) in enumerate(SUITS):
-        acc=cols[2]; st=HSTYLE_BY_SUIT.get(k,HSTYLE[cls])
+        if ONLY and k not in ONLY: continue
+        look=LOOK[k]; st=HSTYLE_BY_SUIT.get(k,HSTYLE[cls]); c_cls='bandit' if k in ('Bandit','BanditCoat') and cls=='light' else cls
         for folder in ('SZ_Suits','SZ_Helmets'): os.makedirs(f'{T}/{VAN}/{folder}/{k}',exist_ok=True)
         for body in BODIES:
             for view in ('south','east','north'):
-                save_pair(art.render_coverall(cls,body,view,seed=n*31,accent=acc),f'{T}/{VAN}/SZ_Suits/{k}/{k}_{body}_{view}')
+                art.render_coverall(c_cls,look,body,view,seed=n*31).save(f'{T}/{VAN}/SZ_Suits/{k}/{k}_{body}_{view}.png',optimize=True)
         for view in ('south','east','north'):
-            save_pair(art.render_helmet(st,view,seed=n*31,accent=acc),f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}')
-        save_icon(art.render_coverall(cls,'Male','south',seed=n*31,accent=acc),'SZ_Suits',k)
-        save_icon(art.render_helmet(st,'south',seed=n*31,accent=acc),'SZ_Helmets',k)
-    for k,st in (('Helmet_Stalker','combat'),('Helmet_Psi','psi')):
-        os.makedirs(f'{T}/{VAN}/SZ_Helmets/{k}',exist_ok=True)
-        for view in ('south','east','north'):
-            save_pair(art.render_helmet(st,view,accent=(0.40,0.70,0.90)),f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}')
-        save_icon(art.render_helmet(st,'south',accent=(0.40,0.70,0.90)),'SZ_Helmets',k)
-    for (k,kind,*_r) in EXO:
-        os.makedirs(f'{T}/{VAN}/SZ_Exo/{k}',exist_ok=True)
-        for body in BODIES:
+            art.render_helmet(st,look,view,seed=n*31).save(f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}.png',optimize=True)
+        save_icon(art.render_coverall(c_cls,look,'Male','south',seed=n*31),'SZ_Suits',k)
+        save_icon(art.render_helmet(st,look,'south',seed=n*31),'SZ_Helmets',k)
+        print('suit',k,flush=True)
+    if not ONLY or 'EXTRA' in ONLY:
+        for k,st in (('Helmet_Stalker','combat'),('Helmet_Psi','psi')):
+            os.makedirs(f'{T}/{VAN}/SZ_Helmets/{k}',exist_ok=True)
             for view in ('south','east','north'):
-                save_pair(art.render_exo(kind,body,view),f'{T}/{VAN}/SZ_Exo/{k}/{k}_{body}_{view}')
-        save_icon(art.render_exo(kind,'Male','north'),'SZ_Exo',k)
+                art.render_helmet(st,LOOK[k],view).save(f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}.png',optimize=True)
+            save_icon(art.render_helmet(st,LOOK[k],'south'),'SZ_Helmets',k)
+        for (k,kind,*_r) in EXO:
+            os.makedirs(f'{T}/{VAN}/SZ_Exo/{k}',exist_ok=True)
+            for body in BODIES:
+                for view in ('south','east','north'):
+                    art.render_exo(kind,body,view).save(f'{T}/{VAN}/SZ_Exo/{k}/{k}_{body}_{view}.png',optimize=True)
+            save_icon(art.render_exo(kind,'Male','north'),'SZ_Exo',k)
+        print('helmets+exo done',flush=True)
 
 # ---------- Остальная графика ----------
 def save(path,img): os.makedirs(os.path.dirname(path),exist_ok=True); img.save(path)

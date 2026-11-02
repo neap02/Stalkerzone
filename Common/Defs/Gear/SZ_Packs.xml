@@ -40,9 +40,6 @@
     <graphicData>
       <texPath>Things/Item/SZ_Packs/Bag</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>(0.45, 0.42, 0.30)</color>
-      <colorTwo>(0.30, 0.27, 0.18)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -57,7 +54,6 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Bag/Bag</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li><li>SZ_Faction_Bandits</li></tags>
     </apparel>
     <costList><Cloth>30</Cloth></costList>
@@ -77,9 +73,6 @@
     <graphicData>
       <texPath>Things/Item/SZ_Packs/Tourist</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>(0.30, 0.38, 0.42)</color>
-      <colorTwo>(0.20, 0.25, 0.28)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -95,7 +88,6 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Tourist/Tourist</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li><li>SZ_Faction_Freedom</li></tags>
     </apparel>
     <costList><Cloth>50</Cloth></costList>
@@ -115,9 +107,6 @@
     <graphicData>
       <texPath>Things/Item/SZ_Packs/Raid</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>(0.36, 0.38, 0.26)</color>
-      <colorTwo>(0.24, 0.26, 0.17)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -134,7 +123,6 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Raid/Raid</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li><li>SZ_Faction_Duty</li><li>SZ_Faction_Freedom</li><li>SZ_Faction_Military</li><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <costList><Cloth>70</Cloth><Steel>10</Steel></costList>
@@ -154,9 +142,6 @@
     <graphicData>
       <texPath>Things/Item/SZ_Packs/Frame</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>(0.42, 0.30, 0.20)</color>
-      <colorTwo>(0.28, 0.20, 0.13)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -173,7 +158,6 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Frame/Frame</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <costList><Cloth>80</Cloth><Steel>40</Steel></costList>
@@ -193,9 +177,6 @@
     <graphicData>
       <texPath>Things/Item/SZ_Packs/Lead</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>(0.50, 0.52, 0.54)</color>
-      <colorTwo>(0.35, 0.37, 0.39)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -213,7 +194,6 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Lead/Lead</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Freedom</li><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <costList><Cloth>40</Cloth><Steel>80</Steel></costList>
@@ -233,9 +213,6 @@
     <graphicData>
       <texPath>Things/Item/SZ_Packs/Medic</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>(0.25, 0.36, 0.24)</color>
-      <colorTwo>(0.17, 0.25, 0.16)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -251,7 +228,6 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Medic/Medic</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Military</li><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <costList><Cloth>40</Cloth><MedicineHerbal>2</MedicineHerbal></costList>
@@ -271,9 +247,6 @@
     <graphicData>
       <texPath>Things/Item/SZ_Packs/Tank</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>(0.55, 0.58, 0.60)</color>
-      <colorTwo>(0.25, 0.26, 0.27)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -290,7 +263,6 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Tank/Tank</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Military</li></tags>
     </apparel>
     <costList><Steel>40</Steel><ComponentIndustrial>2</ComponentIndustrial></costList>
@@ -310,9 +282,6 @@
     <graphicData>
       <texPath>Things/Item/SZ_Packs/TwinTank</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>(0.86, 0.52, 0.18)</color>
-      <colorTwo>(0.28, 0.28, 0.28)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -329,7 +298,6 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/TwinTank/TwinTank</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Monolith</li><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <costList><Steel>70</Steel><ComponentIndustrial>3</ComponentIndustrial></costList>
@@ -349,9 +317,6 @@
     <graphicData>
       <texPath>Things/Item/SZ_Packs/ClosedCycle</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>(0.90, 0.90, 0.86)</color>
-      <colorTwo>(0.30, 0.55, 0.75)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -370,7 +335,6 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/ClosedCycle/ClosedCycle</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <costList><Plasteel>40</Plasteel><ComponentIndustrial>4</ComponentIndustrial><ComponentSpacer>1</ComponentSpacer></costList>
@@ -390,9 +354,6 @@
     <graphicData>
       <texPath>Things/Item/SZ_Packs/Cooling</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>(0.30, 0.34, 0.38)</color>
-      <colorTwo>(0.25, 0.55, 0.80)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -409,7 +370,6 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Cooling/Cooling</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <costList><Steel>50</Steel><Plasteel>20</Plasteel><ComponentIndustrial>3</ComponentIndustrial></costList>
