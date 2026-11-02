@@ -135,6 +135,103 @@ SUITS=[
    'Штурмовая бронезащита для экзоскелета. Самая прочная броня в Зоне и самая тяжёлая.'),
 ]
 
+# ======================= ОБЛИК: крой, головной убор, названия (свои) =======================
+NAMES={
+ 'ScoutCloak':('"Leshy" ghillie suit','маскхалат «Леший»'),
+ 'LonerJacket':("drifter's leather jacket",'кожанка бродяги'),
+ 'Stalker':('"Walker" coverall','комбинезон «Ходок»'),
+ 'StalkerReinforced':('"Old Hand" armored coverall','бронекомбинезон «Бывалый»'),
+ 'DutyUniform':('"Sentry" field uniform','полевая форма «Часовой»'),
+ 'Duty':('"Bastion" armored suit','бронекостюм «Бастион»'),
+ 'DutyAssault':('"Hammer" assault kit','штурмовой комплект «Молот»'),
+ 'FreedomLight':('"Breeze" light suit','лёгкий костюм «Ветер»'),
+ 'Freedom':('"Liberty" coverall','комбинезон «Воля»'),
+ 'FreedomGuardian':('"Free Guard" armored coverall','бронекомбинезон «Вольный страж»'),
+ 'Bandit':('black leather jacket','чёрная кожанка'),
+ 'BanditCoat':('"Touring" armored coat','бронеплащ «Гастролёр»'),
+ 'MilitaryUniform':('cordon field uniform','полевая форма кордона'),
+ 'Military':('army armor kit','армейский бронекомплект'),
+ 'MilitaryAssault':('special forces assault kit','штурмовой комплект спецназа'),
+ 'MonolithSuit':("acolyte's vestment",'облачение послушника'),
+ 'Monolith':('"Tablet" armor','броня «Скрижаль»'),
+ 'MercLight':('"Contract" tactical suit','тактический костюм «Контракт»'),
+ 'Mercenary':('"Hire" combat suit','боевой костюм «Наём»'),
+ 'MercHeavy':('"Guarantor" heavy kit','тяжёлый комплект «Гарант»'),
+ 'Scientist':('"Lab Tech" chemical suit','химзащитный комбинезон «Лаборант»'),
+ 'ClosedCycle':('"Barrier" isolating suit','изолирующий костюм «Барьер»'),
+ 'Exo':('exoskeleton armor shell','бронеоболочка экзоскелета'),
+ 'ExoAssault':('"Ram" assault armor shell','штурмовая бронеоболочка «Таран»'),
+}
+SPEC={
+ 'ScoutCloak':dict(garment='ghillie',rig='vest',hood=True,collar='none',cargo=False,patch=False),
+ 'LonerJacket':dict(garment='jacket',collar='fur',zipper=True,belt='leather',trousers=(52,56,48)),
+ 'Stalker':dict(garment='coverall',rig='chest',hood=True,knees=True),
+ 'StalkerReinforced':dict(garment='coverall',rig='carrier',hood=True,knees=True,shoulders='soft',kneecol=(70,62,48)),
+ 'DutyUniform':dict(garment='coverall',rig='vest',collar='high',armband=(150,36,32)),
+ 'Duty':dict(garment='coverall',rig='heavy',shoulders='segmented',plate=(54,54,56),knees=True,armband=(150,36,32)),
+ 'DutyAssault':dict(garment='coverall',rig='plates',plate=(46,46,48),shoulders='segmented',knees=True,thighplates=True,armband=(150,36,32)),
+ 'FreedomLight':dict(garment='jacket',rig='chest',hood=True,trousers=(64,74,50),zipper=True),
+ 'Freedom':dict(garment='coverall',rig='carrier',hood=True,knees=True,armband=(70,140,60)),
+ 'FreedomGuardian':dict(garment='coverall',rig='heavy',shoulders='soft',knees=True,thighplates=True,plate=(58,72,44)),
+ 'Bandit':dict(garment='jacket',collar='high',zipper=True,belt='leather',trousers=(44,48,58),patch=False),
+ 'BanditCoat':dict(garment='coat',rig='vest',collar='high',zipper=True,belt='leather',trousers=(40,40,40)),
+ 'MilitaryUniform':dict(garment='coverall',rig='chest'),
+ 'Military':dict(garment='coverall',rig='carrier',knees=True),
+ 'MilitaryAssault':dict(garment='coverall',rig='heavy',shoulders='segmented',plate=(70,76,52),knees=True,thighplates=True),
+ 'MonolithSuit':dict(garment='coat',rig='vest',hood=True,collar='none',trousers=(120,122,124),armband=(220,220,214)),
+ 'Monolith':dict(garment='coverall',rig='plates',plate=(104,106,108),shoulders='segmented',hood=True,knees=True,thighplates=True),
+ 'MercLight':dict(garment='jacket',rig='vest',zipper=True,trousers=(40,42,46)),
+ 'Mercenary':dict(garment='coverall',rig='carrier',knees=True),
+ 'MercHeavy':dict(garment='coverall',rig='heavy',shoulders='soft',knees=True,thighplates=True,plate=(40,42,46)),
+ 'Scientist':dict(garment='hazmat',collar='ring',cargo=False,belt='none',boots=(70,72,70),patch=False),
+ 'ClosedCycle':dict(garment='hazmat',collar='ring',cargo=False,belt='none',boots=(80,82,80),rig='plates',plate=(150,152,150),shoulders='soft',patch=False),
+ 'Exo':dict(garment='coverall',rig='plates',plate=(62,64,66),shoulders='segmented',thighplates=True,knees=True,kneecol=(62,64,66),cargo=False),
+ 'ExoAssault':dict(garment='coverall',rig='plates',plate=(50,52,54),shoulders='segmented',thighplates=True,knees=True,kneecol=(50,52,54),cargo=False),
+}
+HS={'ScoutCloak':'ghillie_hood','LonerJacket':'beanie','Stalker':'hood','StalkerReinforced':'steel','DutyUniform':'cap',
+    'Duty':'steel','DutyAssault':'faceshield','FreedomLight':'balaclava','Freedom':'tactical','FreedomGuardian':'steel',
+    'Bandit':'flatcap','BanditCoat':'hood','MilitaryUniform':'cap','Military':'steel','MilitaryAssault':'faceshield',
+    'MonolithSuit':'hood','Monolith':'psi','MercLight':'headset_cap','Mercenary':'tactical','MercHeavy':'faceshield',
+    'Scientist':'gasmask_hood','ClosedCycle':'cbrn','Exo':'exo_mask','ExoAssault':'exo_mask_assault'}
+HNAME={
+ 'ScoutCloak':('ghillie hood','капюшон «Леший»'),'LonerJacket':('knit beanie','вязаная шапка'),'Stalker':('field hood','полевой капюшон'),
+ 'StalkerReinforced':('steel helmet, woodland cover','стальная каска в лесном чехле'),'DutyUniform':('patrol cap','полевое кепи'),
+ 'Duty':('black steel helmet','чёрная стальная каска'),'DutyAssault':('assault helmet with armored visor','штурмовой шлем с бронезабралом'),
+ 'FreedomLight':('green balaclava','зелёная балаклава'),'Freedom':('high-cut tactical helmet','тактический шлем'),
+ 'FreedomGuardian':('steel helmet, green cover','стальная каска в зелёном чехле'),'Bandit':('flat cap','кепка-восьмиклинка'),
+ 'BanditCoat':('dark hood','тёмный капюшон'),'MilitaryUniform':('army field cap','армейское кепи'),'Military':('army steel helmet','армейская каска'),
+ 'MilitaryAssault':('special forces visor helmet','шлем спецназа с забралом'),'MonolithSuit':('pale hood','бледный капюшон'),
+ 'Monolith':('shielded helmet','экранированный шлем'),'MercLight':('cap with headset','кепка с гарнитурой'),
+ 'Mercenary':('tactical helmet, urban cover','тактический шлем в городском чехле'),'MercHeavy':('heavy visor helmet','тяжёлый шлем с забралом'),
+ 'Scientist':('gas mask hood','противогазный капюшон'),'ClosedCycle':('isolating helmet','изолирующий шлем'),
+ 'Exo':('heavy helmet with gas mask','тяжёлый шлем с противогазом'),'ExoAssault':('armored helmet with gas mask','бронешлем с противогазом'),
+}
+HDESC={
+ 'beanie':('A warm knit beanie. Keeps the head warm, protects nothing.','Тёплая вязаная шапка. Греет, но ни от чего не защищает.'),
+ 'cap':('A cloth field cap with a short visor.','Тканевое кепи с коротким козырьком.'),
+ 'flatcap':('A worn flat cap.','Поношенная кепка-восьмиклинка.'),
+ 'headset_cap':('A cap with a radio headset.','Кепка с гарнитурой рации.'),
+ 'balaclava':('A knit balaclava that leaves only the eyes open.','Вязаная балаклава, открыты только глаза.'),
+ 'hood':('A cloth hood. Keeps off rain and a little dust.','Тканевый капюшон. Защищает от дождя и немного от пыли.'),
+ 'ghillie_hood':('A hood covered in fabric strips. Breaks up the outline of the head.','Капюшон, обшитый лоскутами ткани. Размывает силуэт головы.'),
+ 'steel':('A classic steel helmet in a fabric cover, with a chin strap.','Классическая стальная каска в тканевом чехле, с подбородочным ремнём.'),
+ 'tactical':('A high-cut tactical helmet with side rails and a mount for a device.','Тактический шлем с вырезом над ушами, боковыми рельсами и креплением под прибор.'),
+ 'psi':('A tactical helmet with a psi shielding coil and a small antenna.','Тактический шлем с пси-экранирующим контуром и небольшой антенной.'),
+ 'faceshield':('A heavy helmet with a clear armored face shield.','Тяжёлый шлем с прозрачным бронезабралом.'),
+ 'gasmask_hood':('A rubberized hood with a panoramic gas mask and a side filter. The working headgear of Zone scientists.','Прорезиненный капюшон с панорамной маской и боковым фильтром. Рабочий головной убор учёных Зоны.'),
+ 'cbrn':('A sealed helmet with a wide clear visor and a breathing hose. Fully isolates the wearer.','Герметичный шлем с широким прозрачным стеклом и дыхательным шлангом. Полностью изолирует владельца.'),
+ 'closed':('A closed exoskeleton helmet with a narrow visor and a filter grille.','Закрытый шлем экзоскелета с узким стеклом и решёткой фильтра.'),
+ 'exo_mask':('A heavy steel helmet with bolted cheek plates, a neck guard and an attached gas mask with a side filter.','Тяжёлая стальная каска с щёчками на болтах, назатыльником и пристёгнутым противогазом с боковым фильтром.'),
+ 'exo_mask_assault':('A thicker armored version of the heavy helmet with a gas mask and a chin plate.','Утолщённый бронированный вариант тяжёлого шлема с противогазом и бронепластиной на подбородке.'),
+}
+HFULL={'balaclava','gasmask_hood','cbrn','closed','faceshield','exo_mask','exo_mask_assault'}
+SOFT={'beanie','cap','flatcap','headset_cap','balaclava','hood','ghillie_hood'}
+HBONUS={'beanie':{},'cap':{},'flatcap':{},'headset_cap':{},'balaclava':{'rad':0.02},'hood':{'rad':0.03},'ghillie_hood':{},
+        'steel':{'psi':0.03},'tactical':{'psi':0.05},'psi':{'psi':0.40},'faceshield':{'psi':0.05},
+        'gasmask_hood':{'rad':0.15,'psi':0.10,'tox':0.40},'cbrn':{'rad':0.20,'psi':0.15,'tox':0.60},'closed':{'psi':0.10,'rad':0.05},'exo_mask':{'psi':0.10,'rad':0.10,'tox':0.40},'exo_mask_assault':{'psi':0.12,'rad':0.10,'tox':0.40}}
+HSTYLE_BY_SUIT=HS
+SUITS=[(k,NAMES[k][0],NAMES[k][1],*rest) for (k,en,ru,*rest) in SUITS]
+
 HEAD=[
  ('Helmet_Stalker','stalker helmet','шлем сталкера',f'{VAN}/SZ_Helmets/Helmet_Stalker/Helmet_Stalker','Overhead',['UpperHead'],(0.40,0.42,0.35),
    dict(sharp=0.40,blunt=0.20,heat=0.10,strike=0.20,rupture=0.10,shock=0.10,burn=0.10,chem=0.05),dict(psi=0.10),
@@ -213,11 +310,8 @@ LOOK={
 }
 HEADCOL={'Helmet_Stalker':((0.40,0.42,0.35),(0.30,0.32,0.26)),'Helmet_Psi':((0.62,0.64,0.70),(0.45,0.47,0.52))}
 HSTYLE={'light':'cap','cloak':'hood','medium':'combat','heavy':'visor','science':'sealed','exo':'exo'}
-HSTYLE_BY_SUIT={'MonolithSuit':'psi','Bandit':'hood','BanditCoat':'hood'}
 HNOUN={'cap':('cap','шапка'),'hood':('hood','капюшон'),'combat':('helmet','шлем'),'psi':('psi helmet','пси-шлем'),
        'visor':('visor helmet','шлем с забралом'),'sealed':('sealed helmet','гермошлем'),'exo':('exo helmet','шлем экзоскелета')}
-HFULL={'visor','sealed','exo'}                   # закрывают всю голову
-HBONUS={'psi':{'psi':0.40},'sealed':{'psi':0.15,'rad':0.15},'exo':{'psi':0.10,'rad':0.05},'visor':{'psi':0.05},'combat':{'psi':0.05},'cap':{},'hood':{'rad':0.03}}
 
 ARMOR={'sharp':'ArmorRating_Sharp','blunt':'ArmorRating_Blunt','heat':'ArmorRating_Heat',
        'strike':'SZ_ArmorRating_Strike','rupture':'SZ_ArmorRating_Rupture','shock':'SZ_ArmorRating_Shock',
@@ -346,15 +440,15 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
     def scaled(keys,f): return ''.join(f'      <{ARMOR[a]}>{round(prot[a]*f,3)}</{ARMOR[a]}>\n' for a in keys if prot.get(a))
     tg=''.join(f'<li>SZ_Faction_{t}</li>' for t in tags)
     # ---- шлем комплекта ----
-    st=HSTYLE_BY_SUIT.get(k,HSTYLE[cls]); hen,hru=HNOUN[st]
+    st=HS[k]; hen,hru=HNAME[k]
     hcost={m:max(1,int(math.ceil(v*0.3))) for m,v in cost.items()}
     hb=''.join(f'      <{OFFS[a]}>{v}</{OFFS[a]}>\n' for a,v in HBONUS[st].items())
     grp='<li>FullHead</li>' if st in HFULL else '<li>UpperHead</li>'
     w(f"""
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_{k}</defName>
-    <label>{esc(en)} {hen}</label>
-    <description>The {hen} from the {esc(en)} set.{' Covers the whole head.' if st in HFULL else ''}</description>
+    <label>{esc(hen)}</label>
+    <description>{esc(HDESC[st][0])}{' Covers the whole head.' if st in HFULL else ''}</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/{k}</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -365,7 +459,7 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
       <Mass>{round(max(0.4,mass*0.12),1)}</Mass>
       <WorkToMake>{int(work*0.3)}</WorkToMake>
       <EquipDelay>1.5</EquipDelay>
-{scaled(['sharp','blunt','heat','strike','rupture','shock','burn','chem'],0.85)}    </statBases>
+{scaled(['sharp','blunt','heat','strike','rupture','shock','burn','chem'],0.25 if st in SOFT else 0.85)}    </statBases>
     <equippedStatOffsets>
 {hb}    </equippedStatOffsets>
     <apparel>
@@ -376,7 +470,7 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
     </apparel>
 {recipe_block(research,users,hcost,max(1,skill-1))}  </ThingDef>
 """)
-    tr_t.append((f'SZ_Helm_{k}',f'{ru} ({hru})',f'{hru.capitalize()} из комплекта «{ru}».'+(' Закрывает всю голову.' if st in HFULL else '')))
+    tr_t.append((f'SZ_Helm_{k}',hru,HDESC[st][1]+(' Закрывает всю голову.' if st in HFULL else '')))
 
 def head_gfx(k):
     return ''
@@ -641,7 +735,8 @@ open(f'{L}/StatDef/SZ_Gear.xml','w',encoding='utf-8').write('''<?xml version="1.
 # в текстуру, тональные линии, тени под деталями, стропа и пряжки, стройные шлемы.
 # =====================================================================
 import sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import suit_art4 as art
+import suit_art4 as art4
+import suit_art5 as art
 BODIES=['Male','Female','Thin','Fat','Hulk']
 def save_icon(im,folder,name):
     bb=im.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16
@@ -652,28 +747,28 @@ ONLY=set(x for x in os.environ.get('SZ_ONLY','').split(',') if x)   # частя
 if os.environ.get('SZ_SKIP_SUIT_ART')!='1':
     for n,(k,en,ru,cls,cols,*_rest) in enumerate(SUITS):
         if ONLY and k not in ONLY: continue
-        look=LOOK[k]; st=HSTYLE_BY_SUIT.get(k,HSTYLE[cls]); c_cls='bandit' if k in ('Bandit','BanditCoat') and cls=='light' else cls
+        look=LOOK[k]; st=HS[k]
         for folder in ('SZ_Suits','SZ_Helmets'): os.makedirs(f'{T}/{VAN}/{folder}/{k}',exist_ok=True)
         for body in BODIES:
             for view in ('south','east','north'):
-                art.render_coverall(c_cls,look,body,view,seed=n*31).save(f'{T}/{VAN}/SZ_Suits/{k}/{k}_{body}_{view}.png',optimize=True)
+                art.render_suit(SPEC[k],look,body,view,seed=n*31).save(f'{T}/{VAN}/SZ_Suits/{k}/{k}_{body}_{view}.png',optimize=True)
         for view in ('south','east','north'):
-            art.render_helmet(st,look,view,seed=n*31).save(f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}.png',optimize=True)
-        save_icon(art.render_coverall(c_cls,look,'Male','south',seed=n*31),'SZ_Suits',k)
-        save_icon(art.render_helmet(st,look,'south',seed=n*31),'SZ_Helmets',k)
+            art.render_head(st,look,view,seed=n*31).save(f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}.png',optimize=True)
+        save_icon(art.render_suit(SPEC[k],look,'Male','south',seed=n*31),'SZ_Suits',k)
+        save_icon(art.render_head(st,look,'south',seed=n*31),'SZ_Helmets',k)
         print('suit',k,flush=True)
     if not ONLY or 'EXTRA' in ONLY:
-        for k,st in (('Helmet_Stalker','combat'),('Helmet_Psi','psi')):
+        for k,st in (('Helmet_Stalker','steel'),('Helmet_Psi','psi')):
             os.makedirs(f'{T}/{VAN}/SZ_Helmets/{k}',exist_ok=True)
             for view in ('south','east','north'):
-                art.render_helmet(st,LOOK[k],view).save(f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}.png',optimize=True)
-            save_icon(art.render_helmet(st,LOOK[k],'south'),'SZ_Helmets',k)
+                art.render_head(st,LOOK[k],view).save(f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}.png',optimize=True)
+            save_icon(art.render_head(st,LOOK[k],'south'),'SZ_Helmets',k)
         for (k,kind,*_r) in EXO:
             os.makedirs(f'{T}/{VAN}/SZ_Exo/{k}',exist_ok=True)
             for body in BODIES:
                 for view in ('south','east','north'):
-                    art.render_exo(kind,body,view).save(f'{T}/{VAN}/SZ_Exo/{k}/{k}_{body}_{view}.png',optimize=True)
-            save_icon(art.render_exo(kind,'Male','north'),'SZ_Exo',k)
+                    art4.render_exo(kind,body,view).save(f'{T}/{VAN}/SZ_Exo/{k}/{k}_{body}_{view}.png',optimize=True)
+            save_icon(art4.render_exo(kind,'Male','north'),'SZ_Exo',k)
         print('helmets+exo done',flush=True)
 
 # ---------- Остальная графика ----------

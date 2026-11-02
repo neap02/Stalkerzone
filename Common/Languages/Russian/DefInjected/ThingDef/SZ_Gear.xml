@@ -1,101 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <SZ_Suit_ScoutCloak.label>маскхалат разведчика</SZ_Suit_ScoutCloak.label>
+  <SZ_Suit_ScoutCloak.label>маскхалат «Леший»</SZ_Suit_ScoutCloak.label>
   <SZ_Suit_ScoutCloak.description>Лёгкий маскировочный халат с капюшоном. Почти не защищает, зато не сковывает движений.</SZ_Suit_ScoutCloak.description>
-  <SZ_Helm_ScoutCloak.label>маскхалат разведчика (капюшон)</SZ_Helm_ScoutCloak.label>
-  <SZ_Helm_ScoutCloak.description>Капюшон из комплекта «маскхалат разведчика».</SZ_Helm_ScoutCloak.description>
-  <SZ_Suit_LonerJacket.label>куртка сталкера</SZ_Suit_LonerJacket.label>
+  <SZ_Helm_ScoutCloak.label>капюшон «Леший»</SZ_Helm_ScoutCloak.label>
+  <SZ_Helm_ScoutCloak.description>Капюшон, обшитый лоскутами ткани. Размывает силуэт головы.</SZ_Helm_ScoutCloak.description>
+  <SZ_Suit_LonerJacket.label>кожанка бродяги</SZ_Suit_LonerJacket.label>
   <SZ_Suit_LonerJacket.description>Потёртая кожаная куртка со вшитыми защитными вставками. Дешёвая, лёгкая и лучше, чем ничего.</SZ_Suit_LonerJacket.description>
-  <SZ_Helm_LonerJacket.label>куртка сталкера (шапка)</SZ_Helm_LonerJacket.label>
-  <SZ_Helm_LonerJacket.description>Шапка из комплекта «куртка сталкера».</SZ_Helm_LonerJacket.description>
-  <SZ_Suit_Stalker.label>комбинезон сталкера</SZ_Suit_Stalker.label>
+  <SZ_Helm_LonerJacket.label>вязаная шапка</SZ_Helm_LonerJacket.label>
+  <SZ_Helm_LonerJacket.description>Тёплая вязаная шапка. Греет, но ни от чего не защищает.</SZ_Helm_LonerJacket.description>
+  <SZ_Suit_Stalker.label>комбинезон «Ходок»</SZ_Suit_Stalker.label>
   <SZ_Suit_Stalker.description>Надёжный универсальный комбинезон для походов в Зону: бронепанели, проклеенные швы и крепление под два артефакта.</SZ_Suit_Stalker.description>
-  <SZ_Helm_Stalker.label>комбинезон сталкера (шлем)</SZ_Helm_Stalker.label>
-  <SZ_Helm_Stalker.description>Шлем из комплекта «комбинезон сталкера».</SZ_Helm_Stalker.description>
-  <SZ_Suit_StalkerReinforced.label>усиленный комбинезон сталкера</SZ_Suit_StalkerReinforced.label>
+  <SZ_Helm_Stalker.label>полевой капюшон</SZ_Helm_Stalker.label>
+  <SZ_Helm_Stalker.description>Тканевый капюшон. Защищает от дождя и немного от пыли.</SZ_Helm_Stalker.description>
+  <SZ_Suit_StalkerReinforced.label>бронекомбинезон «Бывалый»</SZ_Suit_StalkerReinforced.label>
   <SZ_Suit_StalkerReinforced.description>Комбинезон бывалого сталкера с дополнительными пластинами и герметичным капюшоном. Тяжелее, зато держит и пули, и аномалии.</SZ_Suit_StalkerReinforced.description>
-  <SZ_Helm_StalkerReinforced.label>усиленный комбинезон сталкера (шлем с забралом)</SZ_Helm_StalkerReinforced.label>
-  <SZ_Helm_StalkerReinforced.description>Шлем с забралом из комплекта «усиленный комбинезон сталкера». Закрывает всю голову.</SZ_Helm_StalkerReinforced.description>
-  <SZ_Suit_DutyUniform.label>полевая форма Долга</SZ_Suit_DutyUniform.label>
+  <SZ_Helm_StalkerReinforced.label>стальная каска в лесном чехле</SZ_Helm_StalkerReinforced.label>
+  <SZ_Helm_StalkerReinforced.description>Классическая стальная каска в тканевом чехле, с подбородочным ремнём.</SZ_Helm_StalkerReinforced.description>
+  <SZ_Suit_DutyUniform.label>полевая форма «Часовой»</SZ_Suit_DutyUniform.label>
   <SZ_Suit_DutyUniform.description>Повседневная форма патрулей Долга с лёгким бронежилетом.</SZ_Suit_DutyUniform.description>
-  <SZ_Helm_DutyUniform.label>полевая форма Долга (шлем)</SZ_Helm_DutyUniform.label>
-  <SZ_Helm_DutyUniform.description>Шлем из комплекта «полевая форма Долга».</SZ_Helm_DutyUniform.description>
-  <SZ_Suit_Duty.label>бронекостюм Долга</SZ_Suit_Duty.label>
+  <SZ_Helm_DutyUniform.label>полевое кепи</SZ_Helm_DutyUniform.label>
+  <SZ_Helm_DutyUniform.description>Тканевое кепи с коротким козырьком.</SZ_Helm_DutyUniform.description>
+  <SZ_Suit_Duty.label>бронекостюм «Бастион»</SZ_Suit_Duty.label>
   <SZ_Suit_Duty.description>Тяжёлая броня бойцов Долга. Хорошо держит пули и удары, но тяжела для владельца.</SZ_Suit_Duty.description>
-  <SZ_Helm_Duty.label>бронекостюм Долга (шлем с забралом)</SZ_Helm_Duty.label>
-  <SZ_Helm_Duty.description>Шлем с забралом из комплекта «бронекостюм Долга». Закрывает всю голову.</SZ_Helm_Duty.description>
-  <SZ_Suit_DutyAssault.label>штурмовая броня Долга</SZ_Suit_DutyAssault.label>
+  <SZ_Helm_Duty.label>чёрная стальная каска</SZ_Helm_Duty.label>
+  <SZ_Helm_Duty.description>Классическая стальная каска в тканевом чехле, с подбородочным ремнём.</SZ_Helm_Duty.description>
+  <SZ_Suit_DutyAssault.label>штурмовой комплект «Молот»</SZ_Suit_DutyAssault.label>
   <SZ_Suit_DutyAssault.description>Штурмовая броня для зачистки логов мутантов. Почти не пробивается и очень тяжела.</SZ_Suit_DutyAssault.description>
-  <SZ_Helm_DutyAssault.label>штурмовая броня Долга (шлем с забралом)</SZ_Helm_DutyAssault.label>
-  <SZ_Helm_DutyAssault.description>Шлем с забралом из комплекта «штурмовая броня Долга». Закрывает всю голову.</SZ_Helm_DutyAssault.description>
-  <SZ_Suit_FreedomLight.label>лёгкий костюм Свободы</SZ_Suit_FreedomLight.label>
+  <SZ_Helm_DutyAssault.label>штурмовой шлем с бронезабралом</SZ_Helm_DutyAssault.label>
+  <SZ_Helm_DutyAssault.description>Тяжёлый шлем с прозрачным бронезабралом. Закрывает всю голову.</SZ_Helm_DutyAssault.description>
+  <SZ_Suit_FreedomLight.label>лёгкий костюм «Ветер»</SZ_Suit_FreedomLight.label>
   <SZ_Suit_FreedomLight.description>Лёгкий костюм для быстрых вылазок, с креплением под два артефакта.</SZ_Suit_FreedomLight.description>
-  <SZ_Helm_FreedomLight.label>лёгкий костюм Свободы (шапка)</SZ_Helm_FreedomLight.label>
-  <SZ_Helm_FreedomLight.description>Шапка из комплекта «лёгкий костюм Свободы».</SZ_Helm_FreedomLight.description>
-  <SZ_Suit_Freedom.label>комбинезон Свободы</SZ_Suit_Freedom.label>
+  <SZ_Helm_FreedomLight.label>зелёная балаклава</SZ_Helm_FreedomLight.label>
+  <SZ_Helm_FreedomLight.description>Вязаная балаклава, открыты только глаза. Закрывает всю голову.</SZ_Helm_FreedomLight.description>
+  <SZ_Suit_Freedom.label>комбинезон «Воля»</SZ_Suit_Freedom.label>
   <SZ_Suit_Freedom.description>Лёгкий боевой комбинезон, любимый Свободой: хорошая защита от аномалий и место под три артефакта.</SZ_Suit_Freedom.description>
-  <SZ_Helm_Freedom.label>комбинезон Свободы (шлем)</SZ_Helm_Freedom.label>
-  <SZ_Helm_Freedom.description>Шлем из комплекта «комбинезон Свободы».</SZ_Helm_Freedom.description>
-  <SZ_Suit_FreedomGuardian.label>броня стража Свободы</SZ_Suit_FreedomGuardian.label>
+  <SZ_Helm_Freedom.label>тактический шлем</SZ_Helm_Freedom.label>
+  <SZ_Helm_Freedom.description>Тактический шлем с вырезом над ушами, боковыми рельсами и креплением под прибор.</SZ_Helm_Freedom.description>
+  <SZ_Suit_FreedomGuardian.label>бронекомбинезон «Вольный страж»</SZ_Suit_FreedomGuardian.label>
   <SZ_Suit_FreedomGuardian.description>Тяжёлая броня лучших бойцов Свободы, одинаково годная для перестрелок и для Зоны.</SZ_Suit_FreedomGuardian.description>
-  <SZ_Helm_FreedomGuardian.label>броня стража Свободы (шлем с забралом)</SZ_Helm_FreedomGuardian.label>
-  <SZ_Helm_FreedomGuardian.description>Шлем с забралом из комплекта «броня стража Свободы». Закрывает всю голову.</SZ_Helm_FreedomGuardian.description>
-  <SZ_Suit_Bandit.label>бандитская куртка</SZ_Suit_Bandit.label>
+  <SZ_Helm_FreedomGuardian.label>стальная каска в зелёном чехле</SZ_Helm_FreedomGuardian.label>
+  <SZ_Helm_FreedomGuardian.description>Классическая стальная каска в тканевом чехле, с подбородочным ремнём.</SZ_Helm_FreedomGuardian.description>
+  <SZ_Suit_Bandit.label>чёрная кожанка</SZ_Suit_Bandit.label>
   <SZ_Suit_Bandit.description>Длинное чёрное пальто с несколькими стальными пластинами в подкладке.</SZ_Suit_Bandit.description>
-  <SZ_Helm_Bandit.label>бандитская куртка (капюшон)</SZ_Helm_Bandit.label>
-  <SZ_Helm_Bandit.description>Капюшон из комплекта «бандитская куртка».</SZ_Helm_Bandit.description>
-  <SZ_Suit_BanditCoat.label>укреплённый кожаный плащ</SZ_Suit_BanditCoat.label>
+  <SZ_Helm_Bandit.label>кепка-восьмиклинка</SZ_Helm_Bandit.label>
+  <SZ_Helm_Bandit.description>Поношенная кепка-восьмиклинка.</SZ_Helm_Bandit.description>
+  <SZ_Suit_BanditCoat.label>бронеплащ «Гастролёр»</SZ_Suit_BanditCoat.label>
   <SZ_Suit_BanditCoat.description>Тяжёлый кожаный плащ поверх краденого бронежилета.</SZ_Suit_BanditCoat.description>
-  <SZ_Helm_BanditCoat.label>укреплённый кожаный плащ (капюшон)</SZ_Helm_BanditCoat.label>
-  <SZ_Helm_BanditCoat.description>Капюшон из комплекта «укреплённый кожаный плащ».</SZ_Helm_BanditCoat.description>
-  <SZ_Suit_MilitaryUniform.label>армейская полевая форма</SZ_Suit_MilitaryUniform.label>
+  <SZ_Helm_BanditCoat.label>тёмный капюшон</SZ_Helm_BanditCoat.label>
+  <SZ_Helm_BanditCoat.description>Тканевый капюшон. Защищает от дождя и немного от пыли.</SZ_Helm_BanditCoat.description>
+  <SZ_Suit_MilitaryUniform.label>полевая форма кордона</SZ_Suit_MilitaryUniform.label>
   <SZ_Suit_MilitaryUniform.description>Стандартная полевая форма войск кордона с лёгким жилетом.</SZ_Suit_MilitaryUniform.description>
-  <SZ_Helm_MilitaryUniform.label>армейская полевая форма (шапка)</SZ_Helm_MilitaryUniform.label>
-  <SZ_Helm_MilitaryUniform.description>Шапка из комплекта «армейская полевая форма».</SZ_Helm_MilitaryUniform.description>
-  <SZ_Suit_Military.label>армейский бронекостюм</SZ_Suit_Military.label>
+  <SZ_Helm_MilitaryUniform.label>армейское кепи</SZ_Helm_MilitaryUniform.label>
+  <SZ_Helm_MilitaryUniform.description>Тканевое кепи с коротким козырьком.</SZ_Helm_MilitaryUniform.description>
+  <SZ_Suit_Military.label>армейский бронекомплект</SZ_Suit_Military.label>
   <SZ_Suit_Military.description>Штатная броня войск кордона. Сделана для перестрелок, а не для аномалий.</SZ_Suit_Military.description>
-  <SZ_Helm_Military.label>армейский бронекостюм (шлем с забралом)</SZ_Helm_Military.label>
-  <SZ_Helm_Military.description>Шлем с забралом из комплекта «армейский бронекостюм». Закрывает всю голову.</SZ_Helm_Military.description>
-  <SZ_Suit_MilitaryAssault.label>армейская штурмовая броня</SZ_Suit_MilitaryAssault.label>
+  <SZ_Helm_Military.label>армейская каска</SZ_Helm_Military.label>
+  <SZ_Helm_Military.description>Классическая стальная каска в тканевом чехле, с подбородочным ремнём.</SZ_Helm_Military.description>
+  <SZ_Suit_MilitaryAssault.label>штурмовой комплект спецназа</SZ_Suit_MilitaryAssault.label>
   <SZ_Suit_MilitaryAssault.description>Штурмовая броня спецподразделений. Отлично держит пули, но слаба против Зоны.</SZ_Suit_MilitaryAssault.description>
-  <SZ_Helm_MilitaryAssault.label>армейская штурмовая броня (шлем с забралом)</SZ_Helm_MilitaryAssault.label>
-  <SZ_Helm_MilitaryAssault.description>Шлем с забралом из комплекта «армейская штурмовая броня». Закрывает всю голову.</SZ_Helm_MilitaryAssault.description>
-  <SZ_Suit_MonolithSuit.label>костюм Монолита</SZ_Suit_MonolithSuit.label>
+  <SZ_Helm_MilitaryAssault.label>шлем спецназа с забралом</SZ_Helm_MilitaryAssault.label>
+  <SZ_Helm_MilitaryAssault.description>Тяжёлый шлем с прозрачным бронезабралом. Закрывает всю голову.</SZ_Helm_MilitaryAssault.description>
+  <SZ_Suit_MonolithSuit.label>облачение послушника</SZ_Suit_MonolithSuit.label>
   <SZ_Suit_MonolithSuit.description>Бледный костюм послушников Монолита. Разум защищает лучше, чем тело.</SZ_Suit_MonolithSuit.description>
-  <SZ_Helm_MonolithSuit.label>костюм Монолита (пси-шлем)</SZ_Helm_MonolithSuit.label>
-  <SZ_Helm_MonolithSuit.description>Пси-шлем из комплекта «костюм Монолита».</SZ_Helm_MonolithSuit.description>
-  <SZ_Suit_Monolith.label>броня Монолита</SZ_Suit_Monolith.label>
+  <SZ_Helm_MonolithSuit.label>бледный капюшон</SZ_Helm_MonolithSuit.label>
+  <SZ_Helm_MonolithSuit.description>Тканевый капюшон. Защищает от дождя и немного от пыли.</SZ_Helm_MonolithSuit.description>
+  <SZ_Suit_Monolith.label>броня «Скрижаль»</SZ_Suit_Monolith.label>
   <SZ_Suit_Monolith.description>Бледная броня фанатиков Монолита. Надёжно защищает разум и тело от Зоны.</SZ_Suit_Monolith.description>
-  <SZ_Helm_Monolith.label>броня Монолита (шлем с забралом)</SZ_Helm_Monolith.label>
-  <SZ_Helm_Monolith.description>Шлем с забралом из комплекта «броня Монолита». Закрывает всю голову.</SZ_Helm_Monolith.description>
-  <SZ_Suit_MercLight.label>лёгкий костюм наёмника</SZ_Suit_MercLight.label>
+  <SZ_Helm_Monolith.label>экранированный шлем</SZ_Helm_Monolith.label>
+  <SZ_Helm_Monolith.description>Тактический шлем с пси-экранирующим контуром и небольшой антенной.</SZ_Helm_Monolith.description>
+  <SZ_Suit_MercLight.label>тактический костюм «Контракт»</SZ_Suit_MercLight.label>
   <SZ_Suit_MercLight.description>Лёгкий тактический костюм для быстрых заказов.</SZ_Suit_MercLight.description>
-  <SZ_Helm_MercLight.label>лёгкий костюм наёмника (шапка)</SZ_Helm_MercLight.label>
-  <SZ_Helm_MercLight.description>Шапка из комплекта «лёгкий костюм наёмника».</SZ_Helm_MercLight.description>
-  <SZ_Suit_Mercenary.label>костюм наёмника</SZ_Suit_Mercenary.label>
+  <SZ_Helm_MercLight.label>кепка с гарнитурой</SZ_Helm_MercLight.label>
+  <SZ_Helm_MercLight.description>Кепка с гарнитурой рации.</SZ_Helm_MercLight.description>
+  <SZ_Suit_Mercenary.label>боевой костюм «Наём»</SZ_Suit_Mercenary.label>
   <SZ_Suit_Mercenary.description>Профессиональный боевой костюм: сбалансированная защита и от пуль, и от аномалий.</SZ_Suit_Mercenary.description>
-  <SZ_Helm_Mercenary.label>костюм наёмника (шлем)</SZ_Helm_Mercenary.label>
-  <SZ_Helm_Mercenary.description>Шлем из комплекта «костюм наёмника».</SZ_Helm_Mercenary.description>
-  <SZ_Suit_MercHeavy.label>тяжёлая броня наёмника</SZ_Suit_MercHeavy.label>
+  <SZ_Helm_Mercenary.label>тактический шлем в городском чехле</SZ_Helm_Mercenary.label>
+  <SZ_Helm_Mercenary.description>Тактический шлем с вырезом над ушами, боковыми рельсами и креплением под прибор.</SZ_Helm_Mercenary.description>
+  <SZ_Suit_MercHeavy.label>тяжёлый комплект «Гарант»</SZ_Suit_MercHeavy.label>
   <SZ_Suit_MercHeavy.description>Тяжёлая броня для хорошо оплаченной работы в глубине Зоны.</SZ_Suit_MercHeavy.description>
-  <SZ_Helm_MercHeavy.label>тяжёлая броня наёмника (шлем с забралом)</SZ_Helm_MercHeavy.label>
-  <SZ_Helm_MercHeavy.description>Шлем с забралом из комплекта «тяжёлая броня наёмника». Закрывает всю голову.</SZ_Helm_MercHeavy.description>
-  <SZ_Suit_Scientist.label>научный комбинезон</SZ_Suit_Scientist.label>
+  <SZ_Helm_MercHeavy.label>тяжёлый шлем с забралом</SZ_Helm_MercHeavy.label>
+  <SZ_Helm_MercHeavy.description>Тяжёлый шлем с прозрачным бронезабралом. Закрывает всю голову.</SZ_Helm_MercHeavy.description>
+  <SZ_Suit_Scientist.label>химзащитный комбинезон «Лаборант»</SZ_Suit_Scientist.label>
   <SZ_Suit_Scientist.description>Герметичный научный комбинезон. Слаб против пуль, зато лучше всего защищает от радиации, химии и огня.</SZ_Suit_Scientist.description>
-  <SZ_Helm_Scientist.label>научный комбинезон (гермошлем)</SZ_Helm_Scientist.label>
-  <SZ_Helm_Scientist.description>Гермошлем из комплекта «научный комбинезон». Закрывает всю голову.</SZ_Helm_Scientist.description>
-  <SZ_Suit_ClosedCycle.label>костюм замкнутого цикла</SZ_Suit_ClosedCycle.label>
+  <SZ_Helm_Scientist.label>противогазный капюшон</SZ_Helm_Scientist.label>
+  <SZ_Helm_Scientist.description>Прорезиненный капюшон с панорамной маской и боковым фильтром. Рабочий головной убор учёных Зоны. Закрывает всю голову.</SZ_Helm_Scientist.description>
+  <SZ_Suit_ClosedCycle.label>изолирующий костюм «Барьер»</SZ_Suit_ClosedCycle.label>
   <SZ_Suit_ClosedCycle.description>Научный костюм высшего класса с собственной системой дыхания. Лучшая защита от аномалий, какую знала Зона.</SZ_Suit_ClosedCycle.description>
-  <SZ_Helm_ClosedCycle.label>костюм замкнутого цикла (гермошлем)</SZ_Helm_ClosedCycle.label>
-  <SZ_Helm_ClosedCycle.description>Гермошлем из комплекта «костюм замкнутого цикла». Закрывает всю голову.</SZ_Helm_ClosedCycle.description>
-  <SZ_Suit_Exo.label>броня экзоскелета</SZ_Suit_Exo.label>
+  <SZ_Helm_ClosedCycle.label>изолирующий шлем</SZ_Helm_ClosedCycle.label>
+  <SZ_Helm_ClosedCycle.description>Герметичный шлем с широким прозрачным стеклом и дыхательным шлангом. Полностью изолирует владельца. Закрывает всю голову.</SZ_Helm_ClosedCycle.description>
+  <SZ_Suit_Exo.label>бронеоболочка экзоскелета</SZ_Suit_Exo.label>
   <SZ_Suit_Exo.description>Тяжёлая бронезащита для ношения вместе с каркасом экзоскелета. Держит пять артефактов. Без каркаса очень тяжела.</SZ_Suit_Exo.description>
-  <SZ_Helm_Exo.label>броня экзоскелета (шлем экзоскелета)</SZ_Helm_Exo.label>
-  <SZ_Helm_Exo.description>Шлем экзоскелета из комплекта «броня экзоскелета». Закрывает всю голову.</SZ_Helm_Exo.description>
-  <SZ_Suit_ExoAssault.label>штурмовая броня экзоскелета</SZ_Suit_ExoAssault.label>
+  <SZ_Helm_Exo.label>тяжёлый шлем с противогазом</SZ_Helm_Exo.label>
+  <SZ_Helm_Exo.description>Тяжёлая стальная каска с щёчками на болтах, назатыльником и пристёгнутым противогазом с боковым фильтром. Закрывает всю голову.</SZ_Helm_Exo.description>
+  <SZ_Suit_ExoAssault.label>штурмовая бронеоболочка «Таран»</SZ_Suit_ExoAssault.label>
   <SZ_Suit_ExoAssault.description>Штурмовая бронезащита для экзоскелета. Самая прочная броня в Зоне и самая тяжёлая.</SZ_Suit_ExoAssault.description>
-  <SZ_Helm_ExoAssault.label>штурмовая броня экзоскелета (шлем экзоскелета)</SZ_Helm_ExoAssault.label>
-  <SZ_Helm_ExoAssault.description>Шлем экзоскелета из комплекта «штурмовая броня экзоскелета». Закрывает всю голову.</SZ_Helm_ExoAssault.description>
+  <SZ_Helm_ExoAssault.label>бронешлем с противогазом</SZ_Helm_ExoAssault.label>
+  <SZ_Helm_ExoAssault.description>Утолщённый бронированный вариант тяжёлого шлема с противогазом и бронепластиной на подбородке. Закрывает всю голову.</SZ_Helm_ExoAssault.description>
   <SZ_Helmet_Stalker.label>шлем сталкера</SZ_Helmet_Stalker.label>
   <SZ_Helmet_Stalker.description>Стальной шлем с мягким подшлемником. Немного ослабляет и пси-давление.</SZ_Helmet_Stalker.description>
   <SZ_Helmet_Psi.label>пси-шлем</SZ_Helmet_Psi.label>

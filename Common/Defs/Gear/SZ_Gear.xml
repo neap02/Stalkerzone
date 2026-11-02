@@ -62,10 +62,10 @@
     <apparel><careIfWornByCorpse>false</careIfWornByCorpse></apparel>
   </ThingDef>
 
-  <!-- маскхалат разведчика: ячеек пояса 1, мест под улучшения 1 -->
+  <!-- маскхалат «Леший»: ячеек пояса 1, мест под улучшения 1 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_ScoutCloak</defName>
-    <label>scout cloak</label>
+    <label>"Leshy" ghillie suit</label>
     <description>A light camouflage cloak with a hood. Barely protects, but does not slow its wearer down.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/ScoutCloak</texPath>
@@ -111,8 +111,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_ScoutCloak</defName>
-    <label>scout cloak hood</label>
-    <description>The hood from the scout cloak set.</description>
+    <label>ghillie hood</label>
+    <description>A hood covered in fabric strips. Breaks up the outline of the head.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/ScoutCloak</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -123,17 +123,16 @@
       <Mass>0.4</Mass>
       <WorkToMake>2400</WorkToMake>
       <EquipDelay>1.5</EquipDelay>
-      <ArmorRating_Sharp>0.128</ArmorRating_Sharp>
-      <ArmorRating_Blunt>0.043</ArmorRating_Blunt>
-      <ArmorRating_Heat>0.085</ArmorRating_Heat>
-      <SZ_ArmorRating_Strike>0.043</SZ_ArmorRating_Strike>
-      <SZ_ArmorRating_Rupture>0.025</SZ_ArmorRating_Rupture>
-      <SZ_ArmorRating_Shock>0.043</SZ_ArmorRating_Shock>
-      <SZ_ArmorRating_Burn>0.085</SZ_ArmorRating_Burn>
-      <SZ_ArmorRating_Chemical>0.043</SZ_ArmorRating_Chemical>
+      <ArmorRating_Sharp>0.037</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.013</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.025</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.013</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.007</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.013</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.025</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.013</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
-      <SZ_RadiationResistance>0.03</SZ_RadiationResistance>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
@@ -151,10 +150,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- куртка сталкера: ячеек пояса 1, мест под улучшения 1 -->
+  <!-- кожанка бродяги: ячеек пояса 1, мест под улучшения 1 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_LonerJacket</defName>
-    <label>stalker jacket</label>
+    <label>drifter's leather jacket</label>
     <description>A worn leather jacket with sewn-in protective panels. Cheap, light and better than nothing.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/LonerJacket</texPath>
@@ -199,8 +198,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_LonerJacket</defName>
-    <label>stalker jacket cap</label>
-    <description>The cap from the stalker jacket set.</description>
+    <label>knit beanie</label>
+    <description>A warm knit beanie. Keeps the head warm, protects nothing.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/LonerJacket</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -211,14 +210,14 @@
       <Mass>0.4</Mass>
       <WorkToMake>2400</WorkToMake>
       <EquipDelay>1.5</EquipDelay>
-      <ArmorRating_Sharp>0.212</ArmorRating_Sharp>
-      <ArmorRating_Blunt>0.085</ArmorRating_Blunt>
-      <ArmorRating_Heat>0.128</ArmorRating_Heat>
-      <SZ_ArmorRating_Strike>0.085</SZ_ArmorRating_Strike>
-      <SZ_ArmorRating_Rupture>0.043</SZ_ArmorRating_Rupture>
-      <SZ_ArmorRating_Shock>0.085</SZ_ArmorRating_Shock>
-      <SZ_ArmorRating_Burn>0.128</SZ_ArmorRating_Burn>
-      <SZ_ArmorRating_Chemical>0.085</SZ_ArmorRating_Chemical>
+      <ArmorRating_Sharp>0.062</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.025</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.037</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.025</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.013</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.025</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.037</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.025</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
     </equippedStatOffsets>
@@ -238,10 +237,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- комбинезон сталкера: ячеек пояса 2, мест под улучшения 2 -->
+  <!-- комбинезон «Ходок»: ячеек пояса 2, мест под улучшения 2 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_Stalker</defName>
-    <label>stalker suit</label>
+    <label>"Walker" coverall</label>
     <description>A reliable all-round suit for trips into the Zone: armored panels, sealed seams and a rack for two artifacts.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Stalker</texPath>
@@ -288,8 +287,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_Stalker</defName>
-    <label>stalker suit helmet</label>
-    <description>The helmet from the stalker suit set.</description>
+    <label>field hood</label>
+    <description>A cloth hood. Keeps off rain and a little dust.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Stalker</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -300,17 +299,17 @@
       <Mass>0.7</Mass>
       <WorkToMake>4200</WorkToMake>
       <EquipDelay>1.5</EquipDelay>
-      <ArmorRating_Sharp>0.383</ArmorRating_Sharp>
-      <ArmorRating_Blunt>0.17</ArmorRating_Blunt>
-      <ArmorRating_Heat>0.212</ArmorRating_Heat>
-      <SZ_ArmorRating_Strike>0.17</SZ_ArmorRating_Strike>
-      <SZ_ArmorRating_Rupture>0.085</SZ_ArmorRating_Rupture>
-      <SZ_ArmorRating_Shock>0.212</SZ_ArmorRating_Shock>
-      <SZ_ArmorRating_Burn>0.212</SZ_ArmorRating_Burn>
-      <SZ_ArmorRating_Chemical>0.212</SZ_ArmorRating_Chemical>
+      <ArmorRating_Sharp>0.113</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.05</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.062</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.05</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.025</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.062</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.062</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.062</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
-      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <SZ_RadiationResistance>0.03</SZ_RadiationResistance>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
@@ -328,10 +327,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- усиленный комбинезон сталкера: ячеек пояса 2, мест под улучшения 3 -->
+  <!-- бронекомбинезон «Бывалый»: ячеек пояса 2, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_StalkerReinforced</defName>
-    <label>reinforced stalker suit</label>
+    <label>"Old Hand" armored coverall</label>
     <description>A veteran's suit with extra plates and a sealed hood. Heavier, but holds up against both bullets and anomalies.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/StalkerReinforced</texPath>
@@ -379,8 +378,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_StalkerReinforced</defName>
-    <label>reinforced stalker suit visor helmet</label>
-    <description>The visor helmet from the reinforced stalker suit set. Covers the whole head.</description>
+    <label>steel helmet, woodland cover</label>
+    <description>A classic steel helmet in a fabric cover, with a chin strap.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/StalkerReinforced</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -401,11 +400,11 @@
       <SZ_ArmorRating_Chemical>0.255</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
-      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <SZ_PsiProtection>0.03</SZ_PsiProtection>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
-      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/StalkerReinforced/StalkerReinforced</wornGraphicPath>
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
@@ -419,10 +418,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- полевая форма Долга: ячеек пояса 1, мест под улучшения 2 -->
+  <!-- полевая форма «Часовой»: ячеек пояса 1, мест под улучшения 2 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_DutyUniform</defName>
-    <label>Duty field uniform</label>
+    <label>"Sentry" field uniform</label>
     <description>Everyday uniform of Duty patrols with a light armored vest.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/DutyUniform</texPath>
@@ -468,8 +467,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_DutyUniform</defName>
-    <label>Duty field uniform helmet</label>
-    <description>The helmet from the Duty field uniform set.</description>
+    <label>patrol cap</label>
+    <description>A cloth field cap with a short visor.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/DutyUniform</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -480,17 +479,16 @@
       <Mass>0.6</Mass>
       <WorkToMake>4200</WorkToMake>
       <EquipDelay>1.5</EquipDelay>
-      <ArmorRating_Sharp>0.383</ArmorRating_Sharp>
-      <ArmorRating_Blunt>0.17</ArmorRating_Blunt>
-      <ArmorRating_Heat>0.17</ArmorRating_Heat>
-      <SZ_ArmorRating_Strike>0.17</SZ_ArmorRating_Strike>
-      <SZ_ArmorRating_Rupture>0.085</SZ_ArmorRating_Rupture>
-      <SZ_ArmorRating_Shock>0.128</SZ_ArmorRating_Shock>
-      <SZ_ArmorRating_Burn>0.17</SZ_ArmorRating_Burn>
-      <SZ_ArmorRating_Chemical>0.128</SZ_ArmorRating_Chemical>
+      <ArmorRating_Sharp>0.113</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.05</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.05</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.05</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.025</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.037</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.05</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.037</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
-      <SZ_PsiProtection>0.05</SZ_PsiProtection>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
@@ -508,10 +506,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- бронекостюм Долга: ячеек пояса 2, мест под улучшения 3 -->
+  <!-- бронекостюм «Бастион»: ячеек пояса 2, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_Duty</defName>
-    <label>Duty armored suit</label>
+    <label>"Bastion" armored suit</label>
     <description>Heavy armor issued to Duty fighters. Stops bullets and blows well, but weighs its wearer down.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Duty</texPath>
@@ -559,8 +557,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_Duty</defName>
-    <label>Duty armored suit visor helmet</label>
-    <description>The visor helmet from the Duty armored suit set. Covers the whole head.</description>
+    <label>black steel helmet</label>
+    <description>A classic steel helmet in a fabric cover, with a chin strap.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Duty</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -581,11 +579,11 @@
       <SZ_ArmorRating_Chemical>0.17</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
-      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <SZ_PsiProtection>0.03</SZ_PsiProtection>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
-      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Duty/Duty</wornGraphicPath>
       <tags><li>SZ_Faction_Duty</li></tags>
     </apparel>
@@ -599,10 +597,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- штурмовая броня Долга: ячеек пояса 2, мест под улучшения 3 -->
+  <!-- штурмовой комплект «Молот»: ячеек пояса 2, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_DutyAssault</defName>
-    <label>Duty assault armor</label>
+    <label>"Hammer" assault kit</label>
     <description>Assault armor for storming mutant lairs. Nearly bulletproof and very heavy.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/DutyAssault</texPath>
@@ -650,8 +648,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_DutyAssault</defName>
-    <label>Duty assault armor visor helmet</label>
-    <description>The visor helmet from the Duty assault armor set. Covers the whole head.</description>
+    <label>assault helmet with armored visor</label>
+    <description>A heavy helmet with a clear armored face shield. Covers the whole head.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/DutyAssault</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -690,10 +688,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- лёгкий костюм Свободы: ячеек пояса 2, мест под улучшения 1 -->
+  <!-- лёгкий костюм «Ветер»: ячеек пояса 2, мест под улучшения 1 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_FreedomLight</defName>
-    <label>Freedom light suit</label>
+    <label>"Breeze" light suit</label>
     <description>A light suit for fast raids, with a rack for two artifacts.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/FreedomLight</texPath>
@@ -741,8 +739,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_FreedomLight</defName>
-    <label>Freedom light suit cap</label>
-    <description>The cap from the Freedom light suit set.</description>
+    <label>green balaclava</label>
+    <description>A knit balaclava that leaves only the eyes open. Covers the whole head.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/FreedomLight</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -753,20 +751,21 @@
       <Mass>0.4</Mass>
       <WorkToMake>2400</WorkToMake>
       <EquipDelay>1.5</EquipDelay>
-      <ArmorRating_Sharp>0.255</ArmorRating_Sharp>
-      <ArmorRating_Blunt>0.102</ArmorRating_Blunt>
-      <ArmorRating_Heat>0.17</ArmorRating_Heat>
-      <SZ_ArmorRating_Strike>0.128</SZ_ArmorRating_Strike>
-      <SZ_ArmorRating_Rupture>0.068</SZ_ArmorRating_Rupture>
-      <SZ_ArmorRating_Shock>0.212</SZ_ArmorRating_Shock>
-      <SZ_ArmorRating_Burn>0.17</SZ_ArmorRating_Burn>
-      <SZ_ArmorRating_Chemical>0.17</SZ_ArmorRating_Chemical>
+      <ArmorRating_Sharp>0.075</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.03</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.05</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.037</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.02</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.062</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.05</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.05</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
+      <SZ_RadiationResistance>0.02</SZ_RadiationResistance>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
-      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
+      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/FreedomLight/FreedomLight</wornGraphicPath>
       <tags><li>SZ_Faction_Freedom</li></tags>
     </apparel>
@@ -780,10 +779,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- комбинезон Свободы: ячеек пояса 3, мест под улучшения 2 -->
+  <!-- комбинезон «Воля»: ячеек пояса 3, мест под улучшения 2 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_Freedom</defName>
-    <label>Freedom combat suit</label>
+    <label>"Liberty" coverall</label>
     <description>A light combat suit favored by Freedom: good anomaly protection and room for three artifacts.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Freedom</texPath>
@@ -830,8 +829,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_Freedom</defName>
-    <label>Freedom combat suit helmet</label>
-    <description>The helmet from the Freedom combat suit set.</description>
+    <label>high-cut tactical helmet</label>
+    <description>A high-cut tactical helmet with side rails and a mount for a device.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Freedom</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -870,10 +869,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- броня стража Свободы: ячеек пояса 3, мест под улучшения 3 -->
+  <!-- бронекомбинезон «Вольный страж»: ячеек пояса 3, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_FreedomGuardian</defName>
-    <label>Freedom guardian armor</label>
+    <label>"Free Guard" armored coverall</label>
     <description>Heavy armor of Freedom's best fighters, balanced between firefights and the Zone.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/FreedomGuardian</texPath>
@@ -921,8 +920,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_FreedomGuardian</defName>
-    <label>Freedom guardian armor visor helmet</label>
-    <description>The visor helmet from the Freedom guardian armor set. Covers the whole head.</description>
+    <label>steel helmet, green cover</label>
+    <description>A classic steel helmet in a fabric cover, with a chin strap.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/FreedomGuardian</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -943,11 +942,11 @@
       <SZ_ArmorRating_Chemical>0.255</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
-      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <SZ_PsiProtection>0.03</SZ_PsiProtection>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
-      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/FreedomGuardian/FreedomGuardian</wornGraphicPath>
       <tags><li>SZ_Faction_Freedom</li></tags>
     </apparel>
@@ -961,10 +960,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- бандитская куртка: ячеек пояса 1, мест под улучшения 1 -->
+  <!-- чёрная кожанка: ячеек пояса 1, мест под улучшения 1 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_Bandit</defName>
-    <label>bandit jacket</label>
+    <label>black leather jacket</label>
     <description>A long black coat with a few steel plates sewn into the lining.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Bandit</texPath>
@@ -1009,8 +1008,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_Bandit</defName>
-    <label>bandit jacket hood</label>
-    <description>The hood from the bandit jacket set.</description>
+    <label>flat cap</label>
+    <description>A worn flat cap.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Bandit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -1021,17 +1020,16 @@
       <Mass>0.5</Mass>
       <WorkToMake>2400</WorkToMake>
       <EquipDelay>1.5</EquipDelay>
-      <ArmorRating_Sharp>0.255</ArmorRating_Sharp>
-      <ArmorRating_Blunt>0.102</ArmorRating_Blunt>
-      <ArmorRating_Heat>0.085</ArmorRating_Heat>
-      <SZ_ArmorRating_Strike>0.085</SZ_ArmorRating_Strike>
-      <SZ_ArmorRating_Rupture>0.043</SZ_ArmorRating_Rupture>
-      <SZ_ArmorRating_Shock>0.043</SZ_ArmorRating_Shock>
-      <SZ_ArmorRating_Burn>0.085</SZ_ArmorRating_Burn>
-      <SZ_ArmorRating_Chemical>0.043</SZ_ArmorRating_Chemical>
+      <ArmorRating_Sharp>0.075</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.03</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.025</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.025</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.013</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.013</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.025</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.013</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
-      <SZ_RadiationResistance>0.03</SZ_RadiationResistance>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
@@ -1049,10 +1047,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- укреплённый кожаный плащ: ячеек пояса 2, мест под улучшения 2 -->
+  <!-- бронеплащ «Гастролёр»: ячеек пояса 2, мест под улучшения 2 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_BanditCoat</defName>
-    <label>reinforced leather coat</label>
+    <label>"Touring" armored coat</label>
     <description>A heavy leather coat over a stolen armored vest.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/BanditCoat</texPath>
@@ -1098,8 +1096,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_BanditCoat</defName>
-    <label>reinforced leather coat hood</label>
-    <description>The hood from the reinforced leather coat set.</description>
+    <label>dark hood</label>
+    <description>A cloth hood. Keeps off rain and a little dust.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/BanditCoat</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -1110,14 +1108,14 @@
       <Mass>0.6</Mass>
       <WorkToMake>4200</WorkToMake>
       <EquipDelay>1.5</EquipDelay>
-      <ArmorRating_Sharp>0.34</ArmorRating_Sharp>
-      <ArmorRating_Blunt>0.153</ArmorRating_Blunt>
-      <ArmorRating_Heat>0.128</ArmorRating_Heat>
-      <SZ_ArmorRating_Strike>0.128</SZ_ArmorRating_Strike>
-      <SZ_ArmorRating_Rupture>0.068</SZ_ArmorRating_Rupture>
-      <SZ_ArmorRating_Shock>0.085</SZ_ArmorRating_Shock>
-      <SZ_ArmorRating_Burn>0.128</SZ_ArmorRating_Burn>
-      <SZ_ArmorRating_Chemical>0.085</SZ_ArmorRating_Chemical>
+      <ArmorRating_Sharp>0.1</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.045</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.037</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.037</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.02</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.025</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.037</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.025</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
       <SZ_RadiationResistance>0.03</SZ_RadiationResistance>
@@ -1138,10 +1136,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- армейская полевая форма: ячеек пояса 1, мест под улучшения 1 -->
+  <!-- полевая форма кордона: ячеек пояса 1, мест под улучшения 1 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_MilitaryUniform</defName>
-    <label>army field uniform</label>
+    <label>cordon field uniform</label>
     <description>Standard field uniform of the cordon troops with a light vest.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/MilitaryUniform</texPath>
@@ -1186,8 +1184,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_MilitaryUniform</defName>
-    <label>army field uniform cap</label>
-    <description>The cap from the army field uniform set.</description>
+    <label>army field cap</label>
+    <description>A cloth field cap with a short visor.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/MilitaryUniform</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -1198,14 +1196,14 @@
       <Mass>0.4</Mass>
       <WorkToMake>2400</WorkToMake>
       <EquipDelay>1.5</EquipDelay>
-      <ArmorRating_Sharp>0.297</ArmorRating_Sharp>
-      <ArmorRating_Blunt>0.102</ArmorRating_Blunt>
-      <ArmorRating_Heat>0.128</ArmorRating_Heat>
-      <SZ_ArmorRating_Strike>0.085</SZ_ArmorRating_Strike>
-      <SZ_ArmorRating_Rupture>0.043</SZ_ArmorRating_Rupture>
-      <SZ_ArmorRating_Shock>0.085</SZ_ArmorRating_Shock>
-      <SZ_ArmorRating_Burn>0.128</SZ_ArmorRating_Burn>
-      <SZ_ArmorRating_Chemical>0.085</SZ_ArmorRating_Chemical>
+      <ArmorRating_Sharp>0.087</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.03</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.037</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.025</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.013</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.025</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.037</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.025</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
     </equippedStatOffsets>
@@ -1225,10 +1223,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- армейский бронекостюм: ячеек пояса 1, мест под улучшения 3 -->
+  <!-- армейский бронекомплект: ячеек пояса 1, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_Military</defName>
-    <label>army body armor</label>
+    <label>army armor kit</label>
     <description>Standard body armor of the cordon troops. Built for firefights, not for anomalies.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Military</texPath>
@@ -1275,8 +1273,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_Military</defName>
-    <label>army body armor visor helmet</label>
-    <description>The visor helmet from the army body armor set. Covers the whole head.</description>
+    <label>army steel helmet</label>
+    <description>A classic steel helmet in a fabric cover, with a chin strap.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Military</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -1297,11 +1295,11 @@
       <SZ_ArmorRating_Chemical>0.128</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
-      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <SZ_PsiProtection>0.03</SZ_PsiProtection>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
-      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Military/Military</wornGraphicPath>
       <tags><li>SZ_Faction_Military</li></tags>
     </apparel>
@@ -1315,10 +1313,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- армейская штурмовая броня: ячеек пояса 1, мест под улучшения 3 -->
+  <!-- штурмовой комплект спецназа: ячеек пояса 1, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_MilitaryAssault</defName>
-    <label>army assault armor</label>
+    <label>special forces assault kit</label>
     <description>Assault armor of the special units. Excellent against bullets, poor against the Zone.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/MilitaryAssault</texPath>
@@ -1365,8 +1363,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_MilitaryAssault</defName>
-    <label>army assault armor visor helmet</label>
-    <description>The visor helmet from the army assault armor set. Covers the whole head.</description>
+    <label>special forces visor helmet</label>
+    <description>A heavy helmet with a clear armored face shield. Covers the whole head.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/MilitaryAssault</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -1405,10 +1403,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- костюм Монолита: ячеек пояса 2, мест под улучшения 2 -->
+  <!-- облачение послушника: ячеек пояса 2, мест под улучшения 2 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_MonolithSuit</defName>
-    <label>Monolith suit</label>
+    <label>acolyte's vestment</label>
     <description>A pale suit of Monolith acolytes. Protects the mind better than the body.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/MonolithSuit</texPath>
@@ -1455,8 +1453,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_MonolithSuit</defName>
-    <label>Monolith suit psi helmet</label>
-    <description>The psi helmet from the Monolith suit set.</description>
+    <label>pale hood</label>
+    <description>A cloth hood. Keeps off rain and a little dust.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/MonolithSuit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -1467,17 +1465,17 @@
       <Mass>0.7</Mass>
       <WorkToMake>4200</WorkToMake>
       <EquipDelay>1.5</EquipDelay>
-      <ArmorRating_Sharp>0.425</ArmorRating_Sharp>
-      <ArmorRating_Blunt>0.187</ArmorRating_Blunt>
-      <ArmorRating_Heat>0.255</ArmorRating_Heat>
-      <SZ_ArmorRating_Strike>0.212</SZ_ArmorRating_Strike>
-      <SZ_ArmorRating_Rupture>0.128</SZ_ArmorRating_Rupture>
-      <SZ_ArmorRating_Shock>0.255</SZ_ArmorRating_Shock>
-      <SZ_ArmorRating_Burn>0.255</SZ_ArmorRating_Burn>
-      <SZ_ArmorRating_Chemical>0.212</SZ_ArmorRating_Chemical>
+      <ArmorRating_Sharp>0.125</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.055</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.075</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.062</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.037</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.075</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.075</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.062</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
-      <SZ_PsiProtection>0.4</SZ_PsiProtection>
+      <SZ_RadiationResistance>0.03</SZ_RadiationResistance>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
@@ -1495,10 +1493,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- броня Монолита: ячеек пояса 3, мест под улучшения 3 -->
+  <!-- броня «Скрижаль»: ячеек пояса 3, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_Monolith</defName>
-    <label>Monolith armor</label>
+    <label>"Tablet" armor</label>
     <description>Pale armor of the Monolith fanatics. Strongly shields the mind and the body from the Zone.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Monolith</texPath>
@@ -1546,8 +1544,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_Monolith</defName>
-    <label>Monolith armor visor helmet</label>
-    <description>The visor helmet from the Monolith armor set. Covers the whole head.</description>
+    <label>shielded helmet</label>
+    <description>A tactical helmet with a psi shielding coil and a small antenna.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Monolith</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -1568,11 +1566,11 @@
       <SZ_ArmorRating_Chemical>0.255</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
-      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <SZ_PsiProtection>0.4</SZ_PsiProtection>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
-      <bodyPartGroups><li>FullHead</li></bodyPartGroups>
+      <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Monolith/Monolith</wornGraphicPath>
       <tags><li>SZ_Faction_Monolith</li></tags>
     </apparel>
@@ -1586,10 +1584,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- лёгкий костюм наёмника: ячеек пояса 2, мест под улучшения 1 -->
+  <!-- тактический костюм «Контракт»: ячеек пояса 2, мест под улучшения 1 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_MercLight</defName>
-    <label>mercenary light suit</label>
+    <label>"Contract" tactical suit</label>
     <description>A light tactical suit for quick contracts.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/MercLight</texPath>
@@ -1636,8 +1634,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_MercLight</defName>
-    <label>mercenary light suit cap</label>
-    <description>The cap from the mercenary light suit set.</description>
+    <label>cap with headset</label>
+    <description>A cap with a radio headset.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/MercLight</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -1648,14 +1646,14 @@
       <Mass>0.4</Mass>
       <WorkToMake>2400</WorkToMake>
       <EquipDelay>1.5</EquipDelay>
-      <ArmorRating_Sharp>0.297</ArmorRating_Sharp>
-      <ArmorRating_Blunt>0.128</ArmorRating_Blunt>
-      <ArmorRating_Heat>0.17</ArmorRating_Heat>
-      <SZ_ArmorRating_Strike>0.128</SZ_ArmorRating_Strike>
-      <SZ_ArmorRating_Rupture>0.068</SZ_ArmorRating_Rupture>
-      <SZ_ArmorRating_Shock>0.17</SZ_ArmorRating_Shock>
-      <SZ_ArmorRating_Burn>0.17</SZ_ArmorRating_Burn>
-      <SZ_ArmorRating_Chemical>0.128</SZ_ArmorRating_Chemical>
+      <ArmorRating_Sharp>0.087</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.037</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.05</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.037</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.02</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.05</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.05</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.037</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
     </equippedStatOffsets>
@@ -1675,10 +1673,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- костюм наёмника: ячеек пояса 2, мест под улучшения 2 -->
+  <!-- боевой костюм «Наём»: ячеек пояса 2, мест под улучшения 2 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_Mercenary</defName>
-    <label>mercenary suit</label>
+    <label>"Hire" combat suit</label>
     <description>A professional combat suit: well-balanced protection from bullets and anomalies.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Mercenary</texPath>
@@ -1725,8 +1723,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_Mercenary</defName>
-    <label>mercenary suit helmet</label>
-    <description>The helmet from the mercenary suit set.</description>
+    <label>tactical helmet, urban cover</label>
+    <description>A high-cut tactical helmet with side rails and a mount for a device.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Mercenary</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -1765,10 +1763,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- тяжёлая броня наёмника: ячеек пояса 3, мест под улучшения 3 -->
+  <!-- тяжёлый комплект «Гарант»: ячеек пояса 3, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_MercHeavy</defName>
-    <label>mercenary heavy armor</label>
+    <label>"Guarantor" heavy kit</label>
     <description>Heavy armor for well-paid jobs deep in the Zone.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/MercHeavy</texPath>
@@ -1816,8 +1814,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_MercHeavy</defName>
-    <label>mercenary heavy armor visor helmet</label>
-    <description>The visor helmet from the mercenary heavy armor set. Covers the whole head.</description>
+    <label>heavy visor helmet</label>
+    <description>A heavy helmet with a clear armored face shield. Covers the whole head.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/MercHeavy</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -1856,10 +1854,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- научный комбинезон: ячеек пояса 3, мест под улучшения 3 -->
+  <!-- химзащитный комбинезон «Лаборант»: ячеек пояса 3, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_Scientist</defName>
-    <label>scientific suit</label>
+    <label>"Lab Tech" chemical suit</label>
     <description>A sealed research suit. Weak against bullets, but the best protection from radiation, chemicals and fire.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Scientist</texPath>
@@ -1908,8 +1906,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_Scientist</defName>
-    <label>scientific suit sealed helmet</label>
-    <description>The sealed helmet from the scientific suit set. Covers the whole head.</description>
+    <label>gas mask hood</label>
+    <description>A rubberized hood with a panoramic gas mask and a side filter. The working headgear of Zone scientists. Covers the whole head.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Scientist</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -1930,8 +1928,9 @@
       <SZ_ArmorRating_Chemical>0.595</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
-      <SZ_PsiProtection>0.15</SZ_PsiProtection>
       <SZ_RadiationResistance>0.15</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.1</SZ_PsiProtection>
+      <ToxicResistance>0.4</ToxicResistance>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
@@ -1949,10 +1948,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- костюм замкнутого цикла: ячеек пояса 4, мест под улучшения 3 -->
+  <!-- изолирующий костюм «Барьер»: ячеек пояса 4, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_ClosedCycle</defName>
-    <label>closed-cycle suit</label>
+    <label>"Barrier" isolating suit</label>
     <description>A top-class research suit with its own air supply. The best protection against anomalies the Zone has seen.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/ClosedCycle</texPath>
@@ -2001,8 +2000,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_ClosedCycle</defName>
-    <label>closed-cycle suit sealed helmet</label>
-    <description>The sealed helmet from the closed-cycle suit set. Covers the whole head.</description>
+    <label>isolating helmet</label>
+    <description>A sealed helmet with a wide clear visor and a breathing hose. Fully isolates the wearer. Covers the whole head.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/ClosedCycle</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -2023,8 +2022,9 @@
       <SZ_ArmorRating_Chemical>0.68</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
+      <SZ_RadiationResistance>0.2</SZ_RadiationResistance>
       <SZ_PsiProtection>0.15</SZ_PsiProtection>
-      <SZ_RadiationResistance>0.15</SZ_RadiationResistance>
+      <ToxicResistance>0.6</ToxicResistance>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
@@ -2042,10 +2042,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- броня экзоскелета: ячеек пояса 5, мест под улучшения 3 -->
+  <!-- бронеоболочка экзоскелета: ячеек пояса 5, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_Exo</defName>
-    <label>exoskeleton armor</label>
+    <label>exoskeleton armor shell</label>
     <description>Heavy armor plating made to be worn with an exoskeleton frame. Holds five artifacts. Without the frame it is very heavy.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Exo</texPath>
@@ -2093,8 +2093,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_Exo</defName>
-    <label>exoskeleton armor exo helmet</label>
-    <description>The exo helmet from the exoskeleton armor set. Covers the whole head.</description>
+    <label>heavy helmet with gas mask</label>
+    <description>A heavy steel helmet with bolted cheek plates, a neck guard and an attached gas mask with a side filter. Covers the whole head.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Exo</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -2116,7 +2116,8 @@
     </statBases>
     <equippedStatOffsets>
       <SZ_PsiProtection>0.1</SZ_PsiProtection>
-      <SZ_RadiationResistance>0.05</SZ_RadiationResistance>
+      <SZ_RadiationResistance>0.1</SZ_RadiationResistance>
+      <ToxicResistance>0.4</ToxicResistance>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
@@ -2134,10 +2135,10 @@
     </recipeMaker>
   </ThingDef>
 
-  <!-- штурмовая броня экзоскелета: ячеек пояса 4, мест под улучшения 3 -->
+  <!-- штурмовая бронеоболочка «Таран»: ячеек пояса 4, мест под улучшения 3 -->
   <ThingDef ParentName="SZ_SuitBase">
     <defName>SZ_Suit_ExoAssault</defName>
-    <label>assault exoskeleton armor</label>
+    <label>"Ram" assault armor shell</label>
     <description>Assault plating for an exoskeleton. The strongest armor in the Zone, and the heaviest.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Suits/ExoAssault</texPath>
@@ -2185,8 +2186,8 @@
 
   <ThingDef ParentName="SZ_HeadgearBase">
     <defName>SZ_Helm_ExoAssault</defName>
-    <label>assault exoskeleton armor exo helmet</label>
-    <description>The exo helmet from the assault exoskeleton armor set. Covers the whole head.</description>
+    <label>armored helmet with gas mask</label>
+    <description>A thicker armored version of the heavy helmet with a gas mask and a chin plate. Covers the whole head.</description>
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/ExoAssault</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -2207,8 +2208,9 @@
       <SZ_ArmorRating_Chemical>0.297</SZ_ArmorRating_Chemical>
     </statBases>
     <equippedStatOffsets>
-      <SZ_PsiProtection>0.1</SZ_PsiProtection>
-      <SZ_RadiationResistance>0.05</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.12</SZ_PsiProtection>
+      <SZ_RadiationResistance>0.1</SZ_RadiationResistance>
+      <ToxicResistance>0.4</ToxicResistance>
     </equippedStatOffsets>
     <apparel>
       <layers><li>Overhead</li></layers>
