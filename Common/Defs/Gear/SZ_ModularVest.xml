@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ApparelLayerDef>
+    <defName>SZ_ModularVestLayer</defName>
+    <label>modular armor vest</label>
+    <drawOrder>4</drawOrder>
+  </ApparelLayerDef>
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_Modular_BanditVest</defName>
+    <label>bandit plate carrier</label>
+    <description>Independent armored vest for mixing with stalker suits and backpacks. Experimental item.</description>
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Modular/BanditVest</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>180</MaxHitPoints>
+      <MarketValue>220</MarketValue>
+      <Mass>3</Mass>
+      <WorkToMake>6500</WorkToMake>
+      <EquipDelay>3</EquipDelay>
+      <ArmorRating_Sharp>0.20</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.12</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.04</ArmorRating_Heat>
+      <SZ_ArmorRating_Strike>0.06</SZ_ArmorRating_Strike>
+      <SZ_ArmorRating_Rupture>0.04</SZ_ArmorRating_Rupture>
+      <SZ_ArmorRating_Shock>0.02</SZ_ArmorRating_Shock>
+      <SZ_ArmorRating_Burn>0.03</SZ_ArmorRating_Burn>
+      <SZ_ArmorRating_Chemical>0.01</SZ_ArmorRating_Chemical>
+    </statBases>
+    <apparel>
+      <layers><li>SZ_ModularVestLayer</li></layers>
+      <bodyPartGroups><li>Torso</li></bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Modular/BanditVest/BanditVest</wornGraphicPath>
+      <tags><li>SZ_Faction_Bandits</li></tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+    <costList><Cloth>25</Cloth><Steel>35</Steel></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+</Defs>
