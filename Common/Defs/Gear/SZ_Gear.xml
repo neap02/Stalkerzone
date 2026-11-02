@@ -70,6 +70,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/ScoutCloak</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.36, 0.40, 0.28)</color>
+      <colorTwo>(0.25, 0.30, 0.18)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>187</MaxHitPoints>
@@ -94,6 +97,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/ScoutCloak/ScoutCloak</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
     <comps>
@@ -119,6 +123,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/ScoutCloak</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.36, 0.40, 0.28)</color>
+      <colorTwo>(0.25, 0.30, 0.18)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>137</MaxHitPoints>
@@ -141,6 +148,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/ScoutCloak/ScoutCloak</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -161,6 +169,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/ScoutCloak</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.36, 0.40, 0.28)</color>
+      <colorTwo>(0.25, 0.30, 0.18)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>112</MaxHitPoints>
@@ -184,6 +195,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/ScoutCloak/ScoutCloak</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
     <costList><Cloth>27</Cloth></costList>
@@ -204,6 +216,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/LonerJacket</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.45, 0.36, 0.24)</color>
+      <colorTwo>(0.30, 0.24, 0.16)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>212</MaxHitPoints>
@@ -227,6 +242,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/LonerJacket/LonerJacket</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
     <comps>
@@ -252,6 +268,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/LonerJacket</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.45, 0.36, 0.24)</color>
+      <colorTwo>(0.30, 0.24, 0.16)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>155</MaxHitPoints>
@@ -274,6 +293,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/LonerJacket/LonerJacket</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -294,6 +314,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/LonerJacket</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.45, 0.36, 0.24)</color>
+      <colorTwo>(0.30, 0.24, 0.16)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>127</MaxHitPoints>
@@ -316,6 +339,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/LonerJacket/LonerJacket</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
     <costList><Cloth>24</Cloth></costList>
@@ -336,6 +360,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Stalker</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.42, 0.45, 0.32)</color>
+      <colorTwo>(0.30, 0.32, 0.24)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>262</MaxHitPoints>
@@ -361,6 +388,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Stalker/Stalker</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
     <comps>
@@ -386,6 +414,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/Stalker</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.42, 0.45, 0.32)</color>
+      <colorTwo>(0.30, 0.32, 0.24)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>191</MaxHitPoints>
@@ -408,6 +439,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Stalker/Stalker</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -428,6 +460,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Stalker</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.42, 0.45, 0.32)</color>
+      <colorTwo>(0.30, 0.32, 0.24)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>157</MaxHitPoints>
@@ -451,6 +486,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Stalker/Stalker</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
     <costList><Steel>18</Steel><Cloth>18</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -471,6 +507,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/StalkerReinforced</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.38, 0.40, 0.30)</color>
+      <colorTwo>(0.26, 0.28, 0.22)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>300</MaxHitPoints>
@@ -497,6 +536,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/StalkerReinforced/StalkerReinforced</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
     <comps>
@@ -522,6 +562,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/StalkerReinforced</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.38, 0.40, 0.30)</color>
+      <colorTwo>(0.26, 0.28, 0.22)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>218</MaxHitPoints>
@@ -544,6 +587,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/StalkerReinforced/StalkerReinforced</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -564,6 +608,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/StalkerReinforced</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.38, 0.40, 0.30)</color>
+      <colorTwo>(0.26, 0.28, 0.22)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>180</MaxHitPoints>
@@ -587,6 +634,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/StalkerReinforced/StalkerReinforced</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li></tags>
     </apparel>
     <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -607,6 +655,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/DutyUniform</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.20, 0.20, 0.20)</color>
+      <colorTwo>(0.45, 0.08, 0.08)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>262</MaxHitPoints>
@@ -631,6 +682,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/DutyUniform/DutyUniform</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li></tags>
     </apparel>
     <comps>
@@ -656,6 +708,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/DutyUniform</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.20, 0.20, 0.20)</color>
+      <colorTwo>(0.45, 0.08, 0.08)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>191</MaxHitPoints>
@@ -678,6 +733,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/DutyUniform/DutyUniform</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -698,6 +754,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/DutyUniform</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.20, 0.20, 0.20)</color>
+      <colorTwo>(0.45, 0.08, 0.08)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>157</MaxHitPoints>
@@ -721,6 +780,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/DutyUniform/DutyUniform</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li></tags>
     </apparel>
     <costList><Steel>18</Steel><Cloth>18</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -741,6 +801,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Duty</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.42, 0.08, 0.08)</color>
+      <colorTwo>(0.18, 0.18, 0.18)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>350</MaxHitPoints>
@@ -767,6 +830,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Duty/Duty</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li></tags>
     </apparel>
     <comps>
@@ -792,6 +856,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/Duty</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.42, 0.08, 0.08)</color>
+      <colorTwo>(0.18, 0.18, 0.18)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>254</MaxHitPoints>
@@ -814,6 +881,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Duty/Duty</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -834,6 +902,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Duty</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.42, 0.08, 0.08)</color>
+      <colorTwo>(0.18, 0.18, 0.18)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>210</MaxHitPoints>
@@ -857,6 +928,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Duty/Duty</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li></tags>
     </apparel>
     <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -877,6 +949,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/DutyAssault</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.25, 0.25, 0.25)</color>
+      <colorTwo>(0.45, 0.08, 0.08)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>387</MaxHitPoints>
@@ -903,6 +978,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/DutyAssault/DutyAssault</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li></tags>
     </apparel>
     <comps>
@@ -928,6 +1004,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/DutyAssault</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.25, 0.25, 0.25)</color>
+      <colorTwo>(0.45, 0.08, 0.08)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>281</MaxHitPoints>
@@ -950,6 +1029,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/DutyAssault/DutyAssault</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -970,6 +1050,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/DutyAssault</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.25, 0.25, 0.25)</color>
+      <colorTwo>(0.45, 0.08, 0.08)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>232</MaxHitPoints>
@@ -993,6 +1076,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/DutyAssault/DutyAssault</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li></tags>
     </apparel>
     <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -1013,6 +1097,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/FreedomLight</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.30, 0.50, 0.25)</color>
+      <colorTwo>(0.20, 0.32, 0.15)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>225</MaxHitPoints>
@@ -1039,6 +1126,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/FreedomLight/FreedomLight</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Freedom</li></tags>
     </apparel>
     <comps>
@@ -1064,6 +1152,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/FreedomLight</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.30, 0.50, 0.25)</color>
+      <colorTwo>(0.20, 0.32, 0.15)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>164</MaxHitPoints>
@@ -1086,6 +1177,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/FreedomLight/FreedomLight</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Freedom</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -1106,6 +1198,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/FreedomLight</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.30, 0.50, 0.25)</color>
+      <colorTwo>(0.20, 0.32, 0.15)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>135</MaxHitPoints>
@@ -1128,6 +1223,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/FreedomLight/FreedomLight</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Freedom</li></tags>
     </apparel>
     <costList><Cloth>24</Cloth></costList>
@@ -1148,6 +1244,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Freedom</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.24, 0.42, 0.20)</color>
+      <colorTwo>(0.16, 0.28, 0.13)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>275</MaxHitPoints>
@@ -1173,6 +1272,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Freedom/Freedom</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Freedom</li></tags>
     </apparel>
     <comps>
@@ -1198,6 +1298,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/Freedom</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.24, 0.42, 0.20)</color>
+      <colorTwo>(0.16, 0.28, 0.13)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>200</MaxHitPoints>
@@ -1220,6 +1323,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Freedom/Freedom</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Freedom</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -1240,6 +1344,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Freedom</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.24, 0.42, 0.20)</color>
+      <colorTwo>(0.16, 0.28, 0.13)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>165</MaxHitPoints>
@@ -1263,6 +1370,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Freedom/Freedom</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Freedom</li></tags>
     </apparel>
     <costList><Steel>18</Steel><Cloth>18</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -1283,6 +1391,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/FreedomGuardian</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.20, 0.36, 0.18)</color>
+      <colorTwo>(0.32, 0.34, 0.30)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>350</MaxHitPoints>
@@ -1309,6 +1420,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/FreedomGuardian/FreedomGuardian</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Freedom</li></tags>
     </apparel>
     <comps>
@@ -1334,6 +1446,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/FreedomGuardian</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.20, 0.36, 0.18)</color>
+      <colorTwo>(0.32, 0.34, 0.30)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>254</MaxHitPoints>
@@ -1356,6 +1471,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/FreedomGuardian/FreedomGuardian</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Freedom</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -1376,6 +1492,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/FreedomGuardian</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.20, 0.36, 0.18)</color>
+      <colorTwo>(0.32, 0.34, 0.30)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>210</MaxHitPoints>
@@ -1399,6 +1518,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/FreedomGuardian/FreedomGuardian</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Freedom</li></tags>
     </apparel>
     <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -1419,6 +1539,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Bandit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.16, 0.16, 0.16)</color>
+      <colorTwo>(0.25, 0.22, 0.20)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>225</MaxHitPoints>
@@ -1442,6 +1565,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Bandit/Bandit</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Bandits</li></tags>
     </apparel>
     <comps>
@@ -1467,6 +1591,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/Bandit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.16, 0.16, 0.16)</color>
+      <colorTwo>(0.25, 0.22, 0.20)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>164</MaxHitPoints>
@@ -1489,6 +1616,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Bandit/Bandit</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Bandits</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -1509,6 +1637,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Bandit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.16, 0.16, 0.16)</color>
+      <colorTwo>(0.25, 0.22, 0.20)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>135</MaxHitPoints>
@@ -1532,6 +1663,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Bandit/Bandit</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Bandits</li></tags>
     </apparel>
     <costList><Cloth>24</Cloth></costList>
@@ -1552,6 +1684,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/BanditCoat</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.30, 0.22, 0.15)</color>
+      <colorTwo>(0.15, 0.12, 0.10)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>250</MaxHitPoints>
@@ -1576,6 +1711,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/BanditCoat/BanditCoat</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Bandits</li></tags>
     </apparel>
     <comps>
@@ -1601,6 +1737,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/BanditCoat</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.30, 0.22, 0.15)</color>
+      <colorTwo>(0.15, 0.12, 0.10)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>182</MaxHitPoints>
@@ -1623,6 +1762,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/BanditCoat/BanditCoat</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Bandits</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -1643,6 +1783,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/BanditCoat</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.30, 0.22, 0.15)</color>
+      <colorTwo>(0.15, 0.12, 0.10)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>150</MaxHitPoints>
@@ -1666,6 +1809,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/BanditCoat/BanditCoat</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Bandits</li></tags>
     </apparel>
     <costList><Steel>18</Steel><Cloth>18</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -1686,6 +1830,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/MilitaryUniform</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.40, 0.43, 0.26)</color>
+      <colorTwo>(0.30, 0.33, 0.20)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>237</MaxHitPoints>
@@ -1709,6 +1856,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/MilitaryUniform/MilitaryUniform</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Military</li></tags>
     </apparel>
     <comps>
@@ -1734,6 +1882,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/MilitaryUniform</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.40, 0.43, 0.26)</color>
+      <colorTwo>(0.30, 0.33, 0.20)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>173</MaxHitPoints>
@@ -1756,6 +1907,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/MilitaryUniform/MilitaryUniform</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Military</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -1776,6 +1928,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/MilitaryUniform</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.40, 0.43, 0.26)</color>
+      <colorTwo>(0.30, 0.33, 0.20)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>142</MaxHitPoints>
@@ -1798,6 +1953,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/MilitaryUniform/MilitaryUniform</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Military</li></tags>
     </apparel>
     <costList><Cloth>24</Cloth></costList>
@@ -1818,6 +1974,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Military</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.33, 0.36, 0.20)</color>
+      <colorTwo>(0.24, 0.26, 0.15)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>325</MaxHitPoints>
@@ -1843,6 +2002,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Military/Military</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Military</li></tags>
     </apparel>
     <comps>
@@ -1868,6 +2028,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/Military</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.33, 0.36, 0.20)</color>
+      <colorTwo>(0.24, 0.26, 0.15)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>236</MaxHitPoints>
@@ -1890,6 +2053,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Military/Military</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Military</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -1910,6 +2074,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Military</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.33, 0.36, 0.20)</color>
+      <colorTwo>(0.24, 0.26, 0.15)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>195</MaxHitPoints>
@@ -1933,6 +2100,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Military/Military</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Military</li></tags>
     </apparel>
     <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -1953,6 +2121,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/MilitaryAssault</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.30, 0.32, 0.20)</color>
+      <colorTwo>(0.20, 0.22, 0.15)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>387</MaxHitPoints>
@@ -1978,6 +2149,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/MilitaryAssault/MilitaryAssault</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Military</li></tags>
     </apparel>
     <comps>
@@ -2003,6 +2175,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/MilitaryAssault</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.30, 0.32, 0.20)</color>
+      <colorTwo>(0.20, 0.22, 0.15)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>281</MaxHitPoints>
@@ -2025,6 +2200,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/MilitaryAssault/MilitaryAssault</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Military</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -2045,6 +2221,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/MilitaryAssault</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.30, 0.32, 0.20)</color>
+      <colorTwo>(0.20, 0.22, 0.15)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>232</MaxHitPoints>
@@ -2068,6 +2247,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/MilitaryAssault/MilitaryAssault</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Military</li></tags>
     </apparel>
     <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -2088,6 +2268,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/MonolithSuit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.70, 0.70, 0.66)</color>
+      <colorTwo>(0.50, 0.52, 0.55)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>275</MaxHitPoints>
@@ -2113,6 +2296,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/MonolithSuit/MonolithSuit</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Monolith</li></tags>
     </apparel>
     <comps>
@@ -2138,6 +2322,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/MonolithSuit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.70, 0.70, 0.66)</color>
+      <colorTwo>(0.50, 0.52, 0.55)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>200</MaxHitPoints>
@@ -2160,6 +2347,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/MonolithSuit/MonolithSuit</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Monolith</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -2180,6 +2368,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/MonolithSuit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.70, 0.70, 0.66)</color>
+      <colorTwo>(0.50, 0.52, 0.55)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>165</MaxHitPoints>
@@ -2203,6 +2394,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/MonolithSuit/MonolithSuit</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Monolith</li></tags>
     </apparel>
     <costList><Steel>18</Steel><Cloth>18</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -2223,6 +2415,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Monolith</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.68, 0.68, 0.65)</color>
+      <colorTwo>(0.45, 0.47, 0.50)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>337</MaxHitPoints>
@@ -2249,6 +2444,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Monolith/Monolith</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Monolith</li></tags>
     </apparel>
     <comps>
@@ -2274,6 +2470,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/Monolith</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.68, 0.68, 0.65)</color>
+      <colorTwo>(0.45, 0.47, 0.50)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>245</MaxHitPoints>
@@ -2296,6 +2495,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Monolith/Monolith</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Monolith</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -2316,6 +2516,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Monolith</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.68, 0.68, 0.65)</color>
+      <colorTwo>(0.45, 0.47, 0.50)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>202</MaxHitPoints>
@@ -2339,6 +2542,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Monolith/Monolith</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Monolith</li></tags>
     </apparel>
     <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -2359,6 +2563,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/MercLight</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.25, 0.32, 0.45)</color>
+      <colorTwo>(0.18, 0.22, 0.30)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>237</MaxHitPoints>
@@ -2384,6 +2591,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/MercLight/MercLight</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <comps>
@@ -2409,6 +2617,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/MercLight</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.25, 0.32, 0.45)</color>
+      <colorTwo>(0.18, 0.22, 0.30)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>173</MaxHitPoints>
@@ -2431,6 +2642,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/MercLight/MercLight</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Mercenaries</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -2451,6 +2663,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/MercLight</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.25, 0.32, 0.45)</color>
+      <colorTwo>(0.18, 0.22, 0.30)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>142</MaxHitPoints>
@@ -2473,6 +2688,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/MercLight/MercLight</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <costList><Cloth>24</Cloth></costList>
@@ -2493,6 +2709,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Mercenary</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.20, 0.27, 0.40)</color>
+      <colorTwo>(0.14, 0.18, 0.26)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>300</MaxHitPoints>
@@ -2518,6 +2737,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Mercenary/Mercenary</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <comps>
@@ -2543,6 +2763,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/Mercenary</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.20, 0.27, 0.40)</color>
+      <colorTwo>(0.14, 0.18, 0.26)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>218</MaxHitPoints>
@@ -2565,6 +2788,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Mercenary/Mercenary</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Mercenaries</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -2585,6 +2809,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Mercenary</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.20, 0.27, 0.40)</color>
+      <colorTwo>(0.14, 0.18, 0.26)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>180</MaxHitPoints>
@@ -2608,6 +2835,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Mercenary/Mercenary</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <costList><Steel>18</Steel><Cloth>18</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -2628,6 +2856,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/MercHeavy</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.18, 0.22, 0.32)</color>
+      <colorTwo>(0.30, 0.33, 0.38)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>362</MaxHitPoints>
@@ -2654,6 +2885,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/MercHeavy/MercHeavy</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <comps>
@@ -2679,6 +2911,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/MercHeavy</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.18, 0.22, 0.32)</color>
+      <colorTwo>(0.30, 0.33, 0.38)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>263</MaxHitPoints>
@@ -2701,6 +2936,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/MercHeavy/MercHeavy</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Mercenaries</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -2721,6 +2957,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/MercHeavy</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.18, 0.22, 0.32)</color>
+      <colorTwo>(0.30, 0.33, 0.38)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>217</MaxHitPoints>
@@ -2744,6 +2983,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/MercHeavy/MercHeavy</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <costList><Steel>30</Steel><Plasteel>9</Plasteel><Cloth>12</Cloth><ComponentIndustrial>1</ComponentIndustrial></costList>
@@ -2764,6 +3004,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Scientist</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.90, 0.52, 0.15)</color>
+      <colorTwo>(0.95, 0.95, 0.92)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>200</MaxHitPoints>
@@ -2791,6 +3034,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Scientist/Scientist</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <comps>
@@ -2816,6 +3060,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/Scientist</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.90, 0.52, 0.15)</color>
+      <colorTwo>(0.95, 0.95, 0.92)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>146</MaxHitPoints>
@@ -2838,6 +3085,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Scientist/Scientist</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Scientists</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -2858,6 +3106,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Scientist</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.90, 0.52, 0.15)</color>
+      <colorTwo>(0.95, 0.95, 0.92)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -2882,6 +3133,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Scientist/Scientist</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <costList><Synthread>18</Synthread><Plasteel>9</Plasteel><ComponentSpacer>1</ComponentSpacer></costList>
@@ -2902,6 +3154,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/ClosedCycle</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.92, 0.92, 0.88)</color>
+      <colorTwo>(0.95, 0.55, 0.15)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>250</MaxHitPoints>
@@ -2929,6 +3184,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/ClosedCycle/ClosedCycle</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <comps>
@@ -2954,6 +3210,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/ClosedCycle</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.92, 0.92, 0.88)</color>
+      <colorTwo>(0.95, 0.55, 0.15)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>182</MaxHitPoints>
@@ -2976,6 +3235,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/ClosedCycle/ClosedCycle</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Scientists</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -2996,6 +3256,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/ClosedCycle</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.92, 0.92, 0.88)</color>
+      <colorTwo>(0.95, 0.55, 0.15)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>150</MaxHitPoints>
@@ -3020,6 +3283,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/ClosedCycle/ClosedCycle</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <costList><Synthread>18</Synthread><Plasteel>9</Plasteel><ComponentSpacer>1</ComponentSpacer></costList>
@@ -3040,6 +3304,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/Exo</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.22, 0.24, 0.26)</color>
+      <colorTwo>(0.35, 0.37, 0.40)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>400</MaxHitPoints>
@@ -3067,6 +3334,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/Exo/Exo</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Freedom</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <comps>
@@ -3092,6 +3360,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/Exo</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.22, 0.24, 0.26)</color>
+      <colorTwo>(0.35, 0.37, 0.40)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>290</MaxHitPoints>
@@ -3114,6 +3385,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/Exo/Exo</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Freedom</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -3134,6 +3406,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/Exo</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.22, 0.24, 0.26)</color>
+      <colorTwo>(0.35, 0.37, 0.40)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>240</MaxHitPoints>
@@ -3158,6 +3433,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Exo/Exo</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Freedom</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <costList><Plasteel>36</Plasteel><ComponentIndustrial>2</ComponentIndustrial><ComponentSpacer>2</ComponentSpacer></costList>
@@ -3178,6 +3454,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Suits/ExoAssault</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.18, 0.19, 0.20)</color>
+      <colorTwo>(0.40, 0.40, 0.38)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>462</MaxHitPoints>
@@ -3205,6 +3484,7 @@
     </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Suits/ExoAssault/ExoAssault</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <comps>
@@ -3230,6 +3510,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Pants/ExoAssault</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.18, 0.19, 0.20)</color>
+      <colorTwo>(0.40, 0.40, 0.38)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>335</MaxHitPoints>
@@ -3252,6 +3535,7 @@
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Pants/ExoAssault/ExoAssault</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -3272,6 +3556,9 @@
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/ExoAssault</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.18, 0.19, 0.20)</color>
+      <colorTwo>(0.40, 0.40, 0.38)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>277</MaxHitPoints>
@@ -3296,6 +3583,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>FullHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/ExoAssault/ExoAssault</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <costList><Plasteel>36</Plasteel><ComponentIndustrial>2</ComponentIndustrial><ComponentSpacer>2</ComponentSpacer></costList>
@@ -3313,8 +3601,11 @@
     <label>stalker helmet</label>
     <description>A steel helmet with a padded liner. Also slightly dulls psychic pressure.</description>
     <graphicData>
-      <texPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Helmet_Stalker/Helmet_Stalker</texPath>
+      <texPath>Things/Item/SZ_Helmets/Helmet_Stalker</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.40, 0.42, 0.35)</color>
+      <colorTwo>(0.30, 0.32, 0.26)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -3338,6 +3629,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Helmet_Stalker/Helmet_Stalker</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Loners</li><li>SZ_Faction_Duty</li><li>SZ_Faction_Military</li><li>SZ_Faction_Mercenaries</li></tags>
     </apparel>
     <costList><Steel>40</Steel></costList>
@@ -3355,8 +3647,11 @@
     <label>psi helmet</label>
     <description>A helmet with a built-in psi shield circuit. Protects the mind from psychic fields and the emission.</description>
     <graphicData>
-      <texPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Helmet_Psi/Helmet_Psi</texPath>
+      <texPath>Things/Item/SZ_Helmets/Helmet_Psi</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.62, 0.64, 0.70)</color>
+      <colorTwo>(0.45, 0.47, 0.52)</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -3380,6 +3675,7 @@
       <layers><li>Overhead</li></layers>
       <bodyPartGroups><li>UpperHead</li></bodyPartGroups>
       <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Helmets/Helmet_Psi/Helmet_Psi</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags><li>SZ_Faction_Monolith</li><li>SZ_Faction_Scientists</li></tags>
     </apparel>
     <costList><Plasteel>25</Plasteel><ComponentIndustrial>3</ComponentIndustrial></costList>

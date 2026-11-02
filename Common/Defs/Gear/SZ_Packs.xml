@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Файл сгенерирован Source/Tools/gen_packs.py.
+       Рюкзаки и баллоны Зоны. Свой слой "спина": совместимы с любым костюмом, детектором и шлемом,
+       но рюкзак/баллон можно надеть только один. Грузоподъёмность — стат SZ_InventoryCapacity
+       (инвентарь и караваны, C#: ZoneHarmony). -->
+
+  <ApparelLayerDef>
+    <defName>SZ_BackLayer</defName>
+    <label>back</label>
+    <drawOrder>3</drawOrder>
+  </ApparelLayerDef>
+
+  <StatDef>
+    <defName>SZ_ArtifactShielding</defName>
+    <label>artifact shielding</label>
+    <description>How many active artifacts have their radiation blocked by the gear, in addition to lead containers in the inventory.</description>
+    <category>PawnCombat</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+  </StatDef>
+
+  <ThingDef ParentName="ApparelBase" Name="SZ_PackBase" Abstract="True">
+    <techLevel>Industrial</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelUtility</li></thingCategories>
+    <apparel>
+      <layers><li>SZ_BackLayer</li></layers>
+      <bodyPartGroups><li>Torso</li></bodyPartGroups>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_PackBase">
+    <defName>SZ_Pack_Bag</defName>
+    <label>canvas sack</label>
+    <description>A simple canvas sack on a single strap. Holds a little, weighs nothing.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Packs/Bag</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.45, 0.42, 0.30)</color>
+      <colorTwo>(0.30, 0.27, 0.18)</colorTwo>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>60</MarketValue>
+      <Mass>0.8</Mass>
+      <WorkToMake>1500</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_InventoryCapacity>20</SZ_InventoryCapacity>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Bag/Bag</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <tags><li>SZ_Faction_Loners</li><li>SZ_Faction_Bandits</li></tags>
+    </apparel>
+    <costList><Cloth>30</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>2</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_PackBase">
+    <defName>SZ_Pack_Tourist</defName>
+    <label>hiking backpack</label>
+    <description>An old hiking backpack with a top flap and side pockets.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Packs/Tourist</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.30, 0.38, 0.42)</color>
+      <colorTwo>(0.20, 0.25, 0.28)</colorTwo>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>180</MarketValue>
+      <Mass>1.5</Mass>
+      <WorkToMake>2500</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_InventoryCapacity>35</SZ_InventoryCapacity>
+      <MoveSpeed>-0.05</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Tourist/Tourist</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <tags><li>SZ_Faction_Loners</li><li>SZ_Faction_Freedom</li></tags>
+    </apparel>
+    <costList><Cloth>50</Cloth></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>3</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_PackBase">
+    <defName>SZ_Pack_Raid</defName>
+    <label>raid backpack</label>
+    <description>A sturdy pack for multi-day raids, with a bedroll strapped on top.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Packs/Raid</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.36, 0.38, 0.26)</color>
+      <colorTwo>(0.24, 0.26, 0.17)</colorTwo>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>350</MarketValue>
+      <Mass>2.5</Mass>
+      <WorkToMake>4000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.5</Flammability>
+      <Insulation_Cold>4</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_InventoryCapacity>50</SZ_InventoryCapacity>
+      <MoveSpeed>-0.1</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Raid/Raid</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <tags><li>SZ_Faction_Loners</li><li>SZ_Faction_Duty</li><li>SZ_Faction_Freedom</li><li>SZ_Faction_Military</li><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <costList><Cloth>70</Cloth><Steel>10</Steel></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_PackBase">
+    <defName>SZ_Pack_Frame</defName>
+    <label>expedition frame pack</label>
+    <description>A huge pack on a steel frame. Carries a lot, but slows its owner down.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Packs/Frame</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.42, 0.30, 0.20)</color>
+      <colorTwo>(0.28, 0.20, 0.13)</colorTwo>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>600</MarketValue>
+      <Mass>4</Mass>
+      <WorkToMake>6000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.5</Flammability>
+      <Insulation_Cold>4</Insulation_Cold>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_InventoryCapacity>75</SZ_InventoryCapacity>
+      <MoveSpeed>-0.2</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Frame/Frame</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <tags><li>SZ_Faction_Monolith</li><li>SZ_Faction_Mercenaries</li></tags>
+    </apparel>
+    <costList><Cloth>80</Cloth><Steel>40</Steel></costList>
+    <recipeMaker>
+      <researchPrerequisite>Smithing</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_PackBase">
+    <defName>SZ_Pack_Lead</defName>
+    <label>lead-lined backpack</label>
+    <description>A heavy pack lined with lead sheets. Blocks the radiation of two active artifacts, like two lead containers.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Packs/Lead</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.50, 0.52, 0.54)</color>
+      <colorTwo>(0.35, 0.37, 0.39)</colorTwo>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>700</MarketValue>
+      <Mass>6</Mass>
+      <WorkToMake>5000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_InventoryCapacity>25</SZ_InventoryCapacity>
+      <MoveSpeed>-0.1</MoveSpeed>
+      <SZ_ArtifactShielding>2</SZ_ArtifactShielding>
+      <SZ_RadiationResistance>0.05</SZ_RadiationResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Lead/Lead</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <tags><li>SZ_Faction_Freedom</li><li>SZ_Faction_Scientists</li></tags>
+    </apparel>
+    <costList><Cloth>40</Cloth><Steel>80</Steel></costList>
+    <recipeMaker>
+      <researchPrerequisite>Smithing</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_PackBase">
+    <defName>SZ_Pack_Medic</defName>
+    <label>medic satchel</label>
+    <description>A field medic satchel with everything laid out at hand: treatment goes faster.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Packs/Medic</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.25, 0.36, 0.24)</color>
+      <colorTwo>(0.17, 0.25, 0.16)</colorTwo>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>400</MarketValue>
+      <Mass>1.5</Mass>
+      <WorkToMake>3000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <equippedStatOffsets>
+      <SZ_InventoryCapacity>20</SZ_InventoryCapacity>
+      <MedicalTendSpeed>0.15</MedicalTendSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Medic/Medic</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <tags><li>SZ_Faction_Duty</li><li>SZ_Faction_Military</li><li>SZ_Faction_Scientists</li></tags>
+    </apparel>
+    <costList><Cloth>40</Cloth><MedicineHerbal>2</MedicineHerbal></costList>
+    <recipeMaker>
+      <researchPrerequisite>ComplexClothing</researchPrerequisite>
+      <recipeUsers><li>HandTailoringBench</li><li>ElectricTailoringBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_PackBase">
+    <defName>SZ_Pack_Tank</defName>
+    <label>breathing tank</label>
+    <description>A single air tank with a regulator. Clean air: protects from toxic fumes and radioactive dust.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Packs/Tank</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.55, 0.58, 0.60)</color>
+      <colorTwo>(0.25, 0.26, 0.27)</colorTwo>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>450</MarketValue>
+      <Mass>4</Mass>
+      <WorkToMake>4000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <equippedStatOffsets>
+      <ToxicResistance>0.3</ToxicResistance>
+      <SZ_RadiationResistance>0.1</SZ_RadiationResistance>
+      <MoveSpeed>-0.03</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Tank/Tank</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <tags><li>SZ_Faction_Military</li></tags>
+    </apparel>
+    <costList><Steel>40</Steel><ComponentIndustrial>2</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_PackBase">
+    <defName>SZ_Pack_TwinTank</defName>
+    <label>twin air tanks</label>
+    <description>Two air tanks with a shared manifold. Breathe longer and safer.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Packs/TwinTank</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.86, 0.52, 0.18)</color>
+      <colorTwo>(0.28, 0.28, 0.28)</colorTwo>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>800</MarketValue>
+      <Mass>7</Mass>
+      <WorkToMake>6000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <equippedStatOffsets>
+      <ToxicResistance>0.5</ToxicResistance>
+      <SZ_RadiationResistance>0.15</SZ_RadiationResistance>
+      <MoveSpeed>-0.05</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/TwinTank/TwinTank</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <tags><li>SZ_Faction_Monolith</li><li>SZ_Faction_Scientists</li></tags>
+    </apparel>
+    <costList><Steel>70</Steel><ComponentIndustrial>3</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+      <recipeUsers><li>TableMachining</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>5</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_PackBase">
+    <defName>SZ_Pack_ClosedCycle</defName>
+    <label>closed-cycle breathing unit</label>
+    <description>A sealed unit that recycles exhaled air. The best protection for the lungs the Zone allows.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Packs/ClosedCycle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.90, 0.90, 0.86)</color>
+      <colorTwo>(0.30, 0.55, 0.75)</colorTwo>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>1500</MarketValue>
+      <Mass>9</Mass>
+      <WorkToMake>10000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.5</Flammability>
+      <Insulation_Heat>8</Insulation_Heat>
+    </statBases>
+    <equippedStatOffsets>
+      <ToxicResistance>0.7</ToxicResistance>
+      <SZ_RadiationResistance>0.2</SZ_RadiationResistance>
+      <SZ_PsiProtection>0.05</SZ_PsiProtection>
+      <MoveSpeed>-0.1</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/ClosedCycle/ClosedCycle</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <tags><li>SZ_Faction_Scientists</li></tags>
+    </apparel>
+    <costList><Plasteel>40</Plasteel><ComponentIndustrial>4</ComponentIndustrial><ComponentSpacer>1</ComponentSpacer></costList>
+    <recipeMaker>
+      <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>7</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="SZ_PackBase">
+    <defName>SZ_Pack_Cooling</defName>
+    <label>cooling pack</label>
+    <description>A radiator pack that pumps coolant through tubes under the suit. Helps near thermal anomalies and in the heat.</description>
+    <graphicData>
+      <texPath>Things/Item/SZ_Packs/Cooling</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(0.30, 0.34, 0.38)</color>
+      <colorTwo>(0.25, 0.55, 0.80)</colorTwo>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>900</MarketValue>
+      <Mass>6</Mass>
+      <WorkToMake>7000</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.5</Flammability>
+      <Insulation_Heat>20</Insulation_Heat>
+    </statBases>
+    <equippedStatOffsets>
+      <ToxicResistance>0.1</ToxicResistance>
+      <MoveSpeed>-0.05</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/SZ_Packs/Cooling/Cooling</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <tags><li>SZ_Faction_Scientists</li></tags>
+    </apparel>
+    <costList><Steel>50</Steel><Plasteel>20</Plasteel><ComponentIndustrial>3</ComponentIndustrial></costList>
+    <recipeMaker>
+      <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
+      <recipeUsers><li>FabricationBench</li></recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <skillRequirements><Crafting>6</Crafting></skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+
+</Defs>

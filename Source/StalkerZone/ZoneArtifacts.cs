@@ -50,7 +50,7 @@ namespace StalkerZone
             SuitBonuses.Of(pawn, out int bonusSlots, out _, out _);   // улучшения костюма
             int slots = Math.Min(MaxSlots, (int)Math.Floor(pawn.GetStatValue(SZ_DefOf.SZ_ArtifactSlots) + 0.001f) + bonusSlots);
             active.Clear();
-            int containers = 0;
+            int containers = (int)Math.Round(pawn.GetStatValue(SZ_DefOf.SZ_ArtifactShielding));   // свинцовая подкладка рюкзака
             foreach (Thing t in pawn.inventory.innerContainer)
             {
                 if (t.def == SZ_DefOf.SZ_LeadContainer)

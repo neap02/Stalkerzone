@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_ArtifactShielding.label>экранирование артефактов</SZ_ArtifactShielding.label>
+  <SZ_ArtifactShielding.description>У скольких активных артефактов снаряжение гасит излучение — в добавление к свинцовым контейнерам в инвентаре.</SZ_ArtifactShielding.description>
+</LanguageData>

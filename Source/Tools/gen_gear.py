@@ -174,6 +174,7 @@ UPG=[
 ]
 
 # Стиль шлема по классу костюма (и особые случаи)
+HEADCOL={'Helmet_Stalker':((0.40,0.42,0.35),(0.30,0.32,0.26)),'Helmet_Psi':((0.62,0.64,0.70),(0.45,0.47,0.52))}
 HSTYLE={'light':'cap','cloak':'hood','medium':'combat','heavy':'visor','science':'sealed','exo':'exo'}
 HSTYLE_BY_SUIT={'MonolithSuit':'psi','Bandit':'hood','BanditCoat':'hood'}
 HNOUN={'cap':('cap','шапка'),'hood':('hood','капюшон'),'combat':('helmet','шлем'),'psi':('psi helmet','пси-шлем'),
@@ -283,6 +284,9 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
     <graphicData>
       <texPath>Things/Item/SZ_Suits/{k}</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>({cols[0][0]:.2f}, {cols[0][1]:.2f}, {cols[0][2]:.2f})</color>
+      <colorTwo>({cols[1][0]:.2f}, {cols[1][1]:.2f}, {cols[1][2]:.2f})</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>{int(150+prot['sharp']*250)}</MaxHitPoints>
@@ -296,6 +300,7 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
 {offs}    </equippedStatOffsets>
     <apparel>
       <wornGraphicPath>{VAN}/SZ_Suits/{k}/{k}</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags>{tg}</tags>
     </apparel>
     <comps>
@@ -320,6 +325,9 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
     <graphicData>
       <texPath>Things/Item/SZ_Pants/{k}</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>({cols[0][0]:.2f}, {cols[0][1]:.2f}, {cols[0][2]:.2f})</color>
+      <colorTwo>({cols[1][0]:.2f}, {cols[1][1]:.2f}, {cols[1][2]:.2f})</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>{int(110+prot['sharp']*180)}</MaxHitPoints>
@@ -334,6 +342,7 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
       <layers><li>OnSkin</li></layers>
       <bodyPartGroups><li>Legs</li></bodyPartGroups>
       <wornGraphicPath>{VAN}/SZ_Pants/{k}/{k}</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags>{tg}</tags>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
@@ -354,6 +363,9 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
     <graphicData>
       <texPath>Things/Item/SZ_Helmets/{k}</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>({cols[0][0]:.2f}, {cols[0][1]:.2f}, {cols[0][2]:.2f})</color>
+      <colorTwo>({cols[1][0]:.2f}, {cols[1][1]:.2f}, {cols[1][2]:.2f})</colorTwo>
     </graphicData>
     <statBases>
       <MaxHitPoints>{int(90+prot['sharp']*150)}</MaxHitPoints>
@@ -368,12 +380,18 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
       <layers><li>Overhead</li></layers>
       <bodyPartGroups>{grp}</bodyPartGroups>
       <wornGraphicPath>{VAN}/SZ_Helmets/{k}/{k}</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <tags>{tg}</tags>
     </apparel>
 {recipe_block(research,users,hcost,max(1,skill-1))}  </ThingDef>
 """)
     tr_t.append((f'SZ_Helm_{k}',f'{ru} ({hru})',f'{hru.capitalize()} из комплекта «{ru}».'+(' Закрывает всю голову.' if st in HFULL else '')))
 
+def head_gfx(k):
+    if k=='GasMask': return ''
+    a,b=HEADCOL[k]
+    return (f"\n      <shaderType>CutoutComplex</shaderType>\n      <color>({a[0]:.2f}, {a[1]:.2f}, {a[2]:.2f})</color>"
+            f"\n      <colorTwo>({b[0]:.2f}, {b[1]:.2f}, {b[2]:.2f})</colorTwo>")
 for (k,en,ru,tex,layer,groups,col,armor_d,offs_d,val,mass,rec,tags,den,dru) in HEAD:
     research,users,cost,skill,work=rec
     armor=''.join(f'      <{ARMOR[a]}>{v}</{ARMOR[a]}>\n' for a,v in armor_d.items())
@@ -386,8 +404,8 @@ for (k,en,ru,tex,layer,groups,col,armor_d,offs_d,val,mass,rec,tags,den,dru) in H
     <label>{esc(en)}</label>
     <description>{esc(den)}</description>
     <graphicData>
-      <texPath>{tex}</texPath>
-      <graphicClass>Graphic_Single</graphicClass>{color}
+      <texPath>{tex if k=='GasMask' else 'Things/Item/SZ_Helmets/'+k}</texPath>
+      <graphicClass>Graphic_Single</graphicClass>{head_gfx(k)}
     </graphicData>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
@@ -401,7 +419,7 @@ for (k,en,ru,tex,layer,groups,col,armor_d,offs_d,val,mass,rec,tags,den,dru) in H
     <apparel>
       <layers><li>{layer}</li></layers>
       <bodyPartGroups>{gr}</bodyPartGroups>
-      <wornGraphicPath>{tex}</wornGraphicPath>
+      <wornGraphicPath>{tex}</wornGraphicPath>{'' if k=='GasMask' else chr(10)+'      <useWornGraphicMask>true</useWornGraphicMask>'}
       <tags>{tg}</tags>
     </apparel>
 {recipe_block(research,users,cost,skill)}  </ThingDef>
@@ -570,41 +588,38 @@ open(f'{L}/StatDef/SZ_Gear.xml','w',encoding='utf-8').write('''<?xml version="1.
 ''')
 
 # =====================================================================
-# ГРАФИКА КОСТЮМОВ: Source/Tools/suit_art.py, 512x512, посадка по меркам тел.
+# ГРАФИКА: Source/Tools/suit_art2.py — серые текстуры + маска цвета (_m), cel-shading,
+# обводка деталей. Цвет задаётся в XML (color / colorTwo): одна и та же броня
+# красится в цвета фракции, а красильная станция может её перекрасить.
 # =====================================================================
 import sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import suit_art
+import suit_art2 as art
 BODIES=['Male','Female','Thin','Fat','Hulk']
+def save_pair(pair,path):
+    c,m=pair; c.save(path+'.png',optimize=True); m.save(path+'_m.png',optimize=True)
+def save_icon(pair,folder,name):
+    c,m=pair; bb=c.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16
+    cx,cy=(bb[0]+bb[2])//2,(bb[1]+bb[3])//2; box=(cx-side//2,cy-side//2,cx+side//2,cy+side//2)
+    os.makedirs(f'{T}/Things/Item/{folder}',exist_ok=True)
+    c.crop(box).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/{folder}/{name}.png')
+    m.crop(box).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/{folder}/{name}_m.png')
 for n,(k,en,ru,cls,cols,*_rest) in enumerate(SUITS):
-    base_path=f'{T}/{VAN}/SZ_Suits/{k}/{k}'
-    os.makedirs(os.path.dirname(base_path),exist_ok=True)
-    pants_path=f'{T}/{VAN}/SZ_Pants/{k}/{k}'; os.makedirs(os.path.dirname(pants_path),exist_ok=True)
+    acc=cols[2]; st=HSTYLE_BY_SUIT.get(k,HSTYLE[cls])
+    for folder in ('SZ_Suits','SZ_Pants','SZ_Helmets'): os.makedirs(f'{T}/{VAN}/{folder}/{k}',exist_ok=True)
     for body in BODIES:
         for view in ('south','east','north'):
-            suit_art.render(k,cls,cols,body,view,seed=n*31,part='top').save(f'{base_path}_{body}_{view}.png',optimize=True)
-            suit_art.render(k,cls,cols,body,view,seed=n*31,part='pants').save(f'{pants_path}_{body}_{view}.png',optimize=True)
-    st=HSTYLE_BY_SUIT.get(k,HSTYLE[cls])
-    helm_path=f'{T}/{VAN}/SZ_Helmets/{k}/{k}'; os.makedirs(os.path.dirname(helm_path),exist_ok=True)
+            save_pair(art.render_top(cls,body,view,seed=n*31,accent=acc),f'{T}/{VAN}/SZ_Suits/{k}/{k}_{body}_{view}')
+            save_pair(art.render_pants(cls,body,view,seed=n*31),f'{T}/{VAN}/SZ_Pants/{k}/{k}_{body}_{view}')
     for view in ('south','east','north'):
-        suit_art.render_helmet(k,st,cols,view,seed=n*31).save(f'{helm_path}_{view}.png',optimize=True)
-    def icon_of(im,folder,name):
-        bb=im.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16
-        cx,cy=(bb[0]+bb[2])//2,(bb[1]+bb[3])//2
-        os.makedirs(f'{T}/Things/Item/{folder}',exist_ok=True)
-        im.crop((cx-side//2,cy-side//2,cx+side//2,cy+side//2)).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/{folder}/{name}.png')
-    icon_of(suit_art.render(k,cls,cols,'Male','south',seed=n*31,part='top'),'SZ_Suits',k)
-    icon_of(suit_art.render(k,cls,cols,'Male','south',seed=n*31,part='pants'),'SZ_Pants',k)
-    icon_of(suit_art.render_helmet(k,st,cols,'south',seed=n*31),'SZ_Helmets',k)
-
-# общие шлемы (шлем сталкера, пси-шлем): свой рисунок
-for k,st,cols in (('Helmet_Stalker','combat',((0.40,0.42,0.35),(0.30,0.32,0.26),(0.80,0.70,0.30))),
-                  ('Helmet_Psi','psi',((0.62,0.64,0.70),(0.45,0.47,0.52),(0.40,0.70,0.90)))):
-    hp=f'{T}/{VAN}/SZ_Helmets/{k}/{k}'; os.makedirs(os.path.dirname(hp),exist_ok=True)
+        save_pair(art.render_helmet(st,view,seed=n*31,accent=acc),f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}')
+    save_icon(art.render_top(cls,'Male','south',seed=n*31,accent=acc),'SZ_Suits',k)
+    save_icon(art.render_pants(cls,'Male','south',seed=n*31),'SZ_Pants',k)
+    save_icon(art.render_helmet(st,'south',seed=n*31,accent=acc),'SZ_Helmets',k)
+for k,st in (('Helmet_Stalker','combat'),('Helmet_Psi','psi')):
+    os.makedirs(f'{T}/{VAN}/SZ_Helmets/{k}',exist_ok=True)
     for view in ('south','east','north'):
-        suit_art.render_helmet(k,st,cols,view).save(f'{hp}_{view}.png',optimize=True)
-    im=suit_art.render_helmet(k,st,cols,'south'); bb=im.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16
-    cx,cy=(bb[0]+bb[2])//2,(bb[1]+bb[3])//2; os.makedirs(f'{T}/Things/Item/SZ_Helmets',exist_ok=True)
-    im.crop((cx-side//2,cy-side//2,cx+side//2,cy+side//2)).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/SZ_Helmets/{k}.png')
+        save_pair(art.render_helmet(st,view,accent=(0.40,0.70,0.90)),f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}')
+    save_icon(art.render_helmet(st,'south',accent=(0.40,0.70,0.90)),'SZ_Helmets',k)
 
 # ---------- Остальная графика ----------
 def save(path,img): os.makedirs(os.path.dirname(path),exist_ok=True); img.save(path)
@@ -628,8 +643,10 @@ def mask_north():
     for y in (58,72,86): d.line([(44,y),(84,y)],fill=RUBD,width=3)
     d.line([(64,52),(64,92)],fill=RUBD,width=3); return img
 G=f'{T}/Things/Pawn/Humanlike/Apparel/SZ_GasMask/SZ_GasMask'
-save(f'{G}_south.png',mask_south()); save(f'{G}_east.png',mask_east()); save(f'{G}_north.png',mask_north())
-item=blank(64); item.alpha_composite(mask_south().crop((32,32,96,112)).resize((56,64)),(4,0)); save(f'{G}.png',item)
+for view in ('south','east','north'): save(f'{G}_{view}.png',art.render_gasmask(view))
+gm=art.render_gasmask('south'); bb=gm.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16
+gcx,gcy=(bb[0]+bb[2])//2,(bb[1]+bb[3])//2
+save(f'{G}.png',gm.crop((gcx-side//2,gcy-side//2,gcx+side//2,gcy+side//2)).resize((128,128),Image.LANCZOS))
 img=blank(64); d=ImageDraw.Draw(img)
 d.rounded_rectangle([10,16,54,54],radius=5,fill=(120,124,128,255),outline=(50,52,55,255),width=2)
 d.rectangle([10,24,54,30],fill=(90,92,96,255)); d.rectangle([28,10,36,18],fill=(80,82,85,255)); d.ellipse([24,34,40,50],fill=(240,200,40,255))

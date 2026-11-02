@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <SZ_Pack_Bag.label>вещмешок</SZ_Pack_Bag.label>
+  <SZ_Pack_Bag.description>Простой брезентовый мешок на одной лямке. Вмещает немного, зато ничего не весит.</SZ_Pack_Bag.description>
+  <SZ_Pack_Tourist.label>туристический рюкзак</SZ_Pack_Tourist.label>
+  <SZ_Pack_Tourist.description>Старый туристический рюкзак с клапаном и боковыми карманами.</SZ_Pack_Tourist.description>
+  <SZ_Pack_Raid.label>рейдовый рюкзак</SZ_Pack_Raid.label>
+  <SZ_Pack_Raid.description>Крепкий рюкзак для многодневных рейдов, со скаткой сверху.</SZ_Pack_Raid.description>
+  <SZ_Pack_Frame.label>экспедиционный рюкзак с каркасом</SZ_Pack_Frame.label>
+  <SZ_Pack_Frame.description>Огромный рюкзак на стальном каркасе. Несёт очень много, но замедляет владельца.</SZ_Pack_Frame.description>
+  <SZ_Pack_Lead.label>рюкзак со свинцовой подкладкой</SZ_Pack_Lead.label>
+  <SZ_Pack_Lead.description>Тяжёлый рюкзак, проложенный свинцовыми листами. Гасит излучение двух активных артефактов, как два свинцовых контейнера.</SZ_Pack_Lead.description>
+  <SZ_Pack_Medic.label>медицинский ранец</SZ_Pack_Medic.label>
+  <SZ_Pack_Medic.description>Ранец полевого медика, где всё разложено под рукой: лечение идёт быстрее.</SZ_Pack_Medic.description>
+  <SZ_Pack_Tank.label>дыхательный баллон</SZ_Pack_Tank.label>
+  <SZ_Pack_Tank.description>Один баллон с редуктором. Чистый воздух защищает от ядовитых паров и радиоактивной пыли.</SZ_Pack_Tank.description>
+  <SZ_Pack_TwinTank.label>сдвоенные баллоны</SZ_Pack_TwinTank.label>
+  <SZ_Pack_TwinTank.description>Два баллона с общим коллектором. Дышать дольше и безопаснее.</SZ_Pack_TwinTank.description>
+  <SZ_Pack_ClosedCycle.label>система замкнутого цикла</SZ_Pack_ClosedCycle.label>
+  <SZ_Pack_ClosedCycle.description>Герметичный блок, который очищает выдыхаемый воздух. Лучшая защита лёгких, какую позволяет Зона.</SZ_Pack_ClosedCycle.description>
+  <SZ_Pack_Cooling.label>охлаждающий ранец</SZ_Pack_Cooling.label>
+  <SZ_Pack_Cooling.description>Ранец-радиатор, гоняющий хладагент по трубкам под костюмом. Помогает у термических аномалий и в жару.</SZ_Pack_Cooling.description>
+</LanguageData>
