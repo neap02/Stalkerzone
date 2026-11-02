@@ -96,11 +96,10 @@ GEAR={
 
 def _expand(lst):
     suit=next((i for i in lst if i.startswith('SZ_Suit_')),None); k=suit[len('SZ_Suit_'):]
-    out=[]
-    for i in lst:
-        out.append(f'SZ_Helm_{k}' if i=='SZ_Helmet_Stalker' else i)
-        if i==suit: out.append(f'SZ_Pants_{k}')
-    if k in ('Exo','ExoAssault') and not any('Helm' in x for x in out): out.append(f'SZ_Helm_{k}')
+    out=[f'SZ_Helm_{k}' if i=='SZ_Helmet_Stalker' else i for i in lst]
+    if k in ('Exo','ExoAssault'):
+        if not any('Helm' in x for x in out): out.append(f'SZ_Helm_{k}')
+        out.append('SZ_ExoFrame' if k=='Exo' else 'SZ_ExoFrameAssault')   # каркас поверх брони
     return out
 GEAR={f:tuple(_expand(l) for l in v) for f,v in GEAR.items()}   # куртка + штаны + шлем комплекта
 

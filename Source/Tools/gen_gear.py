@@ -125,14 +125,14 @@ SUITS=[
    'A top-class research suit with its own air supply. The best protection against anomalies the Zone has seen.',
    'Научный костюм высшего класса с собственной системой дыхания. Лучшая защита от аномалий, какую знала Зона.'),
  # ---- Особые ----
- ('Exo','exoskeleton','экзоскелет','exo',((0.22,0.24,0.26),(0.35,0.37,0.40),(0.90,0.55,0.15)),
-   P(1.00,0.50,0.45, 0.50,0.35,0.30,0.40,0.30, 0.35,0.15, slots=4, move=-0.5, carry=100),2000,25,['Duty','Freedom','Monolith','Mercenaries'],
-   'A powered exoskeleton with heavy plating. Carries a huge load and five artifacts, but is slow.',
-   'Силовой экзоскелет с тяжёлой бронёй. Несёт огромный груз и пять артефактов, но медлителен.'),
- ('ExoAssault','assault exoskeleton','штурмовой экзоскелет','exo',((0.18,0.19,0.20),(0.40,0.40,0.38),(0.85,0.20,0.20)),
-   P(1.25,0.65,0.55, 0.60,0.45,0.35,0.45,0.35, 0.40,0.20, slots=3, move=-0.6, carry=120),2200,30,['Duty','Monolith','Mercenaries'],
-   'An exoskeleton with assault plating. The strongest armor in the Zone, and the slowest.',
-   'Экзоскелет со штурмовой бронёй. Самая прочная броня в Зоне и самая медленная.'),
+ ('Exo','exoskeleton armor','броня экзоскелета','exo',((0.22,0.24,0.26),(0.35,0.37,0.40),(0.90,0.55,0.15)),
+   P(1.00,0.50,0.45, 0.50,0.35,0.30,0.40,0.30, 0.35,0.15, slots=4, move=-0.3),2000,22,['Duty','Freedom','Monolith','Mercenaries'],
+   'Heavy armor plating made to be worn with an exoskeleton frame. Holds five artifacts. Without the frame it is very heavy.',
+   'Тяжёлая бронезащита для ношения вместе с каркасом экзоскелета. Держит пять артефактов. Без каркаса очень тяжела.'),
+ ('ExoAssault','assault exoskeleton armor','штурмовая броня экзоскелета','exo',((0.18,0.19,0.20),(0.40,0.40,0.38),(0.85,0.20,0.20)),
+   P(1.25,0.65,0.55, 0.60,0.45,0.35,0.45,0.35, 0.40,0.20, slots=3, move=-0.4),2200,27,['Duty','Monolith','Mercenaries'],
+   'Assault plating for an exoskeleton. The strongest armor in the Zone, and the heaviest.',
+   'Штурмовая бронезащита для экзоскелета. Самая прочная броня в Зоне и самая тяжёлая.'),
 ]
 
 HEAD=[
@@ -207,8 +207,8 @@ w("""<?xml version="1.0" encoding="utf-8"?>
   <!-- Файл сгенерирован Source/Tools/gen_gear.py.
        Снаряжение Зоны. Броня от аномалий — статы категорий (SZ_Protection.xml), работают как
        обычная броня по закрытым частям тела. Радиация, пси и ячейки пояса — статы владельца.
-       Комплект = куртка (SZ_Suit_*: торс, шея, плечи, руки) + штаны (SZ_Pants_*: ноги)
-       + шлем (SZ_Helm_*). Костюмы: свой рисунок для всех типов тела, износ (CompSuit: ниже прочность — слабее броня),
+       Комплект = комбинезон (SZ_Suit_*: всё тело) + шлем (SZ_Helm_*) + по желанию
+       каркас экзоскелета (SZ_ExoFrame*: отдельный слой поверх брони). Костюмы: свой рисунок для всех типов тела, износ (CompSuit: ниже прочность — слабее броня),
        улучшения на станке (SZ_SuitUpgrades.xml), ремонт на станке и ремкомплектом в поле. -->
 
   <StatDef>
@@ -253,7 +253,7 @@ w("""<?xml version="1.0" encoding="utf-8"?>
     <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
     <apparel>
       <layers><li>Middle</li><li>Shell</li></layers>
-      <bodyPartGroups><li>Torso</li><li>Neck</li><li>Shoulders</li><li>Arms</li></bodyPartGroups>
+      <bodyPartGroups><li>Torso</li><li>Neck</li><li>Shoulders</li><li>Arms</li><li>Legs</li></bodyPartGroups>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
   </ThingDef>
@@ -310,46 +310,8 @@ for (k,en,ru,cls,cols,prot,val,mass,tags,den,dru) in SUITS:
 """)
     tr_t.append((f'SZ_Suit_{k}',ru,dru))
 
-    # ---- штаны комплекта ----
     def scaled(keys,f): return ''.join(f'      <{ARMOR[a]}>{round(prot[a]*f,3)}</{ARMOR[a]}>\n' for a in keys if prot.get(a))
-    pcost={m:max(1,int(math.ceil(v*0.35))) for m,v in cost.items()}
     tg=''.join(f'<li>SZ_Faction_{t}</li>' for t in tags)
-    w(f"""
-  <ThingDef ParentName="ApparelBase">
-    <defName>SZ_Pants_{k}</defName>
-    <label>{esc(en)} trousers</label>
-    <description>Trousers from the {esc(en)} set: they protect the legs the way the jacket protects the torso.</description>
-    <techLevel>Industrial</techLevel>
-    <tradeability>All</tradeability>
-    <thingCategories Inherit="False"><li>ApparelArmor</li></thingCategories>
-    <graphicData>
-      <texPath>Things/Item/SZ_Pants/{k}</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <color>({cols[0][0]:.2f}, {cols[0][1]:.2f}, {cols[0][2]:.2f})</color>
-      <colorTwo>({cols[1][0]:.2f}, {cols[1][1]:.2f}, {cols[1][2]:.2f})</colorTwo>
-    </graphicData>
-    <statBases>
-      <MaxHitPoints>{int(110+prot['sharp']*180)}</MaxHitPoints>
-      <MarketValue>{int(val*0.35)}</MarketValue>
-      <Mass>{round(mass*0.3,1)}</Mass>
-      <WorkToMake>{int(work*0.35)}</WorkToMake>
-      <EquipDelay>2</EquipDelay>
-      <Flammability>0.3</Flammability>
-{scaled(['sharp','blunt','heat','strike','rupture','shock','burn','chem'],0.9)}      <Insulation_Cold>{round(prot['cold']*0.5,1)}</Insulation_Cold>
-    </statBases>
-    <apparel>
-      <layers><li>OnSkin</li></layers>
-      <bodyPartGroups><li>Legs</li></bodyPartGroups>
-      <wornGraphicPath>{VAN}/SZ_Pants/{k}/{k}</wornGraphicPath>
-      <useWornGraphicMask>true</useWornGraphicMask>
-      <tags>{tg}</tags>
-      <careIfWornByCorpse>false</careIfWornByCorpse>
-    </apparel>
-{recipe_block(research,users,pcost,max(1,skill-1))}  </ThingDef>
-""")
-    tr_t.append((f'SZ_Pants_{k}',f'{ru} (штаны)',f'Штаны из комплекта «{ru}»: защищают ноги так же, как куртка защищает торс.'))
-
     # ---- шлем комплекта ----
     st=HSTYLE_BY_SUIT.get(k,HSTYLE[cls]); hen,hru=HNOUN[st]
     hcost={m:max(1,int(math.ceil(v*0.3))) for m,v in cost.items()}
@@ -479,6 +441,67 @@ w(item_def('SZ_RepairKit','repair kit',
   'Things/Item/SZ_Gear/RepairKit',1,80,10,{'Steel':15,'Cloth':15,'ComponentIndustrial':1},'Smithing',4,2000,
   'Ремкомплект: +40% прочности костюма; из инвентаря сам при износе ниже 70%, правой кнопкой с земли — сразу (C#: SuitRepair)',
   '<li Class="StalkerZone.CompProperties_ZoneItem"/>'))
+
+# ---------- Каркасы экзоскелета: отдельный слой поверх любой брони ----------
+EXO=[
+ ('ExoFrame','standard','exoskeleton frame','каркас экзоскелета',dict(carry=100,move=-0.25),1800,18,
+  {'Plasteel':80,'ComponentIndustrial':4,'ComponentSpacer':2},['Duty','Freedom','Monolith','Mercenaries'],
+  'A powered frame for the legs, hips and shoulders with a power unit on the back. Worn over any armor: carries a huge load, but slows its owner.',
+  'Силовой каркас ног, таза и плеч с блоком питания на спине. Надевается поверх любой брони: несёт огромный груз, но замедляет владельца.'),
+ ('ExoFrameAssault','assault','assault exoskeleton frame','штурмовой каркас экзоскелета',dict(carry=130,move=-0.3,melee=0.25),2400,24,
+  {'Plasteel':110,'ComponentIndustrial':5,'ComponentSpacer':3},['Duty','Monolith','Mercenaries'],
+  'A reinforced frame with heavy hydraulics. Carries even more and hits harder in melee.',
+  'Усиленный каркас с тяжёлой гидравликой. Несёт ещё больше и сильнее бьёт в ближнем бою.'),
+]
+EXOCOL=((0.30,0.31,0.33),(0.44,0.46,0.48))
+w("""
+  <!-- ===== Каркас экзоскелета: свой слой, совместим с любым костюмом, шлемом, рюкзаком ===== -->
+  <ApparelLayerDef>
+    <defName>SZ_ExoLayer</defName>
+    <label>exoskeleton</label>
+    <drawOrder>3</drawOrder>
+  </ApparelLayerDef>
+""")
+for (k,kind,en,ru,st,val,mass,cost,tags,den,dru) in EXO:
+    offs=''.join(f'      <{n}>{v}</{n}>\n' for n,v in (('SZ_InventoryCapacity',st.get('carry')),('MoveSpeed',st.get('move')),('MeleeDamageFactor',st.get('melee'))) if v)
+    cs=''.join(f'<{m}>{c}</{m}>' for m,c in cost.items()); tg=''.join(f'<li>SZ_Faction_{t}</li>' for t in tags)
+    a,b=EXOCOL
+    w(f"""
+  <ThingDef ParentName="ApparelBase">
+    <defName>SZ_{k}</defName>
+    <label>{esc(en)}</label>
+    <description>{esc(den)}</description>
+    <techLevel>Spacer</techLevel>
+    <tradeability>All</tradeability>
+    <thingCategories Inherit="False"><li>ApparelUtility</li></thingCategories>
+    <graphicData>
+      <texPath>Things/Item/SZ_Exo/{k}</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>({a[0]:.2f}, {a[1]:.2f}, {a[2]:.2f})</color>
+      <colorTwo>({b[0]:.2f}, {b[1]:.2f}, {b[2]:.2f})</colorTwo>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>260</MaxHitPoints>
+      <MarketValue>{val}</MarketValue>
+      <Mass>{mass}</Mass>
+      <WorkToMake>24000</WorkToMake>
+      <EquipDelay>6</EquipDelay>
+      <Flammability>0</Flammability>
+    </statBases>
+    <equippedStatOffsets>
+{offs}    </equippedStatOffsets>
+    <apparel>
+      <layers><li>SZ_ExoLayer</li></layers>
+      <bodyPartGroups><li>Legs</li></bodyPartGroups>
+      <wornGraphicPath>{VAN}/SZ_Exo/{k}/{k}</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <tags>{tg}</tags>
+      <careIfWornByCorpse>false</careIfWornByCorpse>
+    </apparel>
+{recipe_block('PoweredArmor',['FabricationBench'],cost,8)}  </ThingDef>
+""")
+    tr_t.append((f'SZ_{k}',ru,dru))
 w('\n</Defs>\n')
 open(f'{M}/Defs/Gear/SZ_Gear.xml','w',encoding='utf-8').write(''.join(o))
 tr_t.append(('SZ_LeadContainer','свинцовый контейнер','Тяжёлый ящик со свинцовой обшивкой для артефакта. Каждый контейнер в инвентаре гасит излучение одного активного артефакта (сначала самого сильного), а сам артефакт продолжает действовать.'))
@@ -588,12 +611,12 @@ open(f'{L}/StatDef/SZ_Gear.xml','w',encoding='utf-8').write('''<?xml version="1.
 ''')
 
 # =====================================================================
-# ГРАФИКА: Source/Tools/suit_art2.py — серые текстуры + маска цвета (_m), cel-shading,
-# обводка деталей. Цвет задаётся в XML (color / colorTwo): одна и та же броня
-# красится в цвета фракции, а красильная станция может её перекрасить.
+# ГРАФИКА: Source/Tools/suit_art3.py — детальный стиль: серые текстуры + маска цвета (_m),
+# тонкие внутренние линии, мягкий объём, мелкие детали. Комбинезон — одна деталь,
+# каркас экзоскелета — отдельная вещь.
 # =====================================================================
 import sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import suit_art2 as art
+import suit_art3 as art
 BODIES=['Male','Female','Thin','Fat','Hulk']
 def save_pair(pair,path):
     c,m=pair; c.save(path+'.png',optimize=True); m.save(path+'_m.png',optimize=True)
@@ -603,23 +626,29 @@ def save_icon(pair,folder,name):
     os.makedirs(f'{T}/Things/Item/{folder}',exist_ok=True)
     c.crop(box).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/{folder}/{name}.png')
     m.crop(box).resize((128,128),Image.LANCZOS).save(f'{T}/Things/Item/{folder}/{name}_m.png')
-for n,(k,en,ru,cls,cols,*_rest) in enumerate(SUITS):
-    acc=cols[2]; st=HSTYLE_BY_SUIT.get(k,HSTYLE[cls])
-    for folder in ('SZ_Suits','SZ_Pants','SZ_Helmets'): os.makedirs(f'{T}/{VAN}/{folder}/{k}',exist_ok=True)
-    for body in BODIES:
+# Тяжёлая часть (≈700 спрайтов, несколько минут). SZ_SKIP_SUIT_ART=1 — пропустить.
+if os.environ.get('SZ_SKIP_SUIT_ART')!='1':
+    for n,(k,en,ru,cls,cols,*_rest) in enumerate(SUITS):
+        acc=cols[2]; st=HSTYLE_BY_SUIT.get(k,HSTYLE[cls])
+        for folder in ('SZ_Suits','SZ_Helmets'): os.makedirs(f'{T}/{VAN}/{folder}/{k}',exist_ok=True)
+        for body in BODIES:
+            for view in ('south','east','north'):
+                save_pair(art.render_coverall(cls,body,view,seed=n*31,accent=acc),f'{T}/{VAN}/SZ_Suits/{k}/{k}_{body}_{view}')
         for view in ('south','east','north'):
-            save_pair(art.render_top(cls,body,view,seed=n*31,accent=acc),f'{T}/{VAN}/SZ_Suits/{k}/{k}_{body}_{view}')
-            save_pair(art.render_pants(cls,body,view,seed=n*31),f'{T}/{VAN}/SZ_Pants/{k}/{k}_{body}_{view}')
-    for view in ('south','east','north'):
-        save_pair(art.render_helmet(st,view,seed=n*31,accent=acc),f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}')
-    save_icon(art.render_top(cls,'Male','south',seed=n*31,accent=acc),'SZ_Suits',k)
-    save_icon(art.render_pants(cls,'Male','south',seed=n*31),'SZ_Pants',k)
-    save_icon(art.render_helmet(st,'south',seed=n*31,accent=acc),'SZ_Helmets',k)
-for k,st in (('Helmet_Stalker','combat'),('Helmet_Psi','psi')):
-    os.makedirs(f'{T}/{VAN}/SZ_Helmets/{k}',exist_ok=True)
-    for view in ('south','east','north'):
-        save_pair(art.render_helmet(st,view,accent=(0.40,0.70,0.90)),f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}')
-    save_icon(art.render_helmet(st,'south',accent=(0.40,0.70,0.90)),'SZ_Helmets',k)
+            save_pair(art.render_helmet(st,view,seed=n*31,accent=acc),f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}')
+        save_icon(art.render_coverall(cls,'Male','south',seed=n*31,accent=acc),'SZ_Suits',k)
+        save_icon(art.render_helmet(st,'south',seed=n*31,accent=acc),'SZ_Helmets',k)
+    for k,st in (('Helmet_Stalker','combat'),('Helmet_Psi','psi')):
+        os.makedirs(f'{T}/{VAN}/SZ_Helmets/{k}',exist_ok=True)
+        for view in ('south','east','north'):
+            save_pair(art.render_helmet(st,view,accent=(0.40,0.70,0.90)),f'{T}/{VAN}/SZ_Helmets/{k}/{k}_{view}')
+        save_icon(art.render_helmet(st,'south',accent=(0.40,0.70,0.90)),'SZ_Helmets',k)
+    for (k,kind,*_r) in EXO:
+        os.makedirs(f'{T}/{VAN}/SZ_Exo/{k}',exist_ok=True)
+        for body in BODIES:
+            for view in ('south','east','north'):
+                save_pair(art.render_exo(kind,body,view),f'{T}/{VAN}/SZ_Exo/{k}/{k}_{body}_{view}')
+        save_icon(art.render_exo(kind,'Male','north'),'SZ_Exo',k)
 
 # ---------- Остальная графика ----------
 def save(path,img): os.makedirs(os.path.dirname(path),exist_ok=True); img.save(path)

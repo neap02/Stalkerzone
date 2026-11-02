@@ -249,7 +249,7 @@ def render_pack(k,style,cols,body,view,seed=0):
     layer=grain(layer,seed)
     return finish(layer,mask,yA-40,(yB-yA)+80)
 
-import suit_art2 as art
+import suit_art3 as art
 for n,(k,en,ru,style,cols,*_r) in enumerate(ITEMS):
     path=f'{T}/{APP}/{k}/{k}'; os.makedirs(os.path.dirname(path),exist_ok=True)
     for body in ('Male','Female','Thin','Fat','Hulk'):
