@@ -30,37 +30,41 @@ namespace StalkerZone
         private static void FixLayerOrder()
         {
             ApparelLayerDef shell = ApparelLayerDefOf.Shell;
+            ApparelLayerDef belt = DefDatabase<ApparelLayerDef>.GetNamedSilentFail("Belt");
             ApparelLayerDef vest = DefDatabase<ApparelLayerDef>.GetNamedSilentFail("SZ_ModularVestLayer");
             ApparelLayerDef exo = DefDatabase<ApparelLayerDef>.GetNamedSilentFail("SZ_ExoLayer");
             ApparelLayerDef back = DefDatabase<ApparelLayerDef>.GetNamedSilentFail("SZ_BackLayer");
-            if (shell == null)
+            if (shell == null || back == null)
             {
-                Log.Warning("[StalkerZone] Cannot set gear layers: Shell layer is missing.");
+                Log.Warning("[StalkerZone] Cannot initialize backpack layers: Shell or SZ_BackLayer missing.");
                 return;
             }
 
-            // Use an explicit ascending order; do not rely on Belt or on XML defaults.
-            // These values control layer sorting, not the actual rear texture contents.
-            int order = shell.drawOrder;
-            if (vest != null) vest.drawOrder = ++order;
-            if (exo != null) exo.drawOrder = ++order;
-            if (back != null) back.drawOrder = ++order;
+            // RH2 Gruppa Krovi (1.6) uses a utility-as-pack worn graphic and
+            // a backpack layer with drawOrder 500. Keep a distinct StalkerZone
+            // layer so our backpacks do not change the vanilla Belt globally.
+            // Draw order is only one part of RimWorld's apparel rendering.
+            int shellOrder = shell.drawOrder;
+            if (vest != null) vest.drawOrder = shellOrder + 1;
+            if (exo != null) exo.drawOrder = shellOrder + 2;
+            int minimumPackOrder = shellOrder + 3;
+            if (belt != null && belt.drawOrder >= minimumPackOrder)
+                minimumPackOrder = belt.drawOrder + 1;
+            back.drawOrder = System.Math.Max(500, minimumPackOrder);
 
-            Log.Message("[StalkerZone] Apparel layer order: Shell=" + shell.drawOrder
+            Log.Message("[StalkerZone] V61 layers: Shell=" + shell.drawOrder
+                + ", Belt=" + (belt != null ? belt.drawOrder.ToString() : "missing")
                 + ", Vest=" + (vest != null ? vest.drawOrder.ToString() : "missing")
                 + ", Exo=" + (exo != null ? exo.drawOrder.ToString() : "missing")
-                + ", Pack=" + (back != null ? back.drawOrder.ToString() : "missing"));
+                + ", Backpack=" + back.drawOrder);
 
             foreach (ThingDef def in DefDatabase<ThingDef>.AllDefsListForReading)
             {
                 if (def == null || def.apparel == null || def.defName == null
                     || !def.defName.StartsWith("SZ_Pack_"))
                     continue;
-                bool hasBack = def.apparel.layers != null && back != null
-                    && def.apparel.layers.Contains(back);
-                if (!hasBack)
-                    Log.Warning("[StalkerZone] Backpack " + def.defName
-                        + " does not use SZ_BackLayer; inspect its inherited apparel XML.");
+                if (def.apparel.layers == null || !def.apparel.layers.Contains(back))
+                    Log.Warning("[StalkerZone] " + def.defName + " does not use SZ_BackLayer.");
             }
         }
 

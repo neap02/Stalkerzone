@@ -9,7 +9,7 @@
   <ApparelLayerDef>
     <defName>SZ_BackLayer</defName>
     <label>back</label>
-    <drawOrder>260</drawOrder>
+    <drawOrder>500</drawOrder>
   </ApparelLayerDef>
 
   <StatDef>
@@ -29,6 +29,9 @@
     <apparel>
       <layers><li>SZ_BackLayer</li></layers>
       <bodyPartGroups><li>Torso</li></bodyPartGroups>
+      <wornGraphicData>
+        <renderUtilityAsPack>true</renderUtilityAsPack>
+      </wornGraphicData>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
   </ThingDef>
