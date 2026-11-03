@@ -1,0 +1,6 @@
+StalkerZone v31 / RimWorld 1.6
+All 637 worn apparel PNGs received a consistent automated comic-style color and ink pass.
+This is NOT a manual redraw or final concept-accurate art. Existing shapes and placement preserved.
+XML, C# and DLL unchanged relative to v30.
+In-game compatibility, alpha layering and readability remain untested.
+Categories: {'SZ_Exo': 30, 'SZ_GasMask': 4, 'SZ_Helmets': 78, 'SZ_Packs': 150, 'SZ_Suits': 360, 'SZ_Modular': 15}

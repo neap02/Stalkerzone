@@ -3,7 +3,7 @@
   <ApparelLayerDef>
     <defName>SZ_ModularVestLayer</defName>
     <label>modular armor vest</label>
-    <drawOrder>4</drawOrder>
+    <drawOrder>220</drawOrder>
   </ApparelLayerDef>
   <ThingDef ParentName="ApparelBase">
     <defName>SZ_Modular_BanditVest</defName>

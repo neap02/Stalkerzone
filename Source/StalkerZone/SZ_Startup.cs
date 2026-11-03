@@ -30,15 +30,39 @@ namespace StalkerZone
         private static void FixLayerOrder()
         {
             ApparelLayerDef shell = ApparelLayerDefOf.Shell;
+            ApparelLayerDef vest = DefDatabase<ApparelLayerDef>.GetNamedSilentFail("SZ_ModularVestLayer");
             ApparelLayerDef exo = DefDatabase<ApparelLayerDef>.GetNamedSilentFail("SZ_ExoLayer");
             ApparelLayerDef back = DefDatabase<ApparelLayerDef>.GetNamedSilentFail("SZ_BackLayer");
             if (shell == null)
+            {
+                Log.Warning("[StalkerZone] Cannot set gear layers: Shell layer is missing.");
                 return;
-            int baseOrder = shell.drawOrder;
-            int beltOrder = ApparelLayerDefOf.Belt != null ? ApparelLayerDefOf.Belt.drawOrder : baseOrder + 2;
-            if (exo != null) exo.drawOrder = baseOrder + 1;
-            if (back != null) back.drawOrder = System.Math.Max(beltOrder, baseOrder + 2);
-            Log.Message("[StalkerZone] Порядок слоёв: броня " + baseOrder + ", экзоскелет " + (exo?.drawOrder ?? -1) + ", спина " + (back?.drawOrder ?? -1) + ".");
+            }
+
+            // Use an explicit ascending order; do not rely on Belt or on XML defaults.
+            // These values control layer sorting, not the actual rear texture contents.
+            int order = shell.drawOrder;
+            if (vest != null) vest.drawOrder = ++order;
+            if (exo != null) exo.drawOrder = ++order;
+            if (back != null) back.drawOrder = ++order;
+
+            Log.Message("[StalkerZone] Apparel layer order: Shell=" + shell.drawOrder
+                + ", Vest=" + (vest != null ? vest.drawOrder.ToString() : "missing")
+                + ", Exo=" + (exo != null ? exo.drawOrder.ToString() : "missing")
+                + ", Pack=" + (back != null ? back.drawOrder.ToString() : "missing"));
+
+            foreach (ThingDef def in DefDatabase<ThingDef>.AllDefsListForReading)
+            {
+                if (def == null || def.apparel == null || def.defName == null
+                    || !def.defName.StartsWith("SZ_Pack_"))
+                    continue;
+                bool hasBack = def.apparel.layers != null && back != null
+                    && def.apparel.layers.Contains(back);
+                if (!hasBack)
+                    Log.Warning("[StalkerZone] Backpack " + def.defName
+                        + " does not use SZ_BackLayer; inspect its inherited apparel XML.");
+            }
         }
+
     }
 }

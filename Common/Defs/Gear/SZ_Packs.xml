@@ -9,7 +9,7 @@
   <ApparelLayerDef>
     <defName>SZ_BackLayer</defName>
     <label>back</label>
-    <drawOrder>3</drawOrder>
+    <drawOrder>260</drawOrder>
   </ApparelLayerDef>
 
   <StatDef>

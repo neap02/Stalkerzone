@@ -2434,7 +2434,7 @@
   <ApparelLayerDef>
     <defName>SZ_ExoLayer</defName>
     <label>exoskeleton</label>
-    <drawOrder>3</drawOrder>
+    <drawOrder>240</drawOrder>
   </ApparelLayerDef>
 
   <ThingDef ParentName="ApparelBase">

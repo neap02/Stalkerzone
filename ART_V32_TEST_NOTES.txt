@@ -1,0 +1,6 @@
+StalkerZone V32 — experimental modular vest visibility pass
+
+15 existing BanditVest worn PNGs received brighter plate, strap and pouch accents. Original alpha silhouette retained. No XML, C# or DLL changes.
+Observed in RimWorld 1.6: modular vest equips with multiple suits and increases combined protection, but vest is visually hidden or indistinct.
+This build tests sprite readability only; it does NOT guarantee drawing on top of Shell apparel. No claim of full concept-art redraw.
+Inspect on bare torso, with Loner jacket, military suit, mercenary suit, and in north/east/south. Check Player.log for layer errors.
