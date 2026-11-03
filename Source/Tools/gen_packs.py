@@ -1,4 +1,4 @@
-# Рюкзаки и баллоны Зоны: 10 предметов на отдельном слое "спина" (не мешают костюму и поясу).
+# Рюкзаки и баллоны Зоны: Belt/Shoulders/renderUtilityAsPack как в RH2 (1.6).
 # Названия, характеристики и рисунки свои. Посадка — по меркам тел из suit_art.py.
 import math, os, random, sys
 import numpy as np
@@ -54,14 +54,14 @@ o=['''<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
   <!-- Файл сгенерирован Source/Tools/gen_packs.py.
-       Рюкзаки и баллоны Зоны. Свой слой "спина": совместимы с любым костюмом, детектором и шлемом,
+       Рюкзаки и баллоны Зоны. Новый Belt/Shoulders путь отрисовки,
        но рюкзак/баллон можно надеть только один. Грузоподъёмность — стат SZ_InventoryCapacity
        (инвентарь и караваны, C#: ZoneHarmony). -->
 
   <ApparelLayerDef>
     <defName>SZ_BackLayer</defName>
     <label>back</label>
-    <drawOrder>3</drawOrder>
+    <drawOrder>500</drawOrder>
   </ApparelLayerDef>
 
   <StatDef>
@@ -79,8 +79,11 @@ o=['''<?xml version="1.0" encoding="utf-8"?>
     <tradeability>All</tradeability>
     <thingCategories Inherit="False"><li>ApparelUtility</li></thingCategories>
     <apparel>
-      <layers><li>SZ_BackLayer</li></layers>
-      <bodyPartGroups><li>Torso</li></bodyPartGroups>
+      <layers><li>Belt</li></layers>
+      <bodyPartGroups><li>Shoulders</li></bodyPartGroups>
+      <wornGraphicData>
+        <renderUtilityAsPack>true</renderUtilityAsPack>
+      </wornGraphicData>
       <careIfWornByCorpse>false</careIfWornByCorpse>
     </apparel>
   </ThingDef>

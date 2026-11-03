@@ -33,39 +33,51 @@ namespace StalkerZone
             ApparelLayerDef belt = DefDatabase<ApparelLayerDef>.GetNamedSilentFail("Belt");
             ApparelLayerDef vest = DefDatabase<ApparelLayerDef>.GetNamedSilentFail("SZ_ModularVestLayer");
             ApparelLayerDef exo = DefDatabase<ApparelLayerDef>.GetNamedSilentFail("SZ_ExoLayer");
-            ApparelLayerDef back = DefDatabase<ApparelLayerDef>.GetNamedSilentFail("SZ_BackLayer");
-            if (shell == null || back == null)
+            ApparelLayerDef legacyBack = DefDatabase<ApparelLayerDef>.GetNamedSilentFail("SZ_BackLayer");
+            BodyPartGroupDef shoulders = DefDatabase<BodyPartGroupDef>.GetNamedSilentFail("Shoulders");
+
+            if (shell == null || belt == null || shoulders == null)
             {
-                Log.Warning("[StalkerZone] Cannot initialize backpack layers: Shell or SZ_BackLayer missing.");
+                Log.Error("[StalkerZone] V62: Missing Shell, Belt or Shoulders definition; backpack render routing cannot be verified.");
                 return;
             }
 
-            // RH2 Gruppa Krovi (1.6) uses a utility-as-pack worn graphic and
-            // a backpack layer with drawOrder 500. Keep a distinct StalkerZone
-            // layer so our backpacks do not change the vanilla Belt globally.
-            // Draw order is only one part of RimWorld's apparel rendering.
+            // V62: same pack route as the 1.6 RH2 definitions: Belt + Shoulders
+            // with wornGraphicData.renderUtilityAsPack. In contrast to V61, a
+            // high drawOrder on a separate custom layer is not sufficient.
+            // RH2 also raises Belt to 500; doing so affects other Belt apparel.
             int shellOrder = shell.drawOrder;
             if (vest != null) vest.drawOrder = shellOrder + 1;
             if (exo != null) exo.drawOrder = shellOrder + 2;
-            int minimumPackOrder = shellOrder + 3;
-            if (belt != null && belt.drawOrder >= minimumPackOrder)
-                minimumPackOrder = belt.drawOrder + 1;
-            back.drawOrder = System.Math.Max(500, minimumPackOrder);
+            int requiredBeltOrder = System.Math.Max(500, shellOrder + 3);
+            if (belt.drawOrder < requiredBeltOrder)
+                belt.drawOrder = requiredBeltOrder;
+            if (legacyBack != null)
+                legacyBack.drawOrder = belt.drawOrder;
 
-            Log.Message("[StalkerZone] V61 layers: Shell=" + shell.drawOrder
-                + ", Belt=" + (belt != null ? belt.drawOrder.ToString() : "missing")
+            Log.Message("[StalkerZone] V62 layers: Shell=" + shell.drawOrder
                 + ", Vest=" + (vest != null ? vest.drawOrder.ToString() : "missing")
                 + ", Exo=" + (exo != null ? exo.drawOrder.ToString() : "missing")
-                + ", Backpack=" + back.drawOrder);
+                + ", Belt=" + belt.drawOrder + ", LegacyBack="
+                + (legacyBack != null ? legacyBack.drawOrder.ToString() : "missing"));
 
+            int checkedPacks = 0;
             foreach (ThingDef def in DefDatabase<ThingDef>.AllDefsListForReading)
             {
                 if (def == null || def.apparel == null || def.defName == null
                     || !def.defName.StartsWith("SZ_Pack_"))
                     continue;
-                if (def.apparel.layers == null || !def.apparel.layers.Contains(back))
-                    Log.Warning("[StalkerZone] " + def.defName + " does not use SZ_BackLayer.");
+                checkedPacks++;
+                bool beltOk = def.apparel.layers != null && def.apparel.layers.Contains(belt);
+                bool shouldersOk = def.apparel.bodyPartGroups != null
+                    && def.apparel.bodyPartGroups.Contains(shoulders);
+                if (!beltOk || !shouldersOk)
+                    Log.Warning("[StalkerZone] V62: " + def.defName
+                        + " is not set up for Belt/Shoulders (belt=" + beltOk
+                        + ", shoulders=" + shouldersOk + ").");
             }
+            Log.Message("[StalkerZone] V62: inspected " + checkedPacks
+                + " backpack/tank defs; expected 10, all should use Belt and Shoulders.");
         }
 
     }

@@ -2,10 +2,11 @@
 <Defs>
 
   <!-- Файл сгенерирован Source/Tools/gen_packs.py.
-       Рюкзаки и баллоны Зоны. Свой слой "спина": совместимы с любым костюмом, детектором и шлемом,
-       но рюкзак/баллон можно надеть только один. Грузоподъёмность — стат SZ_InventoryCapacity
-       (инвентарь и караваны, C#: ZoneHarmony). -->
+       В V62 рюкзаки используют ванильный Belt + Shoulders + renderUtilityAsPack,
+       как в совместимом с RimWorld 1.6 RH2 Gruppa Krovi. Полезная нагрузка — SZ_InventoryCapacity.
+       Старый SZ_BackLayer оставлен только для совместимости со старыми сохранениями и патчами. -->
 
+  <!-- LEGACY: не используется новыми рюкзаками. -->
   <ApparelLayerDef>
     <defName>SZ_BackLayer</defName>
     <label>back</label>
@@ -27,8 +28,8 @@
     <tradeability>All</tradeability>
     <thingCategories Inherit="False"><li>ApparelUtility</li></thingCategories>
     <apparel>
-      <layers><li>SZ_BackLayer</li></layers>
-      <bodyPartGroups><li>Torso</li></bodyPartGroups>
+      <layers><li>Belt</li></layers>
+      <bodyPartGroups><li>Shoulders</li></bodyPartGroups>
       <wornGraphicData>
         <renderUtilityAsPack>true</renderUtilityAsPack>
       </wornGraphicData>
