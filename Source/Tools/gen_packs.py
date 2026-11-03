@@ -261,6 +261,12 @@ for n,(k,en,ru,style,cols,*_r) in enumerate(ITEMS):
     for body in ('Male','Female','Thin','Fat','Hulk'):
         for view in ('south','east','north'):
             art.render_pack(style,PLOOK[k],body,view,seed=n*17).save(f'{path}_{body}_{view}.png',optimize=True)
+            # RimWorld 1.6: renderUtilityAsPack on Belt reads the *generic*
+            # Graphic_Multi (e.g. Raid_north), NOT Raid_Male_north.
+            # RH2 also supplies these non-bodytype directional sprites.
+            if body == 'Male':
+                art.render_pack(style,PLOOK[k],body,view,seed=n*17).save(
+                    f'{path}_{view}.png', optimize=True)
     c=art.render_pack(style,PLOOK[k],'Male','north',seed=n*17)
     bb=c.getchannel('A').getbbox(); side=max(bb[2]-bb[0],bb[3]-bb[1])+16; cx,cy=(bb[0]+bb[2])//2,(bb[1]+bb[3])//2
     box=(cx-side//2,cy-side//2,cx+side//2,cy+side//2); os.makedirs(f'{T}/Things/Item/SZ_Packs',exist_ok=True)
